@@ -1,3 +1,0 @@
-java.lang.ArithmeticException: / by zero
-	at aug16.add.ExceptionEx13.main(ExceptionEx13.java:20)
-예외메시지 : / by zero
