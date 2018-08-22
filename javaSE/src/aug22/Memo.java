@@ -86,7 +86,7 @@ public class Memo extends Frame implements ActionListener {
 		mnufile.addSeparator();
 		mnufile.add(mnuexit);
 
-		
+		//Ä¿¹Ô
 		
 		mnuedit.add(mnucut);
 		mnuedit.add(mnucopy);
