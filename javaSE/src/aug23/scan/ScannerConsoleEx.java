@@ -10,7 +10,9 @@ public class ScannerConsoleEx {
 		
 		String number = scan.next();
 		System.out.printf("½ºÄµ : %s", number);
-		scan.close();
+		scan.close();  
+		
+		//Å×½ºÆ®
 	}
 
 }
