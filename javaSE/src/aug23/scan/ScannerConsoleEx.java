@@ -12,6 +12,8 @@ public class ScannerConsoleEx {
 		System.out.printf("스캔 : %s", number);
 		scan.close();  
 		
+		
+		//테스트2
 		//테스트
 	}
 
