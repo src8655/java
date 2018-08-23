@@ -19,4 +19,5 @@ class Block {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage(url);
 	}
+	///수정수정
 }
