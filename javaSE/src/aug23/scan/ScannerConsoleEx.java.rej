@@ -1,0 +1,10 @@
+diff a/javaSE/src/aug23/scan/ScannerConsoleEx.java b/javaSE/src/aug23/scan/ScannerConsoleEx.java	(rejected hunks)
+@@ -12,6 +12,8 @@
+ 		System.out.printf("��ĵ : %s", number);
+ 		scan.close();  
+ 		
++		
++		//�׽�Ʈ2
+ 		//�׽�Ʈ
+ 	}
+ 
