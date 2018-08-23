@@ -320,14 +320,12 @@ public class Memo extends Frame implements ActionListener {
 			
 			//파일 저장
 			FileOutputStream fos = null;
-			BufferedOutputStream bos = null;
-			
+			OutputStreamWriter bos;
 			try {
 				fos = new FileOutputStream(file_dir+file_name);
-				bos = new BufferedOutputStream(fos);
+				bos = new OutputStreamWriter(fos, "euc-kr");
 				
-				//dos.writeBytes(ta.getText());
-				bos.write(ta.getText().getBytes());
+				bos.write(ta.getText());
 				bos.flush();
 				
 				fos.close();
