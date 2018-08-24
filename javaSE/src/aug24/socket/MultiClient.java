@@ -109,7 +109,7 @@ public class MultiClient implements ActionListener {
         System.exit(0);
     }
     public void init() throws IOException {
-        socket = new Socket(ip, 1234);
+        socket = new Socket(ip, 5321);
         System.out.println("connected...");
         oos = new ObjectOutputStream(socket.getOutputStream());
         ois = new ObjectInputStream(socket.getInputStream());

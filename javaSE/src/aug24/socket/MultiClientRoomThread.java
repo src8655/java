@@ -24,9 +24,15 @@ public class MultiClientRoomThread extends Thread{
                 isStop = true;
             }
             System.out.println(message);
+            
 
             //Àç¿äÃ»
             try {
+            	/*
+                if(receivedMsg[0].equals("make_room")) {
+                	mcr.inroom(mcr.getId(), Integer.parseInt(receivedMsg[1]));
+                }*/
+                
 				if(receivedMsg[0].equals("room")) mcr.rep(message);
 				mcr.getOos().writeObject("room#"+mcr.id+"#room");
 				

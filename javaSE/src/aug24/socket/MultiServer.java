@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class MultiServer {
 	private ArrayList<MultiServerThread> list;
-	private ArrayList<Integer> room_list;
+	ArrayList<Integer> room_list;
+	int roomcnt = 0;
 	
 	private Socket socket;
 	public MultiServer() throws IOException {
@@ -20,7 +21,7 @@ public class MultiServer {
 		room_list.add(25);
 		room_list.add(26);
 		
-		ServerSocket serverSocket = new ServerSocket(1234);  
+		ServerSocket serverSocket = new ServerSocket(5321);  
 		MultiServerThread mst = null;  
 		boolean isStop = false;  
 		while(!isStop) {   

@@ -39,7 +39,13 @@ public class MultiServerThread implements Runnable {
                 	message = "room";	//첫문자는 무시
                 	for(int i=0;i<room_list.size();i++)
                 		message = message+"#"+room_list.get(i).toString();
-                	broadCastingOne(message, id);	//한사람한테만 보내기
+                	broadCastingOne(message, id);		//한사람한테만 보내기
+            	/*}else if(str[2].equals("make_room")) {	//방만들기 요청이 들어오면
+                	ms.roomcnt++;						//방 카운트 추가
+                	ms.room_list.add(ms.roomcnt);		//방 리스트에 추가
+            		
+                	message = "make_room#"+id+"#"+ms.roomcnt;	//생성해준 방 번호 전달
+                	broadCastingOne(message, id);	//한사람한테만 보내기*/
             	}else{
                     broadCasting(message, no);
                 }

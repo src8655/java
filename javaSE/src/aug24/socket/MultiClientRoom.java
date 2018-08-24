@@ -21,11 +21,11 @@ import javax.swing.JTextArea;
 public class MultiClientRoom {
 	String id;
 	JPanel jpanel;
-	Thread t;
+	
+	JButton button;
 	
 	
     private JFrame jframe;
-    
     private Socket socket;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
@@ -38,7 +38,22 @@ public class MultiClientRoom {
         jframe.setSize(660,600);
 
         JPanel jp = new JPanel();
-        jp.add(new JButton("방 만들기"));
+        button = new JButton("방 만들기");
+        button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//방만들기 요청
+				/*
+		        try {
+					oos.writeObject("make_room#"+id+"#make_room");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
+			}
+		});
+        jp.add(button);
 
         jframe.add(jp, BorderLayout.SOUTH);
         
@@ -55,22 +70,19 @@ public class MultiClientRoom {
         
     }
     public void init() throws IOException {
-        socket = new Socket("localhost", 1234);
+        socket = new Socket("localhost", 5321);
         System.out.println("connected...");
         oos = new ObjectOutputStream(socket.getOutputStream());
         ois = new ObjectInputStream(socket.getInputStream());
         MultiClientRoomThread ct = new MultiClientRoomThread(this);
-        t = new Thread(ct);
+        Thread t = new Thread(ct);
         t.start();
-        oos.writeObject("-99#"+id+"#room");
+        oos.writeObject("room#"+id+"#room");
     }
 	public static void main(String[] args) throws IOException {
         JFrame.setDefaultLookAndFeelDecorated(true);
         MultiClientRoom cc_r = new MultiClientRoom(args[0]);
         cc_r.init();
-        /*
-        MultiClient cc = new MultiClient("localhost","123",0);
-        cc.init();*/
 	}
 	
 
@@ -101,11 +113,9 @@ public class MultiClientRoom {
 						MultiClient cc = new MultiClient("localhost",id,no);
 						cc.init();
 						
-						//t.stop();
 						jframe.setVisible(false);
 						
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -115,5 +125,6 @@ public class MultiClientRoom {
 		jpanel.updateUI();
         jframe.repaint();
     }
+    
 
 }
