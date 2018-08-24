@@ -13,15 +13,15 @@ public class MultiServer {
 	public MultiServer() throws IOException {
 		list = new ArrayList<MultiServerThread>();
 		room_list = new ArrayList<Integer>();
-		
+		/*
 		//Å×½ºÆ®
 		room_list.add(22);
 		room_list.add(23);
 		room_list.add(24);
 		room_list.add(25);
-		room_list.add(26);
+		room_list.add(26);*/
 		
-		ServerSocket serverSocket = new ServerSocket(5321);  
+		ServerSocket serverSocket = new ServerSocket(2537);  
 		MultiServerThread mst = null;  
 		boolean isStop = false;  
 		while(!isStop) {   

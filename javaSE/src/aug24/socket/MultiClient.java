@@ -7,7 +7,7 @@ import java.net.*;
 import javax.swing.*;
 
 public class MultiClient implements ActionListener {
-	private int no;
+	private String no;
 	
     private Socket socket;
     private ObjectInputStream ois;
@@ -21,7 +21,7 @@ public class MultiClient implements ActionListener {
     private String id;
     private JButton jbtn;
     
-    public MultiClient(String argIp, String argId, int no) {
+    public MultiClient(String argIp, String argId, String no) {
     	this.no = no;
     	
         ip = argIp;
@@ -109,7 +109,7 @@ public class MultiClient implements ActionListener {
         System.exit(0);
     }
     public void init() throws IOException {
-        socket = new Socket(ip, 5321);
+        socket = new Socket(ip, 2537);
         System.out.println("connected...");
         oos = new ObjectOutputStream(socket.getOutputStream());
         ois = new ObjectInputStream(socket.getInputStream());
@@ -121,7 +121,7 @@ public class MultiClient implements ActionListener {
 
     public static void main(String args[]) throws IOException {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        MultiClient cc = new MultiClient(args[0],args[1],0);
+        MultiClient cc = new MultiClient(args[0],args[1],"0");
         cc.init();
     }
     public ObjectInputStream getOis(){

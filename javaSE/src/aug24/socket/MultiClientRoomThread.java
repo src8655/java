@@ -24,18 +24,17 @@ public class MultiClientRoomThread extends Thread{
                 isStop = true;
             }
             System.out.println(message);
-            
 
             //재요청
             try {
-            	/*
-                if(receivedMsg[0].equals("make_room")) {
-                	mcr.inroom(mcr.getId(), Integer.parseInt(receivedMsg[1]));
-                }*/
-                
-				if(receivedMsg[0].equals("room")) mcr.rep(message);
-				mcr.getOos().writeObject("room#"+mcr.id+"#room");
+            	if(receivedMsg.length > 0)
+				if(receivedMsg[0].equals("-98")) mcr.rep(message);
+				mcr.getOos().writeObject("-99#"+mcr.id+"#room");
 				
+
+				if(receivedMsg[0].equals("-97")) {
+					mcr.inroom(mcr.id,receivedMsg[2]);
+				}
 				
 				Thread.sleep(1000);//1초 대기
 			} catch (Exception e) {

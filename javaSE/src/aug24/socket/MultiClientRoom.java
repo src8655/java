@@ -21,11 +21,11 @@ import javax.swing.JTextArea;
 public class MultiClientRoom {
 	String id;
 	JPanel jpanel;
-	
-	JButton button;
+	Thread t;
 	
 	
     private JFrame jframe;
+    
     private Socket socket;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
@@ -38,22 +38,22 @@ public class MultiClientRoom {
         jframe.setSize(660,600);
 
         JPanel jp = new JPanel();
-        button = new JButton("방 만들기");
-        button.addActionListener(new ActionListener() {
+        JButton btn = new JButton("방 만들기");
+        jp.add(btn);
+        
+        btn.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				//방만들기 요청
-				/*
+			public void actionPerformed(ActionEvent e) {
+
 		        try {
-					oos.writeObject("make_room#"+id+"#make_room");
-				} catch (IOException e) {
+					oos.writeObject("-99#"+id+"#makeroom");
+				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
+					e1.printStackTrace();
+				}
 			}
 		});
-        jp.add(button);
 
         jframe.add(jp, BorderLayout.SOUTH);
         
@@ -70,19 +70,22 @@ public class MultiClientRoom {
         
     }
     public void init() throws IOException {
-        socket = new Socket("localhost", 5321);
+        socket = new Socket("localhost", 2537);
         System.out.println("connected...");
         oos = new ObjectOutputStream(socket.getOutputStream());
         ois = new ObjectInputStream(socket.getInputStream());
         MultiClientRoomThread ct = new MultiClientRoomThread(this);
-        Thread t = new Thread(ct);
+        t = new Thread(ct);
         t.start();
-        oos.writeObject("room#"+id+"#room");
+        oos.writeObject("-99#"+id+"#room");
     }
 	public static void main(String[] args) throws IOException {
         JFrame.setDefaultLookAndFeelDecorated(true);
         MultiClientRoom cc_r = new MultiClientRoom(args[0]);
         cc_r.init();
+        /*
+        MultiClient cc = new MultiClient("localhost","123",0);
+        cc.init();*/
 	}
 	
 
@@ -100,6 +103,7 @@ public class MultiClientRoom {
     public void rep(String message) {
     	String[] split = message.split("#");
 		jpanel.removeAll();	//패널 클리어
+		
 		for(int i=1;i<split.length;i++) {
 			JButton btn = new JButton(split[i]+"번 방");
 			btn.addActionListener(new ActionListener() {
@@ -107,17 +111,8 @@ public class MultiClientRoom {
 				public void actionPerformed(ActionEvent e) {
 					String name = e.getActionCommand();
 					String[] slt = name.split("번");
-					int no = Integer.parseInt(slt[0]);
 					
-			        try {
-						MultiClient cc = new MultiClient("localhost",id,no);
-						cc.init();
-						
-						jframe.setVisible(false);
-						
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					inroom(id,slt[0]);
 				}
 			});
 			jpanel.add(btn);
@@ -125,6 +120,16 @@ public class MultiClientRoom {
 		jpanel.updateUI();
         jframe.repaint();
     }
-    
+    public void inroom(String ids, String nos) {
+    	MultiClient cc = new MultiClient("localhost",ids,nos);
+		try {
+			cc.init();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		jframe.setVisible(false);
+    }
 
 }

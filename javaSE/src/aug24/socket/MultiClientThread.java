@@ -14,7 +14,7 @@ public class MultiClientThread extends Thread{
                 message = (String)mc.getOis().readObject();
                 receivedMsg = message.split("#");
                 
-                if(receivedMsg[0].equals("room")) continue;
+                if(receivedMsg[0].equals("-99") || receivedMsg[0].equals("-98") || receivedMsg[0].equals("-97")) continue;
             }catch(Exception e){
                 e.printStackTrace();
                 isStop = true;

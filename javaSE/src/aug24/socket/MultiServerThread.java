@@ -28,7 +28,7 @@ public class MultiServerThread implements Runnable {
             while(!isStop){
                 message = (String)ois.readObject();
                 String[] str = message.split("#");
-                if(no == -99) no = Integer.parseInt(str[0]);		//방번호 없으면 받기
+                if(no == -99 || no == -98 || no == -97) no = Integer.parseInt(str[0]);		//방번호 없으면 받기
                 if(id == null) id = str[1];		//아이디 없으면 받기
                 if(str[2].equals("exit")){
                     broadCasting(message, no);
@@ -36,16 +36,15 @@ public class MultiServerThread implements Runnable {
                 }else if(str[2].equals("room")) {
                 	//방 리스트 받고
                 	ArrayList<Integer> room_list = ms.getRoomList();
-                	message = "room";	//첫문자는 무시
+                	message = "-98";	//첫문자는 무시
                 	for(int i=0;i<room_list.size();i++)
                 		message = message+"#"+room_list.get(i).toString();
-                	broadCastingOne(message, id);		//한사람한테만 보내기
-            	/*}else if(str[2].equals("make_room")) {	//방만들기 요청이 들어오면
-                	ms.roomcnt++;						//방 카운트 추가
-                	ms.room_list.add(ms.roomcnt);		//방 리스트에 추가
-            		
-                	message = "make_room#"+id+"#"+ms.roomcnt;	//생성해준 방 번호 전달
-                	broadCastingOne(message, id);	//한사람한테만 보내기*/
+                	broadCastingOne(message, id);			//한사람한테만 보내기
+            	}else if(str[2].equals("makeroom")) {
+            		ms.roomcnt++;
+                	ms.room_list.add(ms.roomcnt);
+                	message = "-97#"+id+"#"+ms.roomcnt;		//방번호 전송
+                	broadCastingOne(message, id);			//한사람한테만 보내기
             	}else{
                     broadCasting(message, no);
                 }
