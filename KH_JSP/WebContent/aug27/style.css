@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+* {
+margin:0px;
+padding:0px;
+}
+html {
+font-size:0.75em;
+font-family:'돋움';
+}
+#wrap {
+width:500px;
+margin:0 auto;
+text-align:left;
+}
+#wrap h1 {
+font-size:1.4em;
+padding:10px 0 10px 0;
+text-align:center;
+}
+#wrap input {
+font-size:1em;
+font-family:'돋움';
+}
+#wrap table {
+table-layout:fixed;
+border-collapse:collapse;
+border:1px solid #bbb;
+}
+#wrap table th {
+background:#ddd;
+border:1px solid #bbb;
+padding:3px;
+text-align:left;
+}
+#wrap table th.subTitle {
+color:#339900;
+background:#ffffff;
+padding:8px 0 8px 5px;
+}
+#wrap table td {
+border:1px solid #bbb;
+padding:3px;
+}
+#wrap table td span {
+font-size:.9em;
+color:#cc0000;
+}
+.inputBtn {
+border:1px solid #ccc;
+padding:3px 5px 3px 5px;
+line-height:1em;
+font-size:.9em;
+}
+#footer {
+text-align:center;
+padding:10px 0 0 0;
+}
+#footer .inputBtn {
+font-weight:bold;
+font-size:1.2em;
+}
+.w300 {
+width:300px;
+}
+.w380 {
+width:380px;
+}

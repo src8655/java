@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>NowServlet</display-name>
+    <servlet-name>NowServlet</servlet-name>
+    <servlet-class>aug27.NowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NowServlet</servlet-name>
+    <url-pattern>/NowServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
