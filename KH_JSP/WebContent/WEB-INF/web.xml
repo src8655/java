@@ -19,4 +19,16 @@
     <servlet-name>NowServlet</servlet-name>
     <url-pattern>/NowServlet</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+	<servlet-name>DBCPInit</servlet-name>
+	<servlet-class>kh.loader.DBCPInit</servlet-class>
+	<init-param>
+		<param-name>jdbcdriver</param-name>
+		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
 </web-app>

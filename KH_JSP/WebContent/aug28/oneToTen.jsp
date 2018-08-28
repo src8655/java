@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-자바프레임워크 개발자 양성과정 16sss
+<%
+int sum = 0;
+for(int i=1;i<10;i++)
+	sum = sum+i;
+%>
+1 부터 10까지의 합은 <%=sum %> 입니다.
 </body>
 </html>
