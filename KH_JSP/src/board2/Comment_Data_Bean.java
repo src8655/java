@@ -1,22 +1,13 @@
 package board2;
 
-public class Board_Data_Bean {
-	private String subject;
+public class Comment_Data_Bean {
 	private String name;
 	private String passwords;
 	private String memo;
-	private String id;
-	private int hit;
 	private String dates;
 	private int no;
-	private int comments;
+	private int data_no;
 	
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
 	public String getName() {
 		return name;
 	}
@@ -35,18 +26,6 @@ public class Board_Data_Bean {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public int getHit() {
-		return hit;
-	}
-	public void setHit(int hit) {
-		this.hit = hit;
-	}
 	public String getDates() {
 		return dates;
 	}
@@ -59,11 +38,13 @@ public class Board_Data_Bean {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getComments() {
-		return comments;
+	public int getData_no() {
+		return data_no;
 	}
-	public void setComments(int comments) {
-		this.comments = comments;
+	public void setData_no(int data_no) {
+		this.data_no = data_no;
 	}
+	
+	
 	
 }

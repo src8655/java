@@ -22,14 +22,13 @@ public class Board_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into ");
 			
 			//날짜 가져오기
 			Calendar cal = Calendar.getInstance();
 			String date = cal.get(Calendar.YEAR)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.DATE);
 
-			pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID)"
-						+" values(?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS)"
+						+" values(?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, bdb.getSubject());
 			pstmt.setString(2, bdb.getMemo());
 			pstmt.setString(3, bdb.getName());
@@ -37,6 +36,7 @@ public class Board_DB_Bean {
 			pstmt.setString(5, date);
 			pstmt.setInt(6, 0);
 			pstmt.setString(7, bdb.getId());
+			pstmt.setInt(8, 0);
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -77,6 +77,8 @@ public class Board_DB_Bean {
     	
     	return 0;
     }
+    
+    //여러 줄 가져오기
     public List getArticles(int start, int end, String id) {
     	List list = new ArrayList();
     	
@@ -100,6 +102,7 @@ public class Board_DB_Bean {
 				bdb.setHit(rs.getInt("HIT"));
 				bdb.setDates(rs.getString("DATES"));
 				bdb.setNo(rs.getInt("NO"));
+				bdb.setComments(rs.getInt("COMMENTS"));
 				list.add(bdb);
 			}
 			
@@ -117,6 +120,7 @@ public class Board_DB_Bean {
 		return list;
     }
     
+    //한 줄 가져오기
     public Board_Data_Bean getArticle(int no) {
     	Board_Data_Bean bdb = new Board_Data_Bean();
     	
@@ -153,6 +157,165 @@ public class Board_DB_Bean {
 		}
 
 		return bdb;
+    }
+    
+    //조회수카운트 추가
+    public void updateHit(int no) {
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			
+
+	    	//조회수카운트 정보 가져오기
+			pstmt = conn.prepareStatement("select HIT from MIN_TBOARD_DATA where NO=?");
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			int hit = 0;
+			if(rs.next()) 
+				hit = rs.getInt(1);
+			
+			
+			//조회수카운트 +1
+			hit++;
+			
+			//수정
+			pstmt = conn.prepareStatement("update MIN_TBOARD_DATA set HIT=? where NO=?");
+			pstmt.setInt(1, hit);
+			pstmt.setInt(2, no);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    }
+    
+    //댓글카운트 갱신
+    public void updateComment(int no) {
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			
+
+	    	//댓글카운트 정보 가져오기
+			pstmt = conn.prepareStatement("select count(*) from MIN_TBOARD_COMMENT where data_no=?");
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			int comments = 0;
+			if(rs.next()) 
+				comments = rs.getInt(1);
+			
+			
+			
+			//수정
+			pstmt = conn.prepareStatement("update MIN_TBOARD_DATA set COMMENTS=? where NO=?");
+			pstmt.setInt(1, comments);
+			pstmt.setInt(2, no);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    }
+    
+    //삭제하기
+    public boolean delete(int no, String passwords) {
+    	Board_Data_Bean bdata = getArticle(no);	//게시글정보 가져오기
+    	
+    	//비밀번호가 다를때 종료
+    	if(!bdata.getPasswords().equals(passwords))
+    		return false;
+    	
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			//날짜 가져오기
+			Calendar cal = Calendar.getInstance();
+			String date = cal.get(Calendar.YEAR)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.DATE);
+
+			pstmt = conn.prepareStatement("delete from MIN_TBOARD_DATA where no=?");
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return false;
+    }
+    
+    //수정하기
+    public boolean update(Board_Data_Bean bd, int no) {
+    	Board_Data_Bean bdata = getArticle(no);	//게시글정보 가져오기
+    	
+    	//비밀번호가 다를때 종료
+    	if(!bdata.getPasswords().equals(bd.getPasswords()))
+    		return false;
+    	
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			//날짜 가져오기
+			Calendar cal = Calendar.getInstance();
+			String date = cal.get(Calendar.YEAR)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.DATE);
+
+			pstmt = conn.prepareStatement("update MIN_TBOARD_DATA set SUBJECT=?,NAME=?,MEMO=? where NO=?");
+			pstmt.setString(1, bd.getSubject());
+			pstmt.setString(2, bd.getName());
+			pstmt.setString(3, bd.getMemo());
+			pstmt.setInt(4, no);
+			pstmt.executeUpdate();
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return false;
     }
 
 }

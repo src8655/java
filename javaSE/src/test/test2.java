@@ -1,10 +1,10 @@
 package test;
 
 class Book {
-	String category;
-	String bookName;
-	double bookPrice;
-	double bookDiscountRate;
+	private String category;
+	private String bookName;
+	private double bookPrice;
+	private double bookDiscountRate;
 	
 	Book() {
 		
@@ -53,9 +53,9 @@ public class test2 {
 		
 		double sum = 0;
 		for(int i=0;i<bookArray.length;i++) {
-			System.out.println(bookArray[i].category+" "+bookArray[i].bookName
-					+"원\t"+bookArray[i].bookPrice+" "+bookArray[i].bookDiscountRate+"%");
-			sum += bookArray[i].bookPrice;
+			System.out.println(bookArray[i].getCategory()+" "+bookArray[i].getBookName()
+					+"원\t"+bookArray[i].getBookPrice()+" "+bookArray[i].getBookDiscountRate()+"%");
+			sum += bookArray[i].getBookPrice();
 		}
 		System.out.println();
 		System.out.println("책 가격의 합 : "+sum+"원");
