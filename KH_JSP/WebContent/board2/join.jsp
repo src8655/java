@@ -17,6 +17,7 @@ int dated = cal.get(Calendar.DATE);
 
 
 %>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <h1 class="join_header">필수항목</h1>
 <form action="join_post.jsp" id="join">
@@ -81,7 +82,7 @@ int dated = cal.get(Calendar.DATE);
 		<th>우편번호</th>
 		<td>
 			<div style="float:left;"><input type="text" name="addr_code" id="addr_code" style="width:100px;" class="jinput" /></div>
-			<div style="float:left;margin:0 0 0 5px;"><input type="button" value="우편번호 찾기" onclick="btn_find()" class="btn_st" style="width:120px;height:27px;" /></div>
+			<div style="float:left;margin:0 0 0 5px;"><input type="button" value="우편번호 찾기" onclick="btn_find_daum()" class="btn_st" style="width:120px;height:27px;" /></div>
 		</td>
 	</tr>
 	<tr>
