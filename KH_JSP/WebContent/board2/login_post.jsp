@@ -30,6 +30,10 @@ if(request.getParameter("passwords").equals("")) {
 	return;
 }
 
+//암호화
+mdata.setPasswords(Md5Enc.getEncMD5(mdata.getPasswords().getBytes()));
+
+
 
 Member_DB_Bean manager = Member_DB_Bean.getInstance();
 if(manager.login(mdata.getUser_id(), mdata.getPasswords())) {

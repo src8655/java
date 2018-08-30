@@ -7,6 +7,8 @@ String id = request.getParameter("id");
 String pages = request.getParameter("pages");
 %>
 
+<%@ include file="board_bar.jsp" %>
+
 <form name="wt_b" action="board_write_post.jsp" method="post">
 <input type="hidden" name="id" value="<%=id %>" />
 <table cellpadding="7" cellspacing="0" class="boards">

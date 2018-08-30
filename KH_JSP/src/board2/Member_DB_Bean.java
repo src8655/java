@@ -120,6 +120,52 @@ public class Member_DB_Bean {
     }
     
     
+    //회원정보 하나
+    public Member_Data_Bean getArticle(int no) {
+    	Member_Data_Bean mdata = new Member_Data_Bean();
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("select * from MIN_TMEMBER where NO=?");
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mdata.setNo(rs.getInt("NO"));
+				mdata.setUser_id(rs.getString("USER_ID"));
+				mdata.setPasswords(rs.getString("PASSWORD"));
+				mdata.setName(rs.getString("NAME"));
+				mdata.setAddr(rs.getString("ADDR"));
+				mdata.setAddr_code(rs.getString("ADDR_CODE"));
+				mdata.setPhone1(rs.getString("PHONE1"));
+				mdata.setPhone2(rs.getString("PHONE2"));
+				mdata.setPhone3(rs.getString("PHONE3"));
+				mdata.setEmail(rs.getString("EMAIL"));
+				mdata.setBirthy(rs.getString("BIRTHY"));
+				mdata.setBirthm(rs.getString("BIRTHM"));
+				mdata.setBirthd(rs.getString("BIRTHD"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return mdata;
+    }
+    
+    
     //로그인 정보 가져오기
     public Member_Data_Bean login_info(String user_id, String passwords) {
     	Member_Data_Bean mdata = new Member_Data_Bean();
@@ -164,6 +210,52 @@ public class Member_DB_Bean {
 		}
     	
     	return mdata;
+    }
+    
+    
+    //정보수정
+    public boolean update(Member_Data_Bean mdb, int no) {
+    	Member_Data_Bean mdata = getArticle(no);	//게시글정보 가져오기
+    	
+    	//비밀번호가 다를때 종료
+    	if(!mdata.getPasswords().equals(mdb.getPasswords()))
+    		return false;
+    	
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("update MIN_TMEMBER"
+					+ " set"
+					+ " NAME=?, ADDR=?, ADDR_CODE=?, PHONE1=?, PHONE2=?, PHONE3=?, EMAIL=?, BIRTHY=?, BIRTHM=?, BIRTHD=?"
+					+ " where NO=?");
+			pstmt.setString(1, mdb.getName());
+			pstmt.setString(2, mdb.getAddr());
+			pstmt.setString(3, mdb.getAddr_code());
+			pstmt.setString(4, mdb.getPhone1());
+			pstmt.setString(5, mdb.getPhone2());
+			pstmt.setString(6, mdb.getPhone3());
+			pstmt.setString(7, mdb.getEmail());
+			pstmt.setString(8, mdb.getBirthy());
+			pstmt.setString(9, mdb.getBirthm());
+			pstmt.setString(10, mdb.getBirthd());
+			pstmt.setInt(11, no);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
     }
 
 }

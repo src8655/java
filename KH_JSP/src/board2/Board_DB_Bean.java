@@ -88,16 +88,19 @@ public class Board_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where id=? order by NO desc");
+			//pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where id=? order by NO desc");
+			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TBOARD_DATA where id=? order by NO desc) a) where rnum>=? and rnum<=?");
 			pstmt.setString(1, id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			rs = pstmt.executeQuery();
-			
+			//
 			while(rs.next()) {
 				Board_Data_Bean bdb = new Board_Data_Bean();
 				bdb.setSubject(rs.getString("SUBJECT"));
 				bdb.setName(rs.getString("NAME"));
 				bdb.setPasswords(rs.getString("PASSWORD"));
-				bdb.setMemo(rs.getString("MEMO"));
+				//bdb.setMemo(rs.getString("MEMO"));
 				bdb.setId(rs.getString("ID"));
 				bdb.setHit(rs.getInt("HIT"));
 				bdb.setDates(rs.getString("DATES"));

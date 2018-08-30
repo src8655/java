@@ -13,6 +13,8 @@ Board_DB_Bean bdb = Board_DB_Bean.getInstance();
 Board_Data_Bean bdata = bdb.getArticle(Integer.parseInt(no));
 %>
 
+<%@ include file="board_bar.jsp" %>
+
 <form name="wt_b" action="board_edit_post.jsp" method="post">
 <input type="hidden" name="id" value="<%=id %>" />
 <input type="hidden" name="pages" value="<%=pages %>" />
@@ -24,14 +26,23 @@ Board_Data_Bean bdata = bdb.getArticle(Integer.parseInt(no));
 		<th style="background:#d5e9ff;">제목</th>
 		<th><input type="text" name="subject" style="width:98%;" value="<%=bdata.getSubject() %>" /></th>
 	</tr>
-	<tr>
+<% 
+String name_tmp = bdata.getName();
+String passwords_tmp = "";
+if(member_info != null) {
+	name_tmp = member_info.getName();
+	passwords_tmp = member_info.getPasswords();
+}
+%>
+	<tr <% if(member_info != null) { %>style="display:none;"<% } %>>
 		<th style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">이름</th>
-		<td style="padding:0 0 0 3px;"><input type="text" name="name" value="<%=bdata.getName() %>" /></td>
+		<td style="padding:0 0 0 3px;"><input type="text" name="name" value="<%=name_tmp %>" /></td>
 	</tr>
-	<tr>
+	<tr <% if(member_info != null) { %>style="display:none;"<% } %>>
 		<th style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">비밀번호</th>
-		<td style="padding:0 0 0 3px;"><input type="password" name="passwords" /></td>
+		<td style="padding:0 0 0 3px;"><input type="password" name="passwords" value="<%=passwords_tmp %>" /></td>
 	</tr>
+	
 </table>
 <table cellpadding="7" cellspacing="0" style="width:100%;">
 	<tr>

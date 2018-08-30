@@ -9,8 +9,15 @@ String id = request.getParameter("id");
 String pages = request.getParameter("pages");
 String no = request.getParameter("no");
 
+
+//암호화
+String passwords = request.getParameter("passwords");
+passwords = Md5Enc.getEncMD5(passwords.getBytes());
+
+
+
 Board_DB_Bean bdb = Board_DB_Bean.getInstance();
-if(bdb.delete(Integer.parseInt(no), request.getParameter("passwords"))) 
+if(bdb.delete(Integer.parseInt(no), passwords)) 
 	response.sendRedirect("board.jsp?id="+id+"&pages="+pages);
 else {
 	out.println("<script>");

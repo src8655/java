@@ -9,6 +9,8 @@ String pages = request.getParameter("pages");
 String no = request.getParameter("no");
 %>
 
+<%@ include file="board_bar.jsp" %>
+
 <form action="board_del_post.jsp" method="post">
 <input type="hidden" name="id" value="<%=id %>" />
 <input type="hidden" name="no" value="<%=no %>" />

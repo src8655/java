@@ -10,6 +10,8 @@ String no = request.getParameter("no");
 String data_no = request.getParameter("data_no");
 %>
 
+<%@ include file="board_bar.jsp" %>
+
 <form action="board_comment_del_post.jsp" method="post">
 <input type="hidden" name="id" value="<%=id %>" />
 <input type="hidden" name="no" value="<%=no %>" />

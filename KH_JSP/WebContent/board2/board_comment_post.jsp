@@ -40,6 +40,10 @@ if(request.getParameter("memo").equals("")) {
 	return;
 }
 
+//암호화
+cdata.setPasswords(Md5Enc.getEncMD5(cdata.getPasswords().getBytes()));
+
+
 Comment_DB_Bean manager = Comment_DB_Bean.getInstance();
 manager.insert(cdata);
 

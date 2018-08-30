@@ -10,6 +10,9 @@ String id = request.getParameter("id");
 String pages = request.getParameter("pages");
 String no = request.getParameter("no");
 
+
+
+
 if(request.getParameter("subject").equals("")) {
 	out.println("<script>");
 	out.println("alert('제목을 입력하세요.')");
@@ -42,6 +45,12 @@ if(request.getParameter("memo").equals("")) {
 	
 	return;
 }
+
+
+//암호화
+bdata.setPasswords(Md5Enc.getEncMD5(bdata.getPasswords().getBytes()));
+
+
 
 Board_DB_Bean bdb = Board_DB_Bean.getInstance();
 if(bdb.update(bdata, Integer.parseInt(no))) 

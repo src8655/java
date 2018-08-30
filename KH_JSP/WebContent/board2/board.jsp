@@ -16,29 +16,9 @@ if(request.getParameter("pages") != null)
 
 Board_DB_Bean manager = Board_DB_Bean.getInstance();
 
-int total = manager.getCount(id);	//총 개수
-int cnt = 0;						//no를 위한 카운트
-
-int lengths = 3;	//한번에 보일 리스트 개수
-int starts = (Integer.parseInt(pages))*lengths-lengths;		//시작지점
-int paging = (int)Math.ceil(total/(Integer.parseInt(pages)));
-
 %>
 
-<div class="boards_header">
-	<p style="float:left;">전체게시물 : <%=total %></p>
-	<p style="float:right;text-align:right;">
-<% if(member_info == null) {%>
-		<a href="login.jsp?id=<%=id %>&pages=<%=pages %>">로그인</a>
-		&nbsp;
-		<a href="join.jsp?id=<%=id %>&pages=<%=pages %>">회원가입</a>
-<% }else{%>
-		<span style="font-weight:bold;"><%=member_info.getName() %></span>님 환영합니다.
-		&nbsp;
-		<a href="logout.jsp?id=<%=id %>&pages=<%=pages %>">로그아웃</a>
-<% }%>
-	</p>
-</div>
+<%@ include file="board_bar.jsp" %>
 
 <table cellpadding="7" cellspacing="0" class="boards">
 <col width="60" />
@@ -65,13 +45,14 @@ int paging = (int)Math.ceil(total/(Integer.parseInt(pages)));
 <%
 
 	
-List list = manager.getArticles(1, 5, id);	//리스트받아오기
+List list = manager.getArticles(board_starts, board_ends, id);	//리스트받아오기
 
+board_cnt = board_starts;
 for(int i=0;i<list.size();i++) {
 Board_Data_Bean bdb = (Board_Data_Bean)list.get(i);
 %>
 	<tr>
-		<td align="center"><%=total-cnt %></td>
+		<td align="center"><%=board_total-board_cnt+1 %></td>
 		<td></td>
 		<td>
 		  <a href="board_view.jsp?id=<%=bdb.getId() %>&amp;no=<%=bdb.getNo() %>&amp;pages=<%=pages %>">
@@ -86,7 +67,7 @@ Board_Data_Bean bdb = (Board_Data_Bean)list.get(i);
 		<td align="center"><%=bdb.getHit() %></td>
 	</tr>
 <%
-	cnt++;
+	board_cnt++;
 }
 %>
 </table>
@@ -95,9 +76,17 @@ Board_Data_Bean bdb = (Board_Data_Bean)list.get(i);
 		&nbsp;
 	</div>
 	<div class="boards_bc">
-		<a href="board.php?id=<?=$id?>&amp;page=1">&lt;&lt;</a>
-			
-		<a href="board.php?id=<?=$id?>&amp;page=<?=$paging?>">&gt;&gt;</a>
+		<a href="board.jsp?id=<%=id %>&amp;pages=1">&lt;&lt;</a>
+		<%
+		int pstarts = Integer.parseInt(pages)-5;
+		int pends = Integer.parseInt(pages)+5;
+		for(int i=pstarts;i<=pends;i++) {
+			if(i <= 0) continue;
+			if(i > board_paging) continue;
+		%>
+		<a href="board.jsp?id=<%=id %>&amp;pages=<%=i %>" <% if(i==Integer.parseInt(pages)) { %>style="font-weight:bold;color:red;"<% } %>><%=i %></a>
+		<% } %>
+		<a href="board.jsp?id=<%=id %>&amp;pages=<%=board_paging %>">&gt;&gt;</a>
 	</div>
 	<div class="boards_br">
 		<a href="board_write.jsp?id=<%=id %>&amp;pages=<%=pages %>" class="btn_st" style="float:right;margin:0 10px 0 0;">작성하기</a>
