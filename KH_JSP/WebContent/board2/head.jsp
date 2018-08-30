@@ -20,6 +20,7 @@ if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") !=
 <title>Insert title here</title>
 <link href="tboard_css.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="tboard_js.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 
 </head>

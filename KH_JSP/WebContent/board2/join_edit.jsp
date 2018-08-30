@@ -88,16 +88,29 @@ int dated = cal.get(Calendar.DATE);
 		<th>우편번호</th>
 		<td>
 			<div style="float:left;"><input type="text" name="addr_code" id="addr_code" style="width:100px;" class="jinput" value="<%=member_info.getAddr_code() %>" /></div>
-			<div style="float:left;margin:0 0 0 5px;"><input type="button" value="우편번호 찾기" onclick="btn_find()" class="btn_st" style="width:120px;height:27px;" /></div>
+			<div style="float:left;margin:0 0 0 5px;"><input type="button" value="우편번호 찾기" onclick="btn_find_daum();" class="btn_st" style="width:120px;height:27px;" /></div>
 		</td>
 	</tr>
 	<tr>
 		<th>주소</th>
 		<td><input type="text" name="addr" id="addr" style="width:350px;" class="jinput" value="<%=member_info.getAddr() %>" /></td>
 	</tr>
+<%
+String phone1 = member_info.getPhone1();
+String phone2 = member_info.getPhone2();
+String phone3 = member_info.getPhone3();
+
+if(phone1 == null) phone1 = "";
+else if(phone1.equals("null")) phone1 = "";
+if(phone2 == null) phone2 = "";
+else if(phone2.equals("null")) phone2 = "";
+if(phone3 == null) phone3 = "";
+else if(phone3.equals("null")) phone3 = "";
+
+%>
 	<tr>
 		<th>휴대전화 <span style="font-weight:bold;color:red;font-size:11px;"></span></th>
-		<td><input type="text" name="phone1" style="width:60px;" class="jinput" value="<%=member_info.getPhone1() %>" /> - <input type="text" name="phone2" style="width:60px;" class="jinput" value="<%=member_info.getPhone2() %>" /> - <input type="text" name="phone3" style="width:60px;" class="jinput" value="<%=member_info.getPhone3() %>" /></td>
+		<td><input type="text" name="phone1" style="width:60px;" class="jinput" value="<%=phone1 %>" /> - <input type="text" name="phone2" style="width:60px;" class="jinput" value="<%=phone2 %>" /> - <input type="text" name="phone3" style="width:60px;" class="jinput" value="<%=phone3 %>" /></td>
 	</tr>
 </table>
 <div id="join_b"><input type="submit"  value="정보수정" class="btn_st" style="margin:0 auto;" /></div>

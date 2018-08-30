@@ -17,7 +17,6 @@ int dated = cal.get(Calendar.DATE);
 
 
 %>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <h1 class="join_header">필수항목</h1>
 <form action="join_post.jsp" id="join">
