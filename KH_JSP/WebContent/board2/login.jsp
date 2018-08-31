@@ -6,9 +6,6 @@
 
 
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
-
 
 %>
 <div id="login_oo">

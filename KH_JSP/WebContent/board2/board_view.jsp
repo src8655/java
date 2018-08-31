@@ -10,8 +10,6 @@
 
 
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
 String no = request.getParameter("no");
 %>
 
@@ -62,6 +60,10 @@ if(!hasCookie) {	//쿠키가 없었다면 새로 생성
 
 //데이터받기
 Board_Data_Bean bdb = manager.getArticle(Integer.parseInt(no));
+
+//1이 아니라는 것은 이 글은 답글이라는것
+String rt_no = no;
+if(bdb.getRt_no() != 1)	rt_no = Integer.toString(bdb.getRt_no());
 
 //줄바꿈
 String memos = bdb.getMemo().replaceAll("\n", "<br />");
@@ -162,16 +164,19 @@ for(int i=0;i<list.size();i++) {
 
 <div class="boards_b">
 	<div class="boards_bl">
-		<a href="board.jsp?id=<%=id %>&amp;pages=<%=pages %>" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
+		<a href="board.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
 	</div>
 	<div class="boards_br" style="width:50%;">
-		<a href="board_edit.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">수정하기</a>
+		<a href="board_write.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;rt_no=<%=rt_no %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">답글달기</a>
+		
+	
+		<a href="board_edit.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">수정하기</a>
 		
 		
 		<% if(member_info == null) { %>
-		<a href="board_del.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
+		<a href="board_del.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
 		<% }else{ %>
-		<a href="board_del_post.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;passwords=<%=passwords_tmp %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
+		<a href="board_del_post.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>&amp;rt_no=<%=bdb.getNo() %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
 		<% } %>
 		
 	</div>

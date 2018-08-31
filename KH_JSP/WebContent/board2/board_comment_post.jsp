@@ -11,8 +11,6 @@
 
 
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
 String data_no = request.getParameter("data_no");
 
 if(request.getParameter("name").equals("")) {

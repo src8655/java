@@ -17,10 +17,6 @@ if(member_info == null) {
 }
 
 
-
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
-
 //날짜 가져오기
 Calendar cal = Calendar.getInstance();
 int datey = cal.get(Calendar.YEAR);

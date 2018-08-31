@@ -10,8 +10,6 @@
 
 
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
 
 if(request.getParameter("user_id").equals("")) {
 	out.println("<script>");

@@ -4,8 +4,6 @@
 
 
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
 String no = request.getParameter("no");
 %>
 

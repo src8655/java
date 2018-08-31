@@ -10,6 +10,7 @@ public class Board_Data_Bean {
 	private String dates;
 	private int no;
 	private int comments;
+	private int rt_no;
 	
 	public String getSubject() {
 		return subject;
@@ -64,6 +65,12 @@ public class Board_Data_Bean {
 	}
 	public void setComments(int comments) {
 		this.comments = comments;
+	}
+	public int getRt_no() {
+		return rt_no;
+	}
+	public void setRt_no(int rt_no) {
+		this.rt_no = rt_no;
 	}
 	
 }

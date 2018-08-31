@@ -1,22 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "board2.Board_DB_Bean" %>
+<%@ page import = "board2.Board_Data_Bean" %>
 
 <%@ include file="head.jsp" %>
+
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
+String rt_no = "1";
+String subject = "";
+if(request.getParameter("rt_no") != null) {
+	rt_no = request.getParameter("rt_no");
+	Board_DB_Bean bdb = Board_DB_Bean.getInstance();
+	Board_Data_Bean bdata = bdb.getArticle(Integer.parseInt(rt_no));
+	subject = bdata.getSubject();
+}
 %>
+
 
 <%@ include file="board_bar.jsp" %>
 
 <form name="wt_b" action="board_write_post.jsp" method="post">
 <input type="hidden" name="id" value="<%=id %>" />
+<input type="hidden" name="searchs" value="<%=searchs %>" />
+<input type="hidden" name="searchs_value" value="<%=searchs_value %>" />
+<input type="hidden" name="rt_no" value="<%=rt_no %>" />
 <table cellpadding="7" cellspacing="0" class="boards">
 <col width="90" />
 <col width="410" />
 	<tr class="boards_t">
 		<th style="background:#d5e9ff;">제목</th>
-		<th><input type="text" name="subject" style="width:98%;" /></th>
+		<th><input type="text" name="subject" value="<%=subject %>" style="width:98%;" /></th>
 	</tr>
 <% 
 String name_tmp = "";
@@ -43,7 +56,7 @@ if(member_info != null) {
 
 <div class="boards_b">
 	<div class="boards_bl">
-		<a href="board.jsp?id=<%=id %>&amp;pages=<%=pages %>" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
+		<a href="board.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
 	</div>
 	<div class="boards_br">
 		<input type="submit" value="작성하기" class="btn_st"  style="float:right;margin:0 10px 0 0; height:26px;" />

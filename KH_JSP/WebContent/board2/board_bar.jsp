@@ -5,7 +5,7 @@
 
 Board_DB_Bean board_manager = Board_DB_Bean.getInstance();
 
-int board_total = board_manager.getCount(id);	//총 개수
+int board_total = board_manager.getCount(id, searchs, searchs_value);	//총 개수
 int board_cnt = 0;						//no를 위한 카운트
 
 int board_lengths = 7;	//한번에 보일 리스트 개수

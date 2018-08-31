@@ -5,8 +5,6 @@
 <%@ page import="board2.Board_Data_Bean" %>
 <%@ page import="board2.Board_DB_Bean" %>
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
 String no = request.getParameter("no");
 
 Board_DB_Bean bdb = Board_DB_Bean.getInstance();

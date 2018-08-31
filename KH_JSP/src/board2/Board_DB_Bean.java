@@ -19,6 +19,7 @@ public class Board_DB_Bean {
     public void insert(Board_Data_Bean bdb) {
     	Connection conn = null;
     	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
     	
     	try {
 			conn = getConnection();
@@ -27,23 +28,50 @@ public class Board_DB_Bean {
 			Calendar cal = Calendar.getInstance();
 			String date = cal.get(Calendar.YEAR)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.DATE);
 
-			pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS)"
-						+" values(?,?,?,?,?,?,?,?)");
-			pstmt.setString(1, bdb.getSubject());
-			pstmt.setString(2, bdb.getMemo());
-			pstmt.setString(3, bdb.getName());
-			pstmt.setString(4, bdb.getPasswords());
-			pstmt.setString(5, date);
-			pstmt.setInt(6, 0);
-			pstmt.setString(7, bdb.getId());
-			pstmt.setInt(8, 0);
-			pstmt.executeUpdate();
+			if(bdb.getRt_no() == 1) {
+				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS)"
+							+" values(?,?,?,?,?,?,?,?)");
+				pstmt.setString(1, bdb.getSubject());
+				pstmt.setString(2, bdb.getMemo());
+				pstmt.setString(3, bdb.getName());
+				pstmt.setString(4, bdb.getPasswords());
+				pstmt.setString(5, date);
+				pstmt.setInt(6, 0);
+				pstmt.setString(7, bdb.getId());
+				pstmt.setInt(8, 0);
+				pstmt.executeUpdate();
+			}else {
+				pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where rt_no=? order by no asc");
+				pstmt.setInt(1, bdb.getRt_no());
+				rs = pstmt.executeQuery();
+				
+				int rt_no_count = bdb.getRt_no();	//답글이 없으면 기준no
+				
+				if(rs.next()) 
+					rt_no_count = rs.getInt("NO");	//가장 마지막에 있는 답글을 받아옴
+				rt_no_count--;
+				
+				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(NO, SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, RT_NO)"
+						+" values(?,?,?,?,?,?,?,?,?,?)");
+				pstmt.setInt(1, rt_no_count);
+				pstmt.setString(2, bdb.getSubject());
+				pstmt.setString(3, bdb.getMemo());
+				pstmt.setString(4, bdb.getName());
+				pstmt.setString(5, bdb.getPasswords());
+				pstmt.setString(6, date);
+				pstmt.setInt(7, 0);
+				pstmt.setString(8, bdb.getId());
+				pstmt.setInt(9, 0);
+				pstmt.setInt(10, bdb.getRt_no());
+				pstmt.executeUpdate();
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			
 			try {
+				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
 			} catch (SQLException e) {}
@@ -78,9 +106,54 @@ public class Board_DB_Bean {
     	return 0;
     }
     
+    //검색된 카운트
+    public int getCount(String id, String searchs, String searchs_value) {
+    	//검색
+    	String wheres = " ";
+    	if(!searchs.equals("") && !searchs_value.equals("")) {
+    		if(searchs.equals("subject_memo")) wheres = " and (subject like '%"+searchs_value+"%' or memo like '%"+searchs_value+"%') ";
+    		else wheres = " and "+searchs+" like '%"+searchs_value+"%' ";
+        }
+    	
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from MIN_TBOARD_DATA where id=?"+wheres);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return 0;
+    }
+    
     //여러 줄 가져오기
-    public List getArticles(int start, int end, String id) {
+    public List getArticles(int start, int end, String id, String searchs, String searchs_value) {
     	List list = new ArrayList();
+    	
+    	//검색
+    	String wheres = " ";
+    	if(!searchs.equals("") && !searchs_value.equals("")) {
+    		if(searchs.equals("subject_memo")) wheres = " and (subject like '%"+searchs_value+"%' or memo like '%"+searchs_value+"%') ";
+    		else wheres = " and "+searchs+" like '%"+searchs_value+"%' ";
+        }
     	
     	Connection conn = null;
     	PreparedStatement pstmt = null;
@@ -89,7 +162,7 @@ public class Board_DB_Bean {
     	try {
 			conn = getConnection();
 			//pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where id=? order by NO desc");
-			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TBOARD_DATA where id=? order by NO desc) a) where rnum>=? and rnum<=?");
+			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TBOARD_DATA where id=?"+wheres+"order by NO desc) a) where rnum>=? and rnum<=?");
 			pstmt.setString(1, id);
 			pstmt.setInt(2, start);
 			pstmt.setInt(3, end);
@@ -106,6 +179,7 @@ public class Board_DB_Bean {
 				bdb.setDates(rs.getString("DATES"));
 				bdb.setNo(rs.getInt("NO"));
 				bdb.setComments(rs.getInt("COMMENTS"));
+				bdb.setRt_no(rs.getInt("RT_NO"));
 				list.add(bdb);
 			}
 			
@@ -146,6 +220,7 @@ public class Board_DB_Bean {
 				bdb.setHit(rs.getInt("HIT"));
 				bdb.setDates(rs.getString("DATES"));
 				bdb.setNo(rs.getInt("NO"));
+				bdb.setRt_no(rs.getInt("RT_NO"));
 			}
 			
 		} catch (Exception e) {

@@ -1,7 +1,4 @@
 ﻿--------------------------------------------------------
---  파일이 생성됨 - 목요일-8월-30-2018   
---------------------------------------------------------
---------------------------------------------------------
 --  DDL for Table MIN_TADDR
 --------------------------------------------------------
 
@@ -46,7 +43,8 @@
 	"DATES" VARCHAR2(255 BYTE), 
 	"HIT" NUMBER(*,0), 
 	"ID" VARCHAR2(255 BYTE), 
-	"COMMENTS" NUMBER(*,0)
+	"COMMENTS" NUMBER(*,0), 
+	"RT_NO" NUMBER(*,0) DEFAULT 1
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -155,7 +153,7 @@ ALTER TRIGGER "LSM8655"."MIN_TBOARD_COMMENT_TRI" ENABLE;
 begin  
    if inserting then 
       if :NEW."NO" is null then 
-         select MIN_TBOARD_SEQ.nextval into :NEW."NO" from dual; 
+         select MIN_TBOARD_SEQ2.nextval into :NEW."NO" from dual; 
       end if; 
    end if; 
 end;

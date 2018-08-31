@@ -4,9 +4,6 @@
 
 
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
-
 session.setAttribute("user_id", null);
 session.setAttribute("user_pw", null);
 

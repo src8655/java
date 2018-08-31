@@ -20,9 +20,6 @@ if(member_info == null) {
 	return;
 }
 
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
-
 if(request.getParameter("passwords").equals("")) {
 	out.println("<script>");
 	out.println("alert('비밀번호를 입력하세요.')");

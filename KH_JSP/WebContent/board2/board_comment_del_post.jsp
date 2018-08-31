@@ -6,8 +6,6 @@
 
 
 <%
-String id = request.getParameter("id");
-String pages = request.getParameter("pages");
 String no = request.getParameter("no");
 String data_no = request.getParameter("data_no");
 

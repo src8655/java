@@ -6,7 +6,6 @@
     <jsp:setProperty name="bdata" property="*" />
 </jsp:useBean>
 <%
-String id = request.getParameter("id");
 
 if(request.getParameter("subject").equals("")) {
 	out.println("<script>");
@@ -53,7 +52,7 @@ manager.insert(bdata);
 
 
 
-response.sendRedirect("board.jsp?id="+id);
+response.sendRedirect("board.jsp?id="+id+"&searchs="+searchs+"&searchs_value="+searchs_value);
 %>
 
 <%@ include file="foot.jsp" %>

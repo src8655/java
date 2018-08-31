@@ -256,3 +256,44 @@ overflow:hidden;
 text-decoration:none;
 color:#000000;
 }
+.boards_bsearch {
+margin:0 auto;
+width:300px;
+}
+.boards_bsearch_l {
+width:80px;
+float:left;
+overflow:hidden;
+}
+.boards_bsearch_l select {
+border:1px solid #cccccc;
+width:80px;
+height:26px;
+}
+.boards_bsearch_c {
+width:140px;
+float:left;
+}
+.boards_bsearch_c input {
+border:1px solid #cccccc;
+border-left:0px;
+border-right:0px;
+width:140px;
+padding:0px;
+line-height:24px;
+height:24px;
+}
+.boards_bsearch_r {
+width:80px;
+float:right;
+}
+.boards_bsearch_r input {
+background:#cccccc;
+color:#000000;
+border:1px solid #cccccc;
+width:80px;
+height:26px;
+}
+.rt_bg td {
+background:#eeeeee;
+}
