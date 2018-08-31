@@ -166,9 +166,10 @@ for(int i=0;i<list.size();i++) {
 	<div class="boards_bl">
 		<a href="board.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
 	</div>
-	<div class="boards_br" style="width:50%;">
+	<div class="boards_br" style="width:70%;">
+		<% if(bdb.getRt_no() == 1){ %>
 		<a href="board_write.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;rt_no=<%=rt_no %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">답글달기</a>
-		
+		<% } %>
 	
 		<a href="board_edit.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">수정하기</a>
 		
