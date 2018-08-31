@@ -7,9 +7,15 @@
 <%
 String no = request.getParameter("no");
 
+//멤버일 경우
+String passwords = "";
+if(member_info != null) {
+	passwords = member_info.getPasswords();
+}else{
+	passwords = request.getParameter("passwords");
+}
 
 //암호화
-String passwords = request.getParameter("passwords");
 passwords = Md5Enc.getEncMD5(passwords.getBytes());
 
 
