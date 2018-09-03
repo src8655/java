@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 public class Member_DB_Bean {
 	private static Member_DB_Bean instance = new Member_DB_Bean();
     public static Member_DB_Bean getInstance() {
@@ -86,7 +88,7 @@ public class Member_DB_Bean {
     }
     
     //로그인 가능여부
-    public boolean login(Member_Data_Bean mdata) {
+    public boolean login(Member_Data_Bean mdata, HttpServletResponse response) {
     	
 
 		//날짜 가져오기
@@ -109,6 +111,10 @@ public class Member_DB_Bean {
     		mdata.setAddr_code(" ");
     		insert(mdata);
     	}
+    	//아이디 쿠키
+		Cookie_Bean cmanager = Cookie_Bean.getInstance();
+    	if(mdata.getAuto_id() == 1) cmanager.setId(mdata.getUser_id(), response);	//쿠키 저장
+    	else cmanager.delId(response);	//쿠키 삭제
 
     	return login_exist(mdata);
     }

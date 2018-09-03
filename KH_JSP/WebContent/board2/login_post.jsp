@@ -32,7 +32,7 @@ if(request.getParameter("passwords").equals("")) {
 
 
 Member_DB_Bean manager = Member_DB_Bean.getInstance();
-if(manager.login(mdata)) {
+if(manager.login(mdata, response)) {
 	session.setAttribute("user_id", mdata.getUser_id());
 	session.setAttribute("user_pw", mdata.getPasswords());
 	response.sendRedirect("board.jsp?id="+id+"&pages="+pages);

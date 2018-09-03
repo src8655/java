@@ -15,6 +15,7 @@ public class Member_Data_Bean {
 	private String birthm;
 	private String birthd;
 	private int kakao = 0;
+	private int auto_id = 0;
 	
 	public int getNo() {
 		return no;
@@ -99,6 +100,12 @@ public class Member_Data_Bean {
 	}
 	public void setKakao(int kakao) {
 		this.kakao = kakao;
+	}
+	public int getAuto_id() {
+		return auto_id;
+	}
+	public void setAuto_id(int auto_id) {
+		this.auto_id = auto_id;
 	}
 	
 	

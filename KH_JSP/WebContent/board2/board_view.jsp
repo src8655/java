@@ -8,6 +8,8 @@
 <%@ page import = "board2.Comment_DB_Bean" %>
 <%@ page import = "board2.Comment_Data_Bean" %>
 
+<%@ page import = "board2.Cookie_Bean" %>
+
 
 <%
 String no = request.getParameter("no");
@@ -16,49 +18,13 @@ String no = request.getParameter("no");
 
 <%
 
-Board_DB_Bean manager = Board_DB_Bean.getInstance();
-
-//한번 조회했다는 쿠키입력
-String cookieName = "min_tboard_hit";		//쿠키이름
-Cookie[] cookies = request.getCookies();	//쿠키를 모두 받고
-boolean hasCookie = false;					//쿠키를 가졌는지?
-int pos = 0;
-
-if(cookies != null) {
-for(int i=0;i<cookies.length;i++)
-	if(cookies[i].getName().equals(cookieName)) {
-		hasCookie = true;					//쿠키가 존재하면 true로
-		pos = i;							//위치 기억
-		break;
-	}
-}
-
-if(!hasCookie) {	//쿠키가 없었다면 새로 생성
-	Cookie cookie = new Cookie(cookieName,no);	//새쿠키
-	cookie.setMaxAge(60*60*24);					//24시간 설정
-	response.addCookie(cookie);					//쿠키추가
-	
-	manager.updateHit(Integer.parseInt(no));		//조회수추가
-}else{				//쿠키가 이미 있으면 기존거에 추가
-	String[] splt = cookies[pos].getValue().split("//");
-	boolean hasNo = false;						//이미 있는 쿠키에 현재 NO가 있는지 확인
-	for(int i=0;i<splt.length;i++)
-		if(splt[i].equals(no)) {
-			hasNo = true;						//이미 있으면 true
-			break;
-		}
-	if(!hasNo) {								//쿠키에 존재하지 않을때만 작동
-		String tmp = cookies[pos].getValue()+"//"+no;	//기존에서 추가
-		Cookie cookie = new Cookie(cookieName,tmp);		//새쿠키
-		cookie.setMaxAge(60*60*24);						//24시간 설정
-		response.addCookie(cookie);						//쿠키추가
-		
-		manager.updateHit(Integer.parseInt(no));		//조회수추가
-	}
-}
+//쿠키설정
+Cookie_Bean cmanager = Cookie_Bean.getInstance();
+cmanager.view_cookie(no, request, response);
 
 
 //데이터받기
+Board_DB_Bean manager = Board_DB_Bean.getInstance();
 Board_Data_Bean bdb = manager.getArticle(Integer.parseInt(no));
 
 //1이 아니라는 것은 이 글은 답글이라는것

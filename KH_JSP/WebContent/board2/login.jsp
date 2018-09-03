@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
 <%@ page import = "java.util.*" %>
+<%@ page import = "board2.Cookie_Bean" %>
+
+<%
+
+String user_id = "";	//유저아이디
+
+//쿠키설정
+Cookie_Bean cmanager = Cookie_Bean.getInstance();
+user_id = cmanager.getId(request);	//쿠키에서 아이디를 받아온다
+%>
 
 
 
@@ -15,13 +25,16 @@
   	<fieldset>
   		<legend>회원 로그인</legend>
   		<p class="login_oo_l">
-				<label for="huiz">ID&nbsp;:</label>&nbsp;<input type="text" name="user_id" id="huiz" /><br />
+				<label for="huiz">ID&nbsp;:</label>&nbsp;<input type="text" name="user_id" id="huiz" value="<%=user_id %>" /><br />
 				<label for="hpz">PW&nbsp;:</label>&nbsp;<input type="password" name="passwords" id="hpz" />
 			</p>
   		<p class="login_oo_r">
 				<input type="submit" value="LOGIN" id="login_bu_oo" />
 		</p>
 		</fieldset>
+  		<p class="login_oo_b" style="text-align:left;padding:0 0 0 38px;">
+			<input type="checkbox" name="auto_id" value="1" id="auto_id" <% if(!user_id.equals("")) { %>checked<% } %> /><label for="auto_id">아이디 저장</label>
+		</p>
   		<p class="login_oo_b">
 			<a id="kakao-login-btn"></a>
 			<a href="http://developers.kakao.com/logout"></a>
