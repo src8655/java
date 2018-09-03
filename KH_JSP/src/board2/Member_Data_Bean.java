@@ -5,15 +5,16 @@ public class Member_Data_Bean {
 	private String user_id;
 	private String passwords;
 	private String name;
-	private String addr;
-	private String addr_code;
-	private String phone1;
-	private String phone2;
-	private String phone3;
+	private String addr = " ";
+	private String addr_code = " ";
+	private String phone1 = " ";
+	private String phone2 = " ";
+	private String phone3 = " ";
 	private String email;
 	private String birthy;
 	private String birthm;
 	private String birthd;
+	private int kakao = 0;
 	
 	public int getNo() {
 		return no;
@@ -92,6 +93,12 @@ public class Member_Data_Bean {
 	}
 	public void setBirthd(String birthd) {
 		this.birthd = birthd;
+	}
+	public int getKakao() {
+		return kakao;
+	}
+	public void setKakao(int kakao) {
+		this.kakao = kakao;
 	}
 	
 	

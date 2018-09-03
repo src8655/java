@@ -23,11 +23,12 @@ int datey = cal.get(Calendar.YEAR);
 int datem = cal.get(Calendar.MONTH)+1;
 int dated = cal.get(Calendar.DATE);
 
-
 %>
 
 <h1 class="join_header">필수항목</h1>
 <form action="join_edit_post.jsp" id="join">
+<input type="hidden" name="kakao" value="<%=member_info.getKakao() %>" />
+<input type="hidden" name="no" value="<%=member_info.getNo() %>" />
 <input type="hidden" name="id" value="<%=id %>" />
 <input type="hidden" name="pages" value="<%=pages %>" />
 <input type="hidden" name="user_id" value="<%=member_info.getUser_id() %>" />
@@ -42,7 +43,14 @@ int dated = cal.get(Calendar.DATE);
 	</tr>
 	<tr>
 		<th>비밀번호 <span style="font-weight:bold;color:red;font-size:11px;">(*)</span></th>
-		<td><input type="password" name="passwords" class="jinput" /></td>
+		<td>
+			<% if(member_info.getKakao() == 1) { %>
+			<input type="hidden" name="passwords" class="jinput" value="<%=member_info.getPasswords() %>" />
+			카카오 로그인
+			<% }else{ %>
+			<input type="password" name="passwords" class="jinput" />
+			<% } %>
+		</td>
 	</tr>
 	<tr>
 		<th>이름 <span style="font-weight:bold;color:red;font-size:11px;">(*)</span></th>
@@ -91,22 +99,9 @@ int dated = cal.get(Calendar.DATE);
 		<th>주소</th>
 		<td><input type="text" name="addr" id="addr" style="width:350px;" class="jinput" value="<%=member_info.getAddr() %>" /></td>
 	</tr>
-<%
-String phone1 = member_info.getPhone1();
-String phone2 = member_info.getPhone2();
-String phone3 = member_info.getPhone3();
-
-if(phone1 == null) phone1 = "";
-else if(phone1.equals("null")) phone1 = "";
-if(phone2 == null) phone2 = "";
-else if(phone2.equals("null")) phone2 = "";
-if(phone3 == null) phone3 = "";
-else if(phone3.equals("null")) phone3 = "";
-
-%>
 	<tr>
 		<th>휴대전화 <span style="font-weight:bold;color:red;font-size:11px;"></span></th>
-		<td><input type="text" name="phone1" style="width:60px;" class="jinput" value="<%=phone1 %>" /> - <input type="text" name="phone2" style="width:60px;" class="jinput" value="<%=phone2 %>" /> - <input type="text" name="phone3" style="width:60px;" class="jinput" value="<%=phone3 %>" /></td>
+		<td><input type="text" name="phone1" style="width:60px;" class="jinput" value="<%=member_info.getPhone1() %>" /> - <input type="text" name="phone2" style="width:60px;" class="jinput" value="<%=member_info.getPhone2() %>" /> - <input type="text" name="phone3" style="width:60px;" class="jinput" value="<%=member_info.getPhone3() %>" /></td>
 	</tr>
 </table>
 <div id="join_b"><input type="submit"  value="정보수정" class="btn_st" style="margin:0 auto;" /></div>

@@ -172,7 +172,7 @@ text-decoration:none;
 }
 #login_oo {
 border:2px solid #B4BFCC;
-padding:20px 50px 50px 50px;
+padding:20px 50px 10px 50px;
 width:270px;
 margin:0 auto;
 margin-top:30px;
@@ -228,6 +228,10 @@ width:70px;
 float:right;
 margin:0px;
 padding:0px;
+}
+.login_oo_b {
+text-align:center;
+margin:10px 0 0 0;
 overflow:hidden;
 }
 #login_bu_oo {

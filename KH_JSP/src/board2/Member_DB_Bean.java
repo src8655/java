@@ -24,8 +24,8 @@ public class Member_DB_Bean {
     	try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("insert into MIN_TMEMBER(USER_ID, PASSWORD, NAME, ADDR, ADDR_CODE, PHONE1, PHONE2, PHONE3, EMAIL, BIRTHY, BIRTHM, BIRTHD)"
-						+" values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TMEMBER(USER_ID, PASSWORD, NAME, ADDR, ADDR_CODE, PHONE1, PHONE2, PHONE3, EMAIL, BIRTHY, BIRTHM, BIRTHD, KAKAO)"
+						+" values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, mdb.getUser_id());
 			pstmt.setString(2, mdb.getPasswords());
 			pstmt.setString(3, mdb.getName());
@@ -38,6 +38,7 @@ public class Member_DB_Bean {
 			pstmt.setString(10, mdb.getBirthy());
 			pstmt.setString(11, mdb.getBirthm());
 			pstmt.setString(12, mdb.getBirthd());
+			pstmt.setInt(13, mdb.getKakao());
 			pstmt.executeUpdate();
 			
 			
@@ -85,7 +86,35 @@ public class Member_DB_Bean {
     }
     
     //로그인 가능여부
-    public boolean login(String user_id, String passwords) {
+    public boolean login(Member_Data_Bean mdata) {
+    	
+
+		//날짜 가져오기
+		Calendar cal = Calendar.getInstance();
+
+
+    	//암호화
+    	mdata.setPasswords(Md5Enc.getEncMD5(mdata.getPasswords().getBytes()));
+    	
+    	//카카오 로그인이고 존재하지 않으면
+    	if(mdata.getKakao() == 1 && !login_exist(mdata)) {
+    		//새로 생성
+    		//생일은 임시로 오늘로 설정
+    		mdata.setBirthy(Integer.toString(cal.get(Calendar.YEAR)));
+    		mdata.setBirthm(Integer.toString(cal.get(Calendar.MONTH)));
+    		mdata.setBirthd(Integer.toString(cal.get(Calendar.DATE)));
+    		//email, 우편번호, 주소는 빈칸으로
+    		mdata.setEmail(" ");
+    		mdata.setAddr(" ");
+    		mdata.setAddr_code(" ");
+    		insert(mdata);
+    	}
+
+    	return login_exist(mdata);
+    }
+    //회원 존재하는지 확인
+    public boolean login_exist(Member_Data_Bean mdata) {
+    	
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	ResultSet rs = null;
@@ -96,8 +125,8 @@ public class Member_DB_Bean {
 			conn = getConnection();
 			
 			pstmt = conn.prepareStatement("select count(*) from MIN_TMEMBER where USER_ID=? and PASSWORD=?");
-			pstmt.setString(1, user_id);
-			pstmt.setString(2, passwords);
+			pstmt.setString(1, mdata.getUser_id());
+			pstmt.setString(2, mdata.getPasswords());
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) count = rs.getInt(1);
@@ -196,6 +225,7 @@ public class Member_DB_Bean {
 				mdata.setBirthy(rs.getString("BIRTHY"));
 				mdata.setBirthm(rs.getString("BIRTHM"));
 				mdata.setBirthd(rs.getString("BIRTHD"));
+				mdata.setKakao(rs.getInt("KAKAO"));
 			}
 			
 		} catch (Exception e) {
@@ -214,8 +244,15 @@ public class Member_DB_Bean {
     
     
     //정보수정
-    public boolean update(Member_Data_Bean mdb, int no) {
-    	Member_Data_Bean mdata = getArticle(no);	//게시글정보 가져오기
+    public boolean update(Member_Data_Bean mdb) {
+    	
+    	//카카오 로그인 아닐때만 암호화
+    	if(mdb.getKakao() != 1) {
+	    	//암호화
+	    	mdb.setPasswords(Md5Enc.getEncMD5(mdb.getPasswords().getBytes()));
+    	}
+    	
+    	Member_Data_Bean mdata = getArticle(mdb.getNo());	//게시글정보 가져오기
     	
     	//비밀번호가 다를때 종료
     	if(!mdata.getPasswords().equals(mdb.getPasswords()))
@@ -242,7 +279,7 @@ public class Member_DB_Bean {
 			pstmt.setString(8, mdb.getBirthy());
 			pstmt.setString(9, mdb.getBirthm());
 			pstmt.setString(10, mdb.getBirthd());
-			pstmt.setInt(11, no);
+			pstmt.setInt(11, mdb.getNo());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {

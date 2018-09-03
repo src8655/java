@@ -47,15 +47,13 @@ if(request.getParameter("email").equals("")) {
 
 
 
-//암호화
-mdata.setPasswords(Md5Enc.getEncMD5(mdata.getPasswords().getBytes()));
 
 
 //회원no전달
 
 Member_DB_Bean manager = Member_DB_Bean.getInstance();
 
-if(!manager.update(mdata, member_info.getNo())) {
+if(!manager.update(mdata)) {
 	out.println("<script>");
 	out.println("alert('비밀번호가 다릅니다.')");
 	out.println("history.go(-1)");

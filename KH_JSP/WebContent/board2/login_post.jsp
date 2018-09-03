@@ -28,13 +28,11 @@ if(request.getParameter("passwords").equals("")) {
 	return;
 }
 
-//암호화
-mdata.setPasswords(Md5Enc.getEncMD5(mdata.getPasswords().getBytes()));
 
 
 
 Member_DB_Bean manager = Member_DB_Bean.getInstance();
-if(manager.login(mdata.getUser_id(), mdata.getPasswords())) {
+if(manager.login(mdata)) {
 	session.setAttribute("user_id", mdata.getUser_id());
 	session.setAttribute("user_pw", mdata.getPasswords());
 	response.sendRedirect("board.jsp?id="+id+"&pages="+pages);
