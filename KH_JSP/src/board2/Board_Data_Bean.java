@@ -11,6 +11,8 @@ public class Board_Data_Bean {
 	private int no;
 	private int comments;
 	private int rt_no;
+	private String file1;
+	private String file2;
 	
 	public String getSubject() {
 		return subject;
@@ -71,6 +73,18 @@ public class Board_Data_Bean {
 	}
 	public void setRt_no(int rt_no) {
 		this.rt_no = rt_no;
+	}
+	public String getFile1() {
+		return file1;
+	}
+	public void setFile1(String file1) {
+		this.file1 = file1;
+	}
+	public String getFile2() {
+		return file2;
+	}
+	public void setFile2(String file2) {
+		this.file2 = file2;
 	}
 	
 }

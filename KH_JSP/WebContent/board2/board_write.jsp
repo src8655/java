@@ -19,7 +19,7 @@ if(request.getParameter("rt_no") != null) {
 
 <%@ include file="board_bar.jsp" %>
 
-<form name="wt_b" action="board_write_post.jsp" method="post">
+<form action="board_write_post.jsp?id=<%=id %>" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt()">
 <input type="hidden" name="id" value="<%=id %>" />
 <input type="hidden" name="searchs" value="<%=searchs %>" />
 <input type="hidden" name="searchs_value" value="<%=searchs_value %>" />
@@ -29,7 +29,7 @@ if(request.getParameter("rt_no") != null) {
 <col width="410" />
 	<tr class="boards_t">
 		<th style="background:#d5e9ff;">제목</th>
-		<th><input type="text" name="subject" value="<%=subject %>" style="width:98%;" /></th>
+		<th style="padding:0 0 0 3px;" align="left"><input type="text" name="subject" value="<%=subject %>" style="width:98%;" /></th>
 	</tr>
 <% 
 String name_tmp = "";
@@ -47,10 +47,24 @@ if(member_info != null) {
 		<th style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">비밀번호</th>
 		<td style="padding:0 0 0 3px;"><input type="password" name="passwords" value="<%=passwords_tmp %>" /></td>
 	</tr>
-</table>
-<table cellpadding="7" cellspacing="0" style="width:100%;">
 	<tr>
-		<td align="center"><textarea name="memo" rows="100" cols="100" class="b_memo"></textarea></td>
+		<td align="center" colspan="2">
+			<textarea name="memo" rows="100" cols="100" class="b_memo" id="memo"></textarea>
+			<script>
+                CKEDITOR.replace( 'memo', {
+	            	uiColor : '#d5e9ff',
+	            	height : 350
+                });
+            </script>
+		</td>
+	</tr>
+	<tr>
+		<th style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">파일첨부1</th>
+		<td style="padding:0 0 0 3px;"><input type="file" name="file1" style="width:98%;" /></td>
+	</tr>
+	<tr>
+		<th style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">파일첨부2</th>
+		<td style="padding:0 0 0 3px;"><input type="file" name="file2" style="width:98%;" /></td>
 	</tr>
 </table>
 

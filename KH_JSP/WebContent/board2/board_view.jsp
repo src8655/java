@@ -32,7 +32,8 @@ String rt_no = no;
 if(bdb.getRt_no() != 1)	rt_no = Integer.toString(bdb.getRt_no());
 
 //줄바꿈
-String memos = bdb.getMemo().replaceAll("\n", "<br />");
+//String memos = bdb.getMemo().replaceAll("\n", "<br />");
+String memos = bdb.getMemo();
 %>
 
 <%@ include file="board_bar.jsp" %>
@@ -55,8 +56,20 @@ String memos = bdb.getMemo().replaceAll("\n", "<br />");
 	  <td align="right" style="padding:0 10px 0 0;font-weight:bold;"><%=bdb.getDates() %></td>
 	</tr>
 	<tr>
-		<td colspan="4" style="padding:30px 7px 30px 7px;"><%=memos %></td>
+		<td colspan="4" style="padding:30px 7px 30px 7px;" class="b_memos"><%=memos %></td>
 	</tr>
+<% if(bdb.getFile1() != null) { %>	
+	<tr>
+		<th>파일첨부1</th>
+		<td colspan="3"><a href="./upload/<%=bdb.getFile1() %>"><%=bdb.getFile1() %></a></td>
+	</tr>
+<% } %>
+<% if(bdb.getFile2() != null) { %>	
+	<tr>
+		<th>파일첨부2</th>
+		<td colspan="3"><a href="./upload/<%=bdb.getFile2() %>"><%=bdb.getFile2() %></a></td>
+	</tr>
+<% } %>
 </table>
 
 
@@ -122,8 +135,8 @@ for(int i=0;i<list.size();i++) {
 		<td style="border-top:1px solid #122942;" colspan="2"><input type="password" name="passwords" value="<%=passwords_tmp %>" /></td>
 	</tr>
 	<tr>
-		<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="width:98%;height:40px;"></textarea></td>
-		<td style="width:80px;border-left:none;border-right:none;"><input type="submit" value="등록" style="background:#d5e9ff;border:1px solid #122942;width:70px;height:45px;font-size:12px;font-weight:bold;" /></td>
+		<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="border:1px solid #b8c0cc;width:98%;height:40px;"></textarea></td>
+		<td style="text-align:center;width:80px;border-left:none;border-right:none;"><input type="submit" value="등록" style="background:#d5e9ff;border:1px solid #122942;width:98%;height:45px;font-size:12px;font-weight:bold;" /></td>
 	</tr>
 </table>
 </form>

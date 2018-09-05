@@ -2,57 +2,30 @@
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
 <%@ page import = "board2.Board_DB_Bean" %>
+<%@ page import = "java.io.*" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest,
+                   com.oreilly.servlet.multipart.DefaultFileRenamePolicy,
+                   java.util.*" 
+%>
 <jsp:useBean id="bdata" class="board2.Board_Data_Bean">
     <jsp:setProperty name="bdata" property="*" />
 </jsp:useBean>
+
 <%
 
-if(request.getParameter("subject").equals("")) {
-	out.println("<script>");
-	out.println("alert('제목을 입력하세요.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-if(request.getParameter("name").equals("")) {
-	out.println("<script>");
-	out.println("alert('이름을 입력하세요.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-if(request.getParameter("passwords").equals("")) {
-	out.println("<script>");
-	out.println("alert('비밀번호를 입력하세요.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-if(request.getParameter("memo").equals("")) {
-	out.println("<script>");
-	out.println("alert('내용을 입력하세요.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-
-//암호화
-bdata.setPasswords(Md5Enc.getEncMD5(bdata.getPasswords().getBytes()));
-
-
 Board_DB_Bean manager = Board_DB_Bean.getInstance();
-manager.insert(bdata);
-
-
-
-
+if(!manager.insert(request)) {
+	out.println("<script>");
+	out.println("alert('작성 실패')");
+	out.println("history.go(-1)");
+	out.println("</script>");
+	
+	return;
+}
 
 
 response.sendRedirect("board.jsp?id="+id+"&searchs="+searchs+"&searchs_value="+searchs_value);
+
 %>
 
 <%@ include file="foot.jsp" %>

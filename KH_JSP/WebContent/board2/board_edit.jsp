@@ -13,7 +13,7 @@ Board_Data_Bean bdata = bdb.getArticle(Integer.parseInt(no));
 
 <%@ include file="board_bar.jsp" %>
 
-<form name="wt_b" action="board_edit_post.jsp" method="post">
+<form action="board_edit_post.jsp?id=<%=id %>&no=<%=no %>&pages=<%=pages %>" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt()">
 <input type="hidden" name="id" value="<%=id %>" />
 <input type="hidden" name="pages" value="<%=pages %>" />
 <input type="hidden" name="no" value="<%=no %>" />
@@ -22,7 +22,7 @@ Board_Data_Bean bdata = bdb.getArticle(Integer.parseInt(no));
 <col width="410" />
 	<tr class="boards_t">
 		<th style="background:#d5e9ff;">제목</th>
-		<th><input type="text" name="subject" style="width:98%;" value="<%=bdata.getSubject() %>" /></th>
+		<th style="padding:0 0 0 3px;" align="left"><input type="text" name="subject" style="width:98%;" value="<%=bdata.getSubject() %>" /></th>
 	</tr>
 <% 
 String name_tmp = bdata.getName();
@@ -41,10 +41,42 @@ if(member_info != null) {
 		<td style="padding:0 0 0 3px;"><input type="password" name="passwords" value="<%=passwords_tmp %>" /></td>
 	</tr>
 	
-</table>
-<table cellpadding="7" cellspacing="0" style="width:100%;">
 	<tr>
-		<td align="center"><textarea name="memo" rows="100" cols="100" class="b_memo"><%=bdata.getMemo() %></textarea></td>
+		<td align="center" colspan="2">
+		<textarea name="memo" rows="200" cols="200" class="b_memo" id="memo"><%=bdata.getMemo() %></textarea>
+			<script>
+				CKEDITOR.replace( 'memo', {
+	            	uiColor : '#d5e9ff',
+	            	height : 350
+	            });
+            </script>
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<th rowspan="2" style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">파일첨부1</th>
+		<% if(bdata.getFile1() != null) { %>
+		<td style="padding:0 0 0 3px;height:30px;line-height:30px;">
+			<input type="checkbox" name="file1_del" value="del" style="width:15px;height:15px;" />
+			<%=bdata.getFile1() %>
+		</td>
+		<% } %>
+	</tr>
+	<tr>
+		<td style="padding:0 0 0 3px;"><input type="file" name="file1" style="width:98%;" /></td>
+	</tr>
+	<tr>
+		<th rowspan="2" style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">파일첨부2</th>
+		<% if(bdata.getFile2() != null) { %>
+		<td style="padding:0 0 0 3px;height:30px;line-height:30px;">
+			<input type="checkbox" name="file2_del" value="del" style="width:15px;height:15px;" />
+			<%=bdata.getFile2() %>
+		</td>
+		<% } %>
+	</tr>
+	<tr>
+		<td style="padding:0 0 0 3px;"><input type="file" name="file2" style="width:98%;" /></td>
 	</tr>
 </table>
 

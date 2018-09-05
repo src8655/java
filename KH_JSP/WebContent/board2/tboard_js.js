@@ -49,3 +49,83 @@ function btn_find_daum() {
         }
     }).open();
 }
+
+
+//게시판 체크
+function checkIt() {
+	var userinput = eval("document.userinput");
+	if(!userinput.subject.value) {
+		alert("제목을 입력하세요");
+		return false;
+	}
+	if(!userinput.name.value) {
+		alert("이름을 입력하세요");
+		return false;
+	}
+	if(!userinput.passwords.value) {
+		alert("비밀번호를 입력하세요");
+		return false;
+	}
+}
+
+
+
+function submits(aa) {
+  if(document.wt_b.subject.value=="") {
+    alert("제목을 입력해주세요.");
+  }else if(document.wt_b.name.value=="") {
+    alert("이름을 입력해주세요.");
+  }else if(document.wt_b.passworde.value=="") {
+    alert("비멀번호를 입력해주세요.");
+  }else if(document.wt_b.memo.value=="") {
+    alert("내용을 입력해주세요.");
+  }else if(document.wt_b.hiddens.value=="") {
+    alert("자동등록방지를 입력해주세요.");
+  }else if(document.wt_b.hiddens.value!=aa) {
+    alert("자동등록방지가 틀렸습니다.");
+  }else{
+    document.wt_b.submit();
+  }
+}
+function submits2() {
+  if(document.ed_b.subject.value=="") {
+    alert("제목을 입력해주세요.");
+  }else if(document.ed_b.name.value=="") {
+    alert("이름을 입력해주세요.");
+  }else if(document.ed_b.passworde.value=="") {
+    alert("비멀번호를 입력해주세요.");
+  }else if(document.ed_b.memo.value=="") {
+    alert("내용을 입력해주세요.");
+  }else{
+    document.ed_b.submit();
+  }
+}
+function submits3(aa) {
+  if(document.cm_b.name.value=="") {
+    alert("이름을 입력해주세요.");
+  }else if(document.cm_b.passz.value=="") {
+    alert("비멀번호를 입력해주세요.");
+  }else if(document.cm_b.memo.value=="") {
+    alert("내용을 입력해주세요.");
+  }else if(document.cm_b.hiddens.value=="") {
+    alert("자동등록방지를 입력해주세요.");
+  }else if(document.cm_b.hiddens.value!=aa) {
+    alert("자동등록방지가 틀렸습니다.");
+  }else{
+    document.cm_b.submit();
+  }
+}
+
+
+$(function(){
+	var wd = $(".xxxxx .photo ul li").width();
+	var ln = $(".xxxxx .photo ul li").length;
+	$(".xxxxx .photo ul").css("width",wd * ln);	
+	$(".xxxxx .btn li").mouseover(function(){	
+		pos = $(this).parent().parent().find(".photo li").eq($(this).index()).position().left;		
+		$(this).parent().parent().find(".photo").stop().animate({'scrollLeft':pos},500);	
+		$(this).parent().parent().find(".btn li").removeClass("on");
+		$(this).addClass("on");
+	});
+	
+});

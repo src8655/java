@@ -1,11 +1,18 @@
 package board2;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 public class Board_DB_Bean {
+	public static String savePath = "/board2/upload/";	//파일저장 상대경로
 	private static Board_DB_Bean instance = new Board_DB_Bean();
     public static Board_DB_Bean getInstance() {
         return instance;
@@ -16,21 +23,98 @@ public class Board_DB_Bean {
     	return DriverManager.getConnection(jdbcDriver);
     }
     
-    public void insert(Board_Data_Bean bdb) {
+    //데이터 삽입 (실패시 false 리턴)
+    public boolean insert(HttpServletRequest request) {
+    	MultipartRequest multi = null;
+    	String savePaths=request.getRealPath(savePath);	//저장위치 절대경로
+    	int sizeLimit = 10 * 1024 * 1024;						 	//10메가 제한
+    	String filename1 = null;	//file1이름
+    	String filename2 = null;	//file2이름
+    	
+
+		//날짜 가져오기
+		Calendar cal = Calendar.getInstance();
+		String date = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE);
+
+    	
+    	try{
+    		//request
+    		multi=new MultipartRequest(request, savePaths, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
+
+    		filename1 = multi.getFilesystemName("file1");	//파일1이름
+    		filename2 = multi.getFilesystemName("file2");	//파일2이름
+    		
+    		//파일1이름 변경작업
+    		if(filename1 != null) {
+    			int cnt = 1;
+    			File file1 = null;
+    			
+    			//이미 존재한 파일명이면 카운트 1씩 추가
+    			do {
+    				filename1 = multi.getFilesystemName("file1");
+	        		file1 = multi.getFile("file1");
+	        		filename1 = date+"_"+cnt+"_"+filename1;
+	        		cnt++;
+    			}while(!file1.renameTo(new File(savePaths+"/"+filename1)));
+    		}
+
+    		//파일2이름 변경작업
+    		if(filename2 != null) {
+    			int cnt = 1;
+    			File file2 = null;
+    			
+    			//이미 존재한 파일명이면 카운트 1씩 추가
+    			do {
+    				filename2 = multi.getFilesystemName("file2");
+	        		file2 = multi.getFile("file2");
+	        		filename2 = date+"_"+cnt+"_"+filename2;
+	        		cnt++;
+    			}while(!file2.renameTo(new File(savePaths+"/"+filename2)));
+    		}
+    		
+    	} catch(Exception e) {
+    		//사이즈 초과
+    		if(e.getMessage().indexOf("exceeds limit") > -1) return false;
+    	}
+    	
+    	//null일때
+    	if(multi.getParameter("subject") == null)	return false;
+    	if(multi.getParameter("subject") == null)	return false;
+    	if(multi.getParameter("name") == null) 		return false;
+    	if(multi.getParameter("passwords") == null) return false;
+    	if(multi.getParameter("memo") == null) 		return false;
+
+    	//공백일때
+    	if(multi.getParameter("subject").equals(""))	return false;
+    	if(multi.getParameter("name").equals("")) 		return false;
+    	if(multi.getParameter("passwords").equals("")) 	return false;
+    	if(multi.getParameter("memo").equals("")) 		return false;
+    	
+    	//데이터 담기
+    	Board_Data_Bean bdb = new Board_Data_Bean();
+    	bdb.setSubject(multi.getParameter("subject"));
+    	bdb.setName(multi.getParameter("name"));
+    	bdb.setPasswords(multi.getParameter("passwords"));
+    	bdb.setMemo(multi.getParameter("memo"));
+    	bdb.setId(multi.getParameter("id"));
+    	bdb.setRt_no(Integer.parseInt(multi.getParameter("rt_no")));
+    	bdb.setFile1(filename1);
+    	bdb.setFile2(filename2);
+    	
+    	//암호화
+    	bdb.setPasswords(Md5Enc.getEncMD5(bdb.getPasswords().getBytes()));
+    	
+    	
+    	
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	ResultSet rs = null;
-    	
     	try {
 			conn = getConnection();
 			
-			//날짜 가져오기
-			Calendar cal = Calendar.getInstance();
-			String date = cal.get(Calendar.YEAR)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.DATE);
-
 			if(bdb.getRt_no() == 1) {
-				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS)"
-							+" values(?,?,?,?,?,?,?,?)");
+				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, FILE1, FILE2)"
+							+" values(?,?,?,?,?,?,?,?,?,?)");
 				pstmt.setString(1, bdb.getSubject());
 				pstmt.setString(2, bdb.getMemo());
 				pstmt.setString(3, bdb.getName());
@@ -39,6 +123,8 @@ public class Board_DB_Bean {
 				pstmt.setInt(6, 0);
 				pstmt.setString(7, bdb.getId());
 				pstmt.setInt(8, 0);
+				pstmt.setString(9, bdb.getFile1());
+				pstmt.setString(10, bdb.getFile2());
 				pstmt.executeUpdate();
 			}else {
 				pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where rt_no=? order by no asc");
@@ -51,8 +137,8 @@ public class Board_DB_Bean {
 					rt_no_count = rs.getInt("NO");	//가장 마지막에 있는 답글을 받아옴
 				rt_no_count--;
 				
-				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(NO, SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, RT_NO)"
-						+" values(?,?,?,?,?,?,?,?,?,?)");
+				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(NO, SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, RT_NO, FILE1, FILE2)"
+						+" values(?,?,?,?,?,?,?,?,?,?,?,?)");
 				pstmt.setInt(1, rt_no_count);
 				pstmt.setString(2, bdb.getSubject());
 				pstmt.setString(3, bdb.getMemo());
@@ -63,11 +149,14 @@ public class Board_DB_Bean {
 				pstmt.setString(8, bdb.getId());
 				pstmt.setInt(9, 0);
 				pstmt.setInt(10, bdb.getRt_no());
+				pstmt.setString(11, bdb.getFile1());
+				pstmt.setString(12, bdb.getFile2());
 				pstmt.executeUpdate();
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}finally {
 			
 			try {
@@ -76,6 +165,8 @@ public class Board_DB_Bean {
 				if(conn != null) conn.close();
 			} catch (SQLException e) {}
 		}
+    	
+    	return true;
     }
     public int getCount(String id) {
     	Connection conn = null;
@@ -180,6 +271,8 @@ public class Board_DB_Bean {
 				bdb.setNo(rs.getInt("NO"));
 				bdb.setComments(rs.getInt("COMMENTS"));
 				bdb.setRt_no(rs.getInt("RT_NO"));
+				bdb.setFile1(rs.getString("FILE1"));
+				bdb.setFile2(rs.getString("FILE2"));
 				list.add(bdb);
 			}
 			
@@ -221,6 +314,8 @@ public class Board_DB_Bean {
 				bdb.setDates(rs.getString("DATES"));
 				bdb.setNo(rs.getInt("NO"));
 				bdb.setRt_no(rs.getInt("RT_NO"));
+				bdb.setFile1(rs.getString("FILE1"));
+				bdb.setFile2(rs.getString("FILE2"));
 			}
 			
 		} catch (Exception e) {
@@ -357,12 +452,113 @@ public class Board_DB_Bean {
     }
     
     //수정하기
-    public boolean update(Board_Data_Bean bd, int no) {
-    	Board_Data_Bean bdata = getArticle(no);	//게시글정보 가져오기
+    public boolean update(HttpServletRequest request) {
+    	MultipartRequest multi = null;
+    	String savePaths=request.getRealPath(savePath);	//저장위치 절대경로
+    	int sizeLimit = 10 * 1024 * 1024;						 	//10메가 제한
+    	String filename1 = null;	//file1이름
+    	String filename2 = null;	//file2이름
+    	
+
+		//날짜 가져오기
+		Calendar cal = Calendar.getInstance();
+		String date = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE);
+
+    	
+    	try{
+    		//request
+    		multi=new MultipartRequest(request, savePaths, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
+
+    		filename1 = multi.getFilesystemName("file1");	//파일1이름
+    		filename2 = multi.getFilesystemName("file2");	//파일2이름
+    		
+    		//파일1이름 변경작업
+    		if(filename1 != null) {
+    			int cnt = 1;
+    			File file1 = null;
+    			
+    			//이미 존재한 파일명이면 카운트 1씩 추가
+    			do {
+    				filename1 = multi.getFilesystemName("file1");
+	        		file1 = multi.getFile("file1");
+	        		filename1 = date+"_"+cnt+"_"+filename1;
+	        		cnt++;
+    			}while(!file1.renameTo(new File(savePaths+"/"+filename1)));
+    		}
+
+    		//파일2이름 변경작업
+    		if(filename2 != null) {
+    			int cnt = 1;
+    			File file2 = null;
+    			
+    			//이미 존재한 파일명이면 카운트 1씩 추가
+    			do {
+    				filename2 = multi.getFilesystemName("file2");
+	        		file2 = multi.getFile("file2");
+	        		filename2 = date+"_"+cnt+"_"+filename2;
+	        		cnt++;
+    			}while(!file2.renameTo(new File(savePaths+"/"+filename2)));
+    		}
+    		
+    	} catch(Exception e) {
+    		//사이즈 초과
+    		if(e.getMessage().indexOf("exceeds limit") > -1) return false;
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	//null일때
+    	if(multi.getParameter("subject") == null)	return false;
+    	if(multi.getParameter("name") == null) 		return false;
+    	if(multi.getParameter("passwords") == null) return false;
+    	if(multi.getParameter("memo") == null) 		return false;
+
+    	//공백일때
+    	if(multi.getParameter("subject").equals(""))	return false;
+    	if(multi.getParameter("name").equals("")) 		return false;
+    	if(multi.getParameter("passwords").equals("")) 	return false;
+    	if(multi.getParameter("memo").equals("")) 		return false;
+    	
+    	//데이터 담기
+    	Board_Data_Bean bdb = new Board_Data_Bean();
+    	bdb.setSubject(multi.getParameter("subject"));
+    	bdb.setName(multi.getParameter("name"));
+    	bdb.setPasswords(multi.getParameter("passwords"));
+    	bdb.setMemo(multi.getParameter("memo"));
+    	bdb.setFile1(filename1);
+    	bdb.setFile2(filename2);
+    	bdb.setNo(Integer.parseInt(multi.getParameter("no")));
+    	
+    	//암호화
+    	bdb.setPasswords(Md5Enc.getEncMD5(bdb.getPasswords().getBytes()));
+    	
+    	
+    	
+    	
+    	Board_Data_Bean bdata = getArticle(bdb.getNo());	//게시글정보 가져오기
     	
     	//비밀번호가 다를때 종료
-    	if(!bdata.getPasswords().equals(bd.getPasswords()))
+    	if(!bdata.getPasswords().equals(bdb.getPasswords()))
     		return false;
+
+    	
+    	String file_tmp1 = "";
+    	String file_tmp2 = "";
+    	
+    	//삭제 명령시
+    	if(multi.getParameter("file1_del") != null) file_tmp1 = ",FILE1=''";
+    	if(multi.getParameter("file2_del") != null) file_tmp2 = ",FILE2=''";
+    	
+    	
+    	//file1이 존재하면
+    	if(filename1 != null) file_tmp1 = ",FILE1='"+filename1+"'";
+    	
+
+    	//file2이 존재하면
+    	if(filename2 != null) file_tmp2 = ",FILE2='"+filename2+"'";
     	
     	
     	Connection conn = null;
@@ -371,15 +567,11 @@ public class Board_DB_Bean {
     	try {
 			conn = getConnection();
 			
-			//날짜 가져오기
-			Calendar cal = Calendar.getInstance();
-			String date = cal.get(Calendar.YEAR)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.DATE);
-
-			pstmt = conn.prepareStatement("update MIN_TBOARD_DATA set SUBJECT=?,NAME=?,MEMO=? where NO=?");
-			pstmt.setString(1, bd.getSubject());
-			pstmt.setString(2, bd.getName());
-			pstmt.setString(3, bd.getMemo());
-			pstmt.setInt(4, no);
+			pstmt = conn.prepareStatement("update MIN_TBOARD_DATA set SUBJECT=?,NAME=?,MEMO=?"+file_tmp1+file_tmp2+" where NO=?");
+			pstmt.setString(1, bdb.getSubject());
+			pstmt.setString(2, bdb.getName());
+			pstmt.setString(3, bdb.getMemo());
+			pstmt.setInt(4, bdb.getNo());
 			pstmt.executeUpdate();
 			
 			return true;

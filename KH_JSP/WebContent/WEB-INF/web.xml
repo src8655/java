@@ -19,16 +19,23 @@
     <servlet-name>NowServlet</servlet-name>
     <url-pattern>/NowServlet</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
-	<servlet-name>DBCPInit</servlet-name>
-	<servlet-class>kh.loader.DBCPInit</servlet-class>
-	<init-param>
-		<param-name>jdbcdriver</param-name>
-		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
-	</init-param>
-	<load-on-startup>1</load-on-startup>
+    <servlet-name>DBCPInit</servlet-name>
+    <servlet-class>kh.loader.DBCPInit</servlet-class>
+    <init-param>
+      <param-name>jdbcdriver</param-name>
+      <param-value>oracle.jdbc.driver.OracleDriver</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
-  
+  <servlet>
+    <description></description>
+    <display-name>downloadAction</display-name>
+    <servlet-name>downloadAction</servlet-name>
+    <servlet-class>board2.downloadAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>downloadAction</servlet-name>
+    <url-pattern>/downloadAction</url-pattern>
+  </servlet-mapping>
 </web-app>
