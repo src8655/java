@@ -108,6 +108,33 @@ for(int i=0;i<list.size();i++) {
 			<% }else{ %>
 			<a href="board_comment_del_post.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
 			<% } %>
+			<a href="#100" onclick="shsh('cmm<%=data.getNo() %>')">[답글]</a>
+			
+			
+			<form action="board_comment_post.jsp" id="cmm<%=data.getNo() %>" style="display:none;">
+			<input type="hidden" name="rt_no" value="<%=data.getNo() %>" />
+			<input type="hidden" name="data_no" value="<%=no %>" />
+			<input type="hidden" name="id" value="<%=id %>" />
+			<input type="hidden" name="pages" value="<%=pages %>" />
+			<table cellpadding="7" cellspacing="0" class="comments">
+			<col width="20%" />
+			<col width="30%" />
+			<col width="20%" />
+			<col width="20%" />
+				<tr <% if(member_info != null) { %>style="display:none;"<% } %>>
+					<th style="background:#d5e9ff;border-left:1px solid #bbbbbb;">이름</th>
+					<td style="border-top:1px solid #122942;"><input type="text" name="name" value="<%=name_tmp %>" /></td>
+					<th style="background:#d5e9ff;">비밀번호</th>
+					<td style="border-top:1px solid #122942;" colspan="2"><input type="password" name="passwords" value="<%=passwords_tmp %>" /></td>
+				</tr>
+				<tr>
+					<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="border:1px solid #b8c0cc;width:98%;height:40px;"></textarea></td>
+					<td style="text-align:center;width:80px;border-left:none;border-right:none;"><input type="submit" value="등록" style="background:#d5e9ff;border:1px solid #122942;width:98%;height:45px;font-size:12px;font-weight:bold;" /></td>
+				</tr>
+			</table>
+			</form>
+			
+			
 		</td>
 	</tr>
 <%

@@ -7,6 +7,7 @@ public class Comment_Data_Bean {
 	private String dates;
 	private int no;
 	private int data_no;
+	private int rt_no = 1;
 	
 	public String getName() {
 		return name;
@@ -43,6 +44,12 @@ public class Comment_Data_Bean {
 	}
 	public void setData_no(int data_no) {
 		this.data_no = data_no;
+	}
+	public int getRt_no() {
+		return rt_no;
+	}
+	public void setRt_no(int rt_no) {
+		this.rt_no = rt_no;
 	}
 	
 	

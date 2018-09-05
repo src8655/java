@@ -18,7 +18,6 @@ if(member_info == null) {
 
 
 //날짜 가져오기
-Calendar cal = Calendar.getInstance();
 int datey = cal.get(Calendar.YEAR);
 int datem = cal.get(Calendar.MONTH)+1;
 int dated = cal.get(Calendar.DATE);

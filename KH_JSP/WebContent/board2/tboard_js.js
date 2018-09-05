@@ -129,3 +129,10 @@ $(function(){
 	});
 	
 });
+function shsh(assa) {
+   	if(document.getElementById(assa).style.display == "none") {
+   		document.getElementById(assa).style.display = "";
+   	}else{
+   		document.getElementById(assa).style.display = "none";
+   	}
+   }
