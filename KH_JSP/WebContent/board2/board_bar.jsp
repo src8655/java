@@ -21,10 +21,10 @@ int board_paging = (int)Math.ceil((double)board_total/(double)board_lengths);	//
 <% if(member_info == null) {%>
 		<a href="login.jsp?id=<%=id %>&pages=<%=pages %>">로그인</a>
 		&nbsp;
-		<a href="join.jsp?id=<%=id %>&pages=<%=pages %>">회원가입</a>
+		<a href="join.jsp?id=join&pages=<%=pages %>">회원가입</a>
 <% }else{%>
 		<span style="font-weight:bold;"><%=member_info.getName() %></span>님 환영합니다.
-		<a href="join_edit.jsp?id=<%=id %>&pages=<%=pages %>">[정보수정]</a>
+		<a href="join_edit.jsp?id=join&pages=<%=pages %>">[정보수정]</a>
 		<a href="logout.jsp?id=<%=id %>&pages=<%=pages %>">[로그아웃]</a>
 <% }%>
 	</p>

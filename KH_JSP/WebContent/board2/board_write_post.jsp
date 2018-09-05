@@ -14,7 +14,7 @@
 <%
 
 Board_DB_Bean manager = Board_DB_Bean.getInstance();
-if(!manager.insert(request)) {
+if(!manager.insert(request, session)) {
 	out.println("<script>");
 	out.println("alert('작성 실패')");
 	out.println("history.go(-1)");

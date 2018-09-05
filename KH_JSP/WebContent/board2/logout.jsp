@@ -7,7 +7,9 @@
 session.setAttribute("user_id", null);
 session.setAttribute("user_pw", null);
 
-response.sendRedirect("board.jsp?id="+id+"&pages="+pages);
+
+response.sendRedirect("index.jsp");
+//response.sendRedirect("board.jsp?id="+id+"&pages="+pages);
 
 
 %>

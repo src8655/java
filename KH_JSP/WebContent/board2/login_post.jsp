@@ -35,7 +35,10 @@ Member_DB_Bean manager = Member_DB_Bean.getInstance();
 if(manager.login(mdata, response)) {
 	session.setAttribute("user_id", mdata.getUser_id());
 	session.setAttribute("user_pw", mdata.getPasswords());
-	response.sendRedirect("board.jsp?id="+id+"&pages="+pages);
+	
+	
+	response.sendRedirect("index.jsp");
+	//response.sendRedirect("board.jsp?id="+id+"&pages="+pages);
 }else{
 	out.println("<script>");
 	out.println("alert('아이디 또는 비밀번호가 틀렸습니다.')");

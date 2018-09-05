@@ -26,8 +26,8 @@ public class Member_DB_Bean {
     	try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("insert into MIN_TMEMBER(USER_ID, PASSWORD, NAME, ADDR, ADDR_CODE, PHONE1, PHONE2, PHONE3, EMAIL, BIRTHY, BIRTHM, BIRTHD, KAKAO)"
-						+" values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TMEMBER(USER_ID, PASSWORD, NAME, ADDR, ADDR_CODE, PHONE1, PHONE2, PHONE3, EMAIL, BIRTHY, BIRTHM, BIRTHD, KAKAO, LEV)"
+						+" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, mdb.getUser_id());
 			pstmt.setString(2, mdb.getPasswords());
 			pstmt.setString(3, mdb.getName());
@@ -41,6 +41,7 @@ public class Member_DB_Bean {
 			pstmt.setString(11, mdb.getBirthm());
 			pstmt.setString(12, mdb.getBirthd());
 			pstmt.setInt(13, mdb.getKakao());
+			pstmt.setInt(14, 2);
 			pstmt.executeUpdate();
 			
 			
@@ -184,6 +185,7 @@ public class Member_DB_Bean {
 				mdata.setBirthy(rs.getString("BIRTHY"));
 				mdata.setBirthm(rs.getString("BIRTHM"));
 				mdata.setBirthd(rs.getString("BIRTHD"));
+				mdata.setLev(rs.getInt("LEV"));
 			}
 			
 		} catch (Exception e) {
@@ -232,6 +234,7 @@ public class Member_DB_Bean {
 				mdata.setBirthm(rs.getString("BIRTHM"));
 				mdata.setBirthd(rs.getString("BIRTHD"));
 				mdata.setKakao(rs.getInt("KAKAO"));
+				mdata.setLev(rs.getInt("LEV"));
 			}
 			
 		} catch (Exception e) {

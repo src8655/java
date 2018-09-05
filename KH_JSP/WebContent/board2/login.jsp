@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="head.jsp" %>
+<%@ include file="head2.jsp" %>
 <%@ page import = "java.util.*" %>
 <%@ page import = "board2.Cookie_Bean" %>
 
@@ -96,4 +96,4 @@ String.prototype.replaceAll = function(str1, str2)
     });
   //]]>
 </script>
-<%@ include file="foot.jsp" %>
+<%@ include file="foot2.jsp" %>

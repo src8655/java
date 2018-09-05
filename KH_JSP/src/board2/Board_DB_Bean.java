@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -24,7 +25,11 @@ public class Board_DB_Bean {
     }
     
     //데이터 삽입 (실패시 false 리턴)
-    public boolean insert(HttpServletRequest request) {
+    public boolean insert(HttpServletRequest request, HttpSession session) {
+    	
+    	
+    	
+    	
     	MultipartRequest multi = null;
     	String savePaths=request.getRealPath(savePath);	//저장위치 절대경로
     	int sizeLimit = 10 * 1024 * 1024;						 	//10메가 제한
@@ -76,6 +81,32 @@ public class Board_DB_Bean {
     		//사이즈 초과
     		if(e.getMessage().indexOf("exceeds limit") > -1) return false;
     	}
+    	
+    	
+    	
+    	
+    	
+
+    	//현재 게시판 레벨 확인
+    	Admin_DB_Bean admin_manager = Admin_DB_Bean.getInstance();
+    	Admin_Data_Bean adata = admin_manager.getArticle(multi.getParameter("id"));
+    	int lev = adata.getLev();
+    	int lev2 = 1;	//1:비회원 2:회원 3:관리자 4:게시판아님
+    	
+    	//로그인한 레벨 확인
+    	Member_Data_Bean member_info = null;
+    	if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") != null) {
+    		Member_DB_Bean mem_db = Member_DB_Bean.getInstance();
+    		member_info = mem_db.login_info((String)session.getAttribute("user_id"), (String)session.getAttribute("user_pw"));
+    		lev2 = member_info.getLev();
+    	}
+    	
+    	if(lev > lev2) return false; 
+    	
+    	
+    	
+    	
+    	
     	
     	//null일때
     	if(multi.getParameter("subject") == null)	return false;
@@ -588,4 +619,63 @@ public class Board_DB_Bean {
     	return false;
     }
 
+    
+    
+    //최근게시물
+    public List getArticles2(int start, int end) {
+    	List list = new ArrayList();
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			//pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where id=? order by NO desc");ssssssssssssssssssssssssssss
+			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TBOARD_DATA order by NO desc) a) where rnum>=? and rnum<=?");
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			//
+			while(rs.next()) {
+				Board_Data_Bean bdb = new Board_Data_Bean();
+				
+				
+				//타이틀 가져오기
+				Connection conn2 = null;
+		    	PreparedStatement pstmt2 = null;
+		    	ResultSet rs2 = null;
+		    	
+		    	conn2 = getConnection();
+		    	
+		    	pstmt2 = conn2.prepareStatement("select * from MIN_TADMIN where id=?");
+				pstmt2.setString(1, rs.getString("ID"));
+				rs2 = pstmt2.executeQuery();
+				if(rs2.next()) bdb.setName(rs2.getString("TITLE"));
+
+				rs2.close();///////////////////////////////////////////////////////////
+				pstmt2.close();
+				conn2.close();
+				
+				bdb.setSubject(rs.getString("SUBJECT"));
+				bdb.setDates(rs.getString("DATES"));
+				bdb.setId(rs.getString("ID"));
+				bdb.setNo(rs.getInt("NO"));
+				bdb.setComments(rs.getInt("COMMENTS"));
+				list.add(bdb);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+
+		return list;
+    }
 }
