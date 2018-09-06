@@ -83,9 +83,7 @@ if(member_info != null) {
 }
 %>
 
-<table cellpadding="7" cellspacing="0" class="comments">
-<col width="100" />
-<col width="400" />
+
 
 <%
 Comment_DB_Bean cdb = Comment_DB_Bean.getInstance();
@@ -94,6 +92,12 @@ for(int i=0;i<list.size();i++) {
 	Comment_Data_Bean data = (Comment_Data_Bean)list.get(i);
 	String c_memos = data.getMemo().replaceAll("\n", "<br />");
 %>
+
+
+<% if(data.getRt_no() == 1) { %>
+<table cellpadding="7" cellspacing="0" class="comments">
+<col width="100" />
+<col width="400" />
 	<tr>
 		<th style="background:#d5e9ff;border:none;border:1px solid #A0A0A0;"><%=data.getName() %>
 			<span style="font-weight:normal;">
@@ -108,6 +112,8 @@ for(int i=0;i<list.size();i++) {
 			<% }else{ %>
 			<a href="board_comment_del_post.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
 			<% } %>
+			
+			
 			<a href="#100" onclick="shsh('cmm<%=data.getNo() %>')">[답글]</a>
 			
 			
@@ -137,11 +143,35 @@ for(int i=0;i<list.size();i++) {
 			
 		</td>
 	</tr>
+</table>
+<% }else{//답글이면 %>
+<table cellpadding="7" cellspacing="0" class="comments">
+<col width="50" />
+<col width="100" />
+<col width="350" />
+	<tr>
+		<td>ㄴ<span style="font-weight:bold;">[답글]</span></td>
+		<th style="background:#eeeeee;border:none;border:1px solid #A0A0A0;"><%=data.getName() %>
+			<span style="font-weight:normal;">
+				<br /><%=data.getDates() %><br />
+				
+			</span>
+		</th>
+		<td valign="top">
+			<%=c_memos %>
+			<% if(member_info == null) { %>
+			<a href="board_comment_del.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
+			<% }else{ %>
+			<a href="board_comment_del_post.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
+			<% } %>
+		</td>
+	</tr>
+</table>
+<% } %>
 <%
 }
 %>
 	
-</table>
 
 
 

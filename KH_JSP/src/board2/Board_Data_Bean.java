@@ -13,6 +13,7 @@ public class Board_Data_Bean {
 	private int rt_no;
 	private String file1;
 	private String file2;
+	private int deletes = 1;
 	
 	public String getSubject() {
 		return subject;
@@ -85,6 +86,12 @@ public class Board_Data_Bean {
 	}
 	public void setFile2(String file2) {
 		this.file2 = file2;
+	}
+	public int getDeletes() {
+		return deletes;
+	}
+	public void setDeletes(int deletes) {
+		this.deletes = deletes;
 	}
 	
 }

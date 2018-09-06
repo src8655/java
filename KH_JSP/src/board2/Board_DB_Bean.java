@@ -144,8 +144,8 @@ public class Board_DB_Bean {
 			conn = getConnection();
 			
 			if(bdb.getRt_no() == 1) {
-				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, FILE1, FILE2)"
-							+" values(?,?,?,?,?,?,?,?,?,?)");
+				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, FILE1, FILE2, DELETES)"
+							+" values(?,?,?,?,?,?,?,?,?,?,?)");
 				pstmt.setString(1, bdb.getSubject());
 				pstmt.setString(2, bdb.getMemo());
 				pstmt.setString(3, bdb.getName());
@@ -156,6 +156,7 @@ public class Board_DB_Bean {
 				pstmt.setInt(8, 0);
 				pstmt.setString(9, bdb.getFile1());
 				pstmt.setString(10, bdb.getFile2());
+				pstmt.setInt(11, 1);
 				pstmt.executeUpdate();
 			}else {
 				pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where rt_no=? order by no asc");
@@ -168,8 +169,8 @@ public class Board_DB_Bean {
 					rt_no_count = rs.getInt("NO");	//가장 마지막에 있는 답글을 받아옴
 				rt_no_count--;
 				
-				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(NO, SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, RT_NO, FILE1, FILE2)"
-						+" values(?,?,?,?,?,?,?,?,?,?,?,?)");
+				pstmt = conn.prepareStatement("insert into MIN_TBOARD_DATA(NO, SUBJECT, MEMO, NAME, PASSWORD, DATES, HIT, ID, COMMENTS, RT_NO, FILE1, FILE2, DELETES)"
+						+" values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				pstmt.setInt(1, rt_no_count);
 				pstmt.setString(2, bdb.getSubject());
 				pstmt.setString(3, bdb.getMemo());
@@ -182,6 +183,7 @@ public class Board_DB_Bean {
 				pstmt.setInt(10, bdb.getRt_no());
 				pstmt.setString(11, bdb.getFile1());
 				pstmt.setString(12, bdb.getFile2());
+				pstmt.setInt(13, 2);
 				pstmt.executeUpdate();
 			}
 			
@@ -304,6 +306,7 @@ public class Board_DB_Bean {
 				bdb.setRt_no(rs.getInt("RT_NO"));
 				bdb.setFile1(rs.getString("FILE1"));
 				bdb.setFile2(rs.getString("FILE2"));
+				bdb.setDeletes(rs.getInt("DELETES"));
 				list.add(bdb);
 			}
 			
@@ -347,6 +350,7 @@ public class Board_DB_Bean {
 				bdb.setRt_no(rs.getInt("RT_NO"));
 				bdb.setFile1(rs.getString("FILE1"));
 				bdb.setFile2(rs.getString("FILE2"));
+				bdb.setDeletes(rs.getInt("DELETES"));
 			}
 			
 		} catch (Exception e) {
@@ -456,17 +460,96 @@ public class Board_DB_Bean {
     	
     	Connection conn = null;
     	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
     	
     	try {
 			conn = getConnection();
 			
-			//날짜 가져오기
-			Calendar cal = Calendar.getInstance();
-			String date = cal.get(Calendar.YEAR)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.DATE);
-
-			pstmt = conn.prepareStatement("delete from MIN_TBOARD_DATA where no=?");
-			pstmt.setInt(1, no);
-			pstmt.executeUpdate();
+			
+			
+			//내가 답글이면 
+			if(bdata.getRt_no() != 1) {
+				//나랑 같은 답글이 몇개인지 확인
+				int cnt_sub = 1;
+				pstmt = conn.prepareStatement("select count(*) from MIN_TBOARD_DATA where rt_no=?");
+				pstmt.setInt(1, bdata.getRt_no());
+				rs = pstmt.executeQuery();
+				if(rs.next()) cnt_sub = rs.getInt(1);
+				
+				//부모가 삭제된 상태인지 확인
+				int deletes = 1;
+				int parents = 0;
+				pstmt = conn.prepareStatement("select * from MIN_TBOARD_DATA where no=?");
+				pstmt.setInt(1, bdata.getRt_no());
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					deletes = rs.getInt("DELETES");
+				}
+				
+				//답글이 나밖에 없고 && 부모가 삭제된 상태면 부모도 삭제
+				if(cnt_sub == 1 && deletes == 2) {
+					
+					//부모도 삭제
+					pstmt = conn.prepareStatement("delete from MIN_TBOARD_DATA where no=?");
+					pstmt.setInt(1, bdata.getRt_no());
+					pstmt.executeUpdate();
+				}
+				//나를 삭제
+				pstmt = conn.prepareStatement("delete from MIN_TBOARD_DATA where no=?");
+				pstmt.setInt(1, bdata.getNo());
+				pstmt.executeUpdate();
+			}else {	//내가 답글이 아니면
+				
+				//답글이 있는지 확인
+				pstmt = conn.prepareStatement("select count(*) from MIN_TBOARD_DATA where rt_no=?");
+				pstmt.setInt(1, bdata.getNo());
+				rs = pstmt.executeQuery();
+				
+				int rt_no_count = 0;
+				
+				if(rs.next()) 
+					rt_no_count = rs.getInt(1);	//답글을 개수를 받아옴
+				
+				
+				//답글이 없으면 그냥 삭제
+				if(rt_no_count == 0) {
+					pstmt = conn.prepareStatement("delete from MIN_TBOARD_DATA where no=?");
+					pstmt.setInt(1, no);
+					pstmt.executeUpdate();
+				}else {	//답글이 있으면 업데이트
+					pstmt = conn.prepareStatement("update MIN_TBOARD_DATA set "
+							+ "SUBJECT=?,"
+							+ "MEMO=?,"
+							+ "NAME=?,"
+							+ "PASSWORD=?,"
+							+ "DATES=?,"
+							+ "HIT=?,"
+							+ "COMMENTS=?,"
+							+ "FILE1=?,"
+							+ "FILE2=?,"
+							+ "DELETES=? where no=?");
+					pstmt.setString(1, "삭제된 글입니다.");
+					pstmt.setString(2, "-");
+					pstmt.setString(3, "-");
+					pstmt.setString(4, "-");
+					pstmt.setString(5, "-");
+					pstmt.setInt(6, 0);
+					pstmt.setInt(7, 0);
+					pstmt.setString(8, "");
+					pstmt.setString(9, "");
+					pstmt.setInt(10, 2);
+					pstmt.setInt(11, bdata.getNo());
+					pstmt.executeUpdate();
+				}
+				
+			}
+			
+			
+			
+			
+			
+			
+			
 			
 			return true;
 		} catch (Exception e) {
@@ -474,6 +557,7 @@ public class Board_DB_Bean {
 		}finally {
 			
 			try {
+				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
 			} catch (SQLException e) {}
@@ -662,6 +746,7 @@ public class Board_DB_Bean {
 				bdb.setId(rs.getString("ID"));
 				bdb.setNo(rs.getInt("NO"));
 				bdb.setComments(rs.getInt("COMMENTS"));
+				bdb.setDeletes(rs.getInt("DELETES"));
 				list.add(bdb);
 			}
 			

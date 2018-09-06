@@ -22,6 +22,7 @@ List list = manager.getArticles2(1, 5);	//리스트받아오기
 
 for(int i=0;i<list.size();i++) {
 Board_Data_Bean bdb = (Board_Data_Bean)list.get(i);
+if(bdb.getDeletes() == 2) continue;
 %>
 			<li>
 				<a href="board_view.jsp?id=<%=bdb.getId() %>&amp;no=<%=bdb.getNo() %>">

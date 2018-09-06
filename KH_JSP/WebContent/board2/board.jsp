@@ -52,11 +52,15 @@ Board_Data_Bean bdb = (Board_Data_Bean)list.get(i);
 		<td align="center"><%=board_total-board_cnt+1 %></td>
 		<td></td>
 		<td>
+			<% if(bdb.getDeletes() != 2) { %>
 		  <a href="board_view.jsp?id=<%=bdb.getId() %>&amp;no=<%=bdb.getNo() %>&amp;pages=<%=pages %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>">
 		    <% if(bdb.getRt_no() != 1){ %>ㄴ<span style="font-weight:bold;">[답글]&nbsp;</span><% } %>
 		    <%=bdb.getSubject() %>
 		  	<% if(bdb.getComments() != 0) { %><span style="font-size:11px;color:red;"><%=bdb.getComments() %></span><% }%>
 		  </a></td>
+		  	<% }else{ %>
+		  	<%=bdb.getSubject() %>
+		  	<% } %>
 		<td></td>
 		<td align="center"><%=bdb.getName() %></td>
 		<td></td>

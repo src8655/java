@@ -309,6 +309,7 @@ background:#eeeeee;
 img {
 border:0px;
 }
+
 #header {
 margin:0 auto;
 width:1000px;
@@ -1305,4 +1306,9 @@ background-position:0px -109px;
 #icons_3 a:hover{
 background:url(./images/customercenter_1.jpg) no-repeat left top;
 background-position:0px -109px;
+}
+
+.games img {
+margin:0px;
+padding:0px;
 }
