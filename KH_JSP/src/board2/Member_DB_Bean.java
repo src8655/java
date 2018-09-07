@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class Member_DB_Bean {
 	private static Member_DB_Bean instance = new Member_DB_Bean();
@@ -302,6 +303,16 @@ public class Member_DB_Bean {
 		}
     	
     	return true;
+    }
+    
+    //세션을 보고 로그인시 정보 가져오기
+    public Member_Data_Bean getLogin(HttpSession session) {
+    	Member_Data_Bean member_info = null;
+    	if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") != null) {
+    		member_info = getInstance().login_info((String)session.getAttribute("user_id"), (String)session.getAttribute("user_pw"));
+    	}
+    	
+    	return member_info;
     }
 
 }

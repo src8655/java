@@ -2,14 +2,13 @@
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%@ page import = "java.util.*" %>
-<%@ page import = "board2.Admin_DB_Bean" %>
-<%@ page import = "board2.Admin_Data_Bean" %>
-<%@ page import = "board2.Member_DB_Bean" %>
-<%@ page import = "board2.Member_Data_Bean" %>
-<%@ page import = "board2.Md5Enc" %>
+<%@ page import = "board2.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
+/*
 //날짜 가져오기
 Calendar cal = Calendar.getInstance();
+
 //공통으로 받는 파라미터
 String id = "";
 String pages = "1";
@@ -30,18 +29,15 @@ Admin_DB_Bean admin_manager = Admin_DB_Bean.getInstance();
 Admin_Data_Bean adata = admin_manager.getArticle(id);
 
 //로그인정보 불러오기
-Member_Data_Bean member_info = null;
-if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") != null) {
-	Member_DB_Bean mem_db = Member_DB_Bean.getInstance();
-	member_info = mem_db.login_info((String)session.getAttribute("user_id"), (String)session.getAttribute("user_pw"));
-}
-
+Member_DB_Bean mem_db = Member_DB_Bean.getInstance();
+Member_Data_Bean member_info = mem_db.getLogin(session);
+*/
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title><%=adata.getTitle() %></title>
+<title>${adata.title}</title>
 <link href="tboard_css.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="./ckeditor/contents.css">
 <script src="./jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
@@ -56,12 +52,13 @@ if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") !=
 <div id="header">
 	<ul id="tmenu">
 		<li><a href="map.jsp?id=map"><img src="./images/tmenu3.jpg" alt="오시는길" /></a></li>
-		<% if(member_info != null) {%>
+		<c:if test="${member_info eq null}">
 		<li><a href="logout.jsp"><img src="./images/tmenu4.jpg" alt="로그아웃" /></a></li>
-		<% }else{%>
+		</c:if>
+		<c:if test="${!(member_info eq null)}">
 		<li><a href="join.jsp?id=join"><img src="./images/tmenu2.jpg" alt="회원가입" /></a></li>
 		<li><a href="login.jsp"><img src="./images/tmenu1.jpg" alt="로그인" /></a></li>
-		<% } %>
+		</c:if>
 	</ul>
 	<h1><a href="index.jsp">로타리종합물류</a></h1>
 	<ul id="mainmenu">
@@ -79,7 +76,7 @@ if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") !=
 </div>
 <div id="contents">
 	<div id="con1">
-		<%=adata.getSubmenu() %>
+		${adata.submenu}
   	<div class="icons" id="icons_3" style="border-bottom:0px;margin:0px;padding:0 15px 0 15px;">
   		  <a href="#">전화문의</a>
   	</div>
@@ -91,7 +88,7 @@ if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") !=
   		</div>
 	</div>
 	<div id="con2">
-		<%=adata.getSitemap() %>
+		${adata.sitemap}
 
   	
   	

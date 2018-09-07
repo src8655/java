@@ -18,7 +18,7 @@
 	<p id="copytext">
 		<span style="font-weight:bold;">상호</span> : 로타리종합물류 | <span style="font-weight:bold;">업태</span> : 화물운송대행 | <span style="font-weight:bold;">사업자 번호</span> : 127-24-44779 | <span style="font-weight:bold;">대표</span> : 윤재권<br />
 		<span style="font-weight:bold;">주소</span> : 양주시 은현면 선암리 171-3 | <span style="font-weight:bold;">전화번호</span> : 031-836-6677 | <span style="font-weight:bold;">FAX</span> : 031-836-8558<br />
-		Copyright (C) 2010~<%=cal.get(Calendar.YEAR) %> 로타리종합물류 All rights reserved.
+		Copyright (C) 2010~${year} 로타리종합물류 All rights reserved.
 	</p>
 	<div id="rinfo">
 		<ul>

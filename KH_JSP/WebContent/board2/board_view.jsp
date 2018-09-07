@@ -1,41 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
-<%@ page import = "java.util.*" %>
-<%@ page import = "board2.Board_DB_Bean" %>
-<%@ page import = "board2.Board_Data_Bean" %>
-
-<%@ page import = "board2.Comment_DB_Bean" %>
-<%@ page import = "board2.Comment_Data_Bean" %>
-
-<%@ page import = "board2.Cookie_Bean" %>
-
-
-<%
-String no = request.getParameter("no");
-%>
-
-
-<%
-
-//쿠키설정
-Cookie_Bean cmanager = Cookie_Bean.getInstance();
-cmanager.view_cookie(no, request, response);
-
-
-//데이터받기
-Board_DB_Bean manager = Board_DB_Bean.getInstance();
-Board_Data_Bean bdb = manager.getArticle(Integer.parseInt(no));
-
-//1이 아니라는 것은 이 글은 답글이라는것
-String rt_no = no;
-if(bdb.getRt_no() != 1)	rt_no = Integer.toString(bdb.getRt_no());
-
-//줄바꿈
-//String memos = bdb.getMemo().replaceAll("\n", "<br />");
-String memos = bdb.getMemo();
-%>
-
 <%@ include file="board_bar.jsp" %>
 
 <table cellpadding="7" cellspacing="0" class="boards">
@@ -45,93 +10,71 @@ String memos = bdb.getMemo();
 <col width="120" />
 	<tr class="boards_t">
 		<th style="background:#d5e9ff;">제목</th>
-		<th align="left" style="padding:0 0 0 10px;"><%=bdb.getSubject() %></th>
+		<th align="left" style="padding:0 0 0 10px;">${bdb.subject}</th>
 		<th style="background:#d5e9ff;">조회</th>
-		<th align="right" style="padding:0 10px 0 0;"><%=bdb.getHit() %></th>
+		<th align="right" style="padding:0 10px 0 0;">${bdb.hit}</th>
 	</tr>
 	<tr>
 		<th style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">이름</th>
-	  <td style="padding:0 0 0 10px;font-weight:bold;"><%=bdb.getName() %></td>
+	  <td style="padding:0 0 0 10px;font-weight:bold;">${bdb.name}</td>
 		<th style="background:#d5e9ff;border:none;border-bottom:1px solid #A0A0A0;">날짜</th>
-	  <td align="right" style="padding:0 10px 0 0;font-weight:bold;"><%=bdb.getDates() %></td>
+	  <td align="right" style="padding:0 10px 0 0;font-weight:bold;">${bdb.dates}</td>
 	</tr>
 	<tr>
-		<td colspan="4" style="padding:30px 7px 30px 7px;" class="b_memos"><%=memos %></td>
+		<td colspan="4" style="padding:30px 7px 30px 7px;" class="b_memos">${bdb.memo}</td>
 	</tr>
-<% if(bdb.getFile1() != null) { %>	
+<c:if test="${!(bdb.file1 eq null)}">
 	<tr>
 		<th>파일첨부1</th>
-		<td colspan="3"><a href="./upload/<%=bdb.getFile1() %>"><%=bdb.getFile1() %></a></td>
+		<td colspan="3"><a href="./upload/${bdb.file1}">${bdb.file1}</a></td>
 	</tr>
-<% } %>
-<% if(bdb.getFile2() != null) { %>	
+</c:if>
+<c:if test="${!(bdb.file2 eq null)}">
 	<tr>
 		<th>파일첨부2</th>
-		<td colspan="3"><a href="./upload/<%=bdb.getFile2() %>"><%=bdb.getFile2() %></a></td>
+		<td colspan="3"><a href="./upload/${bdb.file2}">${bdb.file2}</a></td>
 	</tr>
-<% } %>
+</c:if>
 </table>
-
-
-<% 
-//멤버일 경우 댓글로 받기
-String name_tmp = "";
-String passwords_tmp = "";
-if(member_info != null) {
-	name_tmp = member_info.getName();
-	passwords_tmp = member_info.getPasswords();
-}
-%>
-
-
-
-<%
-Comment_DB_Bean cdb = Comment_DB_Bean.getInstance();
-List list = cdb.getArticles(Integer.parseInt(no));
-for(int i=0;i<list.size();i++) {
-	Comment_Data_Bean data = (Comment_Data_Bean)list.get(i);
-	String c_memos = data.getMemo().replaceAll("\n", "<br />");
-%>
-
-
-<% if(data.getRt_no() == 1) { %>
+<c:forEach var="data" items="${list}">
+<c:if test="${data.rt_no eq 1}">
 <table cellpadding="7" cellspacing="0" class="comments">
 <col width="100" />
 <col width="400" />
 	<tr>
-		<th style="background:#d5e9ff;border:none;border:1px solid #A0A0A0;"><%=data.getName() %>
+		<th style="background:#d5e9ff;border:none;border:1px solid #A0A0A0;">${data.name}
 			<span style="font-weight:normal;">
-				<br /><%=data.getDates() %><br />
-				
+				<br />${data.dates}<br />
 			</span>
 		</th>
 		<td valign="top">
-			<%=c_memos %>
-			<% if(member_info == null) { %>
-			<a href="board_comment_del.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
-			<% }else{ %>
-			<a href="board_comment_del_post.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
-			<% } %>
+			${data.memo}
+			<c:if test="${member_info eq null}">
+			<a href="sboard_comment_del.jsp?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			</c:if>
+			<c:if test="${!(member_info eq null)}">
+			<a href="sboard_comment_del_post.jsp?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			</c:if>
 			
 			
-			<a href="#100" onclick="shsh('cmm<%=data.getNo() %>')">[답글]</a>
+			<a href="#100" onclick="shsh('cmm${data.no}')">[답글]</a>
 			
 			
-			<form action="board_comment_post.jsp" id="cmm<%=data.getNo() %>" style="display:none;">
-			<input type="hidden" name="rt_no" value="<%=data.getNo() %>" />
-			<input type="hidden" name="data_no" value="<%=no %>" />
-			<input type="hidden" name="id" value="<%=id %>" />
-			<input type="hidden" name="pages" value="<%=pages %>" />
+			<form action="sboard_comment_post.jsp" id="cmm${data.no}" style="display:none;">
+			<input type="hidden" name="rt_no" value="${data.no}" />
+			<input type="hidden" name="data_no" value="${no}" />
+			<input type="hidden" name="id" value="${id}" />
+			<input type="hidden" name="pages" value="${pages}" />
 			<table cellpadding="7" cellspacing="0" class="comments">
 			<col width="20%" />
 			<col width="30%" />
 			<col width="20%" />
 			<col width="20%" />
-				<tr <% if(member_info != null) { %>style="display:none;"<% } %>>
+				<tr <c:if test="${!(member_info eq null)}">style="display:none;"</c:if>>
 					<th style="background:#d5e9ff;border-left:1px solid #bbbbbb;">이름</th>
-					<td style="border-top:1px solid #122942;"><input type="text" name="name" value="<%=name_tmp %>" /></td>
+					<td style="border-top:1px solid #122942;"><input type="text" name="name" value="${name_tmp}" /></td>
 					<th style="background:#d5e9ff;">비밀번호</th>
-					<td style="border-top:1px solid #122942;" colspan="2"><input type="password" name="passwords" value="<%=passwords_tmp %>" /></td>
+					<td style="border-top:1px solid #122942;" colspan="2"><input type="password" name="passwords" value="${passwords_tmp}" /></td>
 				</tr>
 				<tr>
 					<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="border:1px solid #b8c0cc;width:98%;height:40px;"></textarea></td>
@@ -144,52 +87,52 @@ for(int i=0;i<list.size();i++) {
 		</td>
 	</tr>
 </table>
-<% }else{//답글이면 %>
+</c:if>
+<c:if test="${!(data.rt_no eq 1)}">
 <table cellpadding="7" cellspacing="0" class="comments">
 <col width="50" />
 <col width="100" />
 <col width="350" />
 	<tr>
 		<td>ㄴ<span style="font-weight:bold;">[답글]</span></td>
-		<th style="background:#eeeeee;border:none;border:1px solid #A0A0A0;"><%=data.getName() %>
+		<th style="background:#eeeeee;border:none;border:1px solid #A0A0A0;">${data.name}
 			<span style="font-weight:normal;">
-				<br /><%=data.getDates() %><br />
+				<br />${data.dates}<br />
 				
 			</span>
 		</th>
 		<td valign="top">
-			<%=c_memos %>
-			<% if(member_info == null) { %>
-			<a href="board_comment_del.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
-			<% }else{ %>
-			<a href="board_comment_del_post.jsp?no=<%=data.getNo() %>&amp;id=<%=id %>&amp;data_no=<%=no %>&amp;pages=<%=pages %>">ⓧ</a>
-			<% } %>
+			${data.memo}
+			<c:if test="${member_info eq null}">
+			<a href="sboard_comment_del.jsp?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			</c:if>
+			<c:if test="${!(member_info eq null)}">
+			<a href="sboard_comment_del_post.jsp?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			</c:if>
 		</td>
 	</tr>
 </table>
-<% } %>
-<%
-}
-%>
-	
+
+</c:if>
+</c:forEach>
 
 
 
 
-<form name="cm_b" action="board_comment_post.jsp">
-<input type="hidden" name="data_no" value="<%=no %>" />
-<input type="hidden" name="id" value="<%=id %>" />
-<input type="hidden" name="pages" value="<%=pages %>" />
+<form name="cm_b" action="sboard_comment_post.jsp">
+<input type="hidden" name="data_no" value="${no}" />
+<input type="hidden" name="id" value="${id}" />
+<input type="hidden" name="pages" value="${pages}" />
 <table cellpadding="7" cellspacing="0" class="comments">
 <col width="20%" />
 <col width="30%" />
 <col width="20%" />
 <col width="20%" />
-	<tr <% if(member_info != null) { %>style="display:none;"<% } %>>
+	<tr <c:if test="${!(member_info eq null)}">style="display:none;"</c:if>>
 		<th style="background:#d5e9ff;border-left:1px solid #bbbbbb;">이름</th>
-		<td style="border-top:1px solid #122942;"><input type="text" name="name" value="<%=name_tmp %>" /></td>
+		<td style="border-top:1px solid #122942;"><input type="text" name="name" value="${name_tmp}" /></td>
 		<th style="background:#d5e9ff;">비밀번호</th>
-		<td style="border-top:1px solid #122942;" colspan="2"><input type="password" name="passwords" value="<%=passwords_tmp %>" /></td>
+		<td style="border-top:1px solid #122942;" colspan="2"><input type="password" name="passwords" value="${passwords_tmp}" /></td>
 	</tr>
 	<tr>
 		<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="border:1px solid #b8c0cc;width:98%;height:40px;"></textarea></td>
@@ -200,21 +143,21 @@ for(int i=0;i<list.size();i++) {
 
 <div class="boards_b">
 	<div class="boards_bl">
-		<a href="board.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
+		<a href="sboard.jsp?id=${id}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
 	</div>
 	<div class="boards_br" style="width:70%;">
-		<% if(bdb.getRt_no() == 1){ %>
-		<a href="board_write.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;rt_no=<%=rt_no %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">답글달기</a>
-		<% } %>
+		<c:if test="${bdb.rt_no eq 1}">
+		<a href="sboard_write.jsp?id=${id}&amp;pages=${pages}&amp;rt_no=${rt_no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">답글달기</a>
+		</c:if>
 	
-		<a href="board_edit.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">수정하기</a>
+		<a href="sboard_edit.jsp?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">수정하기</a>
 		
-		
-		<% if(member_info == null) { %>
-		<a href="board_del.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
-		<% }else{ %>
-		<a href="board_del_post.jsp?id=<%=id %>&amp;pages=<%=pages %>&amp;no=<%=bdb.getNo() %>&amp;searchs=<%=searchs %>&amp;searchs_value=<%=searchs_value %>&amp;rt_no=<%=bdb.getNo() %>" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
-		<% } %>
+		<c:if test="${member_info eq null}">
+		<a href="sboard_del.jsp?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
+		</c:if>
+		<c:if test="${!(member_info eq null)}">
+		<a href="sboard_del_post.jsp?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}&amp;rt_no=${bdb.no}" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
+		</c:if>
 		
 	</div>
 </div>

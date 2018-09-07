@@ -1,24 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
-<%@ page import = "board2.Board_DB_Bean" %>
-<%
-String no = request.getParameter("no");
-
-
-
-Board_DB_Bean bdb = Board_DB_Bean.getInstance();
-if(bdb.update(request)) 
-	response.sendRedirect("board_view.jsp?id="+id+"&pages="+pages+"&no="+no);
-else {
-	out.println("<script>");
-	out.println("alert('작성 실패')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-
-%>
-
+<c:if test="${res eq 1}">
+	<c:redirect url="sboard_view.jsp?id=${id}&pages=${pages}&no=${no}" />
+</c:if>
+<c:if test="${res eq 0}">
+	<script>
+		alert('작성 실패');
+		history.go(-1);
+	</script>
+</c:if>
 <%@ include file="foot.jsp" %>
