@@ -35,6 +35,9 @@ request.setAttribute("pages", pages);
 request.setAttribute("pages_int", Integer.parseInt(pages));
 request.setAttribute("searchs", searchs);
 request.setAttribute("searchs_value", searchs_value);
+
+request.setAttribute("adata", adata);
+request.setAttribute("member_info", member_info);
 ////////////////////////////////////////////////////////////////
 
 
@@ -79,6 +82,7 @@ for(int i=0;i<list.size();i++) {
 
 
 
+request.setAttribute("no", no);
 request.setAttribute("board_total", board_total);
 request.setAttribute("bdb", bdb);
 request.setAttribute("rt_no", rt_no);

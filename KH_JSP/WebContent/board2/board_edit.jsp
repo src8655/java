@@ -3,7 +3,7 @@
 <%@ include file="head.jsp" %>
 <%@ include file="board_bar.jsp" %>
 
-<form action="sboard_edit_post.jsp?id=${id}&no=${no}&pages=${pages}" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt()">
+<form action="board_edit_post?id=${id}&no=${no}&pages=${pages}" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt()">
 <input type="hidden" name="id" value="${id}" />
 <input type="hidden" name="pages" value="${pages}" />
 <input type="hidden" name="no" value="${no}" />
@@ -65,7 +65,7 @@
 
 <div class="boards_b">
 	<div class="boards_bl">
-		<a href="sboard.jsp?id=${id}&amp;pages=${pages}" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
+		<a href="board?id=${id}&amp;pages=${pages}" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
 	</div>
 	<div class="boards_br">
 		<input type="submit" value="수정하기" class="btn_st"  style="float:right;margin:0 10px 0 0; height:26px;" />

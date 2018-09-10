@@ -35,6 +35,9 @@ request.setAttribute("pages", pages);
 request.setAttribute("pages_int", Integer.parseInt(pages));
 request.setAttribute("searchs", searchs);
 request.setAttribute("searchs_value", searchs_value);
+
+request.setAttribute("adata", adata);
+request.setAttribute("member_info", member_info);
 ////////////////////////////////////////////////////////////////
 
 Board_DB_Bean board_manager = Board_DB_Bean.getInstance();

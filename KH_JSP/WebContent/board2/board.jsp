@@ -29,14 +29,14 @@
 		<td align="center">${board_total-board_cnt+1}</td>
 		<td></td>
 		<td>
-			<c:if test="${bdb.deletes != 2}">
-				<a href="sboard_view.jsp?id=${bdb.id}&amp;no=${bdb.no}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}">
-			    <c:if test="${bdb.rt_no != 1}">ㄴ<span style="font-weight:bold;">[답글]&nbsp;</span></c:if>
+			<c:if test="${bdb.deletes ne 2}">
+				<a href="board_view?id=${bdb.id}&amp;no=${bdb.no}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}">
+			    <c:if test="${bdb.rt_no ne 1}">ㄴ<span style="font-weight:bold;">[답글]&nbsp;</span></c:if>
 			    ${bdb.subject}
-			  	<c:if test="${bdb.comments != 0}"><span style="font-size:11px;color:red;">${bdb.comments}</span></c:if>
+			  	<c:if test="${bdb.comments ne 0}"><span style="font-size:11px;color:red;">${bdb.comments}</span></c:if>
 			  	</a>
 		  	</c:if>
-		  	<c:if test="${bdb.deletes == 2}">
+		  	<c:if test="${bdb.deletes eq 2}">
 			  	${bdb.subject}
 		  	</c:if>
 		 </td>
@@ -53,7 +53,7 @@
 </table>
 <div class="boards_b">
 	<div class="boards_bsearch">
-		<form action="sboard.jsp" method="get">
+		<form action="board" method="get">
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="pages" value="${pages}" />
 			<div class="boards_bsearch_l">
@@ -77,14 +77,14 @@
 		&nbsp;
 	</div>
 	<div class="boards_bc">
-		<a href="sboard.jsp?id=${id}&amp;pages=1&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}">&lt;&lt;</a>
+		<a href="board?id=${id}&amp;pages=1&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}">&lt;&lt;</a>
 		<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
-				<a href="sboard.jsp?id=${id}&amp;pages=${i}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" <c:if test="${i eq pages_int}">style="font-weight:bold;color:red;"</c:if>>${i}</a>
+				<a href="board?id=${id}&amp;pages=${i}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" <c:if test="${i eq pages_int}">style="font-weight:bold;color:red;"</c:if>>${i}</a>
 		</c:forEach>
-		<a href="sboard.jsp?id=${id}&amp;pages=${board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}">&gt;&gt;</a>
+		<a href="board?id=${id}&amp;pages=${board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}">&gt;&gt;</a>
 	</div>
 	<div class="boards_br">
-		<a href="sboard_write.jsp?id=${id}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st" style="float:right;margin:0 10px 0 0;">작성하기</a>
+		<a href="board_write?id=${id}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st" style="float:right;margin:0 10px 0 0;">작성하기</a>
 	</div>
 </div>
 <%@ include file="foot.jsp" %>

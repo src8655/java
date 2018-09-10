@@ -1,25 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
-<%@ page import = "java.util.*" %>
-
-
-
-<%
-
-
-//날짜 가져오기
-int datey = cal.get(Calendar.YEAR);
-int datem = cal.get(Calendar.MONTH)+1;
-int dated = cal.get(Calendar.DATE);
-
-
-%>
-
 <h1 class="join_header">필수항목</h1>
-<form action="join_post.jsp" id="join">
-<input type="hidden" name="id" value="<%=id %>" />
-<input type="hidden" name="pages" value="<%=pages %>" />
+<form action="join_post" id="join">
+<input type="hidden" name="id" value="${id}" />
+<input type="hidden" name="pages" value="${pages}" />
 <table cellpadding="7" cellspacing="0" class="joins" style="margin-bottom:10px;">
 	<col width="130" />
 	<col width="370" />
@@ -51,21 +36,21 @@ int dated = cal.get(Calendar.DATE);
 		<th>생년월일 <span style="font-weight:bold;color:red;font-size:11px;">(*)</span></th>
 		<td>
 			<select name="birthy">
-				<% for(int i=datey;i>1940;i--) { %>
-				<option value="<%=i %>"><%=i %></option>
-				<% } %>
+				<c:forEach begin="1940" end="${datey}" step="1" var="i">
+				<option value="${i}">${i}</option>
+				</c:forEach>
 			</select>
 			년
 			<select name="birthm">
-				<% for(int i=1;i<13;i++) { %>
-				<option value="<%=i %>"><%=i %></option>
-				<% } %>
+				<c:forEach begin="1" end="12" step="1" var="i">
+				<option value="${i}">${i}</option>
+				</c:forEach>
 			</select>
 			월
 			<select name="birthd">
-				<% for(int i=1;i<32;i++) { %>
-				<option value="<%=i %>"><%=i %></option>
-				<% } %>
+				<c:forEach begin="1" end="31" step="1" var="i">
+				<option value="${i}">${i}</option>
+				</c:forEach>
 			</select>
 			일
 		</td>

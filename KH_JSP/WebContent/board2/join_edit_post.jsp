@@ -1,74 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
-<%@ page import = "board2.Member_DB_Bean" %>
-
-
-<jsp:useBean id="mdata" class="board2.Member_Data_Bean">
-    <jsp:setProperty name="mdata" property="*" />
-</jsp:useBean>
-
-
-<%
-//비로그인 접근금지
-if(member_info == null) {
-	out.println("<script>");
-	out.println("alert('잘못된 접근입니다.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-
-if(request.getParameter("passwords").equals("")) {
-	out.println("<script>");
-	out.println("alert('비밀번호를 입력하세요.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-if(request.getParameter("name").equals("")) {
-	out.println("<script>");
-	out.println("alert('이름을 입력하세요.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-if(request.getParameter("email").equals("")) {
-	out.println("<script>");
-	out.println("alert('이메일을 입력하세요.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-
-
-
-
-
-//회원no전달
-
-Member_DB_Bean manager = Member_DB_Bean.getInstance();
-
-if(!manager.update(mdata)) {
-	out.println("<script>");
-	out.println("alert('비밀번호가 다릅니다.')");
-	out.println("history.go(-1)");
-	out.println("</script>");
-	
-	return;
-}
-
-
-
-
-
-
-
-response.sendRedirect("board.jsp?id="+id+"&pages="+pages);
-%>
+<c:if test="${res eq 1}">
+	<c:redirect url="board?id=${id}&pages=${pages}" />
+</c:if>
+<c:if test="${res eq 0}">
+	<script>
+		alert('비밀번호를 확인하세요.');
+		history.go(-1);
+	</script>
+</c:if>
 
 <%@ include file="foot.jsp" %>

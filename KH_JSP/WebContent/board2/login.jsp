@@ -1,31 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="head2.jsp" %>
-<%@ page import = "java.util.*" %>
-<%@ page import = "board2.Cookie_Bean" %>
-
-<%
-
-String user_id = "";	//유저아이디
-
-//쿠키설정
-Cookie_Bean cmanager = Cookie_Bean.getInstance();
-user_id = cmanager.getId(request);	//쿠키에서 아이디를 받아온다
-%>
-
-
 
 <div id="login_oo">
   <h1>LOGIN</h1>
-  <form action="login_post.jsp" id="logins">
-	<input type="hidden" name="id" value="<%=id %>" />
-	<input type="hidden" name="pages" value="<%=pages %>" />
+  <form action="login_post" id="logins">
+	<input type="hidden" name="id" value="${id}" />
+	<input type="hidden" name="pages" value="${pages}" />
 	<input type="hidden" name="name" id="login_name" value="" />
 	<input type="hidden" name="kakao" id="login_kakao" value="0" />
   	<fieldset>
   		<legend>회원 로그인</legend>
   		<p class="login_oo_l">
-				<label for="huiz">ID&nbsp;:</label>&nbsp;<input type="text" name="user_id" id="huiz" value="<%=user_id %>" /><br />
+				<label for="huiz">ID&nbsp;:</label>&nbsp;<input type="text" name="user_id" id="huiz" value="${user_id}" /><br />
 				<label for="hpz">PW&nbsp;:</label>&nbsp;<input type="password" name="passwords" id="hpz" />
 			</p>
   		<p class="login_oo_r">
@@ -33,7 +20,7 @@ user_id = cmanager.getId(request);	//쿠키에서 아이디를 받아온다
 		</p>
 		</fieldset>
   		<p class="login_oo_b" style="text-align:left;padding:0 0 0 38px;">
-			<input type="checkbox" name="auto_id" value="1" id="auto_id" <% if(!user_id.equals("")) { %>checked<% } %> /><label for="auto_id">아이디 저장</label>
+			<input type="checkbox" name="auto_id" value="1" id="auto_id" <c:if test="${user_id ne ''}">checked</c:if> /><label for="auto_id">아이디 저장</label>
 		</p>
   		<p class="login_oo_b">
 			<a id="kakao-login-btn"></a>
@@ -71,17 +58,12 @@ String.prototype.replaceAll = function(str1, str2)
             	  var names = res.properties.nickname;
             	  name.replaceAll("\"","");
             	  passwords.replaceAll("\"","");
-                  //alert(ids);
-                  //alert(passwords);
-                  //alert(names);
-                  
+            	  
                   document.getElementById("login_name").value = names;
                   document.getElementById("login_kakao").value = 1;
                   document.getElementById("huiz").value = ids;
                   document.getElementById("hpz").value = passwords;
                   document.getElementById("logins").submit();
-                  
-                  //location.href = ("login_post.jsp?id=<%=id %>&user_id="+ids+"&passwords="+passwords+"&name="+names+"&kakao=1");
               },
               fail: function(error) {
                 alert(JSON.stringify(error));

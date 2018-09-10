@@ -183,7 +183,7 @@ public class Board_DB_Bean {
 				pstmt.setInt(10, bdb.getRt_no());
 				pstmt.setString(11, bdb.getFile1());
 				pstmt.setString(12, bdb.getFile2());
-				pstmt.setInt(13, 2);
+				pstmt.setInt(13, 1);
 				pstmt.executeUpdate();
 			}
 			
