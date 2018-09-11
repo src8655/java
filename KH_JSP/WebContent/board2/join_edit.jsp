@@ -3,7 +3,7 @@
 <%@ include file="head.jsp" %>
 
 <h1 class="join_header">필수항목</h1>
-<form action="join_edit_post" id="join">
+<form action="join_edit_post.do" id="join">
 <input type="hidden" name="kakao" value="${member_info.kakao}" />
 <input type="hidden" name="no" value="${member_info.no}" />
 <input type="hidden" name="id" value="${id}" />

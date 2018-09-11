@@ -23,7 +23,7 @@
 	<div id="rinfo">
 		<ul>
 			<li><a href="#" onclick="window.open('yak_pop.jsp','sb','toolbar=no,location=no,status=no,scrollbars=no,resizable=no,width=500px,height=500px');">개인정보취급방침</a></li>
-			<li><a href="sitemap.jsp">사이트맵</a></li>
+			<li><a href="sitemap.do">사이트맵</a></li>
 		</ul>
 		<h1>로타리종합물류</h1>
 	</div>

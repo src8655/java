@@ -12,8 +12,8 @@
 			<div class="submenus_t" style="width:308px;"></div>
 			<h1 style="width:280px;"><img src="./images/home_company.jpg" alt="회사소개" /></h1>
 			<ul style="width:280px;">
-				<li><a href="scompany.jsp?id=company" style="width:280px;"><img src="./images/home_company1.jpg" alt="회사소개" /></a></li>
-				<li><a href="scompanyh.jsp?id=companyh" style="width:280px;"><img src="./images/home_company2.jpg" alt="인사말" /></a></li>
+				<li><a href="company.do?id=company" style="width:280px;"><img src="./images/home_company1.jpg" alt="회사소개" /></a></li>
+				<li><a href="companyh.do?id=companyh" style="width:280px;"><img src="./images/home_company2.jpg" alt="인사말" /></a></li>
 			</ul>
 			<div class="submenus_b" style="width:308px;"></div>
 		</div>
@@ -21,7 +21,7 @@
 			<div class="submenus_t" style="width:308px;"></div>
 			<h1 style="width:280px;"><img src="./images/home_notices.jpg" alt="공지사항" /></h1>
 			<ul style="width:280px;">
-				<li><a href="sboard.jsp?id=notice" style="width:280px;"><img src="./images/home_notices1.jpg" alt="공지사항" /></a></li>
+				<li><a href="board.do?id=notice" style="width:280px;"><img src="./images/home_notices1.jpg" alt="공지사항" /></a></li>
 				<li><a></a></li>
 			</ul>
 			<div class="submenus_b" style="width:308px;"></div>
@@ -30,7 +30,7 @@
 			<div class="submenus_t" style="width:308px;"></div>
 			<h1 style="width:280px;"><img src="./images/home_direction.jpg" alt="오시는길" /></h1>
 			<ul style="width:280px;">
-				<li><a href="smap.jsp?id=map" style="width:280px;"><img src="./images/home_direction1.jpg" alt="지도보기" /></a></li>
+				<li><a href="map.do?id=map" style="width:280px;"><img src="./images/home_direction1.jpg" alt="지도보기" /></a></li>
 			  <li><a></a></li>
 			</ul>
 			<div class="submenus_b" style="width:308px;"></div>
@@ -44,7 +44,7 @@
 			<div class="submenus_t" style="width:308px;"></div>
 			<h1 style="width:280px;"><img src="./images/home_carinfo.jpg" alt="차량정보" /></h1>
 			<ul style="width:280px;">
-				<li><a href="scarinfo.jsp?id=carinfo" style="width:280px;"><img src="./images/home_carinfo1.jpg" alt="차량정보" /></a></li>
+				<li><a href="carinfo.do?id=carinfo" style="width:280px;"><img src="./images/home_carinfo1.jpg" alt="차량정보" /></a></li>
 			  <li><a></a></li>
 			</ul>
 			<div class="submenus_b" style="width:308px;"></div>
@@ -53,8 +53,8 @@
 			<div class="submenus_t" style="width:308px;"></div>
 			<h1 style="width:280px;"><img src="./images/home_customercenter.jpg" alt="고객센터" /></h1>
 			<ul style="width:280px;">
-				<li><a href="sboard.jsp?id=q" style="width:280px;"><img src="./images/home_customercenter1.jpg" alt="문의하기" /></a></li>
-				<li><a href="sboard.jsp?id=free" style="width:280px;"><img src="./images/home_member1.jpg" alt="자유게시판" /></a></li>
+				<li><a href="board.do?id=q" style="width:280px;"><img src="./images/home_customercenter1.jpg" alt="문의하기" /></a></li>
+				<li><a href="board.do?id=free" style="width:280px;"><img src="./images/home_member1.jpg" alt="자유게시판" /></a></li>
 			</ul>
 			<div class="submenus_b" style="width:308px;"></div>
 		</div>

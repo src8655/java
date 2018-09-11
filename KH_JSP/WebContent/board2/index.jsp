@@ -11,7 +11,7 @@
 <c:forEach items="${list}" var="bdb">
 	<c:if test="${bdb.deletes ne 2}">
 			<li>
-				<a href="sboard_view.jsp?id=${bdb.id}&amp;no=${bdb.no}">
+				<a href="board_view.do?id=${bdb.id}&amp;no=${bdb.no}">
 				  <span style="font-weight:bold;">[${bdb.name}]</span>
 				  ${bdb.subject}
 				  <c:if test="${bdb.dates eq date}"><span style="font-size:11px;color:red;">New</span></c:if>
@@ -23,10 +23,10 @@
 		</ul>
 	</div>
 	<div class="icons" id="icons_1">
-		<a href="sboard_write.jsp?id=q">온라인문의</a>
+		<a href="board_write.do?id=q">온라인문의</a>
 	</div>
 	<div class="icons" id="icons_2">
-		<a href="smap.jsp?id=map">오시는길</a>
+		<a href="map.do?id=map">오시는길</a>
 	</div>
 	<div class="icons" id="icons_3">
 		<a href="#">전화문의</a>

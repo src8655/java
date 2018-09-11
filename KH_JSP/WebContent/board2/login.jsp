@@ -4,7 +4,7 @@
 
 <div id="login_oo">
   <h1>LOGIN</h1>
-  <form action="login_post" id="logins">
+  <form action="login_post.do" id="logins">
 	<input type="hidden" name="id" value="${id}" />
 	<input type="hidden" name="pages" value="${pages}" />
 	<input type="hidden" name="name" id="login_name" value="" />

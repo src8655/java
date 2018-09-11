@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
 <c:if test="${res eq 1}">
-	<c:redirect url="index" />
+	<c:redirect url="index.do" />
 </c:if>
 <c:if test="${res eq 0}">
 	<script>

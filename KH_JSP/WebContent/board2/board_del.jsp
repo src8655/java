@@ -3,7 +3,7 @@
 <%@ include file="head.jsp" %>
 <%@ include file="board_bar.jsp" %>
 
-<form action="board_del_post" method="post">
+<form action="board_del_post.do" method="post">
 <input type="hidden" name="id" value="${id}" />
 <input type="hidden" name="no" value="${no}" />
 <input type="hidden" name="pages" value="${pages}" />

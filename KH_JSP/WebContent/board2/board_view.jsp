@@ -50,17 +50,17 @@
 		<td valign="top">
 			${data.memo}
 			<c:if test="${member_info eq null}">
-			<a href="board_comment_del?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			<a href="board_comment_del.do?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
 			</c:if>
 			<c:if test="${!(member_info eq null)}">
-			<a href="board_comment_del_post?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			<a href="board_comment_del_post.do?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
 			</c:if>
 			
 			
 			<a href="#100" onclick="shsh('cmm${data.no}')">[답글]</a>
 			
 			
-			<form action="board_comment_post" id="cmm${data.no}" style="display:none;">
+			<form action="board_comment_post.do" id="cmm${data.no}" style="display:none;">
 			<input type="hidden" name="rt_no" value="${data.no}" />
 			<input type="hidden" name="data_no" value="${no}" />
 			<input type="hidden" name="id" value="${id}" />
@@ -104,10 +104,10 @@
 		<td valign="top">
 			${data.memo}
 			<c:if test="${member_info eq null}">
-			<a href="board_comment_del?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			<a href="board_comment_del.do?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
 			</c:if>
 			<c:if test="${!(member_info eq null)}">
-			<a href="board_comment_del_post?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
+			<a href="board_comment_del_post.do?no=${data.no}&amp;id=${id}&amp;data_no=${no}&amp;pages=${pages}">ⓧ</a>
 			</c:if>
 		</td>
 	</tr>
@@ -119,7 +119,7 @@
 
 
 
-<form name="cm_b" action="board_comment_post">
+<form name="cm_b" action="board_comment_post.do">
 <input type="hidden" name="rt_no" value="1" />
 <input type="hidden" name="data_no" value="${no}" />
 <input type="hidden" name="id" value="${id}" />
@@ -144,20 +144,20 @@
 
 <div class="boards_b">
 	<div class="boards_bl">
-		<a href="board?id=${id}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
+		<a href="board.do?id=${id}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
 	</div>
 	<div class="boards_br" style="width:70%;">
 		<c:if test="${bdb.rt_no eq 1}">
-		<a href="board_write?id=${id}&amp;pages=${pages}&amp;rt_no=${rt_no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">답글달기</a>
+		<a href="board_write.do?id=${id}&amp;pages=${pages}&amp;rt_no=${rt_no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">답글달기</a>
 		</c:if>
 	
-		<a href="board_edit?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">수정하기</a>
+		<a href="board_edit.do?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">수정하기</a>
 		
 		<c:if test="${member_info eq null}">
-		<a href="board_del?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
+		<a href="board_del.do?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
 		</c:if>
 		<c:if test="${!(member_info eq null)}">
-		<a href="board_del_post?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}&amp;rt_no=${bdb.no}" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
+		<a href="board_del_post.do?id=${id}&amp;pages=${pages}&amp;no=${bdb.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}&amp;rt_no=${bdb.no}" class="btn_st"  style="float:right;margin:0 10px 0 0;">삭제하기</a>
 		</c:if>
 		
 	</div>

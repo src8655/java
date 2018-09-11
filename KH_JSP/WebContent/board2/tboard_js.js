@@ -4,7 +4,7 @@ var id_check = 0;	//아이디 검사 여부
 function btn_check(){
 	//input의 아이디값을 찾아서 GET방식으로 팝업창 오픈
 	var user_id = document.getElementById("user_ids").value;
-	var url = "./join_check?user_id="+user_id;
+	var url = "./join_check.do?user_id="+user_id;
 	
 	if(user_id != "")
   	window.open(url, 'form', 'width=520, height=110, '

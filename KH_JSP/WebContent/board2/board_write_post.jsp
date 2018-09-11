@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
 <c:if test="${res eq 1}">
-	<c:redirect url="board?id=${id}&searchs=${searchs}&searchs_value=${searchs_value}" />
+	<c:redirect url="board.do?id=${id}&searchs=${searchs}&searchs_value=${searchs_value}" />
 </c:if>
 <c:if test="${res eq 0}">
 	<script>

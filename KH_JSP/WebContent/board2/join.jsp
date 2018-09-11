@@ -2,9 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
 <h1 class="join_header">필수항목</h1>
-<form action="join_post" id="join">
+<form action="join_post.do" id="join">
 <input type="hidden" name="id" value="${id}" />
 <input type="hidden" name="pages" value="${pages}" />
+<input type="hidden" name="kakao" value="0" />
 <table cellpadding="7" cellspacing="0" class="joins" style="margin-bottom:10px;">
 	<col width="130" />
 	<col width="370" />

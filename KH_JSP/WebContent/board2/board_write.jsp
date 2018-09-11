@@ -4,7 +4,7 @@
 <%@ include file="head.jsp" %>
 <%@ include file="board_bar.jsp" %>
 
-<form action="board_write_post?id=${id}" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt()">
+<form action="board_write_post.do?id=${id}" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt()">
 <input type="hidden" name="id" value="${id}" />
 <input type="hidden" name="searchs" value="${searchs}" />
 <input type="hidden" name="searchs_value" value="${searchs_value}" />
@@ -47,7 +47,7 @@
 
 <div class="boards_b">
 	<div class="boards_bl">
-		<a href="board?id=${id}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
+		<a href="board.do?id=${id}&amp;pages=${pages}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="btn_st"  style="margin:0 0 0 10px;">목록보기</a>
 	</div>
 	<div class="boards_br">
 		<input type="submit" value="작성하기" class="btn_st"  style="float:right;margin:0 10px 0 0; height:26px;" />

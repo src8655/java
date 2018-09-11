@@ -3,7 +3,7 @@ package board2;
 public class Admin_Data_Bean {
 	private int no;
 	private String id;
-	private String title;
+	private String title = "로타리종합물류";
 	private String sitemap;
 	private String submenu;
 	private int lev;
