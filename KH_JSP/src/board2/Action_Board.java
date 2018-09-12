@@ -1,6 +1,7 @@
 package board2;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -27,9 +28,10 @@ public class Action_Board extends Action_Init implements Action {
 		Board_DB_Bean manager = Board_DB_Bean.getInstance();
 		List list = manager.getArticles(board_starts, board_ends, id, searchs, searchs_value);	//리스트받아오기
 
-
+		String date = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE);
 
 		//게시판
+		request.setAttribute("date", date);
 		request.setAttribute("board_total", board_total);
 		request.setAttribute("board_cnt", board_starts);
 		request.setAttribute("board_paging", board_paging);

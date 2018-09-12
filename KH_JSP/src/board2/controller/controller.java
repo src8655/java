@@ -40,17 +40,17 @@ public class controller extends HttpServlet {
 			f = new FileInputStream(configFilePath);
 	    	pr.load(f);
     	
-    	//하나씩 꺼낸다
-    	Iterator it = pr.keySet().iterator();
-    	while(it.hasNext()) {
-    		String path = (String)it.next();			//키=왼쪽
-    		String className = pr.getProperty(path);	//클래스=오른쪽
-    		
-    		Class pathClass;
-			pathClass = Class.forName(className);		//객체를 받아서
-	    	Object cinstance = pathClass.newInstance();	//새로운 객체를 생성
-	    	pathMap.put(path, cinstance);
-    	}
+	    	//하나씩 꺼낸다
+	    	Iterator it = pr.keySet().iterator();
+	    	while(it.hasNext()) {
+	    		String path = (String)it.next();			//키=왼쪽
+	    		String className = pr.getProperty(path);	//클래스=오른쪽
+	    		
+	    		Class pathClass;
+				pathClass = Class.forName(className);		//객체를 받아서
+		    	Object cinstance = pathClass.newInstance();	//새로운 객체를 생성
+		    	pathMap.put(path, cinstance);
+	    	}
 
 		} catch (Exception e) {}finally {
 		try {if(f != null) f.close();} catch (IOException e) {}}

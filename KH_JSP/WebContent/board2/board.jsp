@@ -34,6 +34,7 @@
 			    <c:if test="${bdb.rt_no ne 1}">ㄴ<span style="font-weight:bold;">[답글]&nbsp;</span></c:if>
 			    ${bdb.subject}
 			  	<c:if test="${bdb.comments ne 0}"><span style="font-size:11px;color:red;">${bdb.comments}</span></c:if>
+			  	<c:if test="${bdb.dates eq date}"><span style="font-size:11px;color:red;">New</span></c:if>
 			  	</a>
 		  	</c:if>
 		  	<c:if test="${bdb.deletes eq 2}">

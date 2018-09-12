@@ -15,8 +15,8 @@
 				  <span style="font-weight:bold;">[${bdb.name}]</span>
 				  ${bdb.subject}
 				  <c:if test="${bdb.dates eq date}"><span style="font-size:11px;color:red;">New</span></c:if>
-				  <p>[${bdb.dates}]</p>
 				</a>
+				  <p style="float:right;">[${bdb.dates}]</p>
 			</li>
 	</c:if>
 </c:forEach>
