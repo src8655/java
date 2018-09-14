@@ -19,8 +19,6 @@
     <servlet-name>NowServlet</servlet-name>
     <url-pattern>/NowServlet</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>DBCPInit</servlet-name>
     <servlet-class>kh.loader.DBCPInit</servlet-class>
@@ -30,17 +28,15 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  
-  
   <servlet>
     <description></description>
     <display-name>controller</display-name>
     <servlet-name>controller</servlet-name>
     <servlet-class>board2.controller.controller</servlet-class>
     <init-param>
-		<param-name>configURL</param-name>
-		<param-value>/WEB-INF/actionURI.properties</param-value>
-	</init-param>
+      <param-name>configURL</param-name>
+      <param-value>/WEB-INF/actionURI.properties</param-value>
+    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>controller</servlet-name>
@@ -49,5 +45,26 @@
   <servlet-mapping>
     <servlet-name>controller</servlet-name>
     <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+    <description></description>
+    <display-name>shop_controller</display-name>
+    <servlet-name>shop_controller</servlet-name>
+    <servlet-class>shop.controller.shop_controller</servlet-class>
+    <init-param>
+      <param-name>configURL</param-name>
+      <param-value>/WEB-INF/actionURI_shop.properties</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>shop_controller</servlet-name>
+    <url-pattern>/shop/shop_controller</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>shop_controller</servlet-name>
+    <url-pattern>*.o</url-pattern>
   </servlet-mapping>
 </web-app>
