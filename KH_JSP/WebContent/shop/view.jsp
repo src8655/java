@@ -3,7 +3,8 @@
 <%@ include file="head.jsp" %>
 
 
-<form>
+<form action="" id="view_form">
+<input type="hidden" name="no" value="${ldata.no}" />
   <div class="list_v_t">
     <h1>${ldata.name}</h1>
     <div class="list_v_t_l">
@@ -53,7 +54,7 @@
       </div>
       
       <div class="list_v_t_r_btn">
-        <a href="#"><img src="./images/package.jpg" alt="장바구니 담기" /></a>
+        <a href="#10" onclick="baskets()"><img src="./images/package.jpg" alt="장바구니 담기" /></a>
         <a href="#"><img src="./images/buy.jpg" alt="구매하기" /></a>
       </div>
       

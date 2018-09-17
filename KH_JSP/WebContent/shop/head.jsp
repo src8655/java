@@ -490,8 +490,9 @@ border-right:1px solid #dddddd;
 border-bottom:1px solid #dddddd;
 float:left;
 margin:0px;
-padding:20px 0px 20px 0px;
+padding:20px 0px 0px 0px;
 width:192px;
+height:230px;
 text-align:center;
 overflow:hidden;
 }
@@ -777,6 +778,174 @@ width:965px;
 text-align:center;
 overflow:hidden;
 }
+.basket_top {
+width:965px;
+border-bottom:5px solid #444444;
+margin:20px 0 20px 0;
+padding:15px 0 15px 0;
+overflow:hidden;
+}
+.basket_top h1 {
+float:left;
+width:250px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.basket_top div {
+float:left;
+width:45px;
+height:45px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.basket_top p {
+float:left;
+height:45px;
+line-height:45px;
+font-size:35px;
+font-family:'Arial';
+margin:0 0 0 5px;
+padding:0px;
+overflow:hidden;
+}
+.basket_top ul {
+float:right;
+width:600px;
+list-style:none;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.basket_top li {
+float:right;
+margin:0px;
+padding:0 5px 0 5px;
+height:32px;
+line-height:32px;
+font-size:20px;
+font-family:'Arial';
+font-weight:bold;
+overflow:hidden;
+}
+.basket_table {
+width:100%;
+border-collapse:collapse;
+border:1px solid #cccccc;
+font-size:12px;
+color:#4d4d4d;
+}
+.basket_table th {
+background:#ebebeb;
+border:1px solid #cccccc;
+}
+.basket_table td {
+text-align:center;
+background:#ffffff;
+border:1px solid #cccccc;
+}
+.basket_table td a {
+color:#4d4d4d;
+text-decoration:none;
+}
+.basket_table td a:hover {
+color:#000000;
+}
+.basket_input {
+border:1px solid #bdbdbd;
+width:35px;
+height:18px;
+line-height:18px;
+margin:0 0 2px 0;
+padding:0px;
+overflow:hidden;
+}
+.basket_button {
+background:#ffffff;
+border-top:1px solid #bdbdbd;
+border-right:1px solid #bdbdbd;
+border-bottom:1px solid #828282;
+border-left:1px solid #bdbdbd;
+color:#757575;
+width:37px;
+height:20px;
+line-height:18px;
+font-size:11px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.basket_order{
+background:#e11616;
+border-top:1px solid #d81818;
+border-right:1px solid #d81818;
+border-bottom:1px solid #9e1212;
+border-left:1px solid #d81818;
+color:#ffffff;
+width:70px;
+height:20px;
+line-height:18px;
+font-size:11px;
+margin:0 0 2px 0;
+padding:0px;
+overflow:hidden;
+}
+.basket_delete {
+background:#ffffff;
+border-top:1px solid #bdbdbd;
+border-right:1px solid #bdbdbd;
+border-bottom:1px solid #828282;
+border-left:1px solid #bdbdbd;
+color:#757575;
+width:70px;
+height:20px;
+line-height:18px;
+font-size:11px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.basket_b_table {
+width:100%;
+margin:20px 0 0 0;
+border-collapse:collapse;
+border-top:3px solid #333333;
+border-right:1px solid #8d8d8d;
+border-bottom:1px solid #8d8d8d;
+border-left:1px solid #8d8d8d;
+font-size:12px;
+color:#333333;
+}
+.basket_b_table td {
+background:#f7f8fc;
+text-align:left;
+font-weight:bold;
+padding:30px 10px 30px 10px;
+text-align:center;
+}
+.basket_b {
+width:965px;
+overflow:hidden;
+}
+.basket_b a {
+background:#eb2b2b;
+font-size:15px;
+font-weight:bold;
+color:#ffffff;
+text-decoration:none;
+display:block;
+width:150px;
+height:45px;
+line-height:45px;
+text-align:center;
+margin:20px 0 0 0;
+float:right;
+border-top:1px solid #d81818;
+border-right:1px solid #d81818;
+border-bottom:1px solid #9e1212;
+border-left:1px solid #d81818;
+}
 </style>
 <script type="text/javascript">
 function tab(vars, vars_this, vars_right) {
@@ -849,12 +1018,50 @@ function checkIt(targets) {
 
 
 //빠른검색
-function quick_search(searchs_v) {
-	var inp = document.getElementById(header_c_c_l_search);
-	inp.searchs.value = "";
+function quick_search(searchs_v, searchs) {
+	var inp = document.getElementById("header_c_c_l_search");
+	inp.searchs.value = searchs;
 	inp.searchs_value.value = searchs_v;
-	////////////
+	inp.submit();
+	/////////////////////
 	//
+}
+
+//장바구니 form
+function baskets() {
+	var forms = document.getElementById("view_form");
+	if(!forms.counts.value) {
+		alert("수량 입력하세요");
+		return ;
+	}
+	if(forms.counts.value <= 0) {
+		alert("올바른 수량을 입력하세요");
+		return ;
+	}
+	forms.setAttribute("action","basket_add.o");
+	forms.submit();
+}
+
+
+//장바구니 개수 수정
+function basket_change(nos, inp) {
+	var inputs = document.getElementById(inp);
+	if(!inputs.value) {
+		alert("수량 입력하세요");
+		return ;
+	}
+	if(inputs.value <=0) {
+		alert("올바른 수량을 입력하세요");
+		return ;
+	}
+	
+	location.href="basket_edit.o?no="+nos+"&counts="+inputs.value;
+}
+
+
+//장바구니 삭제
+function basket_delete(nos) {
+	location.href="basket_delete.o?no="+nos;
 }
 </script>
 </head>
@@ -864,7 +1071,14 @@ function quick_search(searchs_v) {
   <ul>
     <li><a href="#">고객센터</a></li>
     <li><a href="#" style="color:#adc12c;">나의 쇼핑정보 <img src="./images/myinfo.jpg" alt="나의 쇼핑정보" /></a></li>
-    <li><a href="#">장바구니</a></li>
+    <li>
+    	<a href="basket.o">
+    		장바구니
+    		<c:if test="${basket_cnt ne 0}">
+    			<span style="font-weight:bold;color:blue;font-family:'Arial';">(${basket_cnt})</span>
+    		</c:if>
+    	</a>
+    </li>
     <li><a href="#">회원가입</a></li>
     <li><a href="#" style="border:0px;">로그인</a></li>
   </ul>
@@ -873,12 +1087,12 @@ function quick_search(searchs_v) {
   <h1><a href="index.o"><img src="./images/logo.jpg" alt="logo" /></a></h1>
   <div id="header_c">
     <ul id="header_c_t">
-      <li><a href="#100" onclick="quick_search('산삼/장뇌삼');">산삼/장뇌삼</a></li>
-      <li><a href="#100" onclick="quick_search('약용버섯');">약용버섯</a></li>
-      <li><a href="#100" onclick="quick_search('식물');">식물</a></li>
-      <li><a href="#100" onclick="quick_search('진액');">진액</a></li>
-      <li><a href="#100" onclick="quick_search('액기스');">액기스</a></li>
-      <li><a href="#100" onclick="quick_search('홍삼가공');" style="border:0px;">홍삼가공</a></li>
+      <li><a href="#100" onclick="quick_search('산삼/장뇌삼','');">산삼/장뇌삼</a></li>
+      <li><a href="#100" onclick="quick_search('약용버섯','');">약용버섯</a></li>
+      <li><a href="#100" onclick="quick_search('식물','');">식물</a></li>
+      <li><a href="#100" onclick="quick_search('진액','');">진액</a></li>
+      <li><a href="#100" onclick="quick_search('액기스','');">액기스</a></li>
+      <li><a href="#100" onclick="quick_search('홍삼가공','');" style="border:0px;">홍삼가공</a></li>
     </ul>
     <div id="header_c_c">
     <form action="list.o" method="get" id="header_c_c_l_search">

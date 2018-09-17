@@ -14,6 +14,7 @@ public class Action_List extends Action_Init implements Action {
 	public String execute() throws ServletException, IOException {
 		
 		List_DB_Bean list_manager = List_DB_Bean.getInstance();
+		
 		int board_total = list_manager.getCount(searchs, searchs_value);	//총 개수
 		int board_cnt = 0;						//no를 위한 카운트
 
@@ -27,7 +28,7 @@ public class Action_List extends Action_Init implements Action {
 		if(pstarts <= 0) pstarts = 1;
 		if(pends > board_paging) pends = board_paging;
 
-		List list = list_manager.getArticles(board_starts, board_ends, searchs, searchs_value);	//리스트받아오기
+		List list = list_manager.getArticles(board_starts, board_ends, searchs, searchs_value, 10);	//리스트받아오기
 
 		String date = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE);
 

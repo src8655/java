@@ -253,7 +253,7 @@ public class List_DB_Bean {
     }
     
     //여러 줄 가져오기
-    public List getArticles(int start, int end, int searchs, String searchs_value) {
+    public List getArticles(int start, int end, int searchs, String searchs_value, int length) {
     	List list = new ArrayList();
     	
     	//검색
@@ -300,12 +300,19 @@ public class List_DB_Bean {
 				//5일때 1로 초기화
 				if(cnt == 5) cnt = 0;
 				cnt++;
+				
+				//할인금액 적용
+				bdb.setDiscount_money(bdb.getMoney()-bdb.getRmoney());
 
 				//통화 형식
 				bdb.setRmoneys(number_format(bdb.getRmoney()));
 				bdb.setMoneys(number_format(bdb.getMoney()));
 				bdb.setShip_moneys(number_format(bdb.getShip_money()));
+				bdb.setDiscount_moneys(number_format(bdb.getDiscount_money()));
 				
+				//제목글자수
+				if(bdb.getName().length() > length) 
+					bdb.setName(bdb.getName().substring(0, length));
 				
 				list.add(bdb);
 			}
@@ -402,10 +409,15 @@ public class List_DB_Bean {
 				bdb.setRmoney(rs.getInt("RMONEY"));
 				
 
+				//할인금액 적용
+				bdb.setDiscount_money(bdb.getMoney()-bdb.getRmoney());
+				
+
 				//통화 형식
 				bdb.setRmoneys(number_format(bdb.getRmoney()));
 				bdb.setMoneys(number_format(bdb.getMoney()));
 				bdb.setShip_moneys(number_format(bdb.getShip_money()));
+				bdb.setDiscount_moneys(number_format(bdb.getDiscount_money()));
 			}
 			
 		} catch (Exception e) {

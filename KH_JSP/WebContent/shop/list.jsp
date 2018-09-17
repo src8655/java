@@ -5,20 +5,20 @@
 
 
   <ul id="list_tab">
-    <li><a href="list.o?searchs_value=${searchs_value}" <c:if test="${searchs ne -1}">class="list_tab_a"</c:if> <c:if test="${searchs eq -1}">class="list_tab_a_hover"</c:if>>전체상품</a></li>
-    <li><a href="list.o?searchs=1&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 1}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 1}">class="list_tab_a"</c:if>>쌀/잡곡</a></li>
-    <li><a href="list.o?searchs=2&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 2}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 2}">class="list_tab_a"</c:if>>과일/채소</a></li>
-    <li><a href="list.o?searchs=3&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 3}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 3}">class="list_tab_a"</c:if>>축산물</a></li>
-    <li><a href="list.o?searchs=4&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 4}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 4}">class="list_tab_a"</c:if>>건강식품</a></li>
-    <li><a href="list.o?searchs=5&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 5}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 5}">class="list_tab_a"</c:if>>가공식품</a></li>
-    <li><a href="list.o?searchs=6&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 6}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 6}">class="list_tab_a"</c:if>>수산물</a></li>
-    <li><a href="list.o?searchs=7&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 7}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 7}">class="list_tab_a"</c:if>>김치/장류</a></li>
-    <li><a href="list.o?searchs=8&amp;searchs_value=${searchs_value}" <c:if test="${searchs eq 8}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 8}">class="list_tab_a"</c:if>>공예/공산품</a></li>
+    <li><a href="list.o?searchs_value=${searchs_values}" <c:if test="${searchs ne -1}">class="list_tab_a"</c:if> <c:if test="${searchs eq -1}">class="list_tab_a_hover"</c:if>>전체상품</a></li>
+    <li><a href="list.o?searchs=1&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 1}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 1}">class="list_tab_a"</c:if>>쌀/잡곡</a></li>
+    <li><a href="list.o?searchs=2&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 2}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 2}">class="list_tab_a"</c:if>>과일/채소</a></li>
+    <li><a href="list.o?searchs=3&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 3}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 3}">class="list_tab_a"</c:if>>축산물</a></li>
+    <li><a href="list.o?searchs=4&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 4}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 4}">class="list_tab_a"</c:if>>건강식품</a></li>
+    <li><a href="list.o?searchs=5&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 5}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 5}">class="list_tab_a"</c:if>>가공식품</a></li>
+    <li><a href="list.o?searchs=6&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 6}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 6}">class="list_tab_a"</c:if>>수산물</a></li>
+    <li><a href="list.o?searchs=7&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 7}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 7}">class="list_tab_a"</c:if>>김치/장류</a></li>
+    <li><a href="list.o?searchs=8&amp;searchs_value=${searchs_values}" <c:if test="${searchs eq 8}">class="list_tab_a_hover"</c:if><c:if test="${searchs ne 8}">class="list_tab_a"</c:if>>공예/공산품</a></li>
   </ul>
   <ul class="list_data">
 <c:forEach var="ldata" items="${list}">
     <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>
-      <a href="view.o?no=${ldata.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}">
+      <a href="view.o?no=${ldata.no}&amp;searchs=${searchs}&amp;searchs_value=${searchs_values}">
       	<c:if test="${ldata.file1 eq null}"><img src="./images/noimg.jpg" width="120px" height="120px" alt="${ldata.name}" /></c:if>
         <c:if test="${ldata.file1 ne null}"><img src="./upload/${ldata.file1}" width="120px" height="120px" alt="${ldata.name}" /></c:if>
         <br />
@@ -29,7 +29,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>

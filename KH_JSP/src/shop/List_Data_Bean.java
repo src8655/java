@@ -22,9 +22,12 @@ public class List_Data_Bean {
 	private int rmoney = 0;
 	
 	private int cnt = 0;
-	private String moneys = "";
-	private String rmoneys = "";
+	private String moneys = "";		//금액
+	private String rmoneys = "";	//할인후금액
 	private String ship_moneys = "";
+	private int basket_cnt = 0;			//구매할 개수
+	private int discount_money = 0;
+	private String discount_moneys = "";	//할인금액
 	
 	
 	public int getNo() {
@@ -165,6 +168,25 @@ public class List_Data_Bean {
 	public void setShip_moneys(String ship_moneys) {
 		this.ship_moneys = ship_moneys;
 	}
+	public int getBasket_cnt() {
+		return basket_cnt;
+	}
+	public void setBasket_cnt(int basket_cnt) {
+		this.basket_cnt = basket_cnt;
+	}
+	public int getDiscount_money() {
+		return discount_money;
+	}
+	public void setDiscount_money(int discount_money) {
+		this.discount_money = discount_money;
+	}
+	public String getDiscount_moneys() {
+		return discount_moneys;
+	}
+	public void setDiscount_moneys(String discount_moneys) {
+		this.discount_moneys = discount_moneys;
+	}
+	
 	
 	
 }

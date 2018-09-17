@@ -1,7 +1,10 @@
 package shop;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,7 @@ public class Action_Init implements Action {
 	public String pages = "1";
 	public int searchs = -1;
 	public String searchs_value = "";
+	public String searchs_values = "";
 	
 	HttpSession session;
 	
@@ -41,10 +45,13 @@ public class Action_Init implements Action {
 		if(request.getParameter("pages") != null)
 			pages = request.getParameter("pages");
 		if(request.getParameter("searchs") != null)			//검색
-			searchs = Integer.parseInt(request.getParameter("searchs"));
-		if(request.getParameter("searchs_value") != null)	//검색어
+			if(!request.getParameter("searchs").equals(""))
+				searchs = Integer.parseInt(request.getParameter("searchs"));
+		if(request.getParameter("searchs_value") != null) {
 			searchs_value = request.getParameter("searchs_value");
-		
+		}
+		//url인코딩한 값을 저장
+		searchs_values = URLEncoder.encode(searchs_value,"UTF-8");
 		
 		//공통
 		request.setAttribute("year", year);
@@ -54,7 +61,23 @@ public class Action_Init implements Action {
 		request.setAttribute("pages_int", Integer.parseInt(pages));
 		request.setAttribute("searchs", searchs);
 		request.setAttribute("searchs_value", searchs_value);
+		request.setAttribute("searchs_values", searchs_values);
+		
+		
+		
+		
+		//장바구니 개수 구하기
+		//비어있으면
+		int basket_cnt = 0;
+		if(session.getAttribute("basket") == null) {
+			basket_cnt = 0;
+		}else {
+			HashMap map = (HashMap)session.getAttribute("basket");
+			basket_cnt = map.size();
+		}
 
+		request.setAttribute("basket_cnt", basket_cnt);
+		
 		////////////////////////////////////////////////////////////////
 	}
 

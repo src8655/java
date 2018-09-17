@@ -14,14 +14,14 @@ public class Action_Index extends Action_Init implements Action {
 		
 		List_DB_Bean ldb = List_DB_Bean.getInstance();
 
-		List list_1 = ldb.getArticles(1, 5, 1, "");
-		List list_2 = ldb.getArticles(1, 5, 2, "");
-		List list_3 = ldb.getArticles(1, 5, 3, "");
-		List list_4 = ldb.getArticles(1, 5, 4, "");
-		List list_5 = ldb.getArticles(1, 5, 5, "");
-		List list_6 = ldb.getArticles(1, 5, 6, "");
-		List list_7 = ldb.getArticles(1, 5, 7, "");
-		List list_8 = ldb.getArticles(1, 5, 8, "");
+		List list_1 = ldb.getArticles(1, 5, 1, "", 10);
+		List list_2 = ldb.getArticles(1, 5, 2, "", 10);
+		List list_3 = ldb.getArticles(1, 5, 3, "", 10);
+		List list_4 = ldb.getArticles(1, 5, 4, "", 10);
+		List list_5 = ldb.getArticles(1, 5, 5, "", 10);
+		List list_6 = ldb.getArticles(1, 5, 6, "", 10);
+		List list_7 = ldb.getArticles(1, 5, 7, "", 10);
+		List list_8 = ldb.getArticles(1, 5, 8, "", 10);
 
 		request.setAttribute("list_1", list_1);
 		request.setAttribute("list_2", list_2);

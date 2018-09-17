@@ -289,7 +289,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
@@ -315,7 +315,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
@@ -339,7 +339,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
@@ -362,7 +362,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
@@ -383,7 +383,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
@@ -405,7 +405,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
@@ -427,7 +427,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
@@ -448,7 +448,7 @@
         <span style="font-size:12px;color:#666666;">
         	<s>${ldata.moneys}원</s>
         </span><br />
-        <span style="font-weight:bold;">${ldata.moneys}원</span>
+        <span style="font-weight:bold;">${ldata.rmoneys}원</span>
       </a>
     </li>
 </c:forEach>
