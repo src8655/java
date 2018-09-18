@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
 public class Action_Init implements Action {
 	public HttpServletRequest request;
 	public HttpServletResponse response;
@@ -25,6 +27,8 @@ public class Action_Init implements Action {
 	public String searchs_values = "";
 	
 	HttpSession session;
+	Member_DB_Bean mem_db;
+	Member_Data_Bean member_info;
 	
 	public Action_Init() {
 		
@@ -63,7 +67,9 @@ public class Action_Init implements Action {
 		request.setAttribute("searchs_value", searchs_value);
 		request.setAttribute("searchs_values", searchs_values);
 		
-		
+		//로그인정보 불러오기
+		mem_db = Member_DB_Bean.getInstance();
+		member_info = mem_db.getLogin(session);
 		
 		
 		//장바구니 개수 구하기
@@ -77,6 +83,7 @@ public class Action_Init implements Action {
 		}
 
 		request.setAttribute("basket_cnt", basket_cnt);
+		request.setAttribute("member_info", member_info);
 		
 		////////////////////////////////////////////////////////////////
 	}

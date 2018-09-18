@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="./ckeditor/ckeditor.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style type="text/css">
 img {
 border:0px;
@@ -69,8 +70,8 @@ padding:0px;
 overflow:hidden;
 }
 #header h1 a {
-width:91px;
-height:38px;
+width:100px;
+height:39px;
 text-decoration:none;
 margin:50px 0 0 60px;
 display:block;
@@ -946,6 +947,378 @@ border-right:1px solid #d81818;
 border-bottom:1px solid #9e1212;
 border-left:1px solid #d81818;
 }
+.join_first {
+width:965px;
+margin:40px 0 0 0;
+padding:0px;
+overflow:hidden;
+}
+.join_box1 {
+float:left;;
+font-family:'Arial';
+background:#4c71d0;
+color:#ffffff;
+width:477px;
+height:273px;
+overflow:hidden;
+}
+.join_box1 div {
+background:#ffffff;
+margin:28px 0 0 28px;
+padding:0px;
+width:24px;
+height:1px;
+overflow:hidden;
+}
+.join_box1 p {
+margin:20px 0 0 28px;
+font-size:25px;
+}
+.join_box1 a {
+border:1px solid #6081df;
+background:#ffffff;
+text-decoration:none;
+display:block;
+color:#4d6bcc;
+font-size:11px;
+width:58px;
+height:22px;
+text-align:center;
+line-height:22px;
+margin:60px 0 0 28px;
+padding:0px;
+}
+.join_box2 {
+float:right;;
+font-family:'Arial';
+background:#4a5d9d;
+color:#ffffff;
+width:477px;
+height:273px;
+overflow:hidden;
+}
+.join_box2 div {
+background:#ffffff;
+margin:28px 0 0 28px;
+padding:0px;
+width:24px;
+height:1px;
+overflow:hidden;
+}
+.join_box2 p {
+margin:20px 0 0 28px;
+font-size:25px;
+}
+.join_box2 a {
+border:1px solid #344066;
+background:#ffffff;
+text-decoration:none;
+display:block;
+color:#354168;
+font-size:11px;
+width:58px;
+height:22px;
+text-align:center;
+line-height:22px;
+margin:60px 0 0 28px;
+padding:0px;
+}
+.join_agree_bg {
+background:#f5f6f8;
+width:100%;
+margin:3px 0 0 0;
+overflow:hidden;
+}
+.join_agree {
+margin:0 auto;
+margin-top:10px;
+margin-bottom:40px;
+padding:0px;
+width:800px;
+overflow:hidden;
+}
+.join_agree_header {
+width:800px;
+padding:20px 0 20px 0;
+border-bottom:1px solid #c4c5c7;
+overflow:hidden;
+}
+.join_agree_header h1 {
+float:left;
+font-family:'Arial';
+font-size:25px;
+margin:0px;
+padding:0px;
+width:300px;
+overflow:hidden;
+}
+.join_agree_header ul {
+float:right;
+margin:0px;
+padding:0px;
+list-style:none;
+width:500px;
+overflow:hidden;
+}
+.join_agree_header ul li {
+float:right;
+margin:5px 0 0 20px;
+padding:0 0 3px 0;
+font-size:17px;
+font-weight:bold;
+font-family:'Arial';
+color:#999999;
+overflow:hidden;
+}
+.join_agree_c {
+margin:10px 0 10px 0;
+padding:0px;
+font-size:14px;
+color:#999999;
+overflow:hidden;
+}
+.join_agree_b {
+background:#ffffff;
+width:800px;
+margin:20px 0 0 0;
+padding:0px;
+overflow:hidden;
+}
+.join_agree_b_t {
+background:#555555;
+width:800px;
+padding:10px 0 10px 0;
+overflow:hidden;
+}
+.join_agree_b_t h1 {
+font-family:'Arial';
+float:left;
+font-size:17px;
+line-height:25px;
+height:25px;
+color:#ffffff;
+margin:0 0 0 30px;
+padding:0px;
+overflow:hidden;
+}
+.join_agree_b_t input {
+display:none;
+}
+.join_agree_b_t label {
+float:right;
+margin:0 30px 0 0;
+background:url(./images/check1.jpg) no-repeat left top;
+display:block;
+border:0px;
+width:25px;
+height:25px;
+overflow:hidden;
+}
+.join_agree_b_t label:hover {
+background:url(./images/check1.jpg) no-repeat left top;
+}
+.join_agree_b_t input[type=checkbox]:checked + label {
+background:url(./images/check2.jpg) no-repeat left top;
+}
+.join_agree_b_t p {
+float:right;
+font-size:17px;
+font-weight:bold;
+font-family:'Arial';
+line-height:25px;
+height:25px;
+color:#ffffff;
+margin:0 3px 0 0;
+padding:0px;
+overflow:hidden;
+}
+.join_agree_b_b {
+width:738px;
+padding:30px;
+border-right:1px solid #dcdcdc;
+border-bottom:1px solid #dcdcdc;
+border-left:1px solid #dcdcdc;
+overflow:hidden;
+}
+.join_agree_b_b div {
+border:1px solid #dcdcdc;
+width:716;
+height:200px;
+font-size:12px;
+color:#555555;
+padding:10px;
+overflow-y:scroll;
+}
+.join_red_button {
+width:800px;
+overflow:hidden;
+}
+.join_red_button a {
+background:#eb2b2b;
+font-size:15px;
+font-weight:bold;
+color:#ffffff;
+text-decoration:none;
+display:block;
+width:150px;
+height:45px;
+line-height:45px;
+text-align:center;
+margin:0 auto;
+margin-top:20px;
+border-top:1px solid #d81818;
+border-right:1px solid #d81818;
+border-bottom:1px solid #9e1212;
+border-left:1px solid #d81818;
+}
+.joins {
+width:700px;
+margin:0 auto;
+border:0px;
+}
+.joins tr th {
+text-align:left;
+font-weight:normal;
+font-size:15px;
+color:#4d4d4d;
+}
+.join_input {
+font-size:15px;
+padding:0 10px 0 10px;
+margin:0px;
+height:35px;
+line-height:35px;
+color:#666666;
+width:70%;
+}
+.join_id_button {
+padding:0 10px 0 10px;
+margin:0px;
+text-align:center;
+height:37px;
+line-height:37px;
+font-size:12px;
+font-weight:bold;
+color:#ffffff;
+background:#7c7c7c;
+border-top:1px solid #676767;
+border-right:1px solid #676767;
+border-bottom:1px solid #4c4c4c;
+border-left:1px solid #676767;
+}
+.join_agree_end {
+width:100%;
+margin:0px;
+padding:100px 0 100px 0;
+text-align:center;
+font-size:25px;
+font-weight:bold;
+font-family:'Arial';
+overflow:hidden;
+}
+.login_bg {
+width:694px;
+margin:0 auto;
+margin-top:40px;
+overflow:hidden;
+}
+.login_bg h1 {
+font-family:'Arial';
+font-weight:bold;
+width:694px;
+font-size:40px;
+color:#f43030;
+margin:0px;
+padding:0 0 15px 0;
+border-bottom:5px solid #616161;
+overflow:hidden;
+}
+.login {
+margin:0px;
+padding:35px 0 35px 0;
+background:#f7f7f7;
+border-right:1px solid #e8e8e8;
+border-bottom:1px solid #e8e8e8;
+border-left:1px solid #e8e8e8;
+overflow:hidden;
+}
+.login_box {
+background:#ffffff;
+width:445px;
+margin:0 auto;
+padding:30px 0 30px 0;
+border:1px solid #dcdcdc;
+overflow:hidden;
+}
+.login_box_t {
+margin:0 80px 0 80px;
+overflow:hidden;
+}
+.login_box_t_l {
+float:left;
+width:200px;
+overflow:hidden;
+}
+.login_box_t_l input {
+border:1px solid #b4b4b4;
+margin:0px;
+padding:0px;
+width:195px;
+height:25px;
+font-size:12px;
+color:#757575;
+overflow:hidden;
+}
+.login_box_t a {
+float:right;
+background:#ec2d2d;
+border-top:1px solid #c41617;
+border-right:1px solid #c41617;
+border-bottom:1px solid #90100f;
+border-left:1px solid #c41617;
+width:82px;
+height:55px;
+line-height:55px;
+text-align:center;
+font-size:14px;
+font-weight:bold;
+text-decoration:none;
+color:#ffffff;
+display:block;
+overflow:hidden;
+}
+.login_box_c {
+font-size:12px;
+margin:10px 80px 10px 80px;
+overflow:hidden;
+}
+.login_box ul {
+list-style:none;
+margin:0 0 0 80px;
+padding:0px;
+overflow:hidden;
+}
+.login_box ul li {
+float:left;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.login_box ul li a {
+display:block;
+margin:0 5px 0 0;
+padding:0px;
+width:89px;
+height:18px;
+line-height:18px;
+text-align:center;
+color:#4d4d4d;
+text-decoration:none;
+font-size:11px;
+border:1px solid #bdbdbd;
+background:#f5f5f5;
+overflow:hidden;
+}
 </style>
 <script type="text/javascript">
 function tab(vars, vars_this, vars_right) {
@@ -1063,10 +1436,63 @@ function basket_change(nos, inp) {
 function basket_delete(nos) {
 	location.href="basket_delete.o?no="+nos;
 }
+
+
+//회원가입 약관동의 버튼
+function join_agree_next(order) {
+	var inputs = document.getElementById("agrees");
+	
+	if(inputs.checked == false) {
+		alert("약관에 동의해주세요.");
+		return ;
+	}
+	
+	location.href="join_write.o?order="+order;
+}
+
+
+
+var id_check = 0;	//아이디 검사 여부
+
+//아이디 중복확인 버튼 눌렀을때sdf
+function btn_check(){
+	//input의 아이디값을 찾아서 GET방식으로 팝업창 오픈
+	var user_id = document.getElementById("user_ids").value;
+	var url = "./join_id_check.o?user_id="+user_id;
+	
+	if(user_id != "")
+	window.open(url, 'form', 'width=520, height=210, '
+			+'toolbar=no, scrollbars=yes, resizable=no');
+	else alert("아이디를 입력해 주세요.");
+}
+//아이디 중복확인 팝업창 결과
+function btn_check_return(result) {
+	id_check = result;	//아이디가 비정상이면 0, 정상이면 1
+	if(result == 1)
+		document.getElementById("id_ch_value").innerHTML="사용 가능한 아이디입니다.";
+	else 
+		document.getElementById("id_ch_value").innerHTML="중복 확인 절차를 거쳐야 합니다.";
+}
+//아이디 중복확인 여부
+function join_submit() {
+	if(id_check == 0) alert("아이디 중복확인을 해주세요.");
+	else document.getElementById("join").submit();
+}
+
+//다음우편번호
+function btn_find_daum() {
+  new daum.Postcode({
+      oncomplete: function(data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+          // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+      	document.getElementById("addr_code").value = data.postcode;
+      	document.getElementById("addr").value = data.address+" "+data.buildingName;
+      }
+  }).open();
+}
 </script>
 </head>
 <body>
-
 <div id="top_bg">
   <ul>
     <li><a href="#">고객센터</a></li>
@@ -1079,8 +1505,14 @@ function basket_delete(nos) {
     		</c:if>
     	</a>
     </li>
-    <li><a href="#">회원가입</a></li>
-    <li><a href="#" style="border:0px;">로그인</a></li>
+    <c:if test="${member_info eq null}">
+    <li><a href="join.o">회원가입</a></li>
+    <li><a href="login.o" style="border:0px;">로그인</a></li>
+    </c:if>
+    <c:if test="${member_info ne null}">
+    <li><a href="logout.o" style="border:0px;">로그아웃</a></li>
+    <li><a style="border:0px;"><span style="font-weight:bold;">${member_info.name}</span>님 환영합니다.</a></li>
+    </c:if>
   </ul>
 </div>
 <div id="header">
