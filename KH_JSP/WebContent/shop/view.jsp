@@ -8,8 +8,8 @@
   <div class="list_v_t">
     <h1>${ldata.name}</h1>
     <div class="list_v_t_l">
-      <c:if test="${ldata.file1 eq null}"><img src="./images/x380.jpg" alt="${ldata.name}" /></c:if>
-      <c:if test="${ldata.file1 ne null}"><img src="./upload/${ldata.file1}" alt="${ldata.name}" /></c:if>
+      <c:if test="${ldata.file1 eq null}"><img src="./images/x380.jpg" alt="${ldata.name}" width="380px" height="380px" /></c:if>
+      <c:if test="${ldata.file1 ne null}"><img src="./upload/${ldata.file1}" alt="${ldata.name}" width="380px" height="380px" /></c:if>
     </div>
     <div class="list_v_t_r">
       <div class="list_v_t_r_t">

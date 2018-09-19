@@ -2,7 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="head.jsp" %>
 
-
+<div class="basket_top">
+	<h1 style="width:400px;">
+		<div><img src="./images/basket.jpg" alt="장바구니" /></div>
+		<p>판매상품 등록</p>
+	</h1>
+</div>
 
 <form action="write_post.o" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt(this)">
 <input type="file" name="file1" id="file1" onchange="change_img('file1_img', this);" class="hides" />
@@ -10,6 +15,7 @@
 <input type="file" name="file3" id="file3" onchange="change_img('file3_img', this);" class="hides" />
 <input type="file" name="file4" id="file4" onchange="change_img('file4_img', this);" class="hides" />
 <input type="file" name="file5" id="file5" onchange="change_img('file5_img', this);" class="hides" />
+<input type="hidden" name="seller" value="${member_info.no}" />
 <table cellpadding="7" cellspacing="0" class="boards">
 <col width="400px" />
 <col width="200" />
@@ -96,11 +102,9 @@
 		</td>
 	</tr>
 </table>
-
-<div class="boards_b">
-	<div class="boards_br">
-		<input type="submit" value="작성하기" class="btn_st"  style="float:right;margin:0 10px 0 0; height:35px;" />
-	</div>
+<div class="basket_b">
+	<a href="#100" onclick="userinput.submit();">등록하기</a>
+	<a href="#100" onclick="location.href='mypage_list.o'" style="margin-right:10px;">목록보기</a>
 </div>
 </form>
 

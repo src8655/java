@@ -1,0 +1,33 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 수요일-9월-19-2018   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence MIN_TADDR_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TADDR_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 42641 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TBOARD_COMMENT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TBOARD_COMMENT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 5001 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TBOARD_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TBOARD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 5181 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TBOARD_SEQ2
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TBOARD_SEQ2"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 7002 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_LIST_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 5002 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_MEMBER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2002 CACHE 20 NOORDER  NOCYCLE ;

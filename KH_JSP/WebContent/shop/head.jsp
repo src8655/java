@@ -1319,6 +1319,91 @@ border:1px solid #bdbdbd;
 background:#f5f5f5;
 overflow:hidden;
 }
+.mypage_bg {
+width:800px;
+list-style:none;
+margin:0 auto;
+padding:0px;
+overflow:hidden;
+}
+.mypage_bg li {
+float:left;
+font-family:'Arial';
+background:#4c71d0;
+color:#ffffff;
+width:200px;
+height:273px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.mypage_bg li div {
+background:#ffffff;
+margin:28px 0 0 28px;
+padding:0px;
+width:24px;
+height:1px;
+overflow:hidden;
+}
+.mypage_bg li p {
+margin:20px 0 0 28px;
+font-size:25px;
+}
+.mypage_bg li a {
+border:1px solid #6081df;
+background:#ffffff;
+text-decoration:none;
+display:block;
+color:#4d6bcc;
+font-size:11px;
+width:58px;
+height:22px;
+text-align:center;
+line-height:22px;
+margin:60px 0 0 28px;
+padding:0px;
+}
+
+
+.edit_del_checkbox {
+width:100%;
+background:#555555;
+margin:0 auto;
+padding:7px 0 7px 0px;
+overflow:hidden;
+}
+
+.edit_del_checkbox input {
+display:none;
+}
+.edit_del_checkbox label {
+float:right;
+margin:0 30px 0 0;
+background:url(./images/check1.jpg) no-repeat left top;
+display:block;
+border:0px;
+width:25px;
+height:25px;
+overflow:hidden;
+}
+.edit_del_checkbox label:hover {
+background:url(./images/check1.jpg) no-repeat left top;
+}
+.edit_del_checkbox input[type=checkbox]:checked + label {
+background:url(./images/check2.jpg) no-repeat left top;
+}
+.edit_del_checkbox p {
+float:right;
+font-size:17px;
+font-weight:bold;
+font-family:'Arial';
+line-height:25px;
+height:25px;
+color:#ffffff;
+margin:0 3px 0 0;
+padding:0px;
+overflow:hidden;
+}
 </style>
 <script type="text/javascript">
 function tab(vars, vars_this, vars_right) {
@@ -1496,7 +1581,17 @@ function btn_find_daum() {
 <div id="top_bg">
   <ul>
     <li><a href="#">고객센터</a></li>
-    <li><a href="#" style="color:#adc12c;">나의 쇼핑정보 <img src="./images/myinfo.jpg" alt="나의 쇼핑정보" /></a></li>
+    <li>
+    <c:if test="${member_info eq null}">
+    	<a href="login.o" style="color:#adc12c;">나의 쇼핑정보 <img src="./images/myinfo.jpg" alt="나의 쇼핑정보" /></a>
+    </c:if>
+    <c:if test="${member_info.orders eq 1}">
+    	<a href="mypage_guest.o" style="color:#adc12c;">나의 쇼핑정보 <img src="./images/myinfo.jpg" alt="나의 쇼핑정보" /></a>
+    </c:if>
+    <c:if test="${member_info.orders eq 2}">
+    	<a href="mypage.o" style="color:#adc12c;">나의 판매정보 <img src="./images/myinfo.jpg" alt="나의 판매정보" /></a>
+    </c:if>
+    </li>
     <li>
     	<a href="basket.o">
     		장바구니
@@ -1544,7 +1639,7 @@ function btn_find_daum() {
     </ul>
   </div>
   <div id="header_r">
-    <a href="#100" onclick="quick_search('박광희김치');"><img src="./images/top_right_menu.jpg" alt="박광희김치" /></a>
+    <a href="#100" onclick="quick_search('박광희김치','');"><img src="./images/top_right_menu.jpg" alt="박광희김치" /></a>
   </div>
 </div>
 

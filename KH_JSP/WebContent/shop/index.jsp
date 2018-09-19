@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="head.jsp" %>
-
   <div id="main">
     <ul class="main_menu">
       <li>

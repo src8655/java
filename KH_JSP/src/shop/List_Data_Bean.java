@@ -20,6 +20,7 @@ public class List_Data_Bean {
 	private int buy = 0;
 	private String dates;
 	private int rmoney = 0;
+	private int seller;
 	
 	private int cnt = 0;
 	private String moneys = "";		//ฑÝพื
@@ -185,6 +186,12 @@ public class List_Data_Bean {
 	}
 	public void setDiscount_moneys(String discount_moneys) {
 		this.discount_moneys = discount_moneys;
+	}
+	public int getSeller() {
+		return seller;
+	}
+	public void setSeller(int seller) {
+		this.seller = seller;
 	}
 	
 	
