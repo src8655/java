@@ -13,7 +13,21 @@ public class Member_Data_Bean {
 	private String phone3;
 	private String company_number;
 	private int orders = 1;
+	private String bank;
+	private String bank_num;
 	
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+	public String getBank_num() {
+		return bank_num;
+	}
+	public void setBank_num(String bank_num) {
+		this.bank_num = bank_num;
+	}
 	public int getNo() {
 		return no;
 	}

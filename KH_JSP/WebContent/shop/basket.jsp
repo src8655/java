@@ -59,7 +59,7 @@
 	        (${ldata.ship_company})
 		</td>
 		<td>
-			<input type="button" value="주문하기" class="basket_order" /><br />
+			<input type="button" value="주문하기" class="basket_order" onclick="location.href='buys.o?order=3&no=${ldata.no}&counts=${ldata.basket_cnt}'" /><br />
 			<input type="button" value="삭제하기" onclick="basket_delete('${ldata.no}')" class="basket_delete" />
 		</td>
 	</tr>
@@ -89,6 +89,6 @@
 </table>
 
 <div class="basket_b">
-	<a href="#">주문하기</a>
+	<a href="buys.o?order=2">주문하기</a>
 </div>
 <%@ include file="foot.jsp" %>

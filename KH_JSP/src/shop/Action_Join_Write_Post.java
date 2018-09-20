@@ -15,6 +15,8 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 		
 		int order = Integer.parseInt(request.getParameter("order"));
 		String company_number = request.getParameter("company_number");
+		String bank = request.getParameter("bank");
+		String bank_num = request.getParameter("bank_num");
 		String name = request.getParameter("name");
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
@@ -29,6 +31,22 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 		if(order == 2 && company_number.equals("")) {
 			response.getWriter().println("<script>");
 			response.getWriter().println("alert('사업자등록번호를 입력하세요.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		if(order == 2 && bank.equals("")) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('입금은행을 입력하세요.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		if(order == 2 && bank_num.equals("")) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('계좌번호를 입력하세요.')");
 			response.getWriter().println("history.go(-1)");
 			response.getWriter().println("</script>");
 			
@@ -146,6 +164,8 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 		mdata.setPhone2(phone2);
 		mdata.setPhone3(phone3);
 		mdata.setOrders(order);
+		mdata.setBank(bank);
+		mdata.setBank_num(bank_num);
 		
 		int res = 0;	//1성공 0실패
 		if(mdb.insert(mdata)) res = 1;

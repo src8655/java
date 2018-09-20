@@ -1575,6 +1575,21 @@ function btn_find_daum() {
       }
   }).open();
 }
+
+//구매버튼 order 1이면 일반구매 2이면 장바구니구매
+function buys() {
+	var forms = document.getElementById("view_form");
+	if(!forms.counts.value) {
+		alert("수량 입력하세요");
+		return ;
+	}
+	if(forms.counts.value <= 0) {
+		alert("올바른 수량을 입력하세요");
+		return ;
+	}
+	forms.setAttribute("action","buys.o");
+	forms.submit();
+}
 </script>
 </head>
 <body>

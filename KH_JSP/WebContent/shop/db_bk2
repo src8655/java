@@ -1,7 +1,4 @@
 --------------------------------------------------------
---  파일이 생성됨 - 수요일-9월-19-2018   
---------------------------------------------------------
---------------------------------------------------------
 --  DDL for Sequence MIN_TADDR_SEQ
 --------------------------------------------------------
 
@@ -25,9 +22,19 @@
 --  DDL for Sequence MIN_TSHOP_LIST_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 5002 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 4452 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_MEMBER_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2002 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 3002 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_SELL_GROUP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_GROUP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1002 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_SELL_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2002 CACHE 20 NOORDER  NOCYCLE ;

@@ -27,11 +27,25 @@
 		<col width="370" />
 		<c:if test="${order eq 1}">
 			<input type="hidden" name="company_number" value="" />
+			<input type="hidden" name="bank" value="" />
+			<input type="hidden" name="bank_num" value="" />
 		</c:if>
 		<c:if test="${order eq 2}">
 		<tr>
 			<th><span style="color:#e61337;">•</span> 사업자등록번호</th>
 			<td><input type="text" name="company_number" class="join_input" placeholder="- 를 빼고 입력" /></td>
+		</tr>
+		</c:if>
+		<c:if test="${order eq 2}">
+		<tr>
+			<th><span style="color:#e61337;">•</span> 입금은행</th>
+			<td><input type="text" name="bank" class="join_input" placeholder="은행명을 입력해 주세요" /></td>
+		</tr>
+		</c:if>
+		<c:if test="${order eq 2}">
+		<tr>
+			<th><span style="color:#e61337;">•</span> 입금계좌번호</th>
+			<td><input type="text" name="bank_num" class="join_input" placeholder="- 를 빼고 입력" /></td>
 		</tr>
 		</c:if>
 		<tr>

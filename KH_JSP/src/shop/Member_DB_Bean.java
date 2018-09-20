@@ -23,8 +23,8 @@ public class Member_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into MIN_TSHOP_MEMBER(NAME,USER_ID,USER_PW,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,COMPANY_NUMBER,ORDERS) "
-									+"values(?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TSHOP_MEMBER(NAME,USER_ID,USER_PW,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,COMPANY_NUMBER,ORDERS,BANK,BANK_NUM) "
+									+"values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, mdata.getName());
 			pstmt.setString(2, mdata.getUser_id());
 			pstmt.setString(3, mdata.getUser_pw());
@@ -36,6 +36,8 @@ public class Member_DB_Bean {
 			pstmt.setString(9, mdata.getPhone3());
 			pstmt.setString(10, mdata.getCompany_number());
 			pstmt.setInt(11, mdata.getOrders());
+			pstmt.setString(12, mdata.getBank());
+			pstmt.setString(13, mdata.getBank_num());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -152,6 +154,8 @@ public class Member_DB_Bean {
 				mdata.setPhone3(rs.getString("PHONE3"));
 				mdata.setCompany_number(rs.getString("COMPANY_NUMBER"));
 				mdata.setOrders(rs.getInt("ORDERS"));
+				mdata.setBank(rs.getString("BANK"));
+				mdata.setBank_num(rs.getString("BANK_NUM"));
 			}
 			
 		} catch (Exception e) {
