@@ -9,6 +9,50 @@
 	</h1>
 </div>
 
+
+<h1 class="mypage_h"><img src="./images/mypage_h_01.jpg" alt="진행 중인 주문" /></h1>
+<ul class="mypage_p">
+	<li class="mypage_p_01">
+		<img src="./images/mypage_t_h_01.jpg" alt="입금대기중" />
+		<div>
+			<p>${process1}</p>
+			<img src="./images/mypage_t_01.jpg" alt="입금대기중" />
+		</div>
+	</li>
+	<li class="mypage_p_02"></li>
+	<li class="mypage_p_01">
+		<img src="./images/mypage_t_h_02.jpg" alt="결제완료" />
+		<div>
+			<p>${process2}</p>
+			<img src="./images/mypage_t_02.jpg" alt="결제완료" />
+		</div>
+	</li>
+	<li class="mypage_p_02"></li>
+	<li class="mypage_p_01">
+		<img src="./images/mypage_t_h_03.jpg" alt="배송준비중" />
+		<div>
+			<p>${process3}</p>
+			<img src="./images/mypage_t_03.jpg" alt="배송준비중" />
+		</div>
+	</li>
+	<li class="mypage_p_02"></li>
+	<li class="mypage_p_01">
+		<img src="./images/mypage_t_h_04.jpg" alt="배송중" />
+		<div>
+			<p>${process4}</p>
+			<img src="./images/mypage_t_04.jpg" alt="배송중" />
+		</div>
+	</li>
+	<li class="mypage_p_02"></li>
+	<li class="mypage_p_01">
+		<img src="./images/mypage_t_h_05.jpg" alt="배송완료" />
+		<div>
+			<p>${process5}</p>
+			<img src="./images/mypage_t_05.jpg" alt="배송완료" />
+		</div>
+	</li>
+</ul>
+<h1 class="mypage_h"><img src="./images/mypage_h_02.jpg" alt="최근 주문 정보" /></h1>
 <table cellpadding="5" cellspacing="0" class="basket_table" style="width:800px;margin:0 auto;">
 <col width="100" />
 <col width="100" />
@@ -54,12 +98,16 @@
 			<c:if test="${sdata.status eq 1}">입금대기중</c:if>
 			<c:if test="${sdata.status eq 2}">결제완료</c:if>
 			<c:if test="${sdata.status eq 3}">배송준비중</c:if>
-			<c:if test="${sdata.status eq 4}">배송중</c:if>
+			<c:if test="${sdata.status eq 4}">
+				배송중<br />
+				${sdata.ship_company}<br />
+				(${sdata.ship_num})
+			</c:if>
 			<c:if test="${sdata.status eq 5}">배송완료</c:if>
 		</td>
 		<td>
-			<input type="button" value="수령확정" class="basket_order" /><br />
-			<input type="button" value="주문취소" class="basket_delete" />
+			<c:if test="${sdata.status eq 4}"><input type="button" value="구매확정" class="basket_order" onclick="location.href='mypage_guest_post1.o?no=${sdata.no}'" /><br /></c:if>
+			<c:if test="${sdata.status eq 1}"><input type="button" value="주문취소" class="basket_delete" onclick="location.href='mypage_guest_post2.o?no=${sdata.no}'" /></c:if>
 		</td>
 	</tr>
 </c:forEach>

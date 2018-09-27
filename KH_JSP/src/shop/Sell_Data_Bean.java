@@ -23,13 +23,27 @@ public class Sell_Data_Bean {
 	private String phone3;
 	private String file1;
 	private String times;
+	private String ship_num;
 	
 	private String moneys = "";
 	private String ship_moneys = "";
 	private String rmoneys = "";
 	private int rowspans = -1;
+	private String totals = "";
 	
 	
+	public String getTotals() {
+		return totals;
+	}
+	public void setTotals(String totals) {
+		this.totals = totals;
+	}
+	public String getShip_num() {
+		return ship_num;
+	}
+	public void setShip_num(String ship_num) {
+		this.ship_num = ship_num;
+	}
 	public int getRowspans() {
 		return rowspans;
 	}

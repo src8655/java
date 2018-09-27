@@ -49,7 +49,20 @@ public class Action_Mypage_Guest extends Action_Init implements Action {
 			sdata.setRmoneys(number_format(sdata.getRmoney()));
 		}
 		
+		
+		//진행중인주문 개수
+		int process1 = sdb.guest_sell_count(member_info.getNo(), 1);
+		int process2 = sdb.guest_sell_count(member_info.getNo(), 2);
+		int process3 = sdb.guest_sell_count(member_info.getNo(), 3);
+		int process4 = sdb.guest_sell_count(member_info.getNo(), 4);
+		int process5 = sdb.guest_sell_count(member_info.getNo(), 5);
+
 		request.setAttribute("list", list);
+		request.setAttribute("process1", process1);
+		request.setAttribute("process2", process2);
+		request.setAttribute("process3", process3);
+		request.setAttribute("process4", process4);
+		request.setAttribute("process5", process5);
 		
 		return "mypage_guest.jsp";
 	}

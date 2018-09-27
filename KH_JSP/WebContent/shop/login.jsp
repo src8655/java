@@ -25,6 +25,7 @@
 		</div>
 	</div>
 </div>
+<input type="submit" value="로그인" style="display:none;" />
 </form>
 
 

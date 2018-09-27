@@ -1,6 +1,7 @@
 package shop;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class Sell_DB_Bean {
     	return false;
     }
     
-    //guestno로 찾기
+  //guestno로 찾기
     public List getArticles(int guest_no) {
     	List list = new ArrayList();
     	Connection conn = null;
@@ -102,6 +103,7 @@ public class Sell_DB_Bean {
 				sdata.setPhone3(rs.getString("PHONE3"));
 				sdata.setFile1(rs.getString("FILE1"));
 				sdata.setTimes(rs.getString("TIMES"));
+				sdata.setShip_num(rs.getString("SHIP_NUM"));
 				
 				list.add(sdata);
 			}
@@ -118,6 +120,116 @@ public class Sell_DB_Bean {
 		}
     	
     	return list;
+    }
+    //sellersno로 찾기 status가 -1일시 배송완료를 제외하고 모두 보기
+    public List getArticles2(int start, int end, int sellers_no, int status) {
+    	List list = new ArrayList();
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	String wheres = " and STATUS=?";
+    	if(status == -1)
+    		wheres = " and STATUS!=?";
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_SELL where SELLERS_NO=? "+wheres+" order by NO desc) a) where rnum>=? and rnum<=?");
+			pstmt.setInt(1, sellers_no);
+			if(status != -1) 
+				pstmt.setInt(2, status);
+			else
+				pstmt.setInt(2, 5);
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Sell_Data_Bean sdata = new Sell_Data_Bean();
+				sdata.setNo(rs.getInt("NO"));
+				sdata.setGuest_no(rs.getInt("GUEST_NO"));
+				sdata.setSellers_no(rs.getInt("SELLERS_NO"));
+				sdata.setProduct_no(rs.getInt("PRODUCT_NO"));
+				sdata.setProduct_name(rs.getString("PRODUCT_NAME"));
+				sdata.setCounts(rs.getInt("COUNTS"));
+				sdata.setMoney(rs.getInt("MONEY"));
+				sdata.setShip_money(rs.getInt("SHIP_MONEY"));
+				sdata.setRmoney(rs.getInt("RMONEY"));
+				sdata.setDates(rs.getString("DATES"));
+				sdata.setShip_dates(rs.getString("SHIP_DATES"));
+				sdata.setShip_company(rs.getString("SHIP_COMPANY"));
+				sdata.setStatus(rs.getInt("STATUS"));
+				sdata.setAddr(rs.getString("ADDR"));
+				sdata.setZipcode(rs.getString("ZIPCODE"));
+				sdata.setShip_memo(rs.getString("SHIP_MEMO"));
+				sdata.setName(rs.getString("NAME"));
+				sdata.setPhone1(rs.getString("PHONE1"));
+				sdata.setPhone2(rs.getString("PHONE2"));
+				sdata.setPhone3(rs.getString("PHONE3"));
+				sdata.setFile1(rs.getString("FILE1"));
+				sdata.setTimes(rs.getString("TIMES"));
+				sdata.setShip_num(rs.getString("SHIP_NUM"));
+				
+
+				//금액형태로 바꾸기
+				sdata.setMoneys(number_format(sdata.getMoney()));
+				sdata.setShip_moneys(number_format(sdata.getShip_money()));
+				sdata.setRmoneys(number_format(sdata.getRmoney()));
+				sdata.setTotals(number_format(sdata.getShip_money()+sdata.getRmoney()));
+				
+				list.add(sdata);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return list;
+    }
+    //sellersno로 찾기 status가 -1일시 배송완료를 제외하고 모두 보기(카운트)
+    public int count2(int sellers_no, int status) {
+    	int count = 0;
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	String wheres = " and STATUS=?";
+    	if(status == -1)
+    		wheres = " and STATUS!=?";
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_SELL where SELLERS_NO=? "+wheres);
+			pstmt.setInt(1, sellers_no);
+			if(status != -1) 
+				pstmt.setInt(2, status);
+			else
+				pstmt.setInt(2, 5);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return count;
     }
     //times로 찾기
     public List getArticles(String times) {
@@ -156,6 +268,7 @@ public class Sell_DB_Bean {
 				sdata.setPhone3(rs.getString("PHONE3"));
 				sdata.setFile1(rs.getString("FILE1"));
 				sdata.setTimes(rs.getString("TIMES"));
+				sdata.setShip_num(rs.getString("SHIP_NUM"));
 				
 				list.add(sdata);
 			}
@@ -208,6 +321,7 @@ public class Sell_DB_Bean {
 				sdata.setPhone3(rs.getString("PHONE3"));
 				sdata.setFile1(rs.getString("FILE1"));
 				sdata.setTimes(rs.getString("TIMES"));
+				sdata.setShip_num(rs.getString("SHIP_NUM"));
 				
 			}
 			
@@ -257,4 +371,128 @@ public class Sell_DB_Bean {
     	return count;
     }
     
+    //구매자 no와 상태값에 따른 카운트 구하기
+    public int guest_sell_count(int guest_no, int status) {
+    	int count = 0;
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_SELL where GUEST_NO=? and STATUS=?");
+			pstmt.setInt(1, guest_no);
+			pstmt.setInt(2, status);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return count;
+    }
+    
+
+    //times로 상태 일괄 바꾸기
+    public boolean changeStatus(String times, int status) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			//상품의 상태변경
+			pstmt = conn.prepareStatement("update MIN_TSHOP_SELL set STATUS=? where TIMES=?");
+			pstmt.setInt(1, status);
+			pstmt.setString(2, times);
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
+    //no로 상태 바꾸기
+    public boolean changeStatus(int no, int status) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			//상품의 상태변경
+			pstmt = conn.prepareStatement("update MIN_TSHOP_SELL set STATUS=? where NO=?");
+			pstmt.setInt(1, status);
+			pstmt.setInt(2, no);
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
+    //no로 배송중상태로 바꾸기
+    public boolean changeShipStatus(int no, String ship_num) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			//상태변경
+			pstmt = conn.prepareStatement("update MIN_TSHOP_SELL set STATUS=?, SHIP_NUM=? where NO=?");
+			pstmt.setInt(1, 4);
+			pstmt.setString(2, ship_num);
+			pstmt.setInt(3, no);
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
+    
+
+	//금액 형태로 바꾸기
+    public static String number_format(int dSource) {
+        return new DecimalFormat("#,##0").format(dSource);
+    }
 }

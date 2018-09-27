@@ -35,7 +35,7 @@
 		<p style="font-size:12px;line-height:15px;">
 			판매된 상품 목록
 		</p>
-		<a href="#">바로가기</a>
+		<a href="mypage_sell.o">바로가기</a>
 	</li>
 	<li style="background:#213153;">
 		<div></div>
@@ -46,9 +46,9 @@
 		<p style="font-size:12px;line-height:15px;">
 			배송완료된 상품 목록
 		</p>
-		<a href="#">바로가기</a>
+		<a href="mypage_sell_end.o">바로가기</a>
 	</li>
-</div>
+</ul>
 
 
 <%@ include file="foot.jsp" %>

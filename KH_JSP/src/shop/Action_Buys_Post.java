@@ -146,6 +146,7 @@ public class Action_Buys_Post extends Action_Init implements Action {
 		//유일한 값 생성
 		sgdata.setTimes(cal.getTimeInMillis()+"slsl"+member_info.getNo());
 		sgdata.setGuest_no(member_info.getNo());
+		sgdata.setStatus(1);
 		
 		Sell_Group_DB_Bean sgdb = Sell_Group_DB_Bean.getInstance();
 		sgdb.insert(sgdata);

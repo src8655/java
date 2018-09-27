@@ -1404,6 +1404,71 @@ margin:0 3px 0 0;
 padding:0px;
 overflow:hidden;
 }
+.mypage_h {
+width:800px;
+height:20px;
+font-size:18px;
+margin:0 auto;
+margin-top:10px;
+margin-bottom:10px;
+padding:0px;
+overflow:hidden;
+}
+.mypage_p {
+margin:0 auto;
+padding:0 0 0 35px;
+list-style:none;
+width:761px;
+height:85px;
+border:2px solid #767676;
+overflow:hidden;
+}
+.mypage_p li {
+height:85px;
+float:left;
+overflow:hidden;
+}
+.mypage_p_01 {
+width:85px;
+margin:10px 0 0 25px;
+padding:0px;
+}
+.mypage_p_02 {
+background:url(./images/mypage_t_06.jpg) no-repeat left top;
+width:14px;
+height:85px;
+margin:0 0 0 25px;
+padding:0px;
+}
+.mypage_p_01 div {
+width:100%;
+height:30px;
+margin:10px 0 0 0;
+padding:0px;
+overflow:hidden;
+}
+.mypage_p_01 div p {
+width:50%;
+height:30px;
+line-height:30px;
+font-size:30px;
+font-family:'Arial';
+font-weight:bold;
+color:#f23a3a;
+float:left;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.mypage_p_01 div img {
+float:right;
+}
+.ship_num_input {
+width:130px;
+padding:2px 0 2px 0;
+margin:3px 0 3px 0;
+font-size:12px;
+}
 </style>
 <script type="text/javascript">
 function tab(vars, vars_this, vars_right) {
@@ -1605,6 +1670,9 @@ function buys() {
     </c:if>
     <c:if test="${member_info.orders eq 2}">
     	<a href="mypage.o" style="color:#adc12c;">나의 판매정보 <img src="./images/myinfo.jpg" alt="나의 판매정보" /></a>
+    </c:if>
+    <c:if test="${member_info.orders eq 3}">
+    	<a href="mypage_admin.o" style="color:#adc12c;">관리자 페이지 <img src="./images/myinfo.jpg" alt="관리자 페이지" /></a>
     </c:if>
     </li>
     <li>

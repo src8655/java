@@ -17,6 +17,7 @@ public class Sell_Group_Data_Bean {
 	private String times;
 	private String dates;
 	private int guest_no;
+	private int status;
 	
 	private String moneys = "";
 	private String ship_moneys = "";
@@ -24,6 +25,12 @@ public class Sell_Group_Data_Bean {
 	private String totals = "";
 	
 	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	public String getTotals() {
 		return totals;
 	}
