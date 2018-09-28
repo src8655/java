@@ -74,7 +74,7 @@
 		<c:if test="${sdata.rowspans ne -1}">
 		<td rowspan="${sdata.rowspans}">
 			${sdata.dates}<br />
-			<input type="button" value="상세보기" class="basket_delete" onclick="location.href='mypage_guest_view.o?times=${sdata.times}'" />
+			<input type="button" value="상세보기" class="basket_delete" onclick="location.href='mypage_guest_view.o?times=${sdata.times}&pages=${pages}'" />
 		</td>
 		</c:if>
 		<td><a href="view.o?no=${sdata.product_no}" target="_BLANK"><img src="./upload/${sdata.file1}" alt="${sdata.file1}" width="50px" height="50px" /></a></td>
@@ -106,11 +106,18 @@
 			<c:if test="${sdata.status eq 5}">배송완료</c:if>
 		</td>
 		<td>
-			<c:if test="${sdata.status eq 4}"><input type="button" value="구매확정" class="basket_order" onclick="location.href='mypage_guest_post1.o?no=${sdata.no}'" /><br /></c:if>
-			<c:if test="${sdata.status eq 1}"><input type="button" value="주문취소" class="basket_delete" onclick="location.href='mypage_guest_post2.o?no=${sdata.no}'" /></c:if>
+			<c:if test="${sdata.status eq 4}"><input type="button" value="구매확정" class="basket_order" onclick="location.href='mypage_guest_post1.o?no=${sdata.no}&pages=${pages}'" /><br /></c:if>
+			<c:if test="${sdata.status eq 1}"><input type="button" value="주문취소" class="basket_delete" onclick="location.href='mypage_guest_post2.o?no=${sdata.no}&pages=${pages}'" /></c:if>
 		</td>
 	</tr>
 </c:forEach>
 </table>
 
+  <div class="list_page">
+	<a href="mypage_guest.o?pages=1" class="list_page_a">◀</a>
+	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
+		<a href="mypage_guest.o?pages=${i}" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
+	</c:forEach>
+	<a href="mypage_guest.o?pages=${board_paging}" class="list_page_a">▶</a>
+  </div>
 <%@ include file="foot.jsp" %>

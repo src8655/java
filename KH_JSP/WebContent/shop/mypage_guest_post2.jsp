@@ -4,13 +4,13 @@
 
 <c:if test="${res eq 1}">
 	<script>
-		alert('구매확정 완료');
+		alert('취소 완료');
 		location.href='mypage_guest.o?pages=${pages}';
 	</script>
 </c:if>
 <c:if test="${res eq 0}">
 	<script>
-		alert('구매확정 실패');
+		alert('취소 실패');
 		history.go(-1);
 	</script>
 </c:if>

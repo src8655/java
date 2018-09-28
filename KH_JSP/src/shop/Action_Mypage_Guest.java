@@ -31,9 +31,34 @@ public class Action_Mypage_Guest extends Action_Init implements Action {
 			
 			return null;
 		}
-		
+
 		Sell_DB_Bean sdb = Sell_DB_Bean.getInstance();
-		List list = sdb.getArticles(member_info.getNo());
+		
+		int board_total = sdb.count(member_info.getNo());	//총 개수
+		int board_cnt = 0;						//no를 위한 카운트
+
+		int board_lengths = 7;	//한번에 보일 리스트 개수
+		int board_starts = ((Integer.parseInt(pages))*board_lengths)-board_lengths+1;			//시작지점
+		int board_ends = board_starts+board_lengths-1;										//마지막지점
+		int board_paging = (int)Math.ceil((double)board_total/(double)board_lengths);	//페이지 링크 개수
+
+		int pstarts = Integer.parseInt(pages)-5;
+		int pends = Integer.parseInt(pages)+5;
+		if(pstarts <= 0) pstarts = 1;
+		if(pends > board_paging) pends = board_paging;
+		
+		request.setAttribute("board_total", board_total);
+		request.setAttribute("board_cnt", board_starts);
+		request.setAttribute("board_paging", board_paging);
+		//페이징부분
+		request.setAttribute("pstarts", pstarts);
+		request.setAttribute("pends", pends);
+		
+		
+		
+		
+		
+		List list = sdb.getArticles(board_starts, board_ends, member_info.getNo());
 		
 		//중복된것 카운트
 		String tmp = "";
@@ -41,7 +66,7 @@ public class Action_Mypage_Guest extends Action_Init implements Action {
 			Sell_Data_Bean sdata = (Sell_Data_Bean)list.get(i);
 			
 			//새로운게 나오면 같은 그룹의 개수만큼 rowspan값을 지정
-			if(!sdata.getTimes().equals(tmp)) sdata.setRowspans(sdb.group_count(sdata.getTimes()));
+			if(!sdata.getTimes().equals(tmp)) sdata.setRowspans(sdb.group_count(board_starts, board_ends, sdata.getTimes(), sdata.getGuest_no()));
 			tmp = sdata.getTimes();
 			//금액형태로 바꾸기
 			sdata.setMoneys(number_format(sdata.getMoney()));

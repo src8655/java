@@ -30,6 +30,8 @@ public class Action_Init implements Action {
 	Member_DB_Bean mem_db;
 	Member_Data_Bean member_info;
 	
+	int order = -1;
+	
 	public Action_Init() {
 		
 	}
@@ -84,6 +86,13 @@ public class Action_Init implements Action {
 
 		request.setAttribute("basket_cnt", basket_cnt);
 		request.setAttribute("member_info", member_info);
+		
+		
+		//order∫Œ∫– list¿«
+		if(request.getParameter("order") != null)
+			if(!request.getParameter("order").equals(""))
+				order = Integer.parseInt(request.getParameter("order"));
+		request.setAttribute("order", order);
 		
 		////////////////////////////////////////////////////////////////
 	}

@@ -41,241 +41,152 @@
       <div class="main_best_top">
         <h1><img src="./images/main_center_menu.jpg" alt="베스트셀러" /></h1>
         <ul>
-          <li><a href="#10" id="mbt8" class="main_best_top_a" onmouseover="tab('tab_8',this,'none');">공예/공산품</a></li>
-          <li><a href="#10" id="mbt7" class="main_best_top_a" onmouseover="tab('tab_7',this,'mbt8');">김치/장류</a></li>
-          <li><a href="#10" id="mbt6" class="main_best_top_a" onmouseover="tab('tab_6',this,'mbt7');">수산물</a></li>
-          <li><a href="#10" id="mbt5" class="main_best_top_a" onmouseover="tab('tab_5',this,'mbt6');">가공식품</a></li>
-          <li><a href="#10" id="mbt4" class="main_best_top_a" onmouseover="tab('tab_4',this,'mbt5');">건강식품</a></li>
-          <li><a href="#10" id="mbt3" class="main_best_top_a" onmouseover="tab('tab_3',this,'mbt4');">축산물</a></li>
-          <li><a href="#10" id="mbt2" class="main_best_top_a_noborder" onmouseover="tab('tab_2',this,'mbt3');">과일/채소</a></li>
-          <li><a href="#10" id="mbt1" class="main_best_top_hover" onmouseover="tab('tab_1',this,'mbt2');">쌀/잡곡</a></li>
+          <li><a href="list.o?searchs=8" id="mbt8" class="main_best_top_a" onmouseover="tab('tab_8',this,'none');">공예/공산품</a></li>
+          <li><a href="list.o?searchs=7" id="mbt7" class="main_best_top_a" onmouseover="tab('tab_7',this,'mbt8');">김치/장류</a></li>
+          <li><a href="list.o?searchs=6" id="mbt6" class="main_best_top_a" onmouseover="tab('tab_6',this,'mbt7');">수산물</a></li>
+          <li><a href="list.o?searchs=5" id="mbt5" class="main_best_top_a" onmouseover="tab('tab_5',this,'mbt6');">가공식품</a></li>
+          <li><a href="list.o?searchs=4" id="mbt4" class="main_best_top_a" onmouseover="tab('tab_4',this,'mbt5');">건강식품</a></li>
+          <li><a href="list.o?searchs=3" id="mbt3" class="main_best_top_a" onmouseover="tab('tab_3',this,'mbt4');">축산물</a></li>
+          <li><a href="list.o?searchs=2" id="mbt2" class="main_best_top_a" onmouseover="tab('tab_2',this,'mbt3');">과일/채소</a></li>
+          <li><a href="list.o?searchs=1" id="mbt1" class="main_best_top_a_noborder" onmouseover="tab('tab_1',this,'mbt2');">쌀/잡곡</a></li>
+          <li><a href="list.o?searchs=-1" id="mbt0" class="main_best_top_hover" onmouseover="tab('tab_0',this,'mbt1');">전체</a></li>
         </ul>
       </div>
       
-      <ul class="main_best_bottom" id="tab_1">
+	  <ul class="main_best_bottom" id="tab_0">
+<c:forEach var="ldata" items="${best_list}">
         <li>
-          <a href="#">
-            <img src="./images/test_product.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
+</c:forEach>
+      </ul> 
+      
+      
+      <ul class="main_best_bottom" id="tab_1" style="display:none;">
+<c:forEach var="ldata" items="${best_list_1}">
         <li>
-          <a href="#">
-            <img src="./images/test_product.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
+</c:forEach>
       </ul>
       
       
       <ul class="main_best_bottom" id="tab_2" style="display:none;">
+<c:forEach var="ldata" items="${best_list_2}">
         <li>
-          <a href="#">
-            <img src="./images/test_product2.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product2.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product2.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product2.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product2.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product2.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
+</c:forEach>
       </ul>
       
       
       
       <ul class="main_best_bottom" id="tab_3" style="display:none;">
+<c:forEach var="ldata" items="${best_list_3}">
         <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
-            <img src="./images/best.jpg" alt="best" /><br />
-            우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
-          </a>
-        </li>
+</c:forEach>
       </ul>
       
       
       
       
       <ul class="main_best_bottom" id="tab_4" style="display:none;">
+<c:forEach var="ldata" items="${best_list_4}">
         <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            4우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
+</c:forEach>
       </ul>
       
       
       
       <ul class="main_best_bottom" id="tab_5" style="display:none;">
+<c:forEach var="ldata" items="${best_list_5}">
         <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            5우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
+</c:forEach>
       </ul>
       
       
       <ul class="main_best_bottom" id="tab_6" style="display:none;">
+<c:forEach var="ldata" items="${best_list_6}">
         <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            6우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
+</c:forEach>
       </ul>
       
       
       <ul class="main_best_bottom" id="tab_7" style="display:none;">
+<c:forEach var="ldata" items="${best_list_7}">
         <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            7우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
+</c:forEach>
       </ul>
       
       
       <ul class="main_best_bottom" id="tab_8" style="display:none;">
+<c:forEach var="ldata" items="${best_list_8}">
         <li>
-          <a href="#">
-            <img src="./images/test_product3.jpg" alt="우렁이쌀(4kg)" /><br />
+          <a href="view.o?no=${ldata.no}">
+            <img src="./upload/${ldata.file1}" alt="${ldata.name}" width="90px" height="90px" /><br />
             <img src="./images/best.jpg" alt="best" /><br />
-            8우렁이쌀(4kg)<br />
-            <span style="font-weight:bold;">15,000원</span>
+            ${ldata.name}<br />
+            <span style="font-weight:bold;">${ldata.rmoneys}원</span>
           </a>
         </li>
+</c:forEach>
       </ul>
       
     </div>
   </div>
   
   <div class="main_list">
-    <h1><img src="./images/center_list_01.jpg" alt="쌀/잡곡" /></h1>
+    <h1><a href="list.o?searchs=1"><img src="./images/center_list_01.jpg" alt="쌀/잡곡" /></a></h1>
     <ul>
 <c:forEach var="ldata" items="${list_1}">
       <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>
@@ -300,7 +211,7 @@
   
   
   <div class="main_list">
-    <h1><img src="./images/center_list_02.jpg" alt="과일/채소" /></h1>
+    <h1><a href="list.o?searchs=2"><img src="./images/center_list_02.jpg" alt="과일/채소" /></a></h1>
     <ul>
     
 <c:forEach var="ldata" items="${list_2}">
@@ -325,7 +236,7 @@
   
   
   <div class="main_list">
-    <h1><img src="./images/center_list_03.jpg" alt="축산물" /></h1>
+    <h1><a href="list.o?searchs=3"><img src="./images/center_list_03.jpg" alt="축산물" /></a></h1>
     <ul>
  <c:forEach var="ldata" items="${list_3}">
       <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>
@@ -348,7 +259,7 @@
   
   
   <div class="main_list">
-    <h1><img src="./images/center_list_04.jpg" alt="축산물" /></h1>
+    <h1><a href="list.o?searchs=4"><img src="./images/center_list_04.jpg" alt="축산물" /></a></h1>
     <ul>
  <c:forEach var="ldata" items="${list_4}">
       <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>
@@ -369,7 +280,7 @@
   
   
   <div class="main_list">
-    <h1><img src="./images/center_list_05.jpg" alt="축산물" /></h1>
+    <h1><a href="list.o?searchs=5"><img src="./images/center_list_05.jpg" alt="축산물" /></a></h1>
     <ul>
 <c:forEach var="ldata" items="${list_5}">
       <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>
@@ -391,7 +302,7 @@
   
   
   <div class="main_list">
-    <h1><img src="./images/center_list_06.jpg" alt="축산물" /></h1>
+    <h1><a href="list.o?searchs=6"><img src="./images/center_list_06.jpg" alt="축산물" /></a></h1>
     <ul>
 <c:forEach var="ldata" items="${list_6}">
       <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>
@@ -413,7 +324,7 @@
 
 
   <div class="main_list">
-    <h1><img src="./images/center_list_07.jpg" alt="김치/장류" /></h1>
+    <h1><a href="list.o?searchs=7"><img src="./images/center_list_07.jpg" alt="김치/장류" /></a></h1>
     <ul>
 <c:forEach var="ldata" items="${list_7}">
       <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>
@@ -434,7 +345,7 @@
   
   
     <div class="main_list">
-    <h1><img src="./images/center_list_08.jpg" alt="공예/공산품" /></h1>
+    <h1><a href="list.o?searchs=8"><img src="./images/center_list_08.jpg" alt="공예/공산품" /></a></h1>
     <ul>
 <c:forEach var="ldata" items="${list_8}">
       <li <c:if test="${ldata.cnt eq 5}">style="border-right:none"</c:if>>

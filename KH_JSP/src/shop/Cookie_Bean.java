@@ -1,5 +1,6 @@
 package shop;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,13 +57,13 @@ public class Cookie_Bean {
 		cookie.setMaxAge(0);					//30일 설정
 		response.addCookie(cookie);						//쿠키추가
     }
-    /*
+    
     //게시판 조회수 중복방지
-    public void view_cookie(String no, HttpServletRequest request, HttpServletResponse response) {
-    	Board_DB_Bean manager = Board_DB_Bean.getInstance();
+    public void view_cookie(int no, HttpServletRequest request, HttpServletResponse response) {
+    	List_DB_Bean manager = List_DB_Bean.getInstance();
 
     	//한번 조회했다는 쿠키입력
-    	String cookieName = "min_tboard_hit";		//쿠키이름
+    	String cookieName = "min_tshop_hit";		//쿠키이름
     	Cookie[] cookies = request.getCookies();	//쿠키를 모두 받고
     	boolean hasCookie = false;					//쿠키를 가졌는지?
     	int pos = 0;
@@ -77,16 +78,16 @@ public class Cookie_Bean {
     	}
 
     	if(!hasCookie) {	//쿠키가 없었다면 새로 생성
-    		Cookie cookie = new Cookie(cookieName,no);		//새쿠키
+    		Cookie cookie = new Cookie(cookieName,Integer.toString(no));		//새쿠키
     		cookie.setMaxAge(60*60*24);						//24시간 설정
     		response.addCookie(cookie);						//쿠키추가
     		
-    		manager.updateHit(Integer.parseInt(no));		//조회수추가
+    		manager.addHit(no);		//조회수추가
     	}else{				//쿠키가 이미 있으면 기존거에 추가
     		String[] splt = cookies[pos].getValue().split("//");
     		boolean hasNo = false;							//이미 있는 쿠키에 현재 NO가 있는지 확인
     		for(int i=0;i<splt.length;i++)
-    			if(splt[i].equals(no)) {
+    			if(splt[i].equals(Integer.toString(no))) {
     				hasNo = true;							//이미 있으면 true
     				break;
     			}
@@ -95,10 +96,10 @@ public class Cookie_Bean {
     			Cookie cookie = new Cookie(cookieName,tmp);		//새쿠키
     			cookie.setMaxAge(60*60*24);						//24시간 설정
     			response.addCookie(cookie);						//쿠키추가
-    			
-    			manager.updateHit(Integer.parseInt(no));		//조회수추가
+
+        		manager.addHit(no);		//조회수추가
     		}
     	}
-    }*/
+    }
 
 }

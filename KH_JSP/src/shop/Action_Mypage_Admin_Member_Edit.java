@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
+public class Action_Mypage_Admin_Member_Edit extends Action_Init implements Action {
 
 	@Override
 	public String execute() throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
 			
 			return null;
 		}
-		if(member_info.getOrders() != 1) {
+		if(member_info.getOrders() != 3) {
 			response.getWriter().println("<script>");
 			response.getWriter().println("alert('잘못된 접근입니다.')");
 			response.getWriter().println("history.go(-1)");
@@ -33,38 +33,15 @@ public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
 		}
 		
 		int no = Integer.parseInt(request.getParameter("no"));
-
-		Sell_DB_Bean sgdb = Sell_DB_Bean.getInstance();
 		
-		//내꺼인지 확인
-		Sell_Data_Bean sdata = sgdb.getArticle(no);
+		Member_DB_Bean mdb = Member_DB_Bean.getInstance();
 		
-		//내꺼가아니면
-		if(member_info.getNo() != sdata.getGuest_no()) {
-			response.getWriter().println("<script>");
-			response.getWriter().println("alert('잘못된 접근입니다.')");
-			response.getWriter().println("history.go(-1)");
-			response.getWriter().println("</script>");
-			
-			return null;
-		}
+		Member_Data_Bean mdata = mdb.getArticle(no);
+		
+		request.setAttribute("mdata", mdata);
 		
 		
-		//상태를 배송완료로 설정
-		int res = 0;
-		if(sgdb.changeStatus(no, 5)) {
-			res = 1;
-			
-			//구매확정 완료 후 에는 해당 제품에 구매 카운트를 추가함
-			List_DB_Bean ldb = List_DB_Bean.getInstance();
-			ldb.addBuy(sdata.getProduct_no());
-		}
-		
-		
-		request.setAttribute("res", res);
-		
-		
-		return "mypage_guest_post1.jsp";
+		return "mypage_admin_member_edit.jsp";
 	}
 
 

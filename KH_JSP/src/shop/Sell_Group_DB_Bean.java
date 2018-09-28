@@ -221,6 +221,7 @@ public class Sell_Group_DB_Bean {
     	try {
 			conn = getConnection();
 			
+			
 			//그룹의 상태변경
 			pstmt = conn.prepareStatement("update MIN_TSHOP_SELL_GROUP set STATUS=? where TIMES=?");
 			pstmt.setInt(1, status);
@@ -244,7 +245,71 @@ public class Sell_Group_DB_Bean {
     	
     	return true;
     }
-    
+    //주문취소하기 그룹에 속한 sell이 없으면 그룹삭제
+    public boolean delete(String times) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+
+			//times가 같은 group을 제거
+			pstmt = conn.prepareStatement("delete from MIN_TSHOP_SELL_GROUP where TIMES=?");
+			pstmt.setString(1, times);
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
+    //주문취소하기 group에서 금액을 뺌
+    public boolean delete_sell(Sell_Data_Bean sdata) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	//그룹의 정보를 가져옴
+    	Sell_Group_Data_Bean sgdata = getArticle(sdata.getTimes());
+    	
+    	//sell의 금액을 group에서 뺌
+    	sgdata.setMoney(sgdata.getMoney() - sdata.getMoney());
+    	sgdata.setShip_money(sgdata.getShip_money() - sdata.getShip_money());
+    	sgdata.setRmoney(sgdata.getRmoney() - sdata.getRmoney());
+    	
+    	try {
+			conn = getConnection();
+
+			//times가 같은 group을 제거
+			pstmt = conn.prepareStatement("update MIN_TSHOP_SELL_GROUP set MONEY=?, SHIP_MONEY=?, RMONEY=? where TIMES=?");
+			pstmt.setInt(1, sgdata.getMoney());
+			pstmt.setInt(2, sgdata.getShip_money());
+			pstmt.setInt(3, sgdata.getRmoney());
+			pstmt.setString(4, sgdata.getTimes());
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
 
 	//금액 형태로 바꾸기
     public static String number_format(int dSource) {

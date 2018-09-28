@@ -64,11 +64,11 @@
 </table>
 
 <div class="list_page">
-	<a href="list.o?pages=1&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">◀</a>
+	<a href="mypage_list.o?pages=1&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">◀</a>
 	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
-		<a href="list.o?pages=${i}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
+		<a href="mypage_list.o?pages=${i}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
 	</c:forEach>
-	<a href="list.o?pages=${board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">▶</a>
+	<a href="mypage_list.o?pages=${board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">▶</a>
 </div>
 
 <div class="basket_b" style="display:none;">

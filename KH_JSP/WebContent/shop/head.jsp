@@ -303,7 +303,7 @@ overflow:hidden;
 .main_best_bottom li {
 float:left;
 text-align:center;
-margin:0 17px 0 17px;
+margin:0 10px 0 10px;
 padding:0px;
 overflow:hidden;
 }
@@ -1474,7 +1474,7 @@ font-size:12px;
 function tab(vars, vars_this, vars_right) {
   //모든 탭, 탭내용 초기화
   var i;
-  for(i=1;i<=8;i++){
+  for(i=0;i<=8;i++){
     document.getElementById("tab_"+i).style.display = "none";
     document.getElementById("mbt"+i).setAttribute("class","main_best_top_a");
   }
@@ -1706,6 +1706,7 @@ function buys() {
     </ul>
     <div id="header_c_c">
     <form action="list.o" method="get" id="header_c_c_l_search">
+      <input type="hidden" name="order" value="${order}" />
       <input type="hidden" name="searchs" value="${searchs}" />
       <div id="header_c_c_l">
         <input type="text" name="searchs_value" value="${searchs_value}" id="header_c_c_l_text" />
@@ -1716,9 +1717,9 @@ function buys() {
     </form>
     </div>
     <ul id="header_c_b">
-      <li><a href="#"><img src="./images/top_menu_01.jpg" alt="베스트셀러" /></a></li>
-      <li><a href="#"><img src="./images/top_menu_02.jpg" alt="영카트 추천상품" /></a></li>
-      <li><a href="#" style="border:0px;"><img src="./images/top_menu_03.jpg" alt="무료배송상품" /></a></li>
+      <li><a href="list.o?order=1"><img src="./images/top_menu_01.jpg" alt="베스트셀러" /></a></li>
+      <li><a href="list.o?order=2"><img src="./images/top_menu_02.jpg" alt="영카트 추천상품" /></a></li>
+      <li><a href="list.o?order=3" style="border:0px;"><img src="./images/top_menu_03.jpg" alt="무료배송상품" /></a></li>
     </ul>
   </div>
   <div id="header_r">

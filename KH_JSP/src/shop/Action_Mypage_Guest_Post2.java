@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
+public class Action_Mypage_Guest_Post2 extends Action_Init implements Action {
 
 	@Override
 	public String execute() throws ServletException, IOException {
@@ -48,23 +48,26 @@ public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
 			
 			return null;
 		}
+		//상태가 입금대기중이 아니면
+		if(sdata.getStatus() != 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('입금대기중 상태에서만 취소가 가능합니다.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
 		
 		
 		//상태를 배송완료로 설정
 		int res = 0;
-		if(sgdb.changeStatus(no, 5)) {
-			res = 1;
-			
-			//구매확정 완료 후 에는 해당 제품에 구매 카운트를 추가함
-			List_DB_Bean ldb = List_DB_Bean.getInstance();
-			ldb.addBuy(sdata.getProduct_no());
-		}
+		if(sgdb.delete(sdata)) res = 1;
 		
 		
 		request.setAttribute("res", res);
 		
 		
-		return "mypage_guest_post1.jsp";
+		return "mypage_guest_post2.jsp";
 	}
 
 

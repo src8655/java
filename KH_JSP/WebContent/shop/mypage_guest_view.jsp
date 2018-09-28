@@ -94,6 +94,6 @@
 </table>
 
 <div class="join_red_button" style="margin:0 auto;">
-		<a href="mypage_guest.o">확인완료</a>
+		<a href="mypage_guest.o?pages=${pages}">확인완료</a>
 </div>
 <%@ include file="foot.jsp" %>

@@ -66,8 +66,8 @@ public class Sell_DB_Bean {
     	return false;
     }
     
-  //guestno로 찾기
-    public List getArticles(int guest_no) {
+    //guestno로 찾기
+    public List getArticles(int start, int end, int guest_no) {
     	List list = new ArrayList();
     	Connection conn = null;
     	PreparedStatement pstmt = null;
@@ -75,8 +75,11 @@ public class Sell_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from MIN_TSHOP_SELL where GUEST_NO=? order by NO desc");
+			//pstmt = conn.prepareStatement("select * from MIN_TSHOP_SELL where GUEST_NO=? order by NO desc");
+			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_SELL where GUEST_NO=? order by NO desc) a) where rnum>=? and rnum<=?");
 			pstmt.setInt(1, guest_no);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -121,7 +124,37 @@ public class Sell_DB_Bean {
     	
     	return list;
     }
-    //sellersno로 찾기 status가 -1일시 배송완료를 제외하고 모두 보기
+    //guestno로 sell 총 개수 찾기
+    public int count(int guest_no) {
+    	int count = 0;
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_SELL where GUEST_NO=?");
+			pstmt.setInt(1, guest_no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return count;
+    }
+    //sellersno와 status로 찾기 status가 -1일시 배송완료를 제외하고 모두 보기
     public List getArticles2(int start, int end, int sellers_no, int status) {
     	List list = new ArrayList();
     	Connection conn = null;
@@ -193,7 +226,7 @@ public class Sell_DB_Bean {
     	
     	return list;
     }
-    //sellersno로 찾기 status가 -1일시 배송완료를 제외하고 모두 보기(카운트)
+    //sellersno와 status로 개수 찾기 status가 -1일시 배송완료를 제외하고 모두 보기(카운트)
     public int count2(int sellers_no, int status) {
     	int count = 0;
     	Connection conn = null;
@@ -370,6 +403,39 @@ public class Sell_DB_Bean {
     	
     	return count;
     }
+    //같은 페이지에 같은 그룹의 개수 구하기
+    public int group_count(int start, int end, String times, int guest_no) {
+    	int count = 0;
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from (select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_SELL where GUEST_NO=? order by NO desc) a) where rnum>=? and rnum<=?) where TIMES=?");
+			pstmt.setInt(1, guest_no);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			pstmt.setString(4, times);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return count;
+    }
     
     //구매자 no와 상태값에 따른 카운트 구하기
     public int guest_sell_count(int guest_no, int status) {
@@ -473,6 +539,40 @@ public class Sell_DB_Bean {
 			pstmt.setInt(1, 4);
 			pstmt.setString(2, ship_num);
 			pstmt.setInt(3, no);
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
+    
+    //주문취소하기 (sdata = 삭제할 데이터)
+    public boolean delete(Sell_Data_Bean sdata) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+
+			Sell_Group_DB_Bean sgdb = Sell_Group_DB_Bean.getInstance();
+			int count = group_count(sdata.getTimes());		//같은 그룹에 있는 sell이 몇개인지 확인
+			if(count == 1) sgdb.delete(sdata.getTimes());	//하나이면 (현재 셀밖에 없으면) 그룹을 그냥 삭제
+			else sgdb.delete_sell(sdata);					//여러개이면 기존 그룹에서 현재 sell의 금액을 빼기만함
+			
+			//현재 sell 데이터 삭제
+			pstmt = conn.prepareStatement("delete from MIN_TSHOP_SELL where NO=?");
+			pstmt.setInt(1, sdata.getNo());
 			pstmt.executeUpdate();
 			
 			

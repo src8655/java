@@ -257,7 +257,7 @@ public class List_DB_Bean {
     	return true;
     }
     
-    //여러 줄 가져오기(시작번호, 끝번호, 검색카테고리, 검색어, 제목길이, 특정판매자(-1이면 전체))
+    //여러 줄 가져오기(시작번호, 끝번호, 검색카테고리, 검색어, 제목길이, 특정판매자(-1이면 전체)) mypage에서 쓰는거
     public List getArticles(int start, int end, int searchs, String searchs_value, int length, int seller) {
     	List list = new ArrayList();
     	
@@ -339,10 +339,107 @@ public class List_DB_Bean {
 
 		return list;
     }
+    //여러 줄 가져오기(시작번호, 끝번호, 검색카테고리, 검색어, 제목길이, 특정판매자(-1이면 전체), order는 1 2 3 중 하나(베스트,추천,무료배송))	list에서 쓰는거 
+    public List getArticles(int start, int end, int searchs, String searchs_value, int length, int seller, int order) {
+    	List list = new ArrayList();
+    	
+    	
+    	//검색
+    	String wheres = " ";
+    	if(searchs == -1) {
+    		wheres = "where NAME like '%"+searchs_value+"%' ";
+    		
+    	}else {
+    		wheres = "where CATEGORY="+searchs+" and NAME like '%"+searchs_value+"%' ";
+    	}
+    	if(seller != -1) wheres += " and SELLERS="+seller;
+
+    	//기본정렬
+    	String orderbys = " order by NO desc";
+    	
+    	
+    	if(order == 1) {
+    		wheres += " and BUY>=10";		//인기 베스트셀러
+    		orderbys = " order by BUY desc";
+    	}
+    	if(order == 2) {
+    		wheres += " and HIT>=10";		//추천
+    		orderbys = " order by HIT desc";
+    	}
+    	if(order == 3) {
+    		wheres += " and SHIP_MONEY=0";	//무료배송
+    	}
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_LIST "+wheres+" "+orderbys+") a) where rnum>=? and rnum<=?");
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			
+			int cnt = 1;	//카운트 보내기
+			while(rs.next()) {
+				List_Data_Bean bdb = new List_Data_Bean();
+				bdb.setNo(rs.getInt("NO"));
+				bdb.setCategory(Integer.parseInt(rs.getString("CATEGORY")));
+				bdb.setName(rs.getString("NAME"));
+				bdb.setMoney(rs.getInt("MONEY"));
+				bdb.setDiscount(rs.getInt("DISCOUNT"));
+				bdb.setMade(rs.getString("MADE"));
+				bdb.setShip_money(rs.getInt("SHIP_MONEY"));
+				bdb.setShip_company(rs.getString("SHIP_COMPANY"));
+				bdb.setFile1(rs.getString("FILE1"));
+				bdb.setFile2(rs.getString("FILE2"));
+				bdb.setFile3(rs.getString("FILE3"));
+				bdb.setFile4(rs.getString("FILE4"));
+				bdb.setFile5(rs.getString("FILE5"));
+				bdb.setUser_no(rs.getInt("USER_NO"));
+				bdb.setHit(rs.getInt("HIT"));
+				bdb.setBuy(rs.getInt("BUY"));
+				bdb.setDates(rs.getString("DATES"));
+				bdb.setRmoney(rs.getInt("RMONEY"));
+				bdb.setCnt(cnt);
+				bdb.setSeller(rs.getInt("SELLERS"));
+				//5일때 1로 초기화
+				if(cnt == 5) cnt = 0;
+				cnt++;
+				
+				//할인금액 적용
+				bdb.setDiscount_money(bdb.getMoney()-bdb.getRmoney());
+
+				//통화 형식
+				bdb.setRmoneys(number_format(bdb.getRmoney()));
+				bdb.setMoneys(number_format(bdb.getMoney()));
+				bdb.setShip_moneys(number_format(bdb.getShip_money()));
+				bdb.setDiscount_moneys(number_format(bdb.getDiscount_money()));
+				
+				//제목글자수
+				if(bdb.getName().length() > length) 
+					bdb.setName(bdb.getName().substring(0, length));
+				
+				list.add(bdb);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+
+		return list;
+    }
     
     
-    
-  //검색된 카운트
+    //검색된 카운트 mypage에서 쓰는거
     public int getCount(int searchs, String searchs_value, int seller) {
     	
     	
@@ -356,6 +453,53 @@ public class List_DB_Bean {
     		
     	}
     	if(seller != -1) wheres += " and SELLERS="+seller;
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_LIST "+wheres);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return 0;
+    }
+
+    //검색된 카운트 list에서 쓰는거 order추가됨
+    public int getCount(int searchs, String searchs_value, int seller, int order) {
+    	
+    	
+    	//검색
+    	String wheres = " ";
+    	if(searchs == -1) {
+    		wheres = "where NAME like '%"+searchs_value+"%' ";
+    		 
+    	}else {
+    		wheres = "where CATEGORY="+searchs+" and NAME like '%"+searchs_value+"%' ";
+    		
+    	}
+    	if(seller != -1) wheres += " and SELLERS="+seller;
+    	
+    	if(order == 1) wheres += " and BUY>=10";		//인기 베스트셀러
+    	if(order == 2) wheres += " and HIT>=10";		//추천
+    	if(order == 3) wheres += " and SHIP_MONEY=0";	//무료배송
+    	
     	
     	Connection conn = null;
     	PreparedStatement pstmt = null;
@@ -753,4 +897,67 @@ public class List_DB_Bean {
       	return true;
       }
 
+      //buy 카운트를 추가하기
+      public boolean addBuy(int no) {
+    	//no에 해당하는 데이터를 가져와서
+    	List_Data_Bean bdata = getArticle(no);
+  		
+    	//카운트추가
+    	bdata.setBuy(bdata.getBuy() + 1);
+    	
+      	Connection conn = null;
+      	PreparedStatement pstmt = null;
+      	
+      	try {
+  			conn = getConnection();
+  			pstmt = conn.prepareStatement("update MIN_TSHOP_LIST set BUY=? where NO=?");
+  			pstmt.setInt(1, bdata.getBuy());
+  			pstmt.setInt(2, no);
+  			pstmt.executeUpdate();
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  			return false;
+  		}finally {
+  			
+  			try {
+  				if(pstmt != null) pstmt.close();
+  				if(conn != null) conn.close();
+  			} catch (SQLException e) {}
+  		}
+
+  		return true;
+      }
+
+      //hit 카운트를 추가하기
+      public boolean addHit(int no) {
+    	//no에 해당하는 데이터를 가져와서
+    	List_Data_Bean bdata = getArticle(no);
+  		
+    	//카운트추가
+    	bdata.setHit(bdata.getHit() + 1);
+    	
+      	Connection conn = null;
+      	PreparedStatement pstmt = null;
+      	
+      	try {
+  			conn = getConnection();
+  			pstmt = conn.prepareStatement("update MIN_TSHOP_LIST set HIT=? where NO=?");
+  			pstmt.setInt(1, bdata.getHit());
+  			pstmt.setInt(2, no);
+  			pstmt.executeUpdate();
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  			return false;
+  		}finally {
+  			
+  			try {
+  				if(pstmt != null) pstmt.close();
+  				if(conn != null) conn.close();
+  			} catch (SQLException e) {}
+  		}
+
+  		return true;
+      }
 }

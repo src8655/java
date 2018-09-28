@@ -100,7 +100,7 @@ public class Action_Buys_Post extends Action_Init implements Action {
 			total_money += ldata.getMoney();
 			total_discount_money += ldata.getDiscount_money();
 			total_ship_money += ldata.getShip_money();
-			total_rmoney += ldata.getRmoney()+ldata.getShip_money();
+			total_rmoney += ldata.getRmoney();
 		}
 		
 		
