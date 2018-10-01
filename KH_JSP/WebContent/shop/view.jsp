@@ -107,13 +107,107 @@
     </div>
   </div>
 </form>
-
-  <div class="list_v_c">
+  <ul class="view_tab">
+	  <li><a href="#10" id="v_t_m1" <c:if test="${tab eq 1}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 1}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m1','view_tab1')">상품정보</a></li>
+	  <li><a href="#10" id="v_t_m2" <c:if test="${tab eq 2}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 2}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m2','view_tab2')">상품 리뷰(0)</a></li>
+	  <li><a href="#10" id="v_t_m3" <c:if test="${tab eq 3}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 3}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m3','view_tab3')">Q&A(${board_total})</a></li>
+	  <li><a href="#10" id="v_t_m4" <c:if test="${tab eq 4}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 4}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m4','view_tab4')">판매자정보</a></li>
+  </ul>
+  <div class="list_v_c" id="view_tab1" <c:if test="${tab ne 1}">style="display:none;"</c:if>>
   	${ldata.memo}<br />
   	<c:if test="${ldata.file2 ne null}"><img src="./upload/${ldata.file2}" alt="${ldata.name}" /><br /></c:if>
   	<c:if test="${ldata.file3 ne null}"><img src="./upload/${ldata.file3}" alt="${ldata.name}" /><br /></c:if>
   	<c:if test="${ldata.file4 ne null}"><img src="./upload/${ldata.file4}" alt="${ldata.name}" /><br /></c:if>
   	<c:if test="${ldata.file5 ne null}"><img src="./upload/${ldata.file5}" alt="${ldata.name}" /></c:if>
   </div>
+  
+  <div class="list_v_c" id="view_tab2" <c:if test="${tab ne 2}">style="display:none;"</c:if>>
+  	test2
+  </div>
+  <div class="list_v_c" id="view_tab3" <c:if test="${tab ne 3}">style="display:none;"</c:if>>
+  	<table cellspacing="0" cellpadding="10" border="0" class="view_qna_table">
+  		<col width="80px" />
+  		<col width="80px" />
+  		<col width="300px" />
+  		<col width="100px" />
+  		<col width="120px" />
+  		<tr>
+  			<th>문의유형</th>
+  			<th colspan="2">문의/답변</th>
+  			<th>작성자</th>
+  			<th>작성일</th>
+  		</tr>
+<c:forEach var="vqdata" items="${list}">
+  		<tr>
+  			<td>
+				<c:if test="${vqdata.category eq 1}">상품</c:if>
+				<c:if test="${vqdata.category eq 2}">배송</c:if>
+				<c:if test="${vqdata.category eq 3}">반품/취소</c:if>
+				<c:if test="${vqdata.category eq 4}">교환/변경</c:if>
+				<c:if test="${vqdata.category eq 5}">기타</c:if>
+			</td>
+  			<td>
+  				<c:if test="${vqdata.isanswer eq 0}">
+  					<div class="view_qna_table_label1">미완료</div>
+  				</c:if>
+  				<c:if test="${vqdata.isanswer eq 1}">
+  					<div class="view_qna_table_label2">답변완료</div>
+  				</c:if>
+  			</td>
+  			<td style="text-align:left;">
+  				<a href="#10" onclick="view_qna_view('view_qna_view_${vqdata.no}');">${vqdata.subject}</a>
+  			</td>
+  			<td>${vqdata.guest_id}</td>
+  			<td>${vqdata.dates}</td>
+  		</tr>
+  		<tr id="view_qna_view_${vqdata.no}" style="display:none;">
+  			<td colspan="5" style="padding:0 10px 0 10px;">
+  				<table cellspacing="0" cellpadding="10" border="0" style="width:100%;">
+			  		<col width="80px" />
+			  		<col width="300px" />
+  					<tr>
+  						<th style="border-top:0px;background:#f5f5f5;"><img src="./images/qna_q.jpg" alt="q" /></th>
+  						<td style="text-align:left;background:#f5f5f5;">
+  							${vqdata.memo}
+  							<c:if test="${vqdata.guest_no eq mdata.no}">
+  								<br />
+  								<a href="view_qna_del.o?no=${vqdata.no}&pages=${pages}&product_no=${no}">[삭제]</a>
+  							</c:if>
+  							<c:if test="${vqdata.sellers_no eq mdata.no}">
+  							<c:if test="${vqdata.isanswer eq 0}">
+  								<br />
+  								<a href="#10" onclick="view_qna_answer('${no}', '${pages}', '${vqdata.no}')">[답변]</a>
+  							</c:if>
+  							</c:if>
+  						</td>
+  					</tr>
+  					<c:if test="${vqdata.isanswer eq 1}">
+  					<tr>
+  						<th style="border-top:0px;border-bottom:0px;background:#f5f5f5;"><img src="./images/qna_a.jpg" alt="a" /></th>
+  						<td style="border-bottom:0px;text-align:left;background:#f5f5f5;">${vqdata.answer}</td>
+  					</tr>
+  					</c:if>
+  				</table>
+  			</td>
+  		</tr>
+ </c:forEach>
+  	</table>
+  	<c:if test="${member_orders eq 1}">
+	  	<div class="view_qna_b">
+	  		<a href="#10" onclick="view_qna_write('${no}','${ldata.seller}')">상품 문의하기</a>
+	  	</div>
+  	</c:if>
+  	<div class="list_page">
+	<a href="view.o?pages=1&amp;no=${no}&amp;tab=3" class="list_page_a">◀</a>
+	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
+		<a href="view.o?pages=${i}&amp;no=${no}&amp;tab=3" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
+	</c:forEach>
+	<a href="view.o?pages=${board_paging}&amp;no=${no}&amp;tab=3" class="list_page_a">▶</a>
+  </div>
+  </div>
+  <div class="list_v_c" id="view_tab4" <c:if test="${tab ne 4}">style="display:none;"</c:if>>
+  	test4
+  </div>
+  
 
 <%@ include file="foot.jsp" %>

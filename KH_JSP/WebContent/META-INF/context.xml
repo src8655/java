@@ -29,4 +29,16 @@
     <!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
+    
+    <Resource 
+	auth="Container"  
+	driverClassName="oracle.jdbc.driver.OracleDriver" 
+	maxTotal="20"
+	maxIdle="20"
+	name="jdbc/oracle"
+	type="javax.sql.DataSource" 
+	url="jdbc:oracle:thin:@localhost:1521:xe"
+	username="LSM8655"
+	password="minho123"
+	/>
 </Context>

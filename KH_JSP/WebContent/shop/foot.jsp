@@ -9,7 +9,6 @@
       <ul>
         <li><a href="#">이용약관</a></li>
         <li><a href="#" style="color:#e78f04;">개인정보처리방침</a></li>
-        <li><a href="#">입점신청</a></li>
         <li><a href="#" style="border:0px;">사이트맵</a></li>
       </ul>
       <p>

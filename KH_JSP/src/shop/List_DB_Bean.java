@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -29,8 +32,14 @@ public class List_DB_Bean {
     }
     
     private Connection getConnection() throws Exception {
+		Context context = new InitialContext();
+		DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+		return ds.getConnection();
+		
+		
+    	/**
     	String jdbcDriver = "jdbc:apache:commons:dbcp:/pool";        
-    	return DriverManager.getConnection(jdbcDriver);
+    	return DriverManager.getConnection(jdbcDriver);*/
     }
     
     

@@ -535,7 +535,6 @@ border:1px solid #c7c7c7;
 
 
 .list_v_t {
-border-bottom:1px solid #adadad;
 margin:40px 0 10px 0;
 padding:0 0 10px 0;
 overflow:hidden;
@@ -1469,6 +1468,125 @@ padding:2px 0 2px 0;
 margin:3px 0 3px 0;
 font-size:12px;
 }
+.view_tab {
+width:100%;
+height:65px;
+list-style:none;
+margin:0 0 10px 0;
+padding:0px;
+overflow:hidden;
+}
+.view_tab li {
+width:25%;
+float:left;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.view_tab li a {
+border-top:1px solid #dadada;
+display:block;
+float:left;
+width:100%;
+line-height:63px;
+font-size:22px;
+text-align:center;
+text-decoration:none;
+font-family:'Arial';
+font-weight:bold;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.view_tab_li_a {
+border-bottom:1px solid #dadada;
+height:63px;
+color:#333333;
+}
+.view_tab_li_a_hover {
+border-bottom:4px solid #f80727;
+height:60px;
+color:#f80727;
+}
+.view_tab li a:hover {
+border-bottom:4px solid #f80727;
+height:60px;
+color:#f80727;
+}
+.view_qna_table {
+border-collapse:collapse;
+width:100%;
+}
+.view_qna_table tr th {
+border-top:1px solid #cccccc;
+border-bottom:1px solid #e5e5e5;
+background:#f5f5f5;
+color:#333333;
+font-size:12px;
+font-family:'Arial';
+}
+.view_qna_table tr td {
+border-bottom:1px solid #e5e5e5;
+font-size:12px;
+color:#666666;
+font-family:'Arial';
+text-align:center;
+}
+.view_qna_table tr td a {
+color:#666666;
+text-decoration:none;
+}
+.view_qna_table tr td a:hover {
+color:#555555;
+text-decoration:none;
+}
+.view_qna_table_label1 {
+border:1px solid #e1e6f8;
+background:#ffffff;
+font-size:11px;
+color:#536dfe;
+margin:0 auto;
+padding:0px;
+width:50px;
+height:20px;
+line-height:20px;
+text-align:center;
+overflow:hidden;
+}
+.view_qna_table_label2 {
+border:1px solid #536dfe;
+background:#e1e6f8;
+font-size:11px;
+color:#536dfe;
+margin:0 auto;
+padding:0px;
+width:50px;
+height:20px;
+line-height:20px;
+text-align:center;
+overflow:hidden;
+}
+.view_qna_b {
+width:100%;
+margin:10px 0 10px 0;
+padding:0px;
+overflow:hidden;
+}
+.view_qna_b a {
+float:right;
+background:#666666;
+display:block;
+width:120px;
+height:40px;
+line-height:40px;
+font-size:13px;
+font-family:'Arial';
+text-decoration:none;
+color:#ffffff;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
 </style>
 <script type="text/javascript">
 function tab(vars, vars_this, vars_right) {
@@ -1654,6 +1772,62 @@ function buys() {
 	}
 	forms.setAttribute("action","buys.o");
 	forms.submit();
+}
+
+
+//view의 탭제어
+function view_tab(var1, var2) {
+	//var1은 this var2는 tab
+	//메뉴와 tab을 모두 클릭 전으로
+	var i;
+	for(i=1;i<=4;i++) {
+		document.getElementById("v_t_m"+i).setAttribute("class","view_tab_li_a");
+		document.getElementById("view_tab"+i).style.display = "none";
+	}
+	
+	document.getElementById(var1).setAttribute("class","view_tab_li_a_hover");
+	document.getElementById(var2).style.display = "";
+}
+
+
+//view의 qna의 작성하기 버튼 눌렀을때
+function view_qna_write(no, sellers){
+	//product_no를 전달
+	var url = "./view_qna_write.o?no="+no+"&sellers_no="+sellers;
+	
+	window.open(url, 'form', 'width=650, height=450, '
+			+'toolbar=no, scrollbars=yes, resizable=no');
+}
+function view_qna_write_result(result) {
+	if(result == '0')
+		alert("작성을 취소하였습니다.");
+	else
+		location.href="view.o?no="+result+"&tab=3";
+}
+
+//view의 qna 제목 눌렀을때
+function view_qna_view(var1) {
+	var tmp = document.getElementById(var1);
+	if(tmp.style.display == "none")
+		tmp.style.display = "";
+	else
+		tmp.style.display = "none";
+}
+
+
+//view의 qna의 답글 버튼 눌렀을때
+function view_qna_answer(product_no, pages, no){
+	//product_no를 전달
+	var url = "./view_qna_answer.o?product_no="+product_no+"&pages="+pages+"&no="+no;
+	
+	window.open(url, 'form', 'width=650, height=450, '
+			+'toolbar=no, scrollbars=yes, resizable=no');
+}
+function view_qna_answer_result(result) {
+	if(result == '0')
+		alert("답글작성을 취소하였습니다.");
+	else
+		location.href="view.o?no="+result+"&tab=3";
 }
 </script>
 </head>

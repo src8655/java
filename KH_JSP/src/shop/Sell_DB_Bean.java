@@ -5,7 +5,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 
 public class Sell_DB_Bean {
@@ -16,8 +19,9 @@ public class Sell_DB_Bean {
     }
     
     private Connection getConnection() throws Exception {
-    	String jdbcDriver = "jdbc:apache:commons:dbcp:/pool";        
-    	return DriverManager.getConnection(jdbcDriver);
+    	Context context = new InitialContext();
+		DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+		return ds.getConnection();
     }
     
     public boolean insert(Sell_Data_Bean sdata) {
