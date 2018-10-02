@@ -40,7 +40,25 @@ public class Action_Edit_Post extends Action_Init implements Action {
 		
 		request.setAttribute("res", res);
 		
-		return "edit_post.jsp";
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 성공.')");
+			response.getWriter().println("location.href='mypage_list.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "edit_post.jsp";
 	}
 
 }

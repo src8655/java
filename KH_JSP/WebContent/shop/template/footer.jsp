@@ -21,5 +21,3 @@
     <div id="copy_r"></div>
   </div>
 </div>
-</body>
-</html>

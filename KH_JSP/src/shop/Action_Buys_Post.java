@@ -207,7 +207,7 @@ public class Action_Buys_Post extends Action_Init implements Action {
 		if(order == 2) session.setAttribute("basket", null);
 		
 		
-		return "buys_post.jsp";
+		return "buys_post.tiles";
 	}
 	//금액 형태로 바꾸기
     public static String number_format(int dSource) {

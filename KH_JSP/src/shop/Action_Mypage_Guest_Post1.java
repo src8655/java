@@ -64,7 +64,25 @@ public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
 		request.setAttribute("res", res);
 		
 		
-		return "mypage_guest_post1.jsp";
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('구매확정 성공.')");
+			response.getWriter().println("location.href='mypage_guest.o?pages="+pages+"';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('구매확정 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "mypage_guest_post1.jsp";
 	}
 
 

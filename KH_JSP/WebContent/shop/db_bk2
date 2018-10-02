@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 월요일-10월-01-2018   
+--  파일이 생성됨 - 화요일-10월-02-2018   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Trigger MIN_TADDR_TRI
@@ -160,9 +160,23 @@ end;
 
 /
 ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_QNA_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_VIEW_REVIEW_TRI
+--------------------------------------------------------
 
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_VIEW_REVIEW" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_VIEW_REVIEW_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
 
-
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" ENABLE;
 
 
 
@@ -210,7 +224,7 @@ ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_QNA_TRI" ENABLE;
 
 
 --------------------------------------------------------
---  파일이 생성됨 - 월요일-10월-01-2018   
+--  파일이 생성됨 - 화요일-10월-02-2018   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Sequence MIN_TADDR_SEQ
@@ -236,24 +250,29 @@ ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_QNA_TRI" ENABLE;
 --  DDL for Sequence MIN_TSHOP_LIST_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 5452 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 6452 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_MEMBER_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2102 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 3102 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_SELL_GROUP_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_GROUP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 802 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_GROUP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1802 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_SELL_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2402 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 3402 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_VIEW_QNA_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_VIEW_QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1002 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_VIEW_QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1352 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_VIEW_REVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_VIEW_REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2 CACHE 20 NOORDER  NOCYCLE ;

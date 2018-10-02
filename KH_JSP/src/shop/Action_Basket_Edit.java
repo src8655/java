@@ -36,7 +36,27 @@ public class Action_Basket_Edit extends Action_Init implements Action {
 		map.put(no, counts);
 		session.setAttribute("basket", map);
 		
-		return "basket_edit.jsp";
+		int res = 1;
+		
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 성공.')");
+			response.getWriter().println("location.href='basket.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "basket_edit.jsp";
 	}
 
 }

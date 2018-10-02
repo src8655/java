@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="head.jsp" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="basket_top">
 	<h1>
@@ -128,4 +129,3 @@
 <div class="basket_b">
 	<a href="#" onclick="buys.submit()">구입하기</a>
 </div>
-<%@ include file="foot.jsp" %>

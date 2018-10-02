@@ -30,7 +30,7 @@ public class Action_Edit extends Action_Init implements Action {
 		request.setAttribute("ship_company", ship_company);
 		
 		
-		return "edit.jsp";
+		return "edit.tiles";
 	}
 
 }

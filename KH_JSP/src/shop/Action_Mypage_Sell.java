@@ -75,7 +75,7 @@ public class Action_Mypage_Sell extends Action_Init implements Action {
 		request.setAttribute("list", list);
 		
 		
-		return "mypage_sell.jsp";
+		return "mypage_sell.tiles";
 	}
 
 

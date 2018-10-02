@@ -63,7 +63,7 @@ public class Action_Mypage_List extends Action_Init implements Action {
 		request.setAttribute("list", list);
 		
 		
-		return "mypage_list.jsp";
+		return "mypage_list.tiles";
 	}
 
 }

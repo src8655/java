@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="head.jsp" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="basket_top" style="width:800px;margin:0 auto;margin-top:10px;margin-bottom:20px;">
 	<h1 style="width:300px;">
@@ -108,6 +109,7 @@
 		<td>
 			<c:if test="${sdata.status eq 4}"><input type="button" value="구매확정" class="basket_order" onclick="location.href='mypage_guest_post1.o?no=${sdata.no}&pages=${pages}'" /><br /></c:if>
 			<c:if test="${sdata.status eq 1}"><input type="button" value="주문취소" class="basket_delete" onclick="location.href='mypage_guest_post2.o?no=${sdata.no}&pages=${pages}'" /></c:if>
+			<c:if test="${sdata.status eq 5}"><input type="button" value="리뷰작성" class="basket_delete" onclick="view_review('view_review.o?no=${sdata.product_no}&pages=${pages}')" /></c:if>
 		</td>
 	</tr>
 </c:forEach>
@@ -120,4 +122,3 @@
 	</c:forEach>
 	<a href="mypage_guest.o?pages=${board_paging}" class="list_page_a">▶</a>
   </div>
-<%@ include file="foot.jsp" %>

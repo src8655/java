@@ -14,7 +14,7 @@ public class Action_Join extends Action_Init implements Action {
 	public String execute() throws ServletException, IOException {
 		
 		
-		return "join.jsp";
+		return "join.tiles";
 	}
 
 

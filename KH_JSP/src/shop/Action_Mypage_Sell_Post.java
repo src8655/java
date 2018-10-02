@@ -74,7 +74,27 @@ public class Action_Mypage_Sell_Post extends Action_Init implements Action {
 		request.setAttribute("res", res);
 		
 		
-		return "mypage_sell_post.jsp";
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 완료.')");
+			response.getWriter().println("location.href='mypage_sell.o?pages="+pages+"&cate="+cate+"';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		
+		
+		//return "mypage_sell_post.jsp";
 	}
 
 

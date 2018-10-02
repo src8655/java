@@ -89,7 +89,7 @@ public class Action_Mypage_Guest extends Action_Init implements Action {
 		request.setAttribute("process4", process4);
 		request.setAttribute("process5", process5);
 		
-		return "mypage_guest.jsp";
+		return "mypage_guest.tiles";
 	}
 
 	//금액 형태로 바꾸기

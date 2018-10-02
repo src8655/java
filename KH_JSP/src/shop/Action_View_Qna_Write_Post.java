@@ -108,7 +108,7 @@ public class Action_View_Qna_Write_Post extends Action_Init implements Action {
 		request.setAttribute("product_no", product_no);
 		
 		
-		return "view_qna_write_post.jsp";
+		return "view_qna_write_post.tiles";
 	}
 
 }

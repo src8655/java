@@ -39,7 +39,7 @@ public class Action_Mypage_Admin_Payment extends Action_Init implements Action {
 		request.setAttribute("list", list);
 		
 		
-		return "mypage_admin_payment.jsp";
+		return "mypage_admin_payment.tiles";
 	}
 
 

@@ -66,8 +66,25 @@ public class Action_Mypage_Guest_Post2 extends Action_Init implements Action {
 		
 		request.setAttribute("res", res);
 		
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('취소 성공.')");
+			response.getWriter().println("location.href='mypage_guest.o?pages="+pages+"';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
 		
-		return "mypage_guest_post2.jsp";
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('취소 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "mypage_guest_post2.jsp";
 	}
 
 

@@ -22,7 +22,7 @@ public class Action_View_Qna_Answer extends Action_Init implements Action {
 		request.setAttribute("no", no);
 		request.setAttribute("product_no", product_no);
 		
-		return "view_qna_answer.jsp";
+		return "view_qna_answer.tiles";
 	}
 
 }

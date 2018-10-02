@@ -79,7 +79,7 @@ public class Action_View extends Action_Init implements Action {
 		
 		request.setAttribute("mdata", mdata);
 		
-		return "view.jsp";
+		return "view.tiles";
 	}
 
 }

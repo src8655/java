@@ -174,7 +174,7 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 		request.setAttribute("name", name);
 		request.setAttribute("order", order);
 		
-		return "join_write_post.jsp";
+		return "join_write_post.tiles";
 	}
 
 

@@ -56,6 +56,7 @@ public class shop_controller extends HttpServlet {
 		} catch (Exception e) {}finally {
 		try {if(f != null) f.close();} catch (IOException e) {}}
 	}
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -70,7 +71,6 @@ public class shop_controller extends HttpServlet {
 		//맵에서 path를 키로 한 객체를 가져오고
 		Action action = (Action) pathMap.get(path);
 		if(action != null) action.action_Init(request, response);
-		
 		
 		
 		//response.getWriter().print("shops"+path);

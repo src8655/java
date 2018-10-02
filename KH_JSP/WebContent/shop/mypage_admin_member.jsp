@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="head.jsp" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="basket_top" style="width:800px;margin:0 auto;margin-top:10px;margin-bottom:20px;">
 	<h1 style="width:600px;">
@@ -51,4 +52,4 @@
 	</c:forEach>
 	<a href="mypage_admin_member.o?pages=${board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">▶</a>
   </div>
-<%@ include file="foot.jsp" %>
+  

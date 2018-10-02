@@ -41,7 +41,27 @@ public class Action_Del extends Action_Init implements Action {
 		
 		request.setAttribute("res", res);
 		
-		return "del.jsp";
+		
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('삭제 성공.')");
+			response.getWriter().println("location.href='mypage_list.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('삭제 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		
+		//return "del.jsp";
 	}
 
 }

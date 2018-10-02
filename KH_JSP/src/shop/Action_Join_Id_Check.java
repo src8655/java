@@ -27,7 +27,7 @@ public class Action_Join_Id_Check extends Action_Init implements Action {
 
 		request.setAttribute("result", result);
 		
-		return "join_id_check.jsp";
+		return "join_id_check.tiles";
 	}
 
 

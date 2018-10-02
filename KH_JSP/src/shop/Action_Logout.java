@@ -13,7 +13,13 @@ public class Action_Logout extends Action_Init implements Action {
 		session.setAttribute("user_id", null);
 		session.setAttribute("user_pw", null);
 		
-		return "logout.jsp";
+		
+		response.getWriter().println("<script>");
+		response.getWriter().println("alert('로그아웃 성공.')");
+		response.getWriter().println("location.href='index.o';");
+		response.getWriter().println("</script>");
+		return null;
+		//return "logout.jsp";
 	}
 
 }

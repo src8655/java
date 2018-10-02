@@ -41,7 +41,7 @@ public class Action_Mypage_Admin_Member_Edit extends Action_Init implements Acti
 		request.setAttribute("mdata", mdata);
 		
 		
-		return "mypage_admin_member_edit.jsp";
+		return "mypage_admin_member_edit.tiles";
 	}
 
 

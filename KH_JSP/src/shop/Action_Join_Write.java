@@ -17,7 +17,7 @@ public class Action_Join_Write extends Action_Init implements Action {
 		
 		request.setAttribute("order", order);
 		
-		return "join_write.jsp";
+		return "join_write.tiles";
 	}
 
 

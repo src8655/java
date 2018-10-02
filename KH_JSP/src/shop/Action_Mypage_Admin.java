@@ -33,7 +33,7 @@ public class Action_Mypage_Admin extends Action_Init implements Action {
 		}
 		
 		
-		return "mypage_admin.jsp";
+		return "mypage_admin.tiles";
 	}
 
 

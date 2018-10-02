@@ -44,7 +44,27 @@ public class Action_Basket_Add extends Action_Init implements Action {
 			session.setAttribute("basket", map);	//     //를 구분자로 씀
 		}
 		
-		return "basket_add.jsp";
+		int res = 1;
+		
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('추가 성공.')");
+			response.getWriter().println("location.href='basket.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('추가 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "basket_add.jsp";
 	}
 
 }

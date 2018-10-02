@@ -131,7 +131,7 @@ public class Action_Buys extends Action_Init implements Action {
 		
 		request.setAttribute("order", order);
 		
-		return "buys.jsp";
+		return "buys.tiles";
 	}
 
     //금액 형태로 바꾸기

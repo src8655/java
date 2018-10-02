@@ -24,7 +24,7 @@ public class Action_Login extends Action_Init implements Action {
 		request.setAttribute("user_id", user_id);
 		
 		
-		return "login.jsp";
+		return "login.tiles";/////
 	}
 
 }

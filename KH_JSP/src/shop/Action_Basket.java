@@ -79,7 +79,7 @@ public class Action_Basket extends Action_Init implements Action {
 		request.setAttribute("total_ship_moneys", total_ship_moneys);
 		request.setAttribute("total_rmoneys", total_rmoneys);
 		
-		return "basket.jsp";
+		return "basket.tiles";
 	}
 
     //금액 형태로 바꾸기

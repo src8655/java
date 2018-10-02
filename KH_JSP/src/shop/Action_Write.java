@@ -13,7 +13,7 @@ public class Action_Write extends Action_Init implements Action {
 		
 		
 		
-		return "write.jsp";
+		return "write.tiles";
 	}
 
 }

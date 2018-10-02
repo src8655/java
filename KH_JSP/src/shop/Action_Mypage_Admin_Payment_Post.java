@@ -44,8 +44,25 @@ public class Action_Mypage_Admin_Payment_Post extends Action_Init implements Act
 		
 		request.setAttribute("res", res);
 		
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('입금확인 완료')");
+			response.getWriter().println("location.href='mypage_admin_payment.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
 		
-		return "mypage_admin_payment_post.jsp";
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('입금확인 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "mypage_admin_payment_post.jsp";
 	}
 
 

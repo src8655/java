@@ -7,7 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Action_Index extends Action_Init implements Action {
+import org.apache.tiles.AttributeContext;
+import org.apache.tiles.context.TilesRequestContext;
+import org.apache.tiles.preparer.ViewPreparer;
+
+public class Action_Index extends Action_Init implements Action  {
 
 	@Override
 	public String execute() throws ServletException, IOException {
@@ -54,8 +58,9 @@ public class Action_Index extends Action_Init implements Action {
 		request.setAttribute("list_8", list_8);
 		
 		
-		
-		return "index.jsp";
+		return "index.tiles";
+		//return "index.jsp";
 	}
+
 
 }

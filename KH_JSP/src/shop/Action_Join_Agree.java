@@ -17,7 +17,7 @@ public class Action_Join_Agree extends Action_Init implements Action {
 		
 		request.setAttribute("order", order);
 		
-		return "join_agree.jsp";
+		return "join_agree.tiles";
 	}
 
 

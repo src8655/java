@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="head.jsp" %>
+
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${order eq 1}">
 <div class="basket_top" style="width:965px;margin:0 auto;margin-top:10px;margin-bottom:20px;">
@@ -76,5 +78,3 @@
 	</c:forEach>
 	<a href="list.o?pages=${board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}&order=${order}" class="list_page_a">▶</a>
   </div>
-
-<%@ include file="foot.jsp" %>

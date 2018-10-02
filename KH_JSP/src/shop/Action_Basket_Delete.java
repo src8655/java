@@ -26,7 +26,28 @@ public class Action_Basket_Delete extends Action_Init implements Action {
 		map.remove(no);
 		session.setAttribute("basket", map);
 		
-		return "basket_delete.jsp";
+		
+		int res = 1;
+		
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('삭제 성공.')");
+			response.getWriter().println("location.href='basket.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('삭제 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "basket_delete.jsp";
 	}
 
 }

@@ -67,7 +67,7 @@ public class Action_Mypage_Guest_View extends Action_Init implements Action {
 		
 		request.setAttribute("list", list);
 		
-		return "mypage_guest_view.jsp";
+		return "mypage_guest_view.tiles";
 	}
 
 	//금액 형태로 바꾸기

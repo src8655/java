@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="head.jsp" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="basket_top" style="width:800px;margin:0 auto;margin-top:10px;margin-bottom:20px;">
 	<h1 style="width:300px;">
@@ -96,4 +97,3 @@
 <div class="join_red_button" style="margin:0 auto;">
 		<a href="mypage_guest.o?pages=${pages}">확인완료</a>
 </div>
-<%@ include file="foot.jsp" %>

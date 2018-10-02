@@ -45,7 +45,7 @@ public class Action_List extends Action_Init implements Action {
 		//게시판 리스트
 		request.setAttribute("list", list);
 		
-		return "list.jsp";
+		return "list.tiles";
 	}
 
 }

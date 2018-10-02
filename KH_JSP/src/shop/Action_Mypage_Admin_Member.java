@@ -63,7 +63,7 @@ public class Action_Mypage_Admin_Member extends Action_Init implements Action {
 		request.setAttribute("list", list);
 		
 		
-		return "mypage_admin_member.jsp";
+		return "mypage_admin_member.tiles";
 	}
 
 

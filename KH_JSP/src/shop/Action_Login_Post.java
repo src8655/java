@@ -63,8 +63,25 @@ public class Action_Login_Post extends Action_Init implements Action {
 		
 		request.setAttribute("res", res);
 		
+		if(res == 1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('로그인 성공.')");
+			response.getWriter().println("location.href='index.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
 		
-		return "login_post.jsp";
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('로그인 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		return null;
+		//return "login_post.jsp";
 	}
 
 }
