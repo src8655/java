@@ -30,8 +30,8 @@ public class Sell_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into MIN_TSHOP_SELL(GUEST_NO,SELLERS_NO,PRODUCT_NO,PRODUCT_NAME,COUNTS,MONEY,SHIP_MONEY,RMONEY,DATES,SHIP_DATES,SHIP_COMPANY,STATUS,ADDR,ZIPCODE,SHIP_MEMO,NAME,PHONE1,PHONE2,PHONE3,FILE1,TIMES) "
-									+"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TSHOP_SELL(GUEST_NO,SELLERS_NO,PRODUCT_NO,PRODUCT_NAME,COUNTS,MONEY,SHIP_MONEY,RMONEY,DATES,SHIP_DATES,SHIP_COMPANY,STATUS,ADDR,ZIPCODE,SHIP_MEMO,NAME,PHONE1,PHONE2,PHONE3,FILE1,TIMES,HASREVIEW) "
+									+"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, sdata.getGuest_no());
 			pstmt.setInt(2, sdata.getSellers_no());
 			pstmt.setInt(3, sdata.getProduct_no());
@@ -53,6 +53,7 @@ public class Sell_DB_Bean {
 			pstmt.setString(19, sdata.getPhone3());
 			pstmt.setString(20, sdata.getFile1());
 			pstmt.setString(21, sdata.getTimes());
+			pstmt.setInt(22, sdata.getHasreview());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -111,6 +112,7 @@ public class Sell_DB_Bean {
 				sdata.setFile1(rs.getString("FILE1"));
 				sdata.setTimes(rs.getString("TIMES"));
 				sdata.setShip_num(rs.getString("SHIP_NUM"));
+				sdata.setHasreview(rs.getInt("HASREVIEW"));
 				
 				list.add(sdata);
 			}
@@ -206,6 +208,7 @@ public class Sell_DB_Bean {
 				sdata.setFile1(rs.getString("FILE1"));
 				sdata.setTimes(rs.getString("TIMES"));
 				sdata.setShip_num(rs.getString("SHIP_NUM"));
+				sdata.setHasreview(rs.getInt("HASREVIEW"));
 				
 
 				//금액형태로 바꾸기
@@ -306,6 +309,7 @@ public class Sell_DB_Bean {
 				sdata.setFile1(rs.getString("FILE1"));
 				sdata.setTimes(rs.getString("TIMES"));
 				sdata.setShip_num(rs.getString("SHIP_NUM"));
+				sdata.setHasreview(rs.getInt("HASREVIEW"));
 				
 				list.add(sdata);
 			}
@@ -359,6 +363,7 @@ public class Sell_DB_Bean {
 				sdata.setFile1(rs.getString("FILE1"));
 				sdata.setTimes(rs.getString("TIMES"));
 				sdata.setShip_num(rs.getString("SHIP_NUM"));
+				sdata.setHasreview(rs.getInt("HASREVIEW"));
 				
 			}
 			
@@ -577,6 +582,34 @@ public class Sell_DB_Bean {
 			//현재 sell 데이터 삭제
 			pstmt = conn.prepareStatement("delete from MIN_TSHOP_SELL where NO=?");
 			pstmt.setInt(1, sdata.getNo());
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
+    //리뷰작성완료(hasreview = 1)로 변경
+    public boolean updateReview(int no) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();				//여러개이면 기존 그룹에서 현재 sell의 금액을 빼기만함
+			
+			//현재 sell 데이터 삭제
+			pstmt = conn.prepareStatement("update MIN_TSHOP_SELL set HASREVIEW=? where NO=?");
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, no);
 			pstmt.executeUpdate();
 			
 			

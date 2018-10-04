@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="top_bg">
   <ul>
-    <li><a href="#">고객센터</a></li>
+    <li><a href="customer_center.o">고객센터</a></li>
     <li>
     <c:if test="${member_info eq null}">
     	<a href="login.o" style="color:#adc12c;">나의 쇼핑정보 <img src="./images/myinfo.jpg" alt="나의 쇼핑정보" /></a>

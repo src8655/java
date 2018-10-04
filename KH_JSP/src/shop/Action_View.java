@@ -39,7 +39,7 @@ public class Action_View extends Action_Init implements Action {
 		int board_total = vqdb.count(no);	//총 개수
 		int board_cnt = 0;						//no를 위한 카운트
 
-		int board_lengths = 20;	//한번에 보일 리스트 개수
+		int board_lengths = 10;	//한번에 보일 리스트 개수
 		int board_starts = ((Integer.parseInt(pages))*board_lengths)-board_lengths+1;			//시작지점
 		int board_ends = board_starts+board_lengths-1;										//마지막지점
 		int board_paging = (int)Math.ceil((double)board_total/(double)board_lengths);	//페이지 링크 개수
@@ -78,6 +78,55 @@ public class Action_View extends Action_Init implements Action {
 			mdata = member_info;
 		
 		request.setAttribute("mdata", mdata);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		View_Review_DB_Bean vrdb = View_Review_DB_Bean.getInstance();
+		
+		int review_total = vrdb.count(no);	//총 개수
+		int review_cnt = 0;						//no를 위한 카운트
+
+		int review_lengths = 10;	//한번에 보일 리스트 개수
+		int review_starts = ((Integer.parseInt(pages))*review_lengths)-review_lengths+1;			//시작지점
+		int review_ends = review_starts+review_lengths-1;										//마지막지점
+		int review_paging = (int)Math.ceil((double)review_total/(double)review_lengths);	//페이지 링크 개수
+
+		int review_pstarts = Integer.parseInt(pages)-5;
+		int review_pends = Integer.parseInt(pages)+5;
+		if(review_pstarts <= 0) review_pstarts = 1;
+		if(review_pends > review_paging) review_pends = review_paging;
+		
+
+		List review_list = vrdb.getArticles(review_starts, review_ends, no);	//리스트받아오기
+		
+		
+		request.setAttribute("review_total", review_total);
+		request.setAttribute("review_cnt", review_starts);
+		request.setAttribute("review_paging", review_paging);
+
+		request.setAttribute("review_pstarts", review_pstarts);
+		request.setAttribute("review_pends", review_pends);
+
+		request.setAttribute("review_list", review_list);
+		
+		
+		
+		
+		//판매자정보 가져오기
+		Member_DB_Bean mdb = Member_DB_Bean.getInstance();
+		Member_Data_Bean sellers = mdb.getArticle(ldata.getSeller());
+		
+		
+
+		request.setAttribute("sellers", sellers);
+		
+		
 		
 		return "view.tiles";
 	}

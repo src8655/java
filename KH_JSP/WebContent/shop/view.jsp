@@ -85,7 +85,7 @@
         <p class="list_v_t_r_box2_l">
           <span style="color:#085a9f;">원산지</span>
         </p>
-        <p class="list_v_t_r_box2_r">중국산</p>
+        <p class="list_v_t_r_box2_r">${ldata.made}</p>
       </div>
       
       
@@ -109,10 +109,10 @@
   </div>
 </form>
   <ul class="view_tab">
-	  <li><a href="#10" id="v_t_m1" <c:if test="${tab eq 1}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 1}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m1','view_tab1')">상품정보</a></li>
-	  <li><a href="#10" id="v_t_m2" <c:if test="${tab eq 2}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 2}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m2','view_tab2')">상품 리뷰(0)</a></li>
-	  <li><a href="#10" id="v_t_m3" <c:if test="${tab eq 3}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 3}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m3','view_tab3')">Q&A(${board_total})</a></li>
-	  <li><a href="#10" id="v_t_m4" <c:if test="${tab eq 4}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 4}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m4','view_tab4')">판매자정보</a></li>
+	  <li><a href="#10" id="v_t_m1" <c:if test="${tab eq 1}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 1}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m1','view_tab1');">상품정보</a></li>
+	  <li><a href="#10" id="v_t_m2" <c:if test="${tab eq 2}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 2}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m2','view_tab2');location.href='view.o?no=${no}&tab=2';">상품 리뷰(${review_total})</a></li>
+	  <li><a href="#10" id="v_t_m3" <c:if test="${tab eq 3}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 3}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m3','view_tab3');location.href='view.o?no=${no}&tab=3';">Q&A(${board_total})</a></li>
+	  <li><a href="#10" id="v_t_m4" <c:if test="${tab eq 4}">class="view_tab_li_a_hover"</c:if><c:if test="${tab ne 4}">class="view_tab_li_a"</c:if> onclick="view_tab('v_t_m4','view_tab4');">판매자정보</a></li>
   </ul>
   <div class="list_v_c" id="view_tab1" <c:if test="${tab ne 1}">style="display:none;"</c:if>>
   	${ldata.memo}<br />
@@ -123,7 +123,38 @@
   </div>
   
   <div class="list_v_c" id="view_tab2" <c:if test="${tab ne 2}">style="display:none;"</c:if>>
-  	test2
+  	<table cellspacing="0" cellpadding="10" border="0" class="view_qna_table">
+  		<col width="400px" />
+  		<col width="80px" />
+  		
+<c:forEach var="vrdata" items="${review_list}">
+  		<tr>
+  			<td style="border-bottom:0px;text-align:left;">
+  				<div class="review_box_l">
+					<c:forEach var="i" begin="1" end="${vrdata.star_01}" step="1">
+						<img src="./images/star_01.jpg" alt="별" />
+					</c:forEach>
+					<c:forEach var="i" begin="1" end="${vrdata.star_02}" step="1">
+						<img src="./images/star_02.jpg" alt="별" />
+					</c:forEach>
+				</div>
+				<div class="review_box">배송속도 ${vrdata.review1}</div>
+				<div class="review_box">상품품질 ${vrdata.review2}</div>
+			</td>
+  			<td style="border-bottom:0px;text-align:right;">${vrdata.guest_id} ${vrdata.dates}</td>
+  		</tr>
+  		<tr>
+  			<td colspan="2" style="text-align:left;padding:20px;">${vrdata.memo}</td>
+  		</tr>
+</c:forEach>
+  	</table>
+  	<div class="list_page">
+	  <a href="view.o?pages=1&amp;no=${no}&amp;tab=2" class="list_page_a">◀</a>
+	  <c:forEach begin="${review_pstarts}" end="${review_pends}" step="1" var="i">
+		<a href="view.o?pages=${i}&amp;no=${no}&amp;tab=2" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
+	  </c:forEach>
+	  <a href="view.o?pages=${review_paging}&amp;no=${no}&amp;tab=2" class="list_page_a">▶</a>
+    </div>
   </div>
   <div class="list_v_c" id="view_tab3" <c:if test="${tab ne 3}">style="display:none;"</c:if>>
   	<table cellspacing="0" cellpadding="10" border="0" class="view_qna_table">
@@ -199,14 +230,38 @@
 	  	</div>
   	</c:if>
   	<div class="list_page">
-	<a href="view.o?pages=1&amp;no=${no}&amp;tab=3" class="list_page_a">◀</a>
-	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
+	  <a href="view.o?pages=1&amp;no=${no}&amp;tab=3" class="list_page_a">◀</a>
+	  <c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
 		<a href="view.o?pages=${i}&amp;no=${no}&amp;tab=3" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
-	</c:forEach>
-	<a href="view.o?pages=${board_paging}&amp;no=${no}&amp;tab=3" class="list_page_a">▶</a>
-  </div>
+	  </c:forEach>
+	  <a href="view.o?pages=${board_paging}&amp;no=${no}&amp;tab=3" class="list_page_a">▶</a>
+    </div>
   </div>
   <div class="list_v_c" id="view_tab4" <c:if test="${tab ne 4}">style="display:none;"</c:if>>
-  	test4
+  	<table cellspacing="0" cellpadding="25" border="0" class="view_info_table">
+  		<col width="150px" />
+  		<col width="200px" />
+  		<col width="150px" />
+  		<col width="200px" />
+  		
+  		<tr>
+  			<th style="border-top:1px solid #cccccc;">판매자</th>
+  			<td style="border-top:1px solid #cccccc;">${sellers.name}</td>
+  			<th style="border-top:1px solid #cccccc;">사업자 등록번호</th>
+  			<td style="border-top:1px solid #cccccc;">${sellers.company_number}</td>
+  		</tr>
+  		<tr>
+  			<th>고객문의 대표번호</th>
+  			<td colspan="3">${sellers.phone1} - ${sellers.phone2} - ${sellers.phone3}</td>
+  		</tr>
+  		<tr>
+  			<th>e-mail</th>
+  			<td colspan="3">${sellers.email}</td>
+  		</tr>
+  		<tr>
+  			<th>영업소재지</th>
+  			<td colspan="3">(${sellers.zipcode}) ${sellers.addr}</td>
+  		</tr>
+  	</table>
   </div>
   

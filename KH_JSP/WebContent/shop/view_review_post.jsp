@@ -11,6 +11,6 @@
 <c:if test="${res eq 1}">
 	<script>
 		alert('작성 성공');
-		returnValue4('${product_no}');
+		returnValue4('${pages}');
 	</script>
 </c:if>

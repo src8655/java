@@ -9,8 +9,30 @@ public class View_Review_Data_Bean {
 	private String review2;
 	private String memo;
 	private String dates;
+	private String guest_id;
+	
+	private int star_01;
+	private int star_02;
 	
 	
+	public int getStar_01() {
+		return star_01;
+	}
+	public void setStar_01(int star_01) {
+		this.star_01 = star_01;
+	}
+	public int getStar_02() {
+		return star_02;
+	}
+	public void setStar_02(int star_02) {
+		this.star_02 = star_02;
+	}
+	public String getGuest_id() {
+		return guest_id;
+	}
+	public void setGuest_id(String guest_id) {
+		this.guest_id = guest_id;
+	}
 	public int getNo() {
 		return no;
 	}

@@ -24,6 +24,7 @@ public class Sell_Data_Bean {
 	private String file1;
 	private String times;
 	private String ship_num;
+	private int hasreview = 0;
 	
 	private String moneys = "";
 	private String ship_moneys = "";
@@ -32,6 +33,12 @@ public class Sell_Data_Bean {
 	private String totals = "";
 	
 	
+	public int getHasreview() {
+		return hasreview;
+	}
+	public void setHasreview(int hasreview) {
+		this.hasreview = hasreview;
+	}
 	public String getTotals() {
 		return totals;
 	}

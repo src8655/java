@@ -109,7 +109,14 @@
 		<td>
 			<c:if test="${sdata.status eq 4}"><input type="button" value="구매확정" class="basket_order" onclick="location.href='mypage_guest_post1.o?no=${sdata.no}&pages=${pages}'" /><br /></c:if>
 			<c:if test="${sdata.status eq 1}"><input type="button" value="주문취소" class="basket_delete" onclick="location.href='mypage_guest_post2.o?no=${sdata.no}&pages=${pages}'" /></c:if>
-			<c:if test="${sdata.status eq 5}"><input type="button" value="리뷰작성" class="basket_delete" onclick="view_review('view_review.o?no=${sdata.product_no}&pages=${pages}')" /></c:if>
+			<c:if test="${sdata.status eq 5}">
+				<c:if test="${sdata.hasreview eq 0}">
+				<input type="button" value="리뷰작성" class="basket_delete" onclick="view_review('view_review.o?no=${sdata.no}&product_no=${sdata.product_no}&pages=${pages}')" />
+				</c:if>
+				<c:if test="${sdata.hasreview eq 1}">
+				<span style="color:blue;">[리뷰작성완료]</span>
+				</c:if>
+			</c:if>
 		</td>
 	</tr>
 </c:forEach>

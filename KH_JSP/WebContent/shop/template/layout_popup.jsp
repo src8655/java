@@ -117,6 +117,25 @@ color:#4d4d4d;
 text-decoration:none;
 font-family:'Arial';
 }
+.stars_label input {
+display:none;
+}
+.stars_label label {
+float:left;
+margin:0px;
+background:url(./images/star_02.jpg) no-repeat left top;
+display:block;
+border:0px;
+width:23px;
+height:23px;
+overflow:hidden;
+}
+.stars_label label:hover {
+background:url(./images/star_02.jpg) no-repeat left top;
+}
+.stars_label input[type=checkbox]:checked + label {
+background:url(./images/star_01.jpg) no-repeat left top;
+}
 </style>
 <script type="text/javascript">
 //값 리턴해주기
@@ -144,11 +163,11 @@ function view_review_star(var1) {
 	
 	//모든별 흑백
 	for(i=1;i<=5;i++) {
-		document.getElementById("star_img"+i).setAttribute("src","./images/star_02.jpg");
+		document.getElementById("star_img"+i).checked = false;
 	}
 	//선택별까지 컬러
 	for(i=1;i<=var1;i++) {
-		document.getElementById("star_img"+i).setAttribute("src","./images/star_01.jpg");
+		document.getElementById("star_img"+i).checked = true;
 	}
 	document.getElementById("stars").value = var1;
 }

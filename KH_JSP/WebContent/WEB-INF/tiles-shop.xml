@@ -177,5 +177,32 @@
 		<put-attribute name="title" value="12번가 리뷰작성" />
 		<put-attribute name="body" value="/shop/view_review_post.jsp" />
 	</definition>
+	
+	
+	
+	<definition name="shop/customer_center" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 고객센터" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/customer_center.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
+	<definition name="shop/customer_center_qna_write" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 1:1문의" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/customer_center_qna_write.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
+	<definition name="shop/customer_center_qna" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 1:1문의" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/customer_center_qna.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
+	<definition name="shop/customer_center_qna_view" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 1:1문의" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/customer_center_qna_view.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
 
 </tiles-definitions>

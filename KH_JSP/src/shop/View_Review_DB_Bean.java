@@ -30,8 +30,8 @@ public class View_Review_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into MIN_TSHOP_VIEW_REVIEW(GUEST_NO,PRODUCT_NO,STARS,REVIEW1,REVIEW2,MEMO,DATES) "
-									+"values(?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TSHOP_VIEW_REVIEW(GUEST_NO,PRODUCT_NO,STARS,REVIEW1,REVIEW2,MEMO,DATES,GUEST_ID) "
+									+"values(?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, vrdata.getGuest_no());
 			pstmt.setInt(2, vrdata.getProduct_no());
 			pstmt.setInt(3, vrdata.getStars());
@@ -39,6 +39,7 @@ public class View_Review_DB_Bean {
 			pstmt.setString(5, vrdata.getReview2());
 			pstmt.setString(6, vrdata.getMemo());
 			pstmt.setString(7, vrdata.getDates());
+			pstmt.setString(8, vrdata.getGuest_id());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -111,7 +112,11 @@ public class View_Review_DB_Bean {
 				vrdata.setReview2(rs.getString("REVIEW2"));
 				vrdata.setMemo(rs.getString("MEMO"));
 				vrdata.setDates(rs.getString("DATES"));
+				vrdata.setGuest_id(rs.getString("GUEST_ID"));
 				
+				//별 개수를 저장
+				vrdata.setStar_01(vrdata.getStars());
+				vrdata.setStar_02(5-vrdata.getStars());
 				
 				list.add(vrdata);
 			}
@@ -150,6 +155,7 @@ public class View_Review_DB_Bean {
 				vrdata.setReview2(rs.getString("REVIEW2"));
 				vrdata.setMemo(rs.getString("MEMO"));
 				vrdata.setDates(rs.getString("DATES"));
+				vrdata.setGuest_id(rs.getString("GUEST_ID"));
 				
 			}
 			
