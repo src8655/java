@@ -26,6 +26,10 @@ public class Action_Init implements Action {
 	public String searchs_value = "";
 	public String searchs_values = "";
 	
+	public int p_search = 1;
+	public String p_search_value = "";
+	public String p_search_values = "";
+	
 	HttpSession session;
 	Member_DB_Bean mem_db;
 	Member_Data_Bean member_info;
@@ -72,6 +76,26 @@ public class Action_Init implements Action {
 		//로그인정보 불러오기
 		mem_db = Member_DB_Bean.getInstance();
 		member_info = mem_db.getLogin(session);
+		
+		
+		
+		//공동사용 검색
+		if(request.getParameter("p_search") != null)			//검색
+			if(!request.getParameter("p_search").equals(""))
+				p_search = Integer.parseInt(request.getParameter("p_search"));
+		if(request.getParameter("p_search_value") != null) {
+			p_search_value = request.getParameter("p_search_value");
+		}
+		//url인코딩한 값을 저장
+		p_search_values = URLEncoder.encode(p_search_value,"UTF-8");
+		
+		request.setAttribute("p_search", p_search);
+		request.setAttribute("p_search_value", p_search_value);
+		request.setAttribute("p_search_values", p_search_values);
+		
+		
+		
+		
 		
 		
 		//장바구니 개수 구하기

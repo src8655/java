@@ -15,6 +15,12 @@ public class Action_Buys_Post extends Action_Init implements Action {
 	public String execute() throws ServletException, IOException {
 		
 		int order = Integer.parseInt(request.getParameter("order"));
+		int point = -1;
+		
+		if(request.getParameter("point") != null)
+			if(!request.getParameter("point").equals(""))
+				point = Integer.parseInt(request.getParameter("point"));
+		
 		
 		String name = request.getParameter("name");
 		String zipcode = request.getParameter("zipcode");
@@ -80,12 +86,24 @@ public class Action_Buys_Post extends Action_Init implements Action {
 		int total_discount_money = 0;
 		int total_ship_money = 0;
 		int total_rmoney = 0;
+		int total_point = 0;
+		
+		//포인트사용 체크되어있으면 멤버의 모든 포인트 적용
+		if(point != -1) {
+			total_point = member_info.getPoint();
+			//포인트를 초기화
+			Member_DB_Bean mdb = Member_DB_Bean.getInstance();
+			mdb.setPoint(member_info.getNo(), 0);
+		}
 				
 		//총 금액의 통화
 		String total_moneys = "";
 		String total_discount_moneys = "";
 		String total_ship_moneys = "";
 		String total_rmoneys = "";
+		String total_points = "";
+		
+		String totals = "";	//배송비+금액
 		
 		
 		
@@ -102,7 +120,6 @@ public class Action_Buys_Post extends Action_Init implements Action {
 			total_ship_money += ldata.getShip_money();
 			total_rmoney += ldata.getRmoney();
 		}
-		
 		
 		
 		
@@ -147,6 +164,7 @@ public class Action_Buys_Post extends Action_Init implements Action {
 		sgdata.setTimes(cal.getTimeInMillis()+"slsl"+member_info.getNo());
 		sgdata.setGuest_no(member_info.getNo());
 		sgdata.setStatus(1);
+		sgdata.setPoint(total_point);
 		
 		Sell_Group_DB_Bean sgdb = Sell_Group_DB_Bean.getInstance();
 		sgdb.insert(sgdata);
@@ -193,6 +211,8 @@ public class Action_Buys_Post extends Action_Init implements Action {
 		total_discount_moneys = number_format(total_discount_money);
 		total_ship_moneys = number_format(total_ship_money);
 		total_rmoneys = number_format(total_rmoney);
+		total_points = number_format(total_point);
+		totals = number_format(total_ship_money+total_rmoney-total_point);
 		
 
 		int res = 1;
@@ -200,6 +220,7 @@ public class Action_Buys_Post extends Action_Init implements Action {
 		request.setAttribute("admin_bank", admin_bank);
 		request.setAttribute("admin_bank_num", admin_bank_num);
 		request.setAttribute("total_rmoneys", total_rmoneys);
+		request.setAttribute("totals", totals);
 		request.setAttribute("res", res);
 		
 		

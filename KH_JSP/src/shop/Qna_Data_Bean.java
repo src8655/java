@@ -10,7 +10,22 @@ public class Qna_Data_Bean {
 	private int guest_no;
 	private int category;
 	
+	private String memos = "";
+	private String answers = "";
 	
+	
+	public String getAnswers() {
+		return answers;
+	}
+	public void setAnswers(String answers) {
+		this.answers = answers;
+	}
+	public String getMemos() {
+		return memos;
+	}
+	public void setMemos(String memos) {
+		this.memos = memos;
+	}
 	public int getNo() {
 		return no;
 	}

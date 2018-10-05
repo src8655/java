@@ -32,7 +32,6 @@ public class Sell_Data_Bean {
 	private int rowspans = -1;
 	private String totals = "";
 	
-	
 	public int getHasreview() {
 		return hasreview;
 	}

@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 목요일-10월-04-2018   
+--  파일이 생성됨 - 금요일-10월-05-2018   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Trigger MIN_TADDR_TRI
@@ -73,6 +73,23 @@ end;
 
 /
 ALTER TRIGGER "LSM8655"."MIN_TMEMBER_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_FAQ_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_FAQ_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_FAQ" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_FAQ_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_FAQ_TRI" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger MIN_TSHOP_LIST_TRI
 --------------------------------------------------------
@@ -220,10 +237,8 @@ ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" ENABLE;
 
 
 
-
-
 --------------------------------------------------------
---  파일이 생성됨 - 목요일-10월-04-2018   
+--  파일이 생성됨 - 금요일-10월-05-2018   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Sequence MIN_TADDR_SEQ
@@ -246,10 +261,15 @@ ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" ENABLE;
 
    CREATE SEQUENCE  "LSM8655"."MIN_TBOARD_SEQ2"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 7002 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_FAQ_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_FAQ_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1002 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_LIST_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 7452 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 7302 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_MEMBER_SEQ
 --------------------------------------------------------
@@ -259,17 +279,17 @@ ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" ENABLE;
 --  DDL for Sequence MIN_TSHOP_QNA_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1002 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1152 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_SELL_GROUP_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_GROUP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2802 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_GROUP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2902 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_SELL_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 4402 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 4652 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence MIN_TSHOP_VIEW_QNA_SEQ
 --------------------------------------------------------
@@ -279,4 +299,4 @@ ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" ENABLE;
 --  DDL for Sequence MIN_TSHOP_VIEW_REVIEW_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_VIEW_REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1002 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_VIEW_REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 302 CACHE 20 NOORDER  NOCYCLE ;

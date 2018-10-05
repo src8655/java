@@ -18,13 +18,27 @@ public class Sell_Group_Data_Bean {
 	private String dates;
 	private int guest_no;
 	private int status;
+	private int point = 0;
 	
 	private String moneys = "";
 	private String ship_moneys = "";
 	private String rmoneys = "";
 	private String totals = "";
+	private String points = "";
 	
 	
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public String getPoints() {
+		return points;
+	}
+	public void setPoints(String points) {
+		this.points = points;
+	}
 	public int getStatus() {
 		return status;
 	}

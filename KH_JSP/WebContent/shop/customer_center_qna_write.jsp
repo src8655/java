@@ -28,9 +28,14 @@
 		<td><input type="text" name="subject" /></td>
 	</tr>
 	<tr>
-		<th>문의내용</th>
-		<td>
-			<textarea name="memo"></textarea>
+		<td colspan="2">
+			<textarea name="memo" id="memo"></textarea>
+			<script>
+		        CKEDITOR.replace( 'memo', {
+			    	 uiColor : '#d5e9ff',
+			    	 height : 350
+			    });
+			</script>
 		</td>
 	</tr>
 </table>

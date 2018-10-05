@@ -42,7 +42,8 @@ public class Action_Mypage_Guest_View extends Action_Init implements Action {
 		sgdata.setMoneys(number_format(sgdata.getMoney()));
 		sgdata.setShip_moneys(number_format(sgdata.getShip_money()));
 		sgdata.setRmoneys(number_format(sgdata.getRmoney()));
-		sgdata.setTotals(number_format(sgdata.getRmoney()+sgdata.getShip_money()));
+		sgdata.setTotals(number_format(sgdata.getRmoney()+sgdata.getShip_money()-sgdata.getPoint()));
+		sgdata.setPoints(number_format(sgdata.getPoint()));
 		
 		request.setAttribute("sgdata", sgdata);
 		

@@ -150,7 +150,9 @@ public class Qna_DB_Bean {
 				qdata.setDates(rs.getString("DATES"));
 				qdata.setGuest_no(rs.getInt("GUEST_NO"));
 				qdata.setCategory(rs.getInt("CATEGORY"));
-				
+
+				qdata.setMemos(qdata.getMemo().replaceAll("\n", "<br />"));
+				if(qdata.getAnswer() != null) qdata.setAnswers(qdata.getAnswer().replaceAll("\n", "<br />"));
 			}
 			
 		} catch (Exception e) {
@@ -175,12 +177,6 @@ public class Qna_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			/*
-			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_QNA where ISANSWER=? order by NO desc) a) where rnum>=? and rnum<=?");
-			if(!isanswer) pstmt.setInt(1, 0);
-			else pstmt.setInt(1, 1);
-	    	pstmt.setInt(2, start);
-	    	pstmt.setInt(3, end);*/
 			pstmt = conn.prepareStatement("select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_QNA order by NO desc) a) where rnum>=? and rnum<=?");
 	    	pstmt.setInt(1, start);
 	    	pstmt.setInt(2, end);
@@ -197,6 +193,7 @@ public class Qna_DB_Bean {
 				qdata.setGuest_no(rs.getInt("GUEST_NO"));
 				qdata.setCategory(rs.getInt("CATEGORY"));
 				
+				//글자수 자르기
 				if(qdata.getSubject().length() > length)
 					qdata.setSubject(qdata.getSubject().substring(1, length));
 
@@ -276,6 +273,49 @@ public class Qna_DB_Bean {
     	return false;
     }
     
+    
+    
+    //수정하기
+    public boolean update(Qna_Data_Bean qdata) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update MIN_TSHOP_QNA set "
+					+ "SUBJECT=?,"
+					+ "MEMO=?,"
+					+ "ANSWER=?,"
+					+ "ISANSWER=?,"
+					+ "DATES=?,"
+					+ "GUEST_NO=?,"
+					+ "CATEGORY=?"
+					+ " where NO=?");
+			pstmt.setString(1, qdata.getSubject());
+			pstmt.setString(2, qdata.getMemo());
+			pstmt.setString(3, qdata.getAnswer());
+			pstmt.setInt(4, qdata.getIsanswer());
+			pstmt.setString(5, qdata.getDates());
+			pstmt.setInt(6, qdata.getGuest_no());
+			pstmt.setInt(7, qdata.getCategory());
+	    	pstmt.setInt(8, qdata.getNo());
+			pstmt.executeUpdate();
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return false;
+    }
+    
     //답변달기
     public boolean answer(Qna_Data_Bean qdata) {
     	Connection conn = null;
@@ -287,6 +327,34 @@ public class Qna_DB_Bean {
 			pstmt.setString(1, qdata.getAnswer());
 			pstmt.setInt(2, qdata.getIsanswer());
 	    	pstmt.setInt(3, qdata.getNo());
+			pstmt.executeUpdate();
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return false;
+    }
+    
+    //답변삭제
+    public boolean answerDel(int no) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update MIN_TSHOP_QNA set ANSWER=?, ISANSWER=? where NO=?");
+			pstmt.setString(1, "");
+			pstmt.setInt(2, 0);
+	    	pstmt.setInt(3, no);
 			pstmt.executeUpdate();
 			
 			return true;

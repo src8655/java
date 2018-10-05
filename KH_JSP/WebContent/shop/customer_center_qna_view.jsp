@@ -11,6 +11,17 @@
 	<col width="150px" />
 	<col width="500px" />
 	<tr>
+		<th>상태</th>
+		<td>
+			<c:if test="${qdata.isanswer eq 0}"><div class="view_qna_table_label1" style="float:left;margin:0px;">미답변</div></c:if>
+			<c:if test="${qdata.isanswer eq 1}"><div class="view_qna_table_label2" style="float:left;margin:0px;">답변완료</div></c:if>
+		</td>
+	</tr>
+	<tr>
+		<th>작성일</th>
+		<td>${qdata.dates}</td>
+	</tr>
+	<tr>
 		<th>분류</th>
 		<td>
 			<c:if test="${qdata.category eq 1}">[주문/결제]</c:if>
@@ -30,6 +41,15 @@
 			${qdata.memo}
 		</td>
 	</tr>
+<c:if test="${qdata.guest_no eq member_info.no}">
+	<tr>
+		<th>편집</th>
+		<td>
+			<a href="customer_center_qna_edit.o?no=${qdata.no}&pages=${pages}">[수정]</a>
+			<a href="customer_center_qna_del.o?no=${qdata.no}&pages=${pages}">[삭제]</a>
+		</td>
+	</tr>
+</c:if>
 </table>
 <c:if test="${qdata.isanswer eq 0}">
 <c:if test="${member_info.orders eq 3}">
@@ -37,18 +57,19 @@
 <input type="hidden" name="no" value="${qdata.no}" />
 <input type="hidden" name="pages" value="${pages}" />
 <table cellspacing="0" cellpadding="10" border="0" class="qna_write_board">
-	<col width="150px" />
-	<col width="500px" />
+
 	<tr>
-		<th>문의답변</th>
 		<td>
-			<textarea name="answer"></textarea>
+			<textarea name="answer" id="answer"></textarea>
+			<script>
+		        CKEDITOR.replace( 'answer', {
+			    	 uiColor : '#d5e9ff',
+			    	 height : 350
+			    });
+			</script>
 		</td>
 	</tr>
 </table>
-<div class="customer_center_btn">
-	<a href="#10" class="customer_center_btn1" onclick="qna_answer_form.submit();">답변하기</a>
-</div>
 </form>
 </c:if>
 </c:if>
@@ -58,12 +79,47 @@
 	<col width="150px" />
 	<col width="500px" />
 	<tr>
-		<th>문의답변</th>
-		<td>
+		<th>
+			문의답변
+			<c:if test="${member_info.orders eq 3}">
+				<br />
+				<a href="#10" onclick="showhide('answer_result');showhide('answer_edit');showhide('qna_answer_edit_form_btn');">[수정]</a>
+				<a href="customer_center_qna_answer_del.o?no=${qdata.no}&pages=${pages}">[삭제]</a>
+			</c:if>
+		</th>
+		<td id="answer_result">
 			${qdata.answer}
+		</td>
+		<td id="answer_edit" style="display:none;">
+			<form action="customer_center_qna_answer.o" method="post" id="qna_answer_edit_form">
+				<input type="hidden" name="no" value="${qdata.no}" />
+				<input type="hidden" name="pages" value="${pages}" />
+				<textarea name="answer" id="answer">${qdata.answer}</textarea>
+				<script>
+		        	CKEDITOR.replace( 'answer', {
+			    	    uiColor : '#d5e9ff',
+			    	    height : 350
+			        });
+			    </script>
+			</form>
 		</td>
 	</tr>
 </table>
 </c:if>
 
+<div class="customer_center_btn">
+	<a href="customer_center_qna.o?pages=${pages}" class="customer_center_btn2">목록보기</a>
+
+<c:if test="${qdata.isanswer eq 0}">
+<c:if test="${member_info.orders eq 3}">
+	<a href="#10" class="customer_center_btn1" onclick="qna_answer_form.submit();">답변하기</a>
+</c:if>
+</c:if>
+
+<c:if test="${qdata.isanswer eq 1}">
+<c:if test="${member_info.orders eq 3}">
+	<a href="#10" class="customer_center_btn1" style="display:none;" id="qna_answer_edit_form_btn" onclick="qna_answer_edit_form.submit();">답변수정완료</a>
+</c:if>
+</c:if>
+</div>
 

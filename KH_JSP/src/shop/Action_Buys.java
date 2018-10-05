@@ -51,6 +51,13 @@ public class Action_Buys extends Action_Init implements Action {
 		String total_rmoneys = "";
 		
 
+		//총 금액의 통화 - 포인트
+		String total_rmoneys_point = "";
+		
+		//멤버의 포인트의 통화
+		String member_points = number_format(member_info.getPoint());
+		
+
 		//order 가 1이면 일반구입, 2면 장바구니구입 3이면 장바구니에서 일반구입
 		if(order == 1 || order == 3) {
 			int no = Integer.parseInt(request.getParameter("no"));
@@ -76,6 +83,7 @@ public class Action_Buys extends Action_Init implements Action {
 			total_discount_money += ldata.getDiscount_money();
 			total_ship_money += ldata.getShip_money();
 			total_rmoney += ldata.getRmoney()+ldata.getShip_money();
+			
 			
 			
 			list.add(ldata);
@@ -116,6 +124,10 @@ public class Action_Buys extends Action_Init implements Action {
 		total_discount_moneys = number_format(total_discount_money);
 		total_ship_moneys = number_format(total_ship_money);
 		total_rmoneys = number_format(total_rmoney);
+		
+
+		//총 금액을 통화로 변경 - 포인트
+		total_rmoneys_point = number_format(total_rmoney - member_info.getPoint());
 
 		request.setAttribute("isEmpty", isEmpty);
 		request.setAttribute("list", list);
@@ -124,11 +136,15 @@ public class Action_Buys extends Action_Init implements Action {
 		session.setAttribute("list", list);
 		
 
+		request.setAttribute("member_points", member_points);
+		request.setAttribute("total_rmoneys_point", total_rmoneys_point);
+		
+
 		request.setAttribute("total_moneys", total_moneys);
 		request.setAttribute("total_discount_moneys", total_discount_moneys);
 		request.setAttribute("total_ship_moneys", total_ship_moneys);
 		request.setAttribute("total_rmoneys", total_rmoneys);
-		
+
 		request.setAttribute("order", order);
 		
 		return "buys.tiles";

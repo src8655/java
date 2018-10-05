@@ -61,7 +61,9 @@ public class Action_Mypage_Guest_Post2 extends Action_Init implements Action {
 		
 		//상태를 배송완료로 설정
 		int res = 0;
-		if(sgdb.delete(sdata)) res = 1;
+		if(sgdb.delete(sdata)) {
+			res = 1;
+		}
 		
 		
 		request.setAttribute("res", res);

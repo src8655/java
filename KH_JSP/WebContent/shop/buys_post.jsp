@@ -39,7 +39,7 @@
 	[${admin_bank}] <span style="color:blue;">${admin_bank_num}</span>
 	<br />
 	<br />
-	입금금액 : <span style="color:red;">${total_rmoneys}원</span>
+	입금금액 : <span style="color:red;">${totals}원</span>
 	</p>
 
 

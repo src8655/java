@@ -27,6 +27,10 @@
 		<td>${sgdata.ship_moneys}원</td>
 	</tr>
 	<tr>
+		<th>사용포인트</th>
+		<td style="color:red;">-${sgdata.points}원</td>
+	</tr>
+	<tr>
 		<th>총 결제금액</th>
 		<td><span style="color:red;">${sgdata.totals}원</span></td>
 	</tr>

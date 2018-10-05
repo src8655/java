@@ -33,7 +33,7 @@ public class Action_Customer_Center_Qna extends Action_Init implements Action {
 		
 		int board_cnt = 0;						//no를 위한 카운트
 
-		int board_lengths = 20;	//한번에 보일 리스트 개수
+		int board_lengths = 10;	//한번에 보일 리스트 개수
 		int board_starts = ((Integer.parseInt(pages))*board_lengths)-board_lengths+1;			//시작지점
 		int board_ends = board_starts+board_lengths-1;										//마지막지점
 		int board_paging = (int)Math.ceil((double)board_total/(double)board_lengths);	//페이지 링크 개수

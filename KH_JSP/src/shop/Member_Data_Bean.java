@@ -15,7 +15,15 @@ public class Member_Data_Bean {
 	private int orders = 1;
 	private String bank;
 	private String bank_num;
+	private int point = 0;
 	
+	
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
 	public String getBank() {
 		return bank;
 	}

@@ -1697,6 +1697,21 @@ font-size:12px;
 color:#474646;
 text-align:left;
 }
+.qna_write_board tr td a {
+text-decoration:none;
+color:#000000;
+}
+.qna_write_board tr td a:hover {
+color:#666666;
+}
+
+.qna_write_board tr th a {
+text-decoration:none;
+color:#000000;
+}
+.qna_write_board tr th a:hover {
+color:#666666;
+}
 .qna_write_board tr td input {
 border:1px solid #aaabab;
 background:#f7f7f7;
@@ -1771,6 +1786,7 @@ border-collapse:collapse;
 width:750px;
 margin:0 auto;
 margin-top:10px;
+overflow:hidden;
 }
 .qna_board tr th {
 border-top:1px solid #b2ddfc;
@@ -1782,6 +1798,7 @@ font-size:12px;
 border-bottom:1px solid #ededed;
 font-size:12px;
 text-align:center;
+overflow:hidden;
 }
 .qna_board tr td a {
 text-decoration:none;
@@ -1789,6 +1806,49 @@ color:#000000;
 }
 .qna_board tr td a:hover {
 color:#666666;
+}
+.boards_bsearch {
+margin:0 auto;
+margin-top:20px;
+margin-bottom:20px;
+width:300px;
+overflow:hidden;
+}
+.boards_bsearch_l {
+width:80px;
+float:left;
+overflow:hidden;
+}
+.boards_bsearch_l select {
+border:1px solid #cccccc;
+width:80px;
+height:26px;
+}
+.boards_bsearch_c {
+width:140px;
+float:left;
+}
+.boards_bsearch_c input {
+border:1px solid #cccccc;
+border-left:0px;
+border-right:0px;
+width:140px;
+padding:0px;
+line-height:24px;
+height:24px;
+}
+.boards_bsearch_r {
+width:80px;
+float:right;
+}
+.boards_bsearch_r input {
+background:#b2ddfc;
+color:#000000;
+border:1px solid #cccccc;
+width:80px;
+height:26px;
+line-height:24px;
+font-size:12px;
 }
 </style>
 <script type="text/javascript">
@@ -2046,6 +2106,32 @@ function view_review_result(result) {
 }
 
 
+
+//생겼다가 사라졌다가 하기
+function showhide(var1) {
+	var tmp = document.getElementById(var1);
+	if(tmp.style.display == "none")
+		tmp.style.display = "";
+	else
+		tmp.style.display = "none";
+}
+
+
+
+
+//포인트사용 체크박스
+function point_checkbox(var1, var2, var3) {
+	//체크시
+	if(var1.checked == true) {
+		document.getElementById(var2).style.display = "none";
+		document.getElementById(var3).style.display = "";
+	}
+	//아닐시
+	else{
+		document.getElementById(var2).style.display = "";
+		document.getElementById(var3).style.display = "none";
+	}
+}
 </script>
 </head>
 <body>

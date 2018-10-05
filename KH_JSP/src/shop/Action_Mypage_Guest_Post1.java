@@ -58,6 +58,8 @@ public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
 			//구매확정 완료 후 에는 해당 제품에 구매 카운트를 추가함
 			List_DB_Bean ldb = List_DB_Bean.getInstance();
 			ldb.addBuy(sdata.getProduct_no());
+			
+			
 		}
 		
 		

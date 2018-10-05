@@ -30,8 +30,8 @@ public class Sell_Group_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into MIN_TSHOP_SELL_GROUP(MONEY,SHIP_MONEY,RMONEY,BANK,BANK_NUM,NAME,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,SHIP_MEMO,TIMES,DATES,GUEST_NO,STATUS) "
-									+"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TSHOP_SELL_GROUP(MONEY,SHIP_MONEY,RMONEY,BANK,BANK_NUM,NAME,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,SHIP_MEMO,TIMES,DATES,GUEST_NO,STATUS,POINT) "
+									+"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, sgdata.getMoney());
 			pstmt.setInt(2, sgdata.getShip_money());
 			pstmt.setInt(3, sgdata.getRmoney());
@@ -48,6 +48,7 @@ public class Sell_Group_DB_Bean {
 			pstmt.setString(14, sgdata.getDates());
 			pstmt.setInt(15, sgdata.getGuest_no());
 			pstmt.setInt(16, sgdata.getStatus());
+			pstmt.setInt(17, sgdata.getPoint());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -95,6 +96,7 @@ public class Sell_Group_DB_Bean {
 				sgdata.setDates(rs.getString("DATES"));
 				sgdata.setGuest_no(rs.getInt("GUEST_NO"));
 				sgdata.setStatus(rs.getInt("STATUS"));
+				sgdata.setPoint(rs.getInt("POINT"));
 				
 				list.add(sgdata);
 			}
@@ -142,6 +144,7 @@ public class Sell_Group_DB_Bean {
 				sgdata.setDates(rs.getString("DATES"));
 				sgdata.setGuest_no(rs.getInt("GUEST_NO"));
 				sgdata.setStatus(rs.getInt("STATUS"));
+				sgdata.setPoint(rs.getInt("POINT"));
 			}
 			
 		} catch (Exception e) {
@@ -192,12 +195,14 @@ public class Sell_Group_DB_Bean {
 				sgdata.setDates(rs.getString("DATES"));
 				sgdata.setGuest_no(rs.getInt("GUEST_NO"));
 				sgdata.setStatus(rs.getInt("STATUS"));
+				sgdata.setPoint(rs.getInt("POINT"));
 				
 				//금액형태로 바꾸기
 				sgdata.setMoneys(number_format(sgdata.getMoney()));
 				sgdata.setShip_moneys(number_format(sgdata.getShip_money()));
 				sgdata.setRmoneys(number_format(sgdata.getRmoney()));
-				sgdata.setTotals(number_format(sgdata.getRmoney()+sgdata.getShip_money()));
+				sgdata.setTotals(number_format(sgdata.getRmoney()+sgdata.getShip_money()-sgdata.getPoint()));
+				sgdata.setPoints(number_format(sgdata.getPoint()));
 				
 				list.add(sgdata);
 			}
@@ -257,10 +262,19 @@ public class Sell_Group_DB_Bean {
     	try {
 			conn = getConnection();
 
+
+			//삭제한 그룹에 포인트가 있으면 멤버에게 돌려주기
+			Sell_Group_Data_Bean sgdata = getArticle(times);
+			Member_DB_Bean mdb = Member_DB_Bean.getInstance();
+			Member_Data_Bean mdata = mdb.getArticle(sgdata.getGuest_no());
+			mdb.setPoint(mdata.getNo(), mdata.getPoint()+sgdata.getPoint());
+			
+			
 			//times가 같은 group을 제거
 			pstmt = conn.prepareStatement("delete from MIN_TSHOP_SELL_GROUP where TIMES=?");
 			pstmt.setString(1, times);
 			pstmt.executeUpdate();
+			
 			
 			
 		} catch (Exception e) {
