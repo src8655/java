@@ -8,6 +8,7 @@
 		<div><img src="./images/basket.jpg" alt="장바구니" /></div>
 		<p>&nbsp;나의 쇼핑정보</p>
 	</h1>
+	<p class="basket_top_p">내 포인트 : <span style="color:red;">${member_info.point}</span> POINT</p>
 </div>
 
 

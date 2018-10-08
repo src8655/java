@@ -100,7 +100,12 @@
 		</tr>
 		<tr>
 			<th><span style="color:#e61337;"></span> 포인트 사용</th>
-			<td><input type="checkbox" name="point" id="point" value="1" onchange="point_checkbox(this,'bstable1','bstable2');" /><label for="point">포인트 사용하기(${member_info.point}point)</label></td>
+			<td>
+				<input type="text" name="point_num" id="point_num" style="width:70px;" value="0" class="join_input" />
+				<input type="button" value="적용" onclick="point_checkbox(this, ${member_info.point}, ${total_rmoney}, 0);" class="join_id_button" />
+				<input type="checkbox" name="point" id="point" value="1" onchange="point_checkbox(this, ${member_info.point}, ${total_rmoney}, 1);" />
+				<label for="point">모두사용 (${member_info.point} point)</label>
+			</td>
 		</tr>
 	</table>
 </form>
@@ -129,15 +134,15 @@
 	</tr>
 </table>
 <table cellpadding="0" cellspacing="0" class="basket_b_table" id="bstable2" style="display:none;">
-<col width="90" />
+<col width="70" />
 <col width="100" />
-<col width="90" />
+<col width="70" />
 <col width="100" />
-<col width="90" />
+<col width="70" />
 <col width="100" />
-<col width="90" />
+<col width="70" />
 <col width="100" />
-<col width="90" />
+<col width="70" />
 <col width="100" />
 	<tr>
 		<td style="padding-left:0px;padding-right:0px;">주문금액</td>
@@ -147,9 +152,9 @@
 		<td style="padding-left:0px;padding-right:0px;">배송비</td>
 		<td style="padding-left:0px;padding-right:0px;border-right:1px solid #dedfe2;text-align:right;font-size:18px;">${total_ship_moneys}원</td>
 		<td style="padding-left:0px;padding-right:0px;">포인트</td>
-		<td style="padding-left:0px;padding-right:0px;border-right:1px solid #dedfe2;text-align:right;font-size:18px;color:red;">-${member_points}원</td>
-		<td style="padding-left:0px;padding-right:0px;background:#e9edf6;">할인후금액</td>
-		<td style="padding-left:0px;padding-right:0px;text-align:right;font-size:18px;color:#ea0000;background:#e9edf6;">${total_rmoneys_point}원</td>
+		<td style="padding-left:0px;padding-right:0px;border-right:1px solid #dedfe2;text-align:right;font-size:18px;color:red;" id="point_td1"></td>
+		<td style="padding-left:0px;padding-right:0px;background:#e9edf6;">할인후<br />금액</td>
+		<td style="padding-left:0px;padding-right:0px;text-align:right;font-size:18px;color:#ea0000;background:#e9edf6;" id="point_td2"></td>
 	</tr>
 </table>
 

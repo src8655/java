@@ -60,6 +60,34 @@ public class Action_Mypage_Admin_Member_Edit_Post extends Action_Init implements
 		if(request.getParameter("bank") != null) bank = request.getParameter("bank");
 		if(request.getParameter("bank_num") != null) bank_num = request.getParameter("bank_num");
 		
+
+		int quest = -1;
+		String answer = "";
+
+		if(request.getParameter("quest") != null)
+			if(!request.getParameter("quest").equals(""))
+				quest = Integer.parseInt(request.getParameter("quest"));
+		if(request.getParameter("answer") != null)
+			answer = request.getParameter("answer");
+
+		if(quest == -1) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('질문을 입력해주세요.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		if(answer.equals("")) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('답변을 입력해주세요.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
+		
+		
 		
 		//만약 비밀번호 둘중 하나라도 적혀있으면
 		if(!user_pw.equals("") || !user_pw2.equals("")) {
@@ -89,6 +117,8 @@ public class Action_Mypage_Admin_Member_Edit_Post extends Action_Init implements
 		mdata.setPhone3(phone3);
 		mdata.setBank(bank);
 		mdata.setBank_num(bank_num);
+		mdata.setQuest(quest);
+		mdata.setAnswer(answer);
 		
 		Member_DB_Bean mdb = Member_DB_Bean.getInstance();
 		

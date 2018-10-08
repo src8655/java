@@ -15,11 +15,22 @@ public class Action_Buys_Post extends Action_Init implements Action {
 	public String execute() throws ServletException, IOException {
 		
 		int order = Integer.parseInt(request.getParameter("order"));
-		int point = -1;
-		
-		if(request.getParameter("point") != null)
-			if(!request.getParameter("point").equals(""))
-				point = Integer.parseInt(request.getParameter("point"));
+		int point_num = 0;
+
+
+		if(request.getParameter("point_num") != null)
+			if(!request.getParameter("point_num").equals("")) {
+				try {
+				point_num = Integer.parseInt(request.getParameter("point_num"));
+				}catch (Exception e) {
+					response.getWriter().println("<script>");
+					response.getWriter().println("alert('숫자만 입력해 주세요.')");
+					response.getWriter().println("history.go(-1)");
+					response.getWriter().println("</script>");
+					
+					return null;
+				}
+			}
 		
 		
 		String name = request.getParameter("name");
@@ -88,12 +99,22 @@ public class Action_Buys_Post extends Action_Init implements Action {
 		int total_rmoney = 0;
 		int total_point = 0;
 		
-		//포인트사용 체크되어있으면 멤버의 모든 포인트 적용
-		if(point != -1) {
-			total_point = member_info.getPoint();
+		//포인트사용 적용
+		if(point_num != 0) {
+			total_point = point_num;
+			
+			//포인트가 부족하면 잘못된 접근
+			if(member_info.getPoint() < point_num) {
+				response.getWriter().println("<script>");
+				response.getWriter().println("alert('포인트가 부족합니다.')");
+				response.getWriter().println("history.go(-1)");
+				response.getWriter().println("</script>");
+				
+				return null;
+			}
 			//포인트를 초기화
 			Member_DB_Bean mdb = Member_DB_Bean.getInstance();
-			mdb.setPoint(member_info.getNo(), 0);
+			mdb.setPoint(member_info.getNo(), member_info.getPoint() - point_num);
 		}
 				
 		//총 금액의 통화

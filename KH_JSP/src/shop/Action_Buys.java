@@ -144,6 +144,7 @@ public class Action_Buys extends Action_Init implements Action {
 		request.setAttribute("total_discount_moneys", total_discount_moneys);
 		request.setAttribute("total_ship_moneys", total_ship_moneys);
 		request.setAttribute("total_rmoneys", total_rmoneys);
+		request.setAttribute("total_rmoney", total_rmoney);
 
 		request.setAttribute("order", order);
 		

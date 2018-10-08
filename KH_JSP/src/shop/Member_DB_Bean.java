@@ -29,8 +29,8 @@ public class Member_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into MIN_TSHOP_MEMBER(NAME,USER_ID,USER_PW,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,COMPANY_NUMBER,ORDERS,BANK,BANK_NUM,POINT) "
-									+"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into MIN_TSHOP_MEMBER(NAME,USER_ID,USER_PW,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,COMPANY_NUMBER,ORDERS,BANK,BANK_NUM,POINT,QUEST,ANSWER) "
+									+"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, mdata.getName());
 			pstmt.setString(2, mdata.getUser_id());
 			pstmt.setString(3, mdata.getUser_pw());
@@ -45,6 +45,8 @@ public class Member_DB_Bean {
 			pstmt.setString(12, mdata.getBank());
 			pstmt.setString(13, mdata.getBank_num());
 			pstmt.setInt(14, mdata.getPoint());
+			pstmt.setInt(15, mdata.getQuest());
+			pstmt.setString(16, mdata.getAnswer());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -93,6 +95,8 @@ public class Member_DB_Bean {
 				mdata.setBank(rs.getString("BANK"));
 				mdata.setBank_num(rs.getString("BANK_NUM"));
 				mdata.setPoint(rs.getInt("POINT"));
+				mdata.setQuest(rs.getInt("QUEST"));
+				mdata.setAnswer(rs.getString("ANSWER"));
 				
 				list.add(mdata);
 			}
@@ -140,6 +144,8 @@ public class Member_DB_Bean {
 				mdata.setBank(rs.getString("BANK"));
 				mdata.setBank_num(rs.getString("BANK_NUM"));
 				mdata.setPoint(rs.getInt("POINT"));
+				mdata.setQuest(rs.getInt("QUEST"));
+				mdata.setAnswer(rs.getString("ANSWER"));
 			}
 			
 		} catch (Exception e) {
@@ -286,6 +292,8 @@ public class Member_DB_Bean {
 				mdata.setBank(rs.getString("BANK"));
 				mdata.setBank_num(rs.getString("BANK_NUM"));
 				mdata.setPoint(rs.getInt("POINT"));
+				mdata.setQuest(rs.getInt("QUEST"));
+				mdata.setAnswer(rs.getString("ANSWER"));
 			}
 			
 		} catch (Exception e) {
@@ -323,7 +331,9 @@ public class Member_DB_Bean {
 					+ "PHONE2=?,"
 					+ "PHONE3=?,"
 					+ "BANK=?,"
-					+ "BANK_NUM=?"+wheres
+					+ "BANK_NUM=?,"
+					+ "QUEST=?,"
+					+ "ANSWER=?"+wheres
 					+ " where NO=?");
 			pstmt.setInt(1, mdata.getOrders());
 			pstmt.setString(2, mdata.getCompany_number());
@@ -336,7 +346,9 @@ public class Member_DB_Bean {
 			pstmt.setString(9, mdata.getPhone3());
 			pstmt.setString(10, mdata.getBank());
 			pstmt.setString(11, mdata.getBank_num());
-			pstmt.setInt(12, mdata.getNo());
+			pstmt.setInt(12, mdata.getQuest());
+			pstmt.setString(13, mdata.getAnswer());
+			pstmt.setInt(14, mdata.getNo());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -352,6 +364,7 @@ public class Member_DB_Bean {
     	
     	return true;
     }
+    
     
     //포인트 세팅
     public boolean setPoint(int no, int point) {
@@ -378,6 +391,43 @@ public class Member_DB_Bean {
 		}
     	
     	return true;
+    }
+    
+    //이름과 휴대전화로 아이디찾기
+    public String findId(String name, String phone1, String phone2, String phone3) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	String user_id = null;
+    	
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from MIN_TSHOP_MEMBER where NAME=? and PHONE1=? and PHONE2=? and PHONE3=?");
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone1);
+			pstmt.setString(3, phone2);
+			pstmt.setString(4, phone3);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				user_id = rs.getString("USER_ID");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	
+    	return user_id;
     }
 
     //세션을 보고 로그인시 정보 가져오기

@@ -18,13 +18,13 @@
 	<tr>
 		<th>번호</th>
 		<th>
-			<select>
-				<option <c:if test="${category eq -1}">selected</c:if> onclick="location.href='customer_center_faq.o?p_search=${p_search}&p_search_value=${p_search_values}&category=-1';">전체</option>
-				<option <c:if test="${category eq 1}">selected</c:if> onclick="location.href='customer_center_faq.o?p_search=${p_search}&p_search_value=${p_search_values}&category=1';">주문/결제</option>
-				<option <c:if test="${category eq 2}">selected</c:if> onclick="location.href='customer_center_faq.o?p_search=${p_search}&p_search_value=${p_search_values}&category=2';">배송</option>
-				<option <c:if test="${category eq 3}">selected</c:if> onclick="location.href='customer_center_faq.o?p_search=${p_search}&p_search_value=${p_search_values}&category=3';">취소/환불</option>
-				<option <c:if test="${category eq 4}">selected</c:if> onclick="location.href='customer_center_faq.o?p_search=${p_search}&p_search_value=${p_search_values}&category=4';">반품/교환</option>
-				<option <c:if test="${category eq 5}">selected</c:if> onclick="location.href='customer_center_faq.o?p_search=${p_search}&p_search_value=${p_search_values}&category=5';">기타</option>
+			<select onchange="ctrl_select('customer_center_faq.o?p_search=${p_search}&p_search_value=${p_search_values}&category=',this);">
+				<option value="-1" <c:if test="${category eq -1}">selected</c:if>>전체</option>
+				<option value="1" <c:if test="${category eq 1}">selected</c:if>>주문/결제</option>
+				<option value="2" <c:if test="${category eq 2}">selected</c:if>>배송</option>
+				<option value="3" <c:if test="${category eq 3}">selected</c:if>>취소/환불</option>
+				<option value="4" <c:if test="${category eq 4}">selected</c:if>>반품/교환</option>
+				<option value="5" <c:if test="${category eq 5}">selected</c:if>>기타</option>
 			</select>
 		</th>
 		<th>제목</th>

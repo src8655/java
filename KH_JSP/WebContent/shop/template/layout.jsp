@@ -801,13 +801,24 @@ margin:0px;
 padding:0px;
 overflow:hidden;
 }
-.basket_top p {
+.basket_top h1 p {
 float:left;
 height:45px;
 line-height:45px;
 font-size:35px;
 font-family:'Arial';
 margin:0 0 0 5px;
+padding:0px;
+overflow:hidden;
+}
+.basket_top_p {
+float:right;
+height:45px;
+line-height:45px;
+font-size:17px;
+font-family:'Arial';
+font-weight:bold;
+margin:0px;
 padding:0px;
 overflow:hidden;
 }
@@ -1850,6 +1861,115 @@ height:26px;
 line-height:24px;
 font-size:12px;
 }
+.sitemap_ul {
+width:808px;
+list-style:none;
+margin:0 auto;
+margin-top:30px;
+padding:0px;
+overflow:hidden;
+}
+.sitemap_ul li {
+float:left;
+width:202px;
+height:223px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.sitemap_ul li a {
+float:left;
+display:block;
+width:202px;
+height:223px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.login_find_bg {
+border-top:3px solid #444444;
+border-right:1px solid #e5e5e5;
+border-bottom:1px solid #e5e5e5;
+border-left:1px solid #e5e5e5;
+width:430px;
+margin:0 auto;
+margin-top:40px;
+padding:30px;
+overflow:hidden;
+}
+.login_find_bg h1 {
+text-align:center;
+width:100%;
+font-size:17px;
+margin:15px 0 30px 0;
+padding:0px;
+overflow:hidden;
+}
+.login_find_p {
+font-size:12px;
+color:#4d4d4d;
+margin:0 0 30px 0;
+padding:0 20px 0 20px;
+overflow:hidden;
+}
+.login_find_c {
+width:390px;
+margin:0 0 8px 0;
+padding:0 20px 0 20px;
+overflow:hidden;
+}
+.login_find_c_l {
+float:left;
+height:26px;
+line-height:26px;
+font-weight:bold;
+font-size:12px;
+color:#4c4c4c;
+width:100px;
+overflow:hidden;
+}
+.login_find_c_r {
+float:right;
+height:26px;
+width:290px;
+overflow:hidden;
+}
+.login_find_input {
+border-top:1px solid #a4a4a4;
+border-right:1px solid #dbdbdb;
+border-bottom:1px solid #dbdbdb;
+border-left:1px solid #a4a4a4;
+width:288px;
+height:24px;
+line-height:24px;
+font-size:12px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.login_find_b {
+width:100%;
+border-top:1px solid #cccccc;
+margin:35px 0 20px 0;
+padding:30px 0 0 0;
+text-align:center;
+overflow:hidden;
+}
+.login_find_b input {
+border-top:1px solid #586c93;
+border-right:1px solid #586c93;
+border-bottom:1px solid #414f6c;
+border-left:1px solid #586c93;
+background:#64779c;
+height:43px;
+line-height:43px;
+text-align:center;
+font-size:15px;
+font-weight:bold;
+color:#ffffff;
+margin:0px;
+padding:0 30px 0 30px;
+}
 </style>
 <script type="text/javascript">
 function tab(vars, vars_this, vars_right) {
@@ -2119,18 +2239,79 @@ function showhide(var1) {
 
 
 
-//포인트사용 체크박스
-function point_checkbox(var1, var2, var3) {
-	//체크시
-	if(var1.checked == true) {
-		document.getElementById(var2).style.display = "none";
-		document.getElementById(var3).style.display = "";
+//포인트사용 체크박스 (체크박스, 내 포인트, 결제할금액, 버튼=1/체크박스=0)
+function point_checkbox(var1, var2, var3, var4) {
+	var money = 0;
+	var use_point = 0;
+	//적용버튼
+	if(var4 == 0) {
+		document.getElementById("point").checked = false;
+		use_point = document.getElementById("point_num").value;
+		if(use_point == "") use_point = 0;
+		//0포인트시 숨기기
+		if(use_point == 0 || use_point == '0') {
+			document.getElementById("bstable1").style.display = "";
+			document.getElementById("bstable2").style.display = "none";
+		}
+		
+		//내 포인트보다 더 많은 금액 썼을때
+		if(var2 <= use_point) {
+			alert("포인트가 부족합니다.");
+			return ;
+		}
+		
+		//써놓은 포인트가 결제금액보다 더 많을때
+		if(use_point > var3) {
+			alert("포인트는 결제금액보다 더 많을 수 없습니다.");
+			return ;
+		}else{
+			money = var3 - use_point;
+			document.getElementById("bstable1").style.display = "none";
+			document.getElementById("bstable2").style.display = "";
+		}
+	}else{
+		//체크박스
+		//체크시
+		if(var1.checked == true) {
+			document.getElementById("bstable1").style.display = "none";
+			document.getElementById("bstable2").style.display = "";
+			
+			//결제할금액보다 내 포인트가 더 작거나 같을때
+			if(var2 <= var3) {
+				use_point = var2;
+				money = var3 - var2;
+			}else{
+				use_point = var3;
+				money = 0;
+			}
+		}
+		//아닐시
+		else{
+			document.getElementById("bstable1").style.display = "";
+			document.getElementById("bstable2").style.display = "none";
+			use_point = 0;
+			money = 0;
+		}
+		
+		
 	}
-	//아닐시
-	else{
-		document.getElementById(var2).style.display = "";
-		document.getElementById(var3).style.display = "none";
-	}
+
+	//td 수정
+	document.getElementById("point_num").value = use_point;
+	document.getElementById("point_td1").innerHTML = "-"+number_format(use_point+"")+"원";
+	document.getElementById("point_td2").innerHTML = number_format(money+"")+"원";
+}
+
+
+//통화형태
+function number_format(str) {
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+
+//셀렉트 컨트롤
+function ctrl_select(var1, var2) {
+	location.href=var1+var2.value;
 }
 </script>
 </head>

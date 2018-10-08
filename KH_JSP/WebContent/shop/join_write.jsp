@@ -90,6 +90,20 @@
 			<th><span style="color:#e61337;">•</span> 휴대폰 <span style="font-weight:bold;color:red;font-size:11px;"></span></th>
 			<td><input type="text" name="phone1" style="width:60px;" class="join_input" /> - <input type="text" name="phone2" style="width:60px;" class="join_input" /> - <input type="text" name="phone3" style="width:60px;" class="join_input" /></td>
 		</tr>
+		<tr>
+			<th><span style="color:#e61337;">•</span> 질문/답변</th>
+			<td>
+				<select name="quest" style="width:350px;margin-bottom:3px;" class="join_input">
+					<option value="-1">질문을 선택해 주세요.</option>
+					<option value="1">나의 아버지 이름은?</option>
+					<option value="2">내가 다니던 학교 이름은?</option>
+					<option value="3">나의 취미는?</option>
+					<option value="4">내가 좋아하던 게임은?</option>
+					<option value="5">나의 직업은?</option>
+				</select><br />
+				<input type="text" name="answer" style="width:350px;" class="join_input" placeholder="답변을 작성해 주세요." />
+			</td>
+		</tr>
 	</table>
 	<div class="join_red_button">
 		<a href="#10" onclick="join_submit();">회원가입</a>

@@ -8,12 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Action_Join_Write_Post extends Action_Init implements Action {
+public class Action_Join_Edit_Post extends Action_Init implements Action {
 
 	@Override
 	public String execute() throws ServletException, IOException {
 		
-		int order = Integer.parseInt(request.getParameter("order"));
 		String company_number = request.getParameter("company_number");
 		String bank = request.getParameter("bank");
 		String bank_num = request.getParameter("bank_num");
@@ -27,6 +26,7 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
 		String phone3 = request.getParameter("phone3");
+
 		int quest = -1;
 		String answer = "";
 
@@ -37,7 +37,7 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 			answer = request.getParameter("answer");
 		
 		
-		if(order == 2 && company_number.equals("")) {
+		if(member_info.getOrders() == 2 && company_number.equals("")) {
 			response.getWriter().println("<script>");
 			response.getWriter().println("alert('사업자등록번호를 입력하세요.')");
 			response.getWriter().println("history.go(-1)");
@@ -45,7 +45,7 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 			
 			return null;
 		}
-		if(order == 2 && bank.equals("")) {
+		if(member_info.getOrders() == 2 && bank.equals("")) {
 			response.getWriter().println("<script>");
 			response.getWriter().println("alert('입금은행을 입력하세요.')");
 			response.getWriter().println("history.go(-1)");
@@ -53,7 +53,7 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 			
 			return null;
 		}
-		if(order == 2 && bank_num.equals("")) {
+		if(member_info.getOrders() == 2 && bank_num.equals("")) {
 			response.getWriter().println("<script>");
 			response.getWriter().println("alert('계좌번호를 입력하세요.')");
 			response.getWriter().println("history.go(-1)");
@@ -69,31 +69,9 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 			
 			return null;
 		}
-		if(user_id.equals("")) {
-			response.getWriter().println("<script>");
-			response.getWriter().println("alert('아이디를 입력하세요.')");
-			response.getWriter().println("history.go(-1)");
-			response.getWriter().println("</script>");
-			
-			return null;
-		}
-		if(user_pw.equals("")) {
-			response.getWriter().println("<script>");
-			response.getWriter().println("alert('비밀번호를 입력하세요.')");
-			response.getWriter().println("history.go(-1)");
-			response.getWriter().println("</script>");
-			
-			return null;
-		}
-		if(user_pw2.equals("")) {
-			response.getWriter().println("<script>");
-			response.getWriter().println("alert('비밀번호 확인을 입력하세요.')");
-			response.getWriter().println("history.go(-1)");
-			response.getWriter().println("</script>");
-			
-			return null;
-		}
-		if(!user_pw.equals(user_pw2)) {
+		
+		
+		if(!user_pw.equals(user_pw2) && (!user_pw.equals("") || !user_pw2.equals(""))) {
 			response.getWriter().println("<script>");
 			response.getWriter().println("alert('비밀번호가 다릅니다.')");
 			response.getWriter().println("history.go(-1)");
@@ -101,6 +79,8 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 			
 			return null;
 		}
+		
+		
 		if(email.equals("")) {
 			response.getWriter().println("<script>");
 			response.getWriter().println("alert('이메일을 입력하세요.')");
@@ -149,7 +129,6 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 			
 			return null;
 		}
-		
 
 		if(quest == -1) {
 			response.getWriter().println("<script>");
@@ -168,43 +147,55 @@ public class Action_Join_Write_Post extends Action_Init implements Action {
 			return null;
 		}
 		
-
-		Member_DB_Bean mdb = Member_DB_Bean.getInstance();
-		int count = mdb.selectId(user_id);
-		if(count != 0) {
-			response.getWriter().println("<script>");
-			response.getWriter().println("alert('이미 존재하는 아이디입니다.')");
-			response.getWriter().println("history.go(-1)");
-			response.getWriter().println("</script>");
-			
-			return null;
-		}
 		
+		
+		Member_DB_Bean mdb = Member_DB_Bean.getInstance();
 		Member_Data_Bean mdata = new Member_Data_Bean();
 		mdata.setCompany_number(company_number);
 		mdata.setName(name);
-		mdata.setUser_id(user_id);
-		mdata.setUser_pw(Md5Enc.getEncMD5(user_pw.getBytes()));
+		mdata.setUser_id(member_info.getUser_id());
+		if(!user_pw.equals("") || !user_pw2.equals(""))
+			mdata.setUser_pw(Md5Enc.getEncMD5(user_pw.getBytes()));
+		else mdata.setUser_pw("");
 		mdata.setEmail(email);
 		mdata.setZipcode(zipcode);
 		mdata.setAddr(addr);
 		mdata.setPhone1(phone1);
 		mdata.setPhone2(phone2);
 		mdata.setPhone3(phone3);
-		mdata.setOrders(order);
+		mdata.setOrders(member_info.getOrders());
 		mdata.setBank(bank);
 		mdata.setBank_num(bank_num);
+		mdata.setNo(member_info.getNo());
 		mdata.setQuest(quest);
 		mdata.setAnswer(answer);
 		
 		int res = 0;	//1성공 0실패
-		if(mdb.insert(mdata)) res = 1;
+		if(mdb.update(mdata)) res = 1;
 
-		request.setAttribute("res", res);
-		request.setAttribute("name", name);
-		request.setAttribute("order", order);
+		if(res == 1) {
+			//비밀번호 수정이 있을때 재로그인
+			if(!user_pw.equals("") || !user_pw2.equals("")) {
+				session.setAttribute("user_pw", mdata.getUser_pw());
+			}
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 성공.')");
+			response.getWriter().println("location.href='index.o';");
+			response.getWriter().println("</script>");
+			
+			return null;
+		}
 		
-		return "join_write_post.tiles";
+		if(res == 0) {
+			response.getWriter().println("<script>");
+			response.getWriter().println("alert('수정 실패.')");
+			response.getWriter().println("history.go(-1)");
+			response.getWriter().println("</script>");
+
+			return null;
+		}
+		
+		return null;
 	}
 
 

@@ -79,6 +79,20 @@
 			<th><span style="color:#e61337;">•</span> 입금계좌번호</th>
 			<td><input type="text" name="bank_num" class="join_input" placeholder="- 를 빼고 입력" value="${mdata.bank_num}" /></td>
 		</tr>
+		<tr>
+			<th><span style="color:#e61337;">•</span> 질문/답변</th>
+			<td>
+				<select name="quest" style="width:350px;margin-bottom:3px;" class="join_input">
+					<option value="-1">질문을 선택해 주세요.</option>
+					<option value="1" <c:if test="${mdata.quest eq 1}">selected</c:if>>나의 아버지 이름은?</option>
+					<option value="2" <c:if test="${mdata.quest eq 2}">selected</c:if>>내가 다니던 학교 이름은?</option>
+					<option value="3" <c:if test="${mdata.quest eq 3}">selected</c:if>>나의 취미는?</option>
+					<option value="4" <c:if test="${mdata.quest eq 4}">selected</c:if>>내가 좋아하던 게임은?</option>
+					<option value="5" <c:if test="${mdata.quest eq 5}">selected</c:if>>나의 직업은?</option>
+				</select><br />
+				<input type="text" name="answer" style="width:350px;" class="join_input" placeholder="답변을 작성해 주세요." value="${mdata.answer}" />
+			</td>
+		</tr>
 	</table>
 	<div class="join_red_button">
 		<a href="#10" onclick="join.submit();">수정하기</a>

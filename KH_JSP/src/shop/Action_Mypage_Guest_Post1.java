@@ -59,7 +59,9 @@ public class Action_Mypage_Guest_Post1 extends Action_Init implements Action {
 			List_DB_Bean ldb = List_DB_Bean.getInstance();
 			ldb.addBuy(sdata.getProduct_no());
 			
-			
+			//구매확정시 회원 포인트를 구매금액의 3% 적립
+			Member_DB_Bean mdb = Member_DB_Bean.getInstance();
+			mdb.setPoint(member_info.getNo(), member_info.getPoint() + (int)(((double)sdata.getRmoney())*(3.0/100.0)));
 		}
 		
 		

@@ -28,12 +28,12 @@
 		<th>수량</th>
 		<th>금액</th>
 		<th>
-			<select>
-				<option onclick="location.href='mypage_sell.o?cate=-1'">상태</option>
-				<option onclick="location.href='mypage_sell.o?cate=1'" <c:if test="${cate eq 1}">selected</c:if>>입금대기중</option>
-				<option onclick="location.href='mypage_sell.o?cate=2'" <c:if test="${cate eq 2}">selected</c:if>>결제완료</option>
-				<option onclick="location.href='mypage_sell.o?cate=3'" <c:if test="${cate eq 3}">selected</c:if>>배송준비중</option>
-				<option onclick="location.href='mypage_sell.o?cate=4'" <c:if test="${cate eq 4}">selected</c:if>>배송중</option>
+			<select onchange="ctrl_select('mypage_sell.o?cate=',this);">
+				<option value="-1">전체</option>
+				<option value="1" <c:if test="${cate eq 1}">selected</c:if>>입금대기중</option>
+				<option value="2" <c:if test="${cate eq 2}">selected</c:if>>결제완료</option>
+				<option value="3" <c:if test="${cate eq 3}">selected</c:if>>배송준비중</option>
+				<option value="4" <c:if test="${cate eq 4}">selected</c:if>>배송중</option>
 			</select>
 		</th>
 		<th>상태변경</th>

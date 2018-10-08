@@ -33,7 +33,8 @@
     <li><a href="login.o" style="border:0px;">로그인</a></li>
     </c:if>
     <c:if test="${member_info ne null}">
-    <li><a href="logout.o" style="border:0px;">로그아웃</a></li>
+    <li><a href="logout.o">로그아웃</a></li>
+    <li><a href="join_edit.o" style="border:0px;font-weight:bold;">회원정보 수정</a></li>
     <li><a style="border:0px;"><span style="font-weight:bold;">${member_info.name}</span>님 환영합니다.</a></li>
     </c:if>
   </ul>

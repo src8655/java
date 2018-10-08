@@ -16,8 +16,22 @@ public class Member_Data_Bean {
 	private String bank;
 	private String bank_num;
 	private int point = 0;
+	private int quest;
+	private String answer;
 	
 	
+	public int getQuest() {
+		return quest;
+	}
+	public void setQuest(int quest) {
+		this.quest = quest;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 	public int getPoint() {
 		return point;
 	}

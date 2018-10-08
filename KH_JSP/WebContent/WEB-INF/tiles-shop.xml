@@ -230,5 +230,34 @@
 		<put-attribute name="body" value="/shop/customer_center_faq_edit.jsp" />
 		<put-attribute name="footer" value="/shop/template/footer.jsp" />
 	</definition>
+	
+	
+	<definition name="shop/sitemap" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 사이트맵" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/sitemap.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
+	
+	<definition name="shop/join_edit" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원정보 수정" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/join_edit.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
+	
+	
+	<definition name="shop/login_find_id" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 아이디찾기" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/login_find_id.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
+	<definition name="shop/login_find_id_post" template="/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 아이디찾기" />
+		<put-attribute name="header" value="/shop/template/header.jsp" />
+		<put-attribute name="body" value="/shop/login_find_id_post.jsp" />
+		<put-attribute name="footer" value="/shop/template/footer.jsp" />
+	</definition>
 
 </tiles-definitions>
