@@ -429,7 +429,83 @@ public class Member_DB_Bean {
     	
     	return user_id;
     }
+    //아이디와 이름과 휴대전화와 질문과 답변으로 비밀번호 바꿀지?
+    public boolean findPw(String user_id, String name, String phone1, String phone2, String phone3, int quest, String answer) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
 
+    	int result = 0;
+    	
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_MEMBER where USER_ID=? and NAME=? and PHONE1=? and PHONE2=? and PHONE3=? and QUEST=? and ANSWER=?");
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, phone1);
+			pstmt.setString(4, phone2);
+			pstmt.setString(5, phone3);
+			pstmt.setInt(6, quest);
+			pstmt.setString(7, answer);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+			if(result != 0) return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	
+    	return false;
+    }
+    //아이디와 이름과 휴대전화와 질문과 답변으로 비밀번호 바꾸기
+    public boolean changePw(String user_id, String name, String phone1, String phone2, String phone3, int quest, String answer, String user_pw) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update MIN_TSHOP_MEMBER set "
+					+ "user_pw=?"
+					+ " where USER_ID=? and NAME=? and PHONE1=? and PHONE2=? and PHONE3=? and QUEST=? and ANSWER=?");
+			pstmt.setString(1, user_pw);
+			pstmt.setString(2, user_id);
+			pstmt.setString(3, name);
+			pstmt.setString(4, phone1);
+			pstmt.setString(5, phone2);
+			pstmt.setString(6, phone3);
+			pstmt.setInt(7, quest);
+			pstmt.setString(8, answer);
+			pstmt.executeUpdate();
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+
+		return true;
+    }
+    
     //세션을 보고 로그인시 정보 가져오기
     public Member_Data_Bean getLogin(HttpSession session) {
     	Member_Data_Bean member_info = null;

@@ -3,8 +3,10 @@ package shop;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -117,6 +119,39 @@ public class Action_Init implements Action {
 			if(!request.getParameter("order").equals(""))
 				order = Integer.parseInt(request.getParameter("order"));
 		request.setAttribute("order", order);
+		
+		
+		
+		
+		
+		//최근본게시글
+		Cookie_Bean cb_tmp = Cookie_Bean.getInstance();
+		List viewedListAll = cb_tmp.get_viewed_cookie(request, response);
+		List viewedList = new ArrayList();
+		if(viewedListAll.size() > 2) {
+			viewedList.add(viewedListAll.get(viewedListAll.size()-2));
+			viewedList.add(viewedListAll.get(viewedListAll.size()-1));
+		}else viewedList = viewedListAll;
+		
+		List_DB_Bean ldb_tmp = List_DB_Bean.getInstance();
+		List rviewedListAll = new ArrayList();
+		List rviewedList = new ArrayList();
+		
+		for(int i=viewedListAll.size()-1;i>=0;i--) {
+			List_Data_Bean ldata = ldb_tmp.getArticle(Integer.parseInt((String)viewedListAll.get(i)));
+			rviewedListAll.add(ldata);
+		}
+		for(int i=viewedList.size()-1;i>=0;i--) {
+			List_Data_Bean ldata = ldb_tmp.getArticle(Integer.parseInt((String)viewedList.get(i)));
+			rviewedList.add(ldata);
+		}
+		int rviewed_count = rviewedListAll.size();
+		
+		request.setAttribute("rviewedList", rviewedList);			//두개만보이기
+		request.setAttribute("rviewedListAll", rviewedListAll);		//10개 모두 보이기
+		request.setAttribute("rviewed_count", rviewed_count);		//개수
+		
+		
 		
 		////////////////////////////////////////////////////////////////
 		

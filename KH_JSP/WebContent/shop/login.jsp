@@ -21,7 +21,7 @@
 			<ul>
 				<li><a href="join.o" style="color:#6283e3;border:1px solid #6283e3;">회원가입</a></li>
 				<li><a href="login_find_id.o">아이디 찾기</a></li>
-				<li><a href="#10">비밀번호 찾기</a></li>
+				<li><a href="login_find_pw.o">비밀번호 찾기</a></li>
 			</ul>
 		</div>
 	</div>

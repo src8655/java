@@ -40,7 +40,7 @@
   </ul>
 </div>
 <div id="header">
-  <h1><a href="index.o"><img src="./images/logo.jpg" alt="logo" /></a></h1>
+  <h1 id="header_h"><a href="index.o"><img src="./images/logo.jpg" alt="logo" /></a></h1>
   <div id="header_c">
     <ul id="header_c_t">
       <li><a href="#100" onclick="quick_search('산삼/장뇌삼','');">산삼/장뇌삼</a></li>

@@ -62,7 +62,7 @@ margin:0 auto;
 padding:0px;
 overflow:hidden;
 }
-#header h1 {
+#header_h {
 float:left;
 width:250px;
 height:128px;
@@ -1970,6 +1970,161 @@ color:#ffffff;
 margin:0px;
 padding:0 30px 0 30px;
 }
+#floating_bg {
+top:180px;
+margin:0 0 0 975px;
+position:absolute;
+width:80px;
+overflow:hidden;
+}
+#floating {
+background:#ffffff;
+width:72px;
+padding:3px;
+border:1px solid #cccccc;
+overflow:hidden;
+}
+#floating h1 {
+font-size:11px;
+font-weight:normal;
+font-family:'Arial';
+margin:5px 0 0 0;
+padding:0px;
+color:#666666;
+width:72px;
+text-align:center;
+overflow:hidden;
+}
+#floating ul {
+width:72px;
+list-style:none;
+margin:10px 0 0 0;
+padding:0px;
+overflow:hidden;
+}
+#floating ul li {
+border:1px solid #cccccc;
+width:70px;
+margin:0 0 5px 0;
+padding:0px;
+overflow:hidden;
+}
+#floating ul li a {
+width:70px;
+height:70px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+#floating_top {
+background:#ffffff;
+width:78px;
+height:27px;
+color:#666666;
+border:1px solid #cccccc;
+margin:5px 0 0 0;
+padding:0px;
+overflow:hidden;
+}
+#floating_top a {
+display:block;
+width:78px;
+height:27px;
+line-height:27px;
+text-align:center;
+font-size:12px;
+font-weight:bold;
+font-family:'Arial';
+text-decoration:none;
+color:#666666;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+#floating_more {
+border:1px solid #cccccc;
+display:block;
+width:70px;
+height:27px;
+line-height:27px;
+text-align:center;
+font-size:12px;
+font-weight:bold;
+font-family:'Arial';
+text-decoration:none;
+color:#666666;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+#floating_body_bg {
+top:180px;
+margin:0 0 0 630px;
+position:absolute;
+width:327px;
+overflow:hidden;
+}
+#floating_body {
+background:#ffffff;
+border:1px solid #cccccc;
+width:285px;
+padding:20px;
+overflow:hidden;
+}
+#floating_body ul {
+width:285px;
+height:400px;
+list-style:none;
+margin:0px;
+padding:0px;
+overflow-y:scroll;
+}
+#floating_body ul li {
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+#floating_body ul li a {
+border-bottom:1px solid #cccccc;
+text-decoration:none;
+font-size:12px;
+color:#666666;
+display:block;
+width:270px;
+height:72px;
+padding:10px 0 10px 0;
+overflow:hidden;
+}
+#floating_body ul li a img {
+border:1px solid #cccccc;
+float:left;
+width:70px;
+height:70px;
+}
+#floating_body ul li a div {
+float:right;
+width:178px;
+height:52px;
+margin:0px;
+padding:10px;
+overflow:hidden;
+}
+#floating_body_x {
+margin:0px;
+padding:0 5px 10px 0;
+text-align:right;
+overflow:hidden;
+}
+#floating_body_x a {
+font-size:25px;
+font-weight:bold;
+text-decoration:none;
+color:#666666;
+font-family:'Arial';
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
 </style>
 <script type="text/javascript">
 function tab(vars, vars_this, vars_right) {
@@ -2313,13 +2468,35 @@ function number_format(str) {
 function ctrl_select(var1, var2) {
 	location.href=var1+var2.value;
 }
+
+//떠있는 메뉴
+function floatingMenu() {
+	var tmp = document.documentElement.scrollTop;
+	var menu1 = document.getElementById("floating_bg");
+	var menu2 = document.getElementById("floating_body_bg");
+	
+	if(tmp < 180) {
+		menu1.style.top = 180+"px";
+		menu2.style.top = 180+"px";
+	}else{
+		menu1.style.top = tmp+20+"px";
+		menu2.style.top = tmp+20+"px";
+	}
+	
+	setTimeout ("floatingMenu();", 10); 
+}
+//떠있는 메뉴 TOP
+function floatingTop() {
+	document.documentElement.scrollTop = 0;
+}
 </script>
 </head>
-<body>
+<body onload="floatingMenu();">
 
 <tiles:insertAttribute name="header" />
 
 <div id="contents">
+<tiles:insertAttribute name="floating" />
 <tiles:insertAttribute name="body" />
 </div>
 

@@ -26,7 +26,10 @@ public class Action_View extends Action_Init implements Action {
 		List_Data_Bean ldata = ldb.getArticle(no);
 		
 		Cookie_Bean cb = Cookie_Bean.getInstance();
-		if(no != -1) cb.view_cookie(no, request, response);
+		if(no != -1) {
+			cb.view_cookie(no, request, response);		//조회수 중복방지 쿠키작업
+			cb.viewed_cookie(no, request, response);	//최근본게시글 쿠키작업
+		}
 		
 		
 		request.setAttribute("ldata", ldata);
