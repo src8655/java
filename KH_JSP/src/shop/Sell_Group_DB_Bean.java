@@ -262,13 +262,13 @@ public class Sell_Group_DB_Bean {
     	try {
 			conn = getConnection();
 
-
+			/*
 			//삭제한 그룹에 포인트가 있으면 멤버에게 돌려주기
 			Sell_Group_Data_Bean sgdata = getArticle(times);
 			Member_DB_Bean mdb = Member_DB_Bean.getInstance();
 			Member_Data_Bean mdata = mdb.getArticle(sgdata.getGuest_no());
 			mdb.setPoint(mdata.getNo(), mdata.getPoint()+sgdata.getPoint());
-			
+			*/
 			
 			//times가 같은 group을 제거
 			pstmt = conn.prepareStatement("delete from MIN_TSHOP_SELL_GROUP where TIMES=?");
@@ -312,6 +312,36 @@ public class Sell_Group_DB_Bean {
 			pstmt.setInt(2, sgdata.getShip_money());
 			pstmt.setInt(3, sgdata.getRmoney());
 			pstmt.setString(4, sgdata.getTimes());
+			pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {}
+		}
+    	
+    	return true;
+    }
+    
+    //포인트 변경
+    public boolean setPoint(int no, int point) {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	
+    	try {
+			conn = getConnection();
+			
+			
+			//그룹의 상태변경
+			pstmt = conn.prepareStatement("update MIN_TSHOP_SELL_GROUP set POINT=? where NO=?");
+			pstmt.setInt(1, point);
+			pstmt.setInt(2, no);
 			pstmt.executeUpdate();
 			
 			
