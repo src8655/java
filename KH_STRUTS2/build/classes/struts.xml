@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+	<constant name="struts.action.extension" value="o" />
+    
+    
+    <package name="shop" extends="struts-default, tiles-default">
+    
+    
+      <action name="index" class="shop.Action_Index">
+        <interceptor-ref name="servletConfig"/>
+        <result type="tiles">shop/index</result>
+      </action>
+      <action name="view" class="shop.Action_View">
+        <interceptor-ref name="servletConfig"/>
+        <result type="tiles">shop/view</result>
+      </action>
+      <action name="list" class="shop.Action_List">
+        <interceptor-ref name="servletConfig"/>
+        <result type="tiles">shop/list</result>
+      </action>
+      <action name="basket" class="shop.Action_Basket">
+        <interceptor-ref name="servletConfig"/>
+        <result type="tiles">shop/basket</result>
+      </action>
+      <action name="basket_add" class="shop.Action_Basket_Add">
+        <interceptor-ref name="servletConfig"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+    </package>
+</struts>
