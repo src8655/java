@@ -52,7 +52,7 @@ public class Action_Init {
 		session = request.getSession();
 
 		
-		
+		/*
 		if(request.getParameter("pages") != null)
 			pages = request.getParameter("pages");
 		if(request.getParameter("searchs") != null)			//검색
@@ -61,6 +61,7 @@ public class Action_Init {
 		if(request.getParameter("searchs_value") != null) {
 			searchs_value = request.getParameter("searchs_value");
 		}
+		*/
 		//url인코딩한 값을 저장
 		searchs_values = URLEncoder.encode(searchs_value,"UTF-8");
 		
@@ -71,7 +72,7 @@ public class Action_Init {
 		member_info = mem_db.getLogin(session);
 				
 				
-				
+		/*
 		//공동사용 검색
 		if(request.getParameter("p_search") != null)			//검색
 			if(!request.getParameter("p_search").equals(""))
@@ -79,6 +80,7 @@ public class Action_Init {
 		if(request.getParameter("p_search_value") != null) {
 			p_search_value = request.getParameter("p_search_value");
 		}
+		*/
 		//url인코딩한 값을 저장
 		p_search_values = URLEncoder.encode(p_search_value,"UTF-8");
 		
@@ -97,13 +99,13 @@ public class Action_Init {
 		}
 		
 		
-		
+		/*
 		//order부분 list의
 		if(request.getParameter("order") != null)
 			if(!request.getParameter("order").equals(""))
 				order = Integer.parseInt(request.getParameter("order"));
 		request.setAttribute("order", order);
-		
+		*/
 		
 		//최근본게시글
 		Cookie_Bean cb_tmp = Cookie_Bean.getInstance();

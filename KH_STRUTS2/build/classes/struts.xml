@@ -12,24 +12,42 @@
     
       <action name="index" class="shop.Action_Index">
         <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
         <result type="tiles">shop/index</result>
       </action>
       <action name="view" class="shop.Action_View">
         <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
         <result type="tiles">shop/view</result>
       </action>
       <action name="list" class="shop.Action_List">
         <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
         <result type="tiles">shop/list</result>
       </action>
       <action name="basket" class="shop.Action_Basket">
         <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
         <result type="tiles">shop/basket</result>
       </action>
       <action name="basket_add" class="shop.Action_Basket_Add">
         <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      <action name="write" class="shop.Action_Write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/write</result>
+      </action>
+      <action name="write_post" class="shop.Action_Write_Post">
+        <interceptor-ref name="servletConfig" />
+        <interceptor-ref name="fileUpload" />
+        <interceptor-ref name="params" />
+        <result type="tiles">shop/post</result>
       </action>
       
     </package>

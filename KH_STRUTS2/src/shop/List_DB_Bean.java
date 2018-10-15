@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -17,8 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import config.FactoryService;
 
 
 
@@ -170,7 +176,7 @@ public class List_DB_Bean {
     	if(multi.getParameter("made") == null) 			return false;
     	if(multi.getParameter("ship_money") == null) 	return false;
     	if(multi.getParameter("ship_company") == null) 	return false;
-    	if(multi.getParameter("seller") == null) 		return false;
+    	if(multi.getParameter("sellers") == null) 		return false;
     	//if(multi.getParameter("user_id") == null) 		return false;
 
     	//공백일때
@@ -181,7 +187,7 @@ public class List_DB_Bean {
     	if(multi.getParameter("made").equals("")) 			return false;
     	if(multi.getParameter("ship_money").equals("")) 	return false;
     	if(multi.getParameter("ship_company").equals("")) 	return false;
-    	if(multi.getParameter("seller").equals("")) 		return false;
+    	if(multi.getParameter("sellers").equals("")) 		return false;
     	//if(multi.getParameter("user_id").equals("")) 		return false;
     	
     	
@@ -219,7 +225,7 @@ public class List_DB_Bean {
     	//할인가격 계산
     	int rmoney = (int)((double)ldata.getMoney()-((double)ldata.getMoney()*(ldata.getDiscount()/100.0)));
     	ldata.setRmoney(rmoney);
-    	ldata.setSeller(Integer.parseInt(multi.getParameter("seller")));
+    	ldata.setSellers(Integer.parseInt(multi.getParameter("sellers")));
     	
     	
     	Connection conn = null;
@@ -248,7 +254,7 @@ public class List_DB_Bean {
 			pstmt.setInt(16, ldata.getBuy());
 			pstmt.setString(17, ldata.getDates());
 			pstmt.setInt(18, ldata.getRmoney());
-			pstmt.setInt(19, ldata.getSeller());
+			pstmt.setInt(19, ldata.getSellers());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -314,7 +320,7 @@ public class List_DB_Bean {
 				bdb.setDates(rs.getString("DATES"));
 				bdb.setRmoney(rs.getInt("RMONEY"));
 				bdb.setCnt(cnt);
-				bdb.setSeller(rs.getInt("SELLERS"));
+				bdb.setSellers(rs.getInt("SELLERS"));
 				//5일때 1로 초기화
 				if(cnt == 5) cnt = 0;
 				cnt++;
@@ -412,7 +418,7 @@ public class List_DB_Bean {
 				bdb.setDates(rs.getString("DATES"));
 				bdb.setRmoney(rs.getInt("RMONEY"));
 				bdb.setCnt(cnt);
-				bdb.setSeller(rs.getInt("SELLERS"));
+				bdb.setSellers(rs.getInt("SELLERS"));
 				//5일때 1로 초기화
 				if(cnt == 5) cnt = 0;
 				cnt++;
@@ -574,7 +580,7 @@ public class List_DB_Bean {
 				bdb.setBuy(rs.getInt("BUY"));
 				bdb.setDates(rs.getString("DATES"));
 				bdb.setRmoney(rs.getInt("RMONEY"));
-				bdb.setSeller(rs.getInt("SELLERS"));
+				bdb.setSellers(rs.getInt("SELLERS"));
 				
 
 				//할인금액 적용
@@ -609,7 +615,7 @@ public class List_DB_Bean {
     	List_Data_Bean ldata = getArticle(no);	//게시글정보 가져오기
     	
     	//게시글 주인이 아니면 실패
-    	if(ldata.getSeller() != mdata.getNo())
+    	if(ldata.getSellers() != mdata.getNo())
     		return false;
     	
     	
@@ -825,13 +831,13 @@ public class List_DB_Bean {
       	//할인가격 계산
       	int rmoney = (int)((double)ldata.getMoney()-((double)ldata.getMoney()*(ldata.getDiscount()/100.0)));
       	ldata.setRmoney(rmoney);
-      	ldata.setSeller(Integer.parseInt(multi.getParameter("seller")));
+      	ldata.setSellers(Integer.parseInt(multi.getParameter("seller")));
       	
       	
       	Member_Data_Bean mdata = (Member_Data_Bean)request.getAttribute("member_info");
 
       	//게시글 주인이 아니면 실패
-    	if(ldata.getSeller() != mdata.getNo())
+    	if(ldata.getSellers() != mdata.getNo())
     		return false;
     	
     	
@@ -969,4 +975,84 @@ public class List_DB_Bean {
 
   		return true;
       }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    //여러 줄 가져오기(시작번호, 끝번호, 검색카테고리, 검색어, 제목길이, 특정판매자(-1이면 전체), order는 1 2 3 중 하나(베스트,추천,무료배송))	list에서 쓰는거 
+	public List getArticles_M(int start, int end, int searchs, String searchs_value, int length, int sellers, int order) {
+		List<List_Data_Bean> list = null;
+		
+		Map map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("searchs", searchs);
+		map.put("searchs_value", searchs_value);
+		map.put("sellers", sellers);
+		map.put("order", order);
+		
+
+		SqlSession sqlSession = FactoryService.getFactory().openSession(true);
+		list = sqlSession.selectList("List_getArticles", map);
+		sqlSession.close();
+		
+		int cnt = 1;
+		for(int i=0;i<list.size();i++) {
+			List_Data_Bean bdb = list.get(i);
+			bdb.setCnt(cnt);
+			
+			//5일때 1로 초기화
+			if(cnt == 5) cnt = 0;
+			cnt++;
+			
+			//할인금액 적용
+			bdb.setDiscount_money(bdb.getMoney()-bdb.getRmoney());
+
+			//통화 형식
+			bdb.setRmoneys(number_format(bdb.getRmoney()));
+			bdb.setMoneys(number_format(bdb.getMoney()));
+			bdb.setShip_moneys(number_format(bdb.getShip_money()));
+			bdb.setDiscount_moneys(number_format(bdb.getDiscount_money()));
+			
+			//제목글자수
+			if(bdb.getName().length() > length) 
+				bdb.setName(bdb.getName().substring(0, length));
+		}
+		
+    	  
+    	return list;
+	}
+	
+	//입력하기
+	public void insert_M(List_Data_Bean ldata) {
+		SqlSession sqlSession = FactoryService.getFactory().openSession(true);
+		sqlSession.insert("List_insert", ldata);
+		sqlSession.close();
+	}
 }

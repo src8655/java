@@ -48,7 +48,7 @@ public class Action_List extends Action_Init implements Action, ServletRequestAw
 		if(pends > board_paging) pends = board_paging;
 		
 
-		list = list_manager.getArticles(board_starts, board_ends, searchs, searchs_value, 10, -1, order);	//리스트받아오기
+		list = list_manager.getArticles_M(board_starts, board_ends, searchs, searchs_value, 10, -1, order);	//리스트받아오기
 
 		date = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DATE);
 		

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mysawon">
+ <insert id="insert1" parameterType="String">
+  INSERT INTO MIN_TSHOP_MEMBER(NAME) VALUES(
+  #{name}
+  )
+ </insert>
+ 
+ <insert id="List_insert" parameterType="shop.List_Data_Bean">
+ 	insert into MIN_TSHOP_LIST(CATEGORY,NAME,MONEY,DISCOUNT,MADE,SHIP_MONEY,SHIP_COMPANY,FILE1,FILE2,FILE3,FILE4,FILE5,MEMO,HIT,BUY,DATES,RMONEY,SELLERS)
+	values(
+		${category},#{name},${money},${discount},#{made},${ship_money},#{ship_company},#{file1},#{file2},#{file3},#{file4},#{file5},#{memo},${hit},${buy},#{dates},${rmoney},${sellers}
+	)
+ </insert>
+ <select id="List_getArticles" parameterType="Map" resultType="shop.List_Data_Bean">
+ 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_LIST where NAME like '%${searchs_value}%'
+ 	<if test="searchs != -1"> and CATEGORY=${searchs} </if>
+ 	<if test="sellers != -1"> and SELLERS=${sellers} </if>
+ 	 order by NO desc) a) where rnum between ${start} and ${end}
+ </select>
+</mapper>

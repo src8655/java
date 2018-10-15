@@ -121,7 +121,7 @@ public class Action_View extends Action_Init implements Action, ServletRequestAw
 		
 		//판매자정보 가져오기
 		Member_DB_Bean mdb = Member_DB_Bean.getInstance();
-		sellers = mdb.getArticle(ldata.getSeller());
+		sellers = mdb.getArticle(ldata.getSellers());
 		
 		
 		return SUCCESS;

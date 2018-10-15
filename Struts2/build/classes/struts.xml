@@ -9,4 +9,14 @@
         <result>/result.jsp</result>
       </action>
     </package>
+    
+    <package name="struts2" extends="struts-default">
+      <action name="user3" class="login.action.UserAction3">
+        <interceptor-ref name="prepare" />
+        <interceptor-ref name="modelDriven" />
+        <interceptor-ref name="params" />
+        <result>/save_ok.jsp</result>
+      </action>
+    </package>
+    
 </struts>

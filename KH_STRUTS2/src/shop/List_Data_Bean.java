@@ -1,26 +1,26 @@
 package shop;
 
 public class List_Data_Bean {
-	private int no;
-	private int category;
-	private String name;
+	private int no = -1;
+	private int category = -1;
+	private String name = "";
 	private int money = 0;
 	private int discount = 0;
-	private String made;
+	private String made = "";
 	private int ship_money = 0;
-	private String ship_company;
-	private String file1;
-	private String file2;
-	private String file3;
-	private String file4;
-	private String file5;
-	private String memo;
+	private String ship_company = "";
+	private String file1 = "";
+	private String file2 = "";
+	private String file3 = "";
+	private String file4 = "";
+	private String file5 = "";
+	private String memo = "";
 	private int user_no = 0;
 	private int hit = 0;
 	private int buy = 0;
-	private String dates;
+	private String dates = "";
 	private int rmoney = 0;
-	private int seller;
+	private int sellers = -1;
 	
 	private int cnt = 0;
 	private String moneys = "";		//금액
@@ -29,8 +29,15 @@ public class List_Data_Bean {
 	private int basket_cnt = 0;			//구매할 개수
 	private int discount_money = 0;
 	private String discount_moneys = "";	//할인금액
+	private String names = "";
 	
 	
+	public String getNames() {
+		return names;
+	}
+	public void setNames(String names) {
+		this.names = names;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -187,11 +194,11 @@ public class List_Data_Bean {
 	public void setDiscount_moneys(String discount_moneys) {
 		this.discount_moneys = discount_moneys;
 	}
-	public int getSeller() {
-		return seller;
+	public int getSellers() {
+		return sellers;
 	}
-	public void setSeller(int seller) {
-		this.seller = seller;
+	public void setSellers(int sellers) {
+		this.sellers = sellers;
 	}
 	
 	
