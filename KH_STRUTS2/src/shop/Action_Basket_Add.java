@@ -17,11 +17,9 @@ public class Action_Basket_Add extends Action_Init implements Action, ServletReq
 	int counts = -1;
 	int res = 1;
 	
-	String msg = "";
-	String url = "";
 
 	@Override
-	public String execute() throws IOException {
+	public String execute() throws Exception {
 		super.run();
 		
 		if(no == -1) {
@@ -73,13 +71,6 @@ public class Action_Basket_Add extends Action_Init implements Action, ServletReq
 
 	public void setCounts(int counts) {
 		this.counts = counts;
-	}
-	public String getMsg() {
-		return msg;
-	}
-
-	public String getUrl() {
-		return url;
 	}
 
 }

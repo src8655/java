@@ -51,7 +51,7 @@ public class Action_View extends Action_Init implements Action, ServletRequestAw
 				tab = Integer.parseInt(request.getParameter("tab"));
 		
 		List_DB_Bean ldb = List_DB_Bean.getInstance();
-		ldata = ldb.getArticle(no);
+		ldata = ldb.getArticle_M(no);
 		
 		Cookie_Bean cb = Cookie_Bean.getInstance();
 		if(no != -1) {

@@ -1,12 +1,32 @@
 package config;
 
 import java.io.Reader;
+import java.sql.*;
+import java.io.*;
+import java.util.*;
+import com.ibatis.common.resources.*;
+import com.ibatis.sqlmap.client.*;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class FactoryService {
+	private static SqlMapClient sqlmap;
+	
+	static{
+		try{
+			String xmlPath="/config/SqlMapConfig.xml";
+			Reader reader=Resources.getResourceAsReader(xmlPath);
+			sqlmap=SqlMapClientBuilder.buildSqlMapClient(reader);
+		}catch(Exception ex){
+			System.out.println("SqlMapConfig Parsing Error()"+ex.getMessage());
+		}
+	}
+
+	public static SqlMapClient getSqlmap() {
+		return sqlmap;
+	}
+	
+	
+	/*
 	private static SqlSessionFactory factory;
 		static{
 		try{
@@ -20,5 +40,5 @@ public class FactoryService {
 	 
 	public static SqlSessionFactory getFactory(){
 		return factory;
-	}
+	}*/
 }

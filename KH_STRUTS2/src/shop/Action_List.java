@@ -31,10 +31,10 @@ public class Action_List extends Action_Init implements Action, ServletRequestAw
 	@Override
 	public String execute() throws Exception {
 		super.run();
-		
+
 		List_DB_Bean list_manager = List_DB_Bean.getInstance();
 		
-		board_total = list_manager.getCount(searchs, searchs_value, -1, order);	//총 개수
+		board_total = list_manager.getCount_M(searchs, searchs_value, -1, order);	//총 개수
 		board_cnt = 0;						//no를 위한 카운트
 
 		board_lengths = 20;	//한번에 보일 리스트 개수

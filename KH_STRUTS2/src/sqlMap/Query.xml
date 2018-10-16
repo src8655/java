@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<insert id="insert1" parameterClass="java.util.Map" >
+	INSERT INTO MIN_TSHOP_MEMBER(NAME) VALUES(
+	#name#
+	)
+	</insert>
+
+
+
+
+
+
+
+	<!-- List_DB_Bean  -->
+	<select id="List_getArticle" parameterClass="int" resultClass="shop.List_Data_Bean">
+	 	select * from MIN_TSHOP_LIST where NO=#no#
+	</select>
+	<select id="List_getArticles" parameterClass="java.util.Map" resultClass="shop.List_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_LIST where NAME like '%'||#searchs_value#||'%'
+	 	<isNotEqual property="searchs" compareValue="-1"> and CATEGORY=#searchs# </isNotEqual>
+	 	<isNotEqual property="sellers" compareValue="-1"> and SELLERS=#sellers# </isNotEqual>
+	 	
+	 	<isEqual property="order" compareValue="-1"> order by NO desc </isEqual>
+	 	<isEqual property="order" compareValue="1"> and BUY>=10 order by BUY desc </isEqual>
+	 	<isEqual property="order" compareValue="2"> and HIT>=10 order by HIT desc </isEqual>
+	 	<isEqual property="order" compareValue="3"> and SHIP_MONEY=0 </isEqual>
+	 	) a) where rnum between #start# and #end#
+	</select>
+	<insert id="List_insert" parameterClass="shop.List_Data_Bean" >
+		insert into MIN_TSHOP_LIST(CATEGORY,NAME,MONEY,DISCOUNT,MADE,SHIP_MONEY,SHIP_COMPANY,FILE1,FILE2,FILE3,FILE4,FILE5,MEMO,HIT,BUY,DATES,RMONEY,SELLERS)
+		values(
+			#category#,#name#,#money#,#discount#,#made#,#ship_money#,#ship_company#,#file1#,#file2#,#file3#,#file4#,#file5#,#memo#,#hit#,#buy#,#dates#,#rmoney#,#sellers#
+		)
+	</insert>
+	<select id="List_getCount" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_LIST where NAME like '%'||#searchs_value#||'%'
+	 	<isNotEqual property="searchs" compareValue="-1"> and CATEGORY=#searchs# </isNotEqual>
+	 	<isNotEqual property="sellers" compareValue="-1"> and SELLERS=#sellers# </isNotEqual>
+	 	
+	 	<isEqual property="order" compareValue="-1"> order by NO desc </isEqual>
+	 	<isEqual property="order" compareValue="1"> and BUY>=10 order by BUY desc </isEqual>
+	 	<isEqual property="order" compareValue="2"> and HIT>=10 order by HIT desc </isEqual>
+	 	<isEqual property="order" compareValue="3"> and SHIP_MONEY=0 </isEqual>
+	</select>
+	<!--   -->
+	
+	
+	
+	<!-- Member_DB_Bean  -->
+	<select id="Member_login" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_MEMBER where USER_ID=#user_id# and USER_PW=#user_pw#
+	</select>
+	<select id="Member_findPw" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_MEMBER where USER_ID=#user_id# and NAME=#name# and PHONE1=#phone1# and PHONE2=#phone2# and PHONE3=#phone3# and QUEST=#quest# and ANSWER=#answer#
+	</select>
+	<update id="Member_changePw" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_MEMBER set USER_PW=#user_pw# where USER_ID=#user_id# and NAME=#name# and PHONE1=#phone1# and PHONE2=#phone2# and PHONE3=#phone3# and QUEST=#quest# and ANSWER=#answer#
+	</update>
+	<select id="Member_findId" parameterClass="java.util.Map" resultClass="String">
+	 	select USER_ID from MIN_TSHOP_MEMBER where NAME=#name# and PHONE1=#phone1# and PHONE2=#phone2# and PHONE3=#phone3#
+	</select>
+	<select id="Member_login_info" parameterClass="java.util.Map" resultClass="shop.Member_Data_Bean">
+	 	select * from MIN_TSHOP_MEMBER where USER_ID=#user_id# and USER_PW=#user_pw#
+	</select>
+	<!--   -->
+<!-- 
+
+
+	
+ -->
+</sqlMap>

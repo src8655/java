@@ -2,12 +2,18 @@ package shop;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import config.FactoryService;
 
 
 public class Member_DB_Bean {
@@ -260,7 +266,7 @@ public class Member_DB_Bean {
     	return false;
     }
     
-  //로그인 정보 가져오기
+    //로그인 정보 가져오기
     public Member_Data_Bean login_info(String user_id, String user_pw) {
     	Member_Data_Bean mdata = new Member_Data_Bean();
     	
@@ -506,13 +512,110 @@ public class Member_DB_Bean {
 		return true;
     }
     
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //세션을 보고 로그인시 정보 가져오기
-    public Member_Data_Bean getLogin(HttpSession session) {
+    public Member_Data_Bean getLogin_M(HttpSession session) throws SQLException {
     	Member_Data_Bean member_info = null;
     	if(session.getAttribute("user_id") != null && session.getAttribute("user_pw") != null) {
-    		member_info = getInstance().login_info((String)session.getAttribute("user_id"), (String)session.getAttribute("user_pw"));
+    		member_info = login_info_M((String)session.getAttribute("user_id"), (String)session.getAttribute("user_pw"));
     	}
     	
     	return member_info;
+    }
+    //로그인하기
+    public boolean login_M(Member_Data_Bean mdata) throws SQLException {
+    	if(mdata.getUser_id() == null || mdata.getUser_pw() == null) return false;
+    	
+    	Map map = new HashMap<>();
+		map.put("user_id", mdata.getUser_id());
+		map.put("user_pw", mdata.getUser_pw());
+		
+
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		int cnt = (int)sqlmap.queryForObject("Member_login", map);
+    	
+    	
+    	if(cnt == 0) return false;
+    	else return true;
+    }
+    //아이디와 이름과 휴대전화와 질문과 답변으로 비밀번호 바꿀지?
+    public boolean findPw_M(String user_id, String name, String phone1, String phone2, String phone3, int quest, String answer) throws SQLException {
+    	Map map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("name", name);
+		map.put("phone1", phone1);
+		map.put("phone2", phone2);
+		map.put("phone3", phone3);
+		map.put("quest", quest);
+		map.put("answer", answer);
+		
+
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		int cnt = (int)sqlmap.queryForObject("Member_findPw", map);
+    	
+		if(cnt == 0) return false;
+    	else return true;
+    }
+    //아이디와 이름과 휴대전화와 질문과 답변으로 비밀번호 바꾸기
+    public boolean changePw_M(String user_id, String name, String phone1, String phone2, String phone3, int quest, String answer, String user_pw) throws SQLException {
+    	Map map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("name", name);
+		map.put("phone1", phone1);
+		map.put("phone2", phone2);
+		map.put("phone3", phone3);
+		map.put("quest", quest);
+		map.put("answer", answer);
+		map.put("user_pw", user_pw);
+		
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		int cnt = (int)sqlmap.update("Member_changePw", map);
+
+		return true;
+    }
+  //이름과 휴대전화로 아이디찾기
+    public String findId_M(String name, String phone1, String phone2, String phone3) throws SQLException {
+    	String user_id = null;
+    	
+    	Map map = new HashMap<>();
+		map.put("name", name);
+		map.put("phone1", phone1);
+		map.put("phone2", phone2);
+		map.put("phone3", phone3);
+    	
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		user_id = (String)sqlmap.queryForObject("Member_findId", map);
+		
+		return user_id;
+    }
+    //로그인 정보 가져오기
+    public Member_Data_Bean login_info_M(String user_id, String user_pw) throws SQLException {
+    	Map map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("user_pw", user_pw);
+		
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		Member_Data_Bean mdata = (Member_Data_Bean)sqlmap.queryForObject("Member_login_info", map);
+    	
+    	return mdata;
     }
 }

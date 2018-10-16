@@ -15,7 +15,6 @@ public class List_Data_Bean {
 	private String file4 = "";
 	private String file5 = "";
 	private String memo = "";
-	private int user_no = 0;
 	private int hit = 0;
 	private int buy = 0;
 	private String dates = "";
@@ -133,12 +132,6 @@ public class List_Data_Bean {
 	}
 	public void setBuy(int buy) {
 		this.buy = buy;
-	}
-	public int getUser_no() {
-		return user_no;
-	}
-	public void setUser_no(int user_no) {
-		this.user_no = user_no;
 	}
 	public String getDates() {
 		return dates;

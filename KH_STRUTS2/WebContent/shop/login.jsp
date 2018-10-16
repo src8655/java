@@ -16,7 +16,7 @@
 				<a href="#10" onclick="login.submit();">로그인</a>
 			</div>
 			<div class="login_box_c">
-				<input type="checkbox" name="auto_id" value="1" id="auto_id" <c:if test="${user_id ne ''}">checked</c:if> /><label for="auto_id">아이디 저장</label>
+				<input type="checkbox" name="auto_ids" value="1" id="auto_id" <c:if test="${user_id ne ''}">checked</c:if> /><label for="auto_id">아이디 저장</label>
 			</div>
 			<ul>
 				<li><a href="join.o" style="color:#6283e3;border:1px solid #6283e3;">회원가입</a></li>

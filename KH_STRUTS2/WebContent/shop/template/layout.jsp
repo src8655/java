@@ -304,6 +304,7 @@ overflow:hidden;
 .main_best_bottom li {
 float:left;
 text-align:center;
+width:103px;
 margin:0 10px 0 10px;
 padding:0px;
 overflow:hidden;

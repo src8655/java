@@ -229,7 +229,7 @@
   	</table>
   	<c:if test="${member_orders eq 1}">
 	  	<div class="view_qna_b">
-	  		<a href="#10" onclick="view_qna_write('${no}','${ldata.seller}')">상품 문의하기</a>
+	  		<a href="#10" onclick="view_qna_write('${no}','${ldata.sellers}')">상품 문의하기</a>
 	  	</div>
   	</c:if>
   	<div class="list_page">

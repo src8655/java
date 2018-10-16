@@ -2,6 +2,7 @@ package shop;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpSession;
 
 
 public class Action_Init {
+	String msg = "";
+	String url = "";
+	
 	HttpServletRequest request;
 	HttpServletResponse response;
 	
@@ -48,20 +52,10 @@ public class Action_Init {
 	Action_Init() {
 	}
 	
-	public void run() throws UnsupportedEncodingException {
+	public void run() throws UnsupportedEncodingException, SQLException {
 		session = request.getSession();
 
 		
-		/*
-		if(request.getParameter("pages") != null)
-			pages = request.getParameter("pages");
-		if(request.getParameter("searchs") != null)			//검색
-			if(!request.getParameter("searchs").equals(""))
-				searchs = Integer.parseInt(request.getParameter("searchs"));
-		if(request.getParameter("searchs_value") != null) {
-			searchs_value = request.getParameter("searchs_value");
-		}
-		*/
 		//url인코딩한 값을 저장
 		searchs_values = URLEncoder.encode(searchs_value,"UTF-8");
 		
@@ -69,18 +63,8 @@ public class Action_Init {
 		
 		//로그인정보 불러오기
 		mem_db = Member_DB_Bean.getInstance();
-		member_info = mem_db.getLogin(session);
+		member_info = mem_db.getLogin_M(session);
 				
-				
-		/*
-		//공동사용 검색
-		if(request.getParameter("p_search") != null)			//검색
-			if(!request.getParameter("p_search").equals(""))
-				p_search = Integer.parseInt(request.getParameter("p_search"));
-		if(request.getParameter("p_search_value") != null) {
-			p_search_value = request.getParameter("p_search_value");
-		}
-		*/
 		//url인코딩한 값을 저장
 		p_search_values = URLEncoder.encode(p_search_value,"UTF-8");
 		
@@ -99,13 +83,6 @@ public class Action_Init {
 		}
 		
 		
-		/*
-		//order부분 list의
-		if(request.getParameter("order") != null)
-			if(!request.getParameter("order").equals(""))
-				order = Integer.parseInt(request.getParameter("order"));
-		request.setAttribute("order", order);
-		*/
 		
 		//최근본게시글
 		Cookie_Bean cb_tmp = Cookie_Bean.getInstance();
@@ -121,11 +98,11 @@ public class Action_Init {
 		rviewedList = new ArrayList();
 		
 		for(int i=viewedListAll.size()-1;i>=0;i--) {
-			List_Data_Bean ldata = ldb_tmp.getArticle(Integer.parseInt((String)viewedListAll.get(i)));
+			List_Data_Bean ldata = ldb_tmp.getArticle_M(Integer.parseInt((String)viewedListAll.get(i)));
 			rviewedListAll.add(ldata);
 		}
 		for(int i=viewedList.size()-1;i>=0;i--) {
-			List_Data_Bean ldata = ldb_tmp.getArticle(Integer.parseInt((String)viewedList.get(i)));
+			List_Data_Bean ldata = ldb_tmp.getArticle_M(Integer.parseInt((String)viewedList.get(i)));
 			rviewedList.add(ldata);
 		}
 		rviewed_count = rviewedListAll.size();
@@ -293,6 +270,14 @@ public class Action_Init {
 
 	public void setRviewed_count(int rviewed_count) {
 		this.rviewed_count = rviewed_count;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 	
 	

@@ -31,7 +31,7 @@ public class Action_Basket extends Action_Init implements Action, ServletRequest
 	
 	
 	@Override
-	public String execute() throws IOException {
+	public String execute() throws Exception {
 		super.run();
 		
 		List_DB_Bean list_manager = List_DB_Bean.getInstance();
@@ -46,8 +46,8 @@ public class Action_Basket extends Action_Init implements Action, ServletRequest
 			
 			while(it.hasNext()) {
 				int key = (int) it.next();
-				//response.getWriter().println(key+"="+map.get(key)+"<br />");
-				List_Data_Bean ldata = list_manager.getArticle(key);
+
+				List_Data_Bean ldata = list_manager.getArticle_M(key);
 				
 				//°¹¼ö ³Ö°í
 				ldata.setBasket_cnt((int)map.get(key));

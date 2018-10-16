@@ -1,10 +1,12 @@
 package shop;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.struts2.interceptor.*;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.Action;
 
 import config.FactoryService;
@@ -38,17 +40,24 @@ public class Action_Index extends Action_Init implements Action, ServletRequestA
 		//sqlSession.insert("insert1", "aaa");
 		//sqlSession.close();
 		
+		/*
+		Map map = new HashMap();
+		map.put("name", "test");
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.insert("insert1", map);*/
+		
+
 		List_DB_Bean ldb = List_DB_Bean.getInstance();
 
-		best_list = ldb.getArticles_M(1, 6, -1, "", 10, -1, 1);
-		best_list_1 = ldb.getArticles_M(1, 6, 1, "", 10, -1, 1);
-		best_list_2 = ldb.getArticles_M(1, 6, 2, "", 10, -1, 1);
-		best_list_3 = ldb.getArticles_M(1, 6, 3, "", 10, -1, 1);
-		best_list_4 = ldb.getArticles_M(1, 6, 4, "", 10, -1, 1);
-		best_list_5 = ldb.getArticles_M(1, 6, 5, "", 10, -1, 1);
-		best_list_6 = ldb.getArticles_M(1, 6, 6, "", 10, -1, 1);
-		best_list_7 = ldb.getArticles_M(1, 6, 7, "", 10, -1, 1);
-		best_list_8 = ldb.getArticles_M(1, 6, 8, "", 10, -1, 1);
+		best_list = ldb.getArticles_M(1, 6, -1, "", 8, -1, 1);
+		best_list_1 = ldb.getArticles_M(1, 6, 1, "", 8, -1, 1);
+		best_list_2 = ldb.getArticles_M(1, 6, 2, "", 8, -1, 1);
+		best_list_3 = ldb.getArticles_M(1, 6, 3, "", 8, -1, 1);
+		best_list_4 = ldb.getArticles_M(1, 6, 4, "", 8, -1, 1);
+		best_list_5 = ldb.getArticles_M(1, 6, 5, "", 8, -1, 1);
+		best_list_6 = ldb.getArticles_M(1, 6, 6, "", 8, -1, 1);
+		best_list_7 = ldb.getArticles_M(1, 6, 7, "", 8, -1, 1);
+		best_list_8 = ldb.getArticles_M(1, 6, 8, "", 8, -1, 1);
 
 		
 		list_1 = ldb.getArticles_M(1, 5, 1, "", 10, -1, -1);
@@ -59,7 +68,6 @@ public class Action_Index extends Action_Init implements Action, ServletRequestA
 		list_6 = ldb.getArticles_M(1, 5, 6, "", 10, -1, -1);
 		list_7 = ldb.getArticles_M(1, 5, 7, "", 10, -1, -1);
 		list_8 = ldb.getArticles_M(1, 5, 8, "", 10, -1, -1);
-
 		
 		return SUCCESS;
 	}

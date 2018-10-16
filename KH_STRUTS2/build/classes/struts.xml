@@ -25,6 +25,12 @@
         <interceptor-ref name="params"/>
         <result type="tiles">shop/list</result>
       </action>
+      
+      
+      
+      
+      
+      
       <action name="basket" class="shop.Action_Basket">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
@@ -36,6 +42,22 @@
         <result name="success" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
+      <action name="basket_edit" class="shop.Action_Basket_Edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="basket_delete" class="shop.Action_Basket_Delete">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      
+      
       
       
       <action name="write" class="shop.Action_Write">
@@ -49,6 +71,72 @@
         <interceptor-ref name="params" />
         <result type="tiles">shop/post</result>
       </action>
+      
+      
+      
+      
+      
+      <action name="logout" class="shop.Action_Logout">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/post</result>
+      </action>
+      <action name="login" class="shop.Action_Login">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/login</result>
+      </action>
+      <action name="login_post" class="shop.Action_Login_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="login_find_pw" class="shop.Action_Login_Find_Pw">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/login_find_pw</result>
+      </action>
+      <action name="login_find_pw_post" class="shop.Action_Login_Find_Pw_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/login_find_pw_post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="login_find_pw_change" class="shop.Action_Login_Find_Pw_Change">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="login_find_id" class="shop.Action_Login_Find_Id">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/login_find_id</result>
+      </action>
+      <action name="login_find_id_post" class="shop.Action_Login_Find_Id_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/login_find_id_post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      <action name="mypage" class="shop.Action_Mypage">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_sell" class="shop.Action_Mypage_Sell">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage_sell</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+
       
     </package>
 </struts>

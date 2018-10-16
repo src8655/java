@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import org.apache.ibatis.session.SqlSession;
-
+import com.ibatis.sqlmap.client.SqlMapClient;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -249,7 +248,6 @@ public class List_DB_Bean {
 			pstmt.setString(11, ldata.getFile4());
 			pstmt.setString(12, ldata.getFile5());
 			pstmt.setString(13, ldata.getMemo());
-			pstmt.setInt(14, ldata.getUser_no());
 			pstmt.setInt(15, ldata.getHit());
 			pstmt.setInt(16, ldata.getBuy());
 			pstmt.setString(17, ldata.getDates());
@@ -314,7 +312,6 @@ public class List_DB_Bean {
 				bdb.setFile3(rs.getString("FILE3"));
 				bdb.setFile4(rs.getString("FILE4"));
 				bdb.setFile5(rs.getString("FILE5"));
-				bdb.setUser_no(rs.getInt("USER_NO"));
 				bdb.setHit(rs.getInt("HIT"));
 				bdb.setBuy(rs.getInt("BUY"));
 				bdb.setDates(rs.getString("DATES"));
@@ -412,7 +409,6 @@ public class List_DB_Bean {
 				bdb.setFile3(rs.getString("FILE3"));
 				bdb.setFile4(rs.getString("FILE4"));
 				bdb.setFile5(rs.getString("FILE5"));
-				bdb.setUser_no(rs.getInt("USER_NO"));
 				bdb.setHit(rs.getInt("HIT"));
 				bdb.setBuy(rs.getInt("BUY"));
 				bdb.setDates(rs.getString("DATES"));
@@ -575,7 +571,6 @@ public class List_DB_Bean {
 				bdb.setFile4(rs.getString("FILE4"));
 				bdb.setFile5(rs.getString("FILE5"));
 				bdb.setMemo(rs.getString("MEMO"));
-				bdb.setUser_no(rs.getInt("USER_NO"));
 				bdb.setHit(rs.getInt("HIT"));
 				bdb.setBuy(rs.getInt("BUY"));
 				bdb.setDates(rs.getString("DATES"));
@@ -1006,7 +1001,7 @@ public class List_DB_Bean {
       
       
     //여러 줄 가져오기(시작번호, 끝번호, 검색카테고리, 검색어, 제목길이, 특정판매자(-1이면 전체), order는 1 2 3 중 하나(베스트,추천,무료배송))	list에서 쓰는거 
-	public List getArticles_M(int start, int end, int searchs, String searchs_value, int length, int sellers, int order) {
+	public List getArticles_M(int start, int end, int searchs, String searchs_value, int length, int sellers, int order) throws SQLException {
 		List<List_Data_Bean> list = null;
 		
 		Map map = new HashMap<>();
@@ -1018,9 +1013,11 @@ public class List_DB_Bean {
 		map.put("order", order);
 		
 
-		SqlSession sqlSession = FactoryService.getFactory().openSession(true);
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		list = sqlmap.queryForList("List_getArticles", map);
+		/*SqlSession sqlSession = FactoryService.getFactory().openSession(true);
 		list = sqlSession.selectList("List_getArticles", map);
-		sqlSession.close();
+		sqlSession.close();*/
 		
 		int cnt = 1;
 		for(int i=0;i<list.size();i++) {
@@ -1050,9 +1047,38 @@ public class List_DB_Bean {
 	}
 	
 	//입력하기
-	public void insert_M(List_Data_Bean ldata) {
-		SqlSession sqlSession = FactoryService.getFactory().openSession(true);
-		sqlSession.insert("List_insert", ldata);
-		sqlSession.close();
+	public void insert_M(List_Data_Bean ldata) throws SQLException {
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.insert("List_insert", ldata);
 	}
+	//검색된 카운트 list에서 쓰는거 order추가됨
+    public int getCount_M(int searchs, String searchs_value, int sellers, int order) throws SQLException {
+    	Map map = new HashMap<>();
+		map.put("searchs", searchs);
+		map.put("searchs_value", searchs_value);
+		map.put("sellers", sellers);
+		map.put("order", order);
+		
+
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		int count = (int)sqlmap.queryForObject("List_getCount", map);
+    	
+    	return count;
+    }
+	//하나만 no로 찾기
+    public List_Data_Bean getArticle_M(int no) throws SQLException {
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		List_Data_Bean ldata = (List_Data_Bean)sqlmap.queryForObject("List_getArticle", no);
+		if(ldata == null) return ldata;
+		//할인금액 적용
+		ldata.setDiscount_money(ldata.getMoney()-ldata.getRmoney());
+
+		//통화 형식
+		ldata.setRmoneys(number_format(ldata.getRmoney()));
+		ldata.setMoneys(number_format(ldata.getMoney()));
+		ldata.setShip_moneys(number_format(ldata.getShip_money()));
+		ldata.setDiscount_moneys(number_format(ldata.getDiscount_money()));
+		
+    	return ldata;
+    }
 }

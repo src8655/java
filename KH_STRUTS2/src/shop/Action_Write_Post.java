@@ -47,9 +47,10 @@ public class Action_Write_Post extends Action_Init implements Action, ServletReq
 	int ship_money = 0;
 	String ship_company = "";
 	int sellers = -1;
+	String memo = "";
 	
 	@Override
-	public String execute() throws IOException {
+	public String execute() throws Exception {
 		//String dir = "d:\\"; 
 		String dir = request.getRealPath(savePathd)+"\\";
 		
@@ -123,6 +124,7 @@ public class Action_Write_Post extends Action_Init implements Action, ServletReq
 		ldata.setShip_money(ship_money);
 		ldata.setShip_company(ship_company);
 		ldata.setSellers(sellers);
+		ldata.setMemo(memo);
 
 		ldata.setFile1(file1FileName);
 		ldata.setFile2(file2FileName);
@@ -239,6 +241,9 @@ public class Action_Write_Post extends Action_Init implements Action, ServletReq
 	}
 	public void setSellers(int sellers) {
 		this.sellers = sellers;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 
 	
