@@ -1015,9 +1015,6 @@ public class List_DB_Bean {
 
 		SqlMapClient sqlmap = FactoryService.getSqlmap();
 		list = sqlmap.queryForList("List_getArticles", map);
-		/*SqlSession sqlSession = FactoryService.getFactory().openSession(true);
-		list = sqlSession.selectList("List_getArticles", map);
-		sqlSession.close();*/
 		
 		int cnt = 1;
 		for(int i=0;i<list.size();i++) {
@@ -1081,4 +1078,18 @@ public class List_DB_Bean {
 		
     	return ldata;
     }
+    //삭제하기
+    public boolean delete_M(int no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.delete("List_delete", no);
+		
+		return true;
+    }
+	//입력하기
+	public boolean update_M(List_Data_Bean ldata) throws SQLException {
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.insert("List_update", ldata);
+		
+		return true;
+	}
 }

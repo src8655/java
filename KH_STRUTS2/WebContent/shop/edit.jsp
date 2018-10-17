@@ -11,11 +11,11 @@
 </div>
 
 <form action="edit_post.o" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt(this)">
-<input type="file" name="file1" id="file1" onchange="change_img('file1_img', this);" class="hides" />
-<input type="file" name="file2" id="file2" onchange="change_img('file2_img', this);" class="hides" />
-<input type="file" name="file3" id="file3" onchange="change_img('file3_img', this);" class="hides" />
-<input type="file" name="file4" id="file4" onchange="change_img('file4_img', this);" class="hides" />
-<input type="file" name="file5" id="file5" onchange="change_img('file5_img', this);" class="hides" />
+<input type="file" name="files" id="file1" onchange="change_img('file1_img', this);" class="hides" />
+<input type="file" name="files" id="file2" onchange="change_img('file2_img', this);" class="hides" />
+<input type="file" name="files" id="file3" onchange="change_img('file3_img', this);" class="hides" />
+<input type="file" name="files" id="file4" onchange="change_img('file4_img', this);" class="hides" />
+<input type="file" name="files" id="file5" onchange="change_img('file5_img', this);" class="hides" />
 <input type="hidden" name="no" value="${ldata.no}" />
 <input type="hidden" name="seller" value="${member_info.no}" />
 <table cellpadding="7" cellspacing="0" class="boards">
@@ -43,7 +43,7 @@
 	  	<c:if test="${ldata.file1 ne null}">
 			<img src="./upload/${ldata.file1}" width="380px;" height="380px" id="file1_img" alt="대표이미지" />
 		    <div class="edit_del_checkbox" style="width:380px;">
-				<input type="checkbox" name="file_del1" id="file_del1" />
+				<input type="checkbox" name="file_del1" id="file_del1" value="1" />
 				<label for="file_del1"></label>
 				<p>사진삭제</p>
 			</div>
@@ -91,7 +91,7 @@
 	  	<a>
 			<div class="file_img_bg"><img src="./upload/${ldata.file2}" width="235px;" id="file2_img" alt="이미지1" /></div>
 		  	<div class="edit_del_checkbox" style="width:235px;">
-				<input type="checkbox" name="file_del2" id="file_del2" />
+				<input type="checkbox" name="file_del2" id="file_del2" value="1" />
 				<label for="file_del2"></label>
 				<p>사진삭제</p>
 			</div>
@@ -106,7 +106,7 @@
 	  	<a>
 			<div class="file_img_bg"><img src="./upload/${ldata.file3}" width="235px;" id="file2_img" alt="이미지1" /></div>
 		  	<div class="edit_del_checkbox" style="width:235px;">
-				<input type="checkbox" name="file_del3" id="file_del3" />
+				<input type="checkbox" name="file_del3" id="file_del3" value="1" />
 				<label for="file_del3"></label>
 				<p>사진삭제</p>
 			</div>
@@ -121,7 +121,7 @@
 	  	<a>
 			<div class="file_img_bg"><img src="./upload/${ldata.file4}" width="235px;" id="file2_img" alt="이미지1" /></div>
 		  	<div class="edit_del_checkbox" style="width:235px;">
-				<input type="checkbox" name="file_del4" id="file_del4" />
+				<input type="checkbox" name="file_del4" id="file_del4" value="1" />
 				<label for="file_del4"></label>
 				<p>사진삭제</p>
 			</div>
@@ -136,7 +136,7 @@
 	  	<a>
 			<div class="file_img_bg"><img src="./upload/${ldata.file5}" width="235px;" id="file2_img" alt="이미지1" /></div>
 		  	<div class="edit_del_checkbox" style="width:235px;">
-				<input type="checkbox" name="file_del5" id="file_del5" />
+				<input type="checkbox" name="file_del5" id="file_del5" value="1" />
 				<label for="file_del5"></label>
 				<p>사진삭제</p>
 			</div>

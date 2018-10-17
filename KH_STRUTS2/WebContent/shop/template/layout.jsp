@@ -7,8 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title><tiles:getAsString name="title" /></title>
+<script src="./jquery-1.4.2.min.js" type="text/javascript"></script>
 <script src="./ckeditor/ckeditor.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style type="text/css">

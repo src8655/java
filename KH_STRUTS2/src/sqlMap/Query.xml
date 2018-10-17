@@ -45,7 +45,32 @@
 	 	<isEqual property="order" compareValue="2"> and HIT>=10 order by HIT desc </isEqual>
 	 	<isEqual property="order" compareValue="3"> and SHIP_MONEY=0 </isEqual>
 	</select>
+	<delete id="List_delete" parameterClass="int">
+		delete from MIN_TSHOP_LIST where NO=#no#
+	</delete>
+	<update id="List_update" parameterClass="shop.List_Data_Bean">
+		update MIN_TSHOP_LIST set
+		CATEGORY=#category#,
+		NAME=#name#,
+		MONEY=#money#,
+		DISCOUNT=#discount#,
+		MADE=#made#,
+		SHIP_MONEY=#ship_money#,
+		SHIP_COMPANY=#ship_company#,
+		FILE1=#file1#,
+		FILE2=#file2#,
+		FILE3=#file3#,
+		FILE4=#file4#,
+		FILE5=#file5#,
+		MEMO=#memo#,
+		DATES=#dates#,
+		RMONEY=#rmoney#
+		where NO=#no#
+	</update>
 	<!--   -->
+	
+	
+	
 	
 	
 	
@@ -66,8 +91,38 @@
 	 	select * from MIN_TSHOP_MEMBER where USER_ID=#user_id# and USER_PW=#user_pw#
 	</select>
 	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Sell_DB_Bean  -->
+	<select id="Sell_getArticles2" parameterClass="java.util.Map" resultClass="shop.Sell_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_SELL where SELLERS_NO=#sellers_no# 
+	 	<isNotEqual property="status" compareValue="-1"> and STATUS=#status# </isNotEqual>
+	 	<isEqual property="status" compareValue="-1"> and STATUS!=5 </isEqual>
+	 	order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<select id="Sell_count2" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_SELL where SELLERS_NO=#sellers_no#
+	 	<isNotEqual property="status" compareValue="-1"> and STATUS=#status# </isNotEqual>
+	 	<isEqual property="status" compareValue="-1"> and STATUS!=5 </isEqual>
+	</select>
+	<update id="Sell_changeStatus" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_SELL set STATUS=#status# where NO=#no#
+	</update>
+	<update id="Sell_changeShipStatus" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_SELL set STATUS=4, SHIP_NUM=#ship_num# where NO=#no#
+	</update>
+	
+	<!--   -->
 <!-- 
-
+String wheres = " and STATUS=?";
+    	if(status == -1)
+    		wheres = " and STATUS!=?";
 
 	
  -->

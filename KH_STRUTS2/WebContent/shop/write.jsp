@@ -11,11 +11,11 @@
 </div>
 
 <form action="write_post.o" method="post" enctype="multipart/form-data" name="userinput" onsubmit="return checkIt(this)">
-<input type="file" name="file1" id="file1" onchange="change_img('file1_img', this);" class="hides" />
-<input type="file" name="file2" id="file2" onchange="change_img('file2_img', this);" class="hides" />
-<input type="file" name="file3" id="file3" onchange="change_img('file3_img', this);" class="hides" />
-<input type="file" name="file4" id="file4" onchange="change_img('file4_img', this);" class="hides" />
-<input type="file" name="file5" id="file5" onchange="change_img('file5_img', this);" class="hides" />
+<input type="file" name="files" id="file1" onchange="change_img('file1_img', this);" class="hides" />
+<input type="file" name="files" id="file2" onchange="change_img('file2_img', this);" class="hides" />
+<input type="file" name="files" id="file3" onchange="change_img('file3_img', this);" class="hides" />
+<input type="file" name="files" id="file4" onchange="change_img('file4_img', this);" class="hides" />
+<input type="file" name="files" id="file5" onchange="change_img('file5_img', this);" class="hides" />
 <input type="hidden" name="seller" value="${member_info.no}" />
 <table cellpadding="7" cellspacing="0" class="boards">
 <col width="400px" />

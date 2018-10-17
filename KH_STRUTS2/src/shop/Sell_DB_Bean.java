@@ -3,12 +3,18 @@ package shop;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import config.FactoryService;
 
 
 public class Sell_DB_Bean {
@@ -631,5 +637,98 @@ public class Sell_DB_Bean {
 	//금액 형태로 바꾸기
     public static String number_format(int dSource) {
         return new DecimalFormat("#,##0").format(dSource);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //sellersno와 status로 찾기 status가 -1일시 배송완료를 제외하고 모두 보기
+    public List getArticles2_M(int start, int end, int sellers_no, int status) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("start", start);
+    	map.put("end", end);
+    	map.put("sellers_no", sellers_no);
+    	map.put("status", status);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		List list = sqlmap.queryForList("Sell_getArticles2", map);
+    	
+		for(int i=0;i<list.size();i++) {
+			Sell_Data_Bean sdata = (Sell_Data_Bean)list.get(i);
+			//금액형태로 바꾸기
+			sdata.setMoneys(number_format(sdata.getMoney()));
+			sdata.setShip_moneys(number_format(sdata.getShip_money()));
+			sdata.setRmoneys(number_format(sdata.getRmoney()));
+			sdata.setTotals(number_format(sdata.getShip_money()+sdata.getRmoney()));
+		}
+    	
+    	return list;
+    }
+    //sellersno와 status로 개수 찾기 status가 -1일시 배송완료를 제외하고 모두 보기(카운트)
+    public int count2_M(int sellers_no, int status) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("sellers_no", sellers_no);
+    	map.put("status", status);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		int count = (int)sqlmap.queryForObject("Sell_count2", map);
+    	
+    	return count;
+    }
+    //no로 상태 바꾸기
+    public boolean changeStatus_M(int no, int status) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("no", no);
+    	map.put("status", status);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.update("Sell_changeStatus", map);
+    	
+    	return true;
+    }
+    //no로 배송중상태로 바꾸기
+    public boolean changeShipStatus_M(int no, String ship_num) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("no", no);
+    	map.put("ship_num", ship_num);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.update("Sell_changeShipStatus", map);
+    	
+    	return true;
     }
 }
