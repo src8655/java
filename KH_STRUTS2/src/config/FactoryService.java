@@ -16,6 +16,7 @@ public class FactoryService {
 			String xmlPath="/config/SqlMapConfig.xml";
 			Reader reader=Resources.getResourceAsReader(xmlPath);
 			sqlmap=SqlMapClientBuilder.buildSqlMapClient(reader);
+			reader.close();
 		}catch(Exception ex){
 			System.out.println("SqlMapConfig Parsing Error()"+ex.getMessage());
 		}

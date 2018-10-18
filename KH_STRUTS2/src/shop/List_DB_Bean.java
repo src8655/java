@@ -1092,4 +1092,39 @@ public class List_DB_Bean {
 		
 		return true;
 	}
+	//존재하는 글인지 확인
+	public boolean existArticle_M(int no) throws SQLException {
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		int count = (int)sqlmap.queryForObject("List_existArticle", no);
+		
+		if(count == 0) return false;
+		else return true;
+	}
+	//hit 카운트를 추가하기
+    public boolean addHit_M(int no) throws SQLException {
+	  	//no에 해당하는 데이터를 가져와서
+	  	List_Data_Bean bdata = getArticle_M(no);
+			
+	  	//카운트추가
+	  	bdata.setHit(bdata.getHit() + 1);
+	  	
+	  	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.update("List_addHit", bdata);
+	  	
+		return true;
+    }
+    //buy 카운트를 추가하기
+    public boolean addBuy_M(int no) throws SQLException {
+	  	//no에 해당하는 데이터를 가져와서
+	  	List_Data_Bean bdata = getArticle(no);
+			
+	  	//카운트추가
+	  	bdata.setBuy(bdata.getBuy() + 1);
+
+	  	
+	  	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.update("List_addBuy", bdata);
+		
+		return true;
+    }
 }

@@ -278,7 +278,7 @@ public class Sell_DB_Bean {
     	return count;
     }
     //times로 찾기
-    public List getArticles(String times) {
+    public List getArticles3(String times) {
     	List list = new ArrayList();
     	Connection conn = null;
     	PreparedStatement pstmt = null;
@@ -728,6 +728,88 @@ public class Sell_DB_Bean {
     	
     	SqlMapClient sqlmap = FactoryService.getSqlmap();
 		sqlmap.update("Sell_changeShipStatus", map);
+    	
+    	return true;
+    }
+    //입력하기
+    public boolean insert_M(Sell_Data_Bean sdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.insert("Sell_insert", sdata);
+    	
+    	return true;
+    }
+    //guestno로 찾기
+    public List getArticles_M(int start, int end, int guest_no) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("start", start);
+    	map.put("end", end);
+    	map.put("guest_no", guest_no);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+		List list = sqlmap.queryForList("Sell_getArticles", map);
+    	
+		for(int i=0;i<list.size();i++) {
+			Sell_Data_Bean sdata = (Sell_Data_Bean)list.get(i);
+			//금액형태로 바꾸기
+			sdata.setMoneys(number_format(sdata.getMoney()));
+			sdata.setShip_moneys(number_format(sdata.getShip_money()));
+			sdata.setRmoneys(number_format(sdata.getRmoney()));
+			sdata.setTotals(number_format(sdata.getShip_money()+sdata.getRmoney()));
+		}
+    	
+    	return list;
+    }
+    //구매자 no와 상태값에 따른 카운트 구하기
+    public int guest_sell_count_M(int guest_no, int status) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("guest_no", guest_no);
+    	map.put("status", status);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	int count = (int)sqlmap.queryForObject("Sell_guest_sell_count", map);
+    	
+    	return count;
+    }
+    //guestno로 sell 총 개수 찾기
+    public int count_M(int guest_no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	int count = (int)sqlmap.queryForObject("Sell_count", guest_no);
+    	
+    	return count;
+    }
+    //times로 찾기
+    public List getArticles3_M(String times) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	return (List)sqlmap.queryForList("Sell_getArticles3", times);
+    }
+    //하나가져오기
+    public Sell_Data_Bean getArticle_M(int no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	return (Sell_Data_Bean)sqlmap.queryForObject("Sell_getArticle", no);
+    }
+    //주문취소하기 (sdata = 삭제할 데이터)
+    public boolean delete_M(Sell_Data_Bean sdata) throws SQLException {
+    	Sell_Group_DB_Bean sgdb = Sell_Group_DB_Bean.getInstance();
+		int count = group_count_M(sdata.getTimes());		//같은 그룹에 있는 sell이 몇개인지 확인
+		if(count == 1) sgdb.delete_M(sdata.getTimes());	//하나이면 (현재 셀밖에 없으면) 그룹을 그냥 삭제
+		else sgdb.delete_sell_M(sdata);					//여러개이면 기존 그룹에서 현재 sell의 금액을 빼기만함
+		
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		sqlmap.delete("Sell_delete", sdata.getNo());
+		
+    	return true;
+    }
+    //같은 그룹의 개수 구하기
+    public int group_count_M(String times) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	int count = (int) sqlmap.queryForObject("Sell_group_count", times);
+    	
+    	return count;
+    }
+    //리뷰작성완료(hasreview = 1)로 변경
+    public boolean updateReview_M(int no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("Sell_updateReview", no);
     	
     	return true;
     }

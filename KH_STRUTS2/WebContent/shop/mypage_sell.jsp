@@ -82,8 +82,8 @@
 
 <div class="list_page">
 	<a href="mypage_sell.o?pages=1&cate=${cate}" class="list_page_a">◀</a>
-	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
+	<c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
 		<a href="mypage_sell.o?pages=${i}&cate=${cate}" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
 	</c:forEach>
-	<a href="mypage_sell.o?pages=${board_paging}&cate=${cate}" class="list_page_a">▶</a>
+	<a href="mypage_sell.o?pages=${paging.board_paging}&cate=${cate}" class="list_page_a">▶</a>
 </div>

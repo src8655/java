@@ -171,12 +171,134 @@
       </action>
       <action name="edit_post" class="shop.Action_Edit_Post">
         <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="fileUpload" />
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/post</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
 
+
+
+
+
+      <action name="join" class="shop.Action_Join">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/join</result>
+      </action>
+      <action name="join_write" class="shop.Action_Join_Write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/join_write</result>
+      </action>
+      <action name="join_write_post" class="shop.Action_Join_Write_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/join_write_post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="join_id_check" class="shop.Action_Join_Id_Check">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/join_id_check</result>
+      </action>
+      <action name="join_edit" class="shop.Action_Join_Edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/join_edit</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="join_edit_post" class="shop.Action_Join_Edit_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="join_agree" class="shop.Action_Join_Agree">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/join_agree</result>
+      </action>
+      
+      
+      
+      
+      <action name="buys" class="shop.Action_Buys">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/buys</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="buys_post" class="shop.Action_Buys_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/buys_post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      
+      
+      
+      
+      
+      <action name="mypage_guest" class="shop.Action_Mypage_Guest">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage_guest</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_guest_view" class="shop.Action_Mypage_Guest_View">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage_guest_view</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_guest_post1" class="shop.Action_Mypage_Guest_Post1">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_guest_post2" class="shop.Action_Mypage_Guest_Post2">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      
+      
+      
+      
+      
+      <action name="view_review" class="shop.Action_View_Review">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/view_review</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="view_review_post" class="shop.Action_View_Review_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/view_review_post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      
+      
+      
+      
       
     </package>
 </struts>

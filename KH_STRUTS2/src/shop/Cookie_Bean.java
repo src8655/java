@@ -60,7 +60,7 @@ public class Cookie_Bean {
     }
     
     //게시판 조회수 중복방지
-    public void view_cookie(int no, HttpServletRequest request, HttpServletResponse response) {
+    public void view_cookie(int no, HttpServletRequest request, HttpServletResponse response) throws SQLException {
     	List_DB_Bean manager = List_DB_Bean.getInstance();
 
     	//한번 조회했다는 쿠키입력
@@ -83,7 +83,7 @@ public class Cookie_Bean {
     		cookie.setMaxAge(60*60*24);						//24시간 설정
     		response.addCookie(cookie);						//쿠키추가
     		
-    		manager.addHit(no);		//조회수추가
+    		manager.addHit_M(no);		//조회수추가
     	}else{				//쿠키가 이미 있으면 기존거에 추가
     		String[] splt = cookies[pos].getValue().split("//");
     		boolean hasNo = false;							//이미 있는 쿠키에 현재 NO가 있는지 확인
@@ -98,7 +98,7 @@ public class Cookie_Bean {
     			cookie.setMaxAge(60*60*24);						//24시간 설정
     			response.addCookie(cookie);						//쿠키추가
 
-        		manager.addHit(no);		//조회수추가
+        		manager.addHit_M(no);		//조회수추가
     		}
     	}
     }
@@ -184,5 +184,50 @@ public class Cookie_Bean {
     	
     	return list;
     }
+    //최근본게시글 기록 하나 지우기
+    public void del_viewed_cookie(int no, HttpServletRequest request, HttpServletResponse response) {
+    	String cookieName = "min_tshop_viewed";		//쿠키이름
+    	Cookie[] cookies = request.getCookies();	//쿠키를 모두 받고
+    	boolean hasCookie = false;					//쿠키를 가졌는지?
+    	int pos = 0;
+    	List list = new ArrayList();
 
+    	//쿠키꾸러미? 가 있을때
+    	if(cookies != null) {
+    	for(int i=0;i<cookies.length;i++)
+    		if(cookies[i].getName().equals(cookieName)) {
+    			hasCookie = true;					//쿠키가 존재하면 true로
+    			pos = i;							//위치 기억
+    			break;
+    		}
+    	}
+
+    	if(!hasCookie) {	//쿠키가 없었다면 새로 생성
+    		Cookie cookie = new Cookie(cookieName,Integer.toString(no));		//새쿠키
+    		cookie.setMaxAge(60*60*24);						//24시간 설정
+    		response.addCookie(cookie);						//쿠키추가
+    		
+    	}else{				//쿠키가 이미 있으면 기존거에 추가
+    		
+    		//리스트로 찾아와서
+    		String[] splt = cookies[pos].getValue().split("//");
+    		for(int i=0;i<splt.length;i++) {
+    			list.add(splt[i]);
+    		}
+    		//이미 존재하는no가 있다면 제거
+    		list.remove(Integer.toString(no));
+    		
+    		//한줄의 문자열로 변환
+    		String tmp = "";
+    		for(int i=0;i<list.size();i++) {
+    			if(i != 0) tmp += "//";
+    			tmp += list.get(i);
+    		}
+    		
+    		//쿠키갱신
+    		Cookie cookie = new Cookie(cookieName, tmp);	//새쿠키
+    		cookie.setMaxAge(60*60*24);						//24시간 설정
+    		response.addCookie(cookie);						//쿠키추가
+    	}
+    }
 }

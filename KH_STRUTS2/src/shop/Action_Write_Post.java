@@ -69,11 +69,11 @@ public class Action_Write_Post extends Action_Init implements Action, ServletReq
 		ldata.setSellers(member_info.getNo());
 		ldata.setMemo(memo);
 
-		if(files.length >= 1) ldata.setFile1(filesFileName[0]);
-		if(files.length >= 2) ldata.setFile2(filesFileName[1]);
-		if(files.length >= 3) ldata.setFile3(filesFileName[2]);
-		if(files.length >= 4) ldata.setFile4(filesFileName[3]);
-		if(files.length >= 5) ldata.setFile5(filesFileName[4]);
+		if(!filesFileName[0].equals("")) ldata.setFile1(filesFileName[0]);
+		if(!filesFileName[1].equals("")) ldata.setFile2(filesFileName[1]);
+		if(!filesFileName[2].equals("")) ldata.setFile3(filesFileName[2]);
+		if(!filesFileName[3].equals("")) ldata.setFile4(filesFileName[3]);
+		if(!filesFileName[4].equals("")) ldata.setFile5(filesFileName[4]);
 		ldata.setDates(year+"-"+month+"-"+day);
     	
     	//할인가격 계산

@@ -9,7 +9,7 @@
 		<p>판매상품 목록</p>
 	</h1>
 	<ul style="width:400px;">
-		<li>상품 : ${board_total} 건</li>
+		<li>상품 : ${paging.board_total} 건</li>
 	</ul>
 </div>
 <ul id="list_tab" style="border-bottom:0px;">
@@ -66,10 +66,10 @@
 
 <div class="list_page">
 	<a href="mypage_list.o?pages=1&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">◀</a>
-	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
+	<c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
 		<a href="mypage_list.o?pages=${i}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
 	</c:forEach>
-	<a href="mypage_list.o?pages=${board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">▶</a>
+	<a href="mypage_list.o?pages=${paging.board_paging}&amp;searchs=${searchs}&amp;searchs_value=${searchs_value}" class="list_page_a">▶</a>
 </div>
 
 <div class="basket_b" style="display:none;">

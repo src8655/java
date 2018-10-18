@@ -3,12 +3,18 @@ package shop;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import config.FactoryService;
 
 
 public class Sell_Group_DB_Bean {
@@ -362,5 +368,90 @@ public class Sell_Group_DB_Bean {
 	//금액 형태로 바꾸기
     public static String number_format(int dSource) {
         return new DecimalFormat("#,##0").format(dSource);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //입력하기
+    public boolean insert_M(Sell_Group_Data_Bean sgdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.insert("Sell_Group_insert", sgdata);
+    	
+    	return true;
+    }
+    //times로 하나 찾기
+    public Sell_Group_Data_Bean getArticle_M(String times) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	return (Sell_Group_Data_Bean)sqlmap.queryForObject("Sell_Group_getArticle", times);
+    }
+    //포인트 변경
+    public boolean setPoint_M(int no, int point) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("no", no);
+    	map.put("point", point);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("Sell_Group_setPoint", map);
+    	
+    	return true;
+    }
+    //주문취소하기 그룹에 속한 sell이 없으면 그룹삭제
+    public boolean delete_M(String times) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.delete("Sell_Group_delete", times);
+    	
+    	
+    	return true;
+    }
+    //주문취소하기 group에서 금액을 뺌
+    public boolean delete_sell_M(Sell_Data_Bean sdata) throws SQLException {
+    	//그룹의 정보를 가져옴
+    	Sell_Group_Data_Bean sgdata = getArticle_M(sdata.getTimes());
+    	
+    	//sell의 금액을 group에서 뺌
+    	sgdata.setMoney(sgdata.getMoney() - sdata.getMoney());
+    	sgdata.setShip_money(sgdata.getShip_money() - sdata.getShip_money());
+    	sgdata.setRmoney(sgdata.getRmoney() - sdata.getRmoney());
+    	
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("Sell_Group_delete_sell", sgdata);
+    	
+    	return true;
     }
 }

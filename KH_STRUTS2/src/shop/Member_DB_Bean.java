@@ -618,4 +618,43 @@ public class Member_DB_Bean {
     	
     	return mdata;
     }
+    //회원정보 하나 가져오기
+    public Member_Data_Bean getArticle_M(int no) throws SQLException {
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+		Member_Data_Bean mdata = (Member_Data_Bean)sqlmap.queryForObject("Member_getArticle", no);
+    	
+    	return mdata;
+    }
+    //id로 몇명의 회원이 있는지 확인
+    public int selectId_M(String user_id) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	int count = (int) sqlmap.queryForObject("Member_selectId", user_id);
+    	
+    	return count;
+    }
+    //입력하기
+    public boolean insert_M(Member_Data_Bean mdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.insert("Member_insert", mdata);
+    	
+    	return true;
+    }
+    //수정하기
+    public boolean update_M(Member_Data_Bean mdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("Member_update", mdata);
+    	
+    	return true;
+    }
+    //포인트 세팅
+    public boolean setPoint_M(int no, int point) throws SQLException {
+    	Map map = new HashMap<>();
+		map.put("no", no);
+		map.put("point", point);
+		
+		SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("Member_setPoint", map);
+		
+    	return true;
+    }
 }

@@ -44,7 +44,7 @@ public class Action_Edit_Post extends Action_Init implements Action, ServletRequ
 	@Override
 	public String execute() throws Exception {
 		super.run();
-		
+		System.out.println(filesFileName[0]);
 		//판매자인지 아닌지 확인
 		if(member_info == null) {
 			msg = "로그인 해주세요.";
@@ -106,28 +106,26 @@ public class Action_Edit_Post extends Action_Init implements Action, ServletRequ
     	ldata.setRmoney(rmoney);
 		
     	//삭제 명령시
-    	if(file_del1 != -1) ldata.setFile1(""); else ldata.setFile1(ldatas.getFile1());
-    	if(file_del2 != -1) ldata.setFile2(""); else ldata.setFile2(ldatas.getFile2());
-    	if(file_del3 != -1) ldata.setFile3(""); else ldata.setFile3(ldatas.getFile3());
-    	if(file_del4 != -1) ldata.setFile4(""); else ldata.setFile4(ldatas.getFile4());
-    	if(file_del5 != -1) ldata.setFile5(""); else ldata.setFile5(ldatas.getFile5());
+    	if(file_del1 == 1) ldata.setFile1(""); else ldata.setFile1(ldatas.getFile1());
+    	if(file_del2 == 1) ldata.setFile2(""); else ldata.setFile2(ldatas.getFile2());
+    	if(file_del3 == 1) ldata.setFile3(""); else ldata.setFile3(ldatas.getFile3());
+    	if(file_del4 == 1) ldata.setFile4(""); else ldata.setFile4(ldatas.getFile4());
+    	if(file_del5 == 1) ldata.setFile5(""); else ldata.setFile5(ldatas.getFile5());
     	
     	
 
 		if(!filesFileName[0].equals("")) ldata.setFile1(filesFileName[0]);
-		if(!filesFileName[2].equals("")) ldata.setFile2(filesFileName[1]);
-		if(!filesFileName[3].equals("")) ldata.setFile3(filesFileName[2]);
-		if(!filesFileName[4].equals("")) ldata.setFile4(filesFileName[3]);
-		if(!filesFileName[5].equals("")) ldata.setFile5(filesFileName[4]);
+		if(!filesFileName[1].equals("")) ldata.setFile2(filesFileName[1]);
+		if(!filesFileName[2].equals("")) ldata.setFile3(filesFileName[2]);
+		if(!filesFileName[3].equals("")) ldata.setFile4(filesFileName[3]);
+		if(!filesFileName[4].equals("")) ldata.setFile5(filesFileName[4]);
 		
 		
     	ldata.setNo(ldatas.getNo());
 		
-		
 		//1이면 성공 0이면 실패
 		int res = 0;
 		if(ldb.update_M(ldata)) res = 1;
-		
 		
 		if(res == 1) {
 			msg = "수정 성공.";
