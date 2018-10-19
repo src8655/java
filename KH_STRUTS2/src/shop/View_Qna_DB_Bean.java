@@ -344,4 +344,31 @@ public class View_Qna_DB_Bean {
     	
     	return list;
     }
+    public boolean insert_M(View_Qna_Data_Bean vqdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.insert("View_Qna_insert", vqdata);
+    	
+    	return true;
+    }
+    //하나만가져오기
+    public View_Qna_Data_Bean getArticle_M(int no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	View_Qna_Data_Bean vqdata = (View_Qna_Data_Bean)sqlmap.queryForObject("View_Qna_getArticle", no);
+    	
+    	return vqdata;
+    }
+    //삭제하기
+    public boolean delete_M(int no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.delete("View_Qna_delete", no);
+    	
+    	return true;
+    }
+    //답변달기
+    public boolean answer_M(View_Qna_Data_Bean vqdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("View_Qna_answer", vqdata);
+    	
+    	return true;
+    }
 }

@@ -5,11 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import config.FactoryService;
 
 public class Faq_DB_Bean {
 	private static Faq_DB_Bean instance = new Faq_DB_Bean();
@@ -225,5 +231,83 @@ public class Faq_DB_Bean {
 		}
     	
     	return false;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //카운트
+    public int count_M(int search, String search_value, int category) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("search", search);
+    	map.put("search_value", search_value);
+    	map.put("category", category);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	return (int)sqlmap.queryForObject("Faq_count", map);
+    }
+    //여러개 가져오기
+    public List getArticles_M(int start, int end, int search, String search_value, int category) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("start", start);
+    	map.put("end", end);
+    	map.put("search", search);
+    	map.put("search_value", search_value);
+    	map.put("category", category);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	return (List)sqlmap.queryForList("Faq_getArticles", map);
+    }
+    //입력하기
+    public boolean insert_M(Faq_Data_Bean fdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.insert("Faq_insert", fdata);
+    	
+    	return true;
+    }
+    //하나만가져오기
+    public Faq_Data_Bean getArticle_M(int no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	return (Faq_Data_Bean)sqlmap.queryForObject("Faq_getArticle", no);
+    }
+    //수정하기
+    public boolean update_M(Faq_Data_Bean fdata) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("Faq_update", fdata);
+    	
+    	return true;
+    }
+    //삭제하기
+    public boolean delete_M(int no) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.delete("Faq_delete", no);
+    	
+    	return true;
     }
 }

@@ -25,6 +25,11 @@
         <interceptor-ref name="params"/>
         <result type="tiles">shop/list</result>
       </action>
+      <action name="sitemap" class="shop.Action_Sitemap">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/sitemap</result>
+      </action>
       
       
       
@@ -293,6 +298,229 @@
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
+      
+      
+      
+      
+      
+      
+      
+      <action name="view_qna_write" class="shop.Action_View_Qna_Write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/view_qna_write</result>
+      </action>
+      <action name="view_qna_write_post" class="shop.Action_View_Qna_Write_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/view_qna_write_post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="view_qna_del" class="shop.Action_View_Qna_Del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="view_qna_answer" class="shop.Action_View_Qna_Answer">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">shop/view_qna_answer</result>
+      </action>
+      <action name="view_qna_answer_post" class="shop.Action_View_Qna_Answer_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/view_qna_answer_post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <action name="mypage_admin" class="shop.Action_Mypage_Admin">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage_admin</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_admin_payment" class="shop.Action_Mypage_Admin_Payment">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage_admin_payment</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_admin_payment_post" class="shop.Action_Mypage_Admin_Payment_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_admin_member" class="shop.Action_Mypage_Admin_Member">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage_admin_member</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_admin_member_edit" class="shop.Action_Mypage_Admin_Member_Edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/mypage_admin_member_edit</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="mypage_admin_member_edit_post" class="shop.Action_Mypage_Admin_Member_Edit_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <action name="customer_center" class="shop.Action_Customer_Center">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna" class="shop.Action_Customer_Center_Qna">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center_qna</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_write" class="shop.Action_Customer_Center_Qna_Write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center_qna_write</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_write_post" class="shop.Action_Customer_Center_Qna_Write_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_view" class="shop.Action_Customer_Center_Qna_View">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center_qna_view</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_edit" class="shop.Action_Customer_Center_Qna_Edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center_qna_edit</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_edit_post" class="shop.Action_Customer_Center_Qna_Edit_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_del" class="shop.Action_Customer_Center_Qna_Del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_answer" class="shop.Action_Customer_Center_Qna_Answer">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_qna_answer_del" class="shop.Action_Customer_Center_Qna_Answer_Del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <action name="customer_center_faq" class="shop.Action_Customer_Center_Faq">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center_faq</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_faq_write" class="shop.Action_Customer_Center_Faq_Write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center_faq_write</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_faq_write_post" class="shop.Action_Customer_Center_Faq_Write_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_faq_edit" class="shop.Action_Customer_Center_Faq_Edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/customer_center_faq_edit</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_faq_edit_post" class="shop.Action_Customer_Center_Faq_Edit_Post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      <action name="customer_center_faq_del" class="shop.Action_Customer_Center_Faq_Del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">shop/post</result>
+        <result name="login" type="tiles">shop/post</result>
+        <result name="error" type="tiles">shop/post2</result>
+      </action>
+      
       
       
       

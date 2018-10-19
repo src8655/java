@@ -1,23 +1,23 @@
 package shop;
 
 public class Member_Data_Bean {
-	private int no;
-	private String name;
-	private String user_id;
-	private String user_pw;
-	private String email;
-	private String zipcode;
-	private String addr;
-	private String phone1;
-	private String phone2;
-	private String phone3;
-	private String company_number;
+	private int no = -1;
+	private String name = "";
+	private String user_id = "";
+	private String user_pw = "";
+	private String email = "";
+	private String zipcode = "";
+	private String addr = "";
+	private String phone1 = "";
+	private String phone2 = "";
+	private String phone3 = "";
+	private String company_number = "";
 	private int orders = 1;
-	private String bank;
-	private String bank_num;
+	private String bank = "";
+	private String bank_num = "";
 	private int point = 0;
-	private int quest;
-	private String answer;
+	private int quest = 1;
+	private String answer = "";
 	
 	
 	public int getQuest() {

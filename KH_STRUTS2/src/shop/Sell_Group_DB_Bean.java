@@ -454,4 +454,32 @@ public class Sell_Group_DB_Bean {
     	
     	return true;
     }
+    //입금확인용//입금대기 상태(1)의 주문그룹만 조회
+    public List getPayArticles_M(int status) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	List list = (List)sqlmap.queryForList("Sell_Group_getPayArticles", status);
+    	
+    	for(int i=0;i<list.size();i++) {
+    		Sell_Group_Data_Bean sgdata = (Sell_Group_Data_Bean)list.get(i);
+    		
+    		//금액형태로 바꾸기
+			sgdata.setMoneys(number_format(sgdata.getMoney()));
+			sgdata.setShip_moneys(number_format(sgdata.getShip_money()));
+			sgdata.setRmoneys(number_format(sgdata.getRmoney()));
+			sgdata.setTotals(number_format(sgdata.getRmoney()+sgdata.getShip_money()-sgdata.getPoint()));
+			sgdata.setPoints(number_format(sgdata.getPoint()));
+    	}
+    	return list;
+    }
+    //상태 바꾸기
+    public boolean changeStatus_M(String times, int status) throws SQLException {
+    	Map map = new HashMap();
+    	map.put("times", times);
+    	map.put("status", status);
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	sqlmap.update("Sell_Group_changeStatus", map);
+    	
+    	return true;
+    }
 }

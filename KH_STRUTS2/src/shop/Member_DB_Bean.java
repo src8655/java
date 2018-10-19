@@ -648,7 +648,7 @@ public class Member_DB_Bean {
     }
     //포인트 세팅
     public boolean setPoint_M(int no, int point) throws SQLException {
-    	Map map = new HashMap<>();
+    	Map map = new HashMap();
 		map.put("no", no);
 		map.put("point", point);
 		
@@ -656,5 +656,21 @@ public class Member_DB_Bean {
     	sqlmap.update("Member_setPoint", map);
 		
     	return true;
+    }
+    //여러개 가져오기
+    public List getArticles_M(int start, int end) throws SQLException {
+    	Map map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	List list = sqlmap.queryForList("Member_getArticles", map);
+
+    	return list;
+    }
+    //총 회원의 수 
+    public int count_M() throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	return (int)sqlmap.queryForObject("Member_count");
     }
 }

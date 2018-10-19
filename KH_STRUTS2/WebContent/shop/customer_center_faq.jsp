@@ -34,7 +34,7 @@
 	</tr>
 <c:forEach var="fdata" items="${list}">
 	<tr>
-		<td>${board_total-board_cnt+1}</td>
+		<td>${paging.board_total-board_cnt}</td>
 		<td>
 			<c:if test="${fdata.category eq 1}">[주문/결제]</c:if>
 			<c:if test="${fdata.category eq 2}">[배송]</c:if>
@@ -82,10 +82,10 @@
 
   <div class="list_page">
 	<a href="customer_center_faq.o?pages=1&p_search=${p_search}&p_search_value=${p_search_values}&category=${category}" class="list_page_a">◀</a>
-	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
+	<c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
 		<a href="customer_center_faq.o?pages=${i}&p_search=${p_search}&p_search_value=${p_search_values}&category=${category}" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
 	</c:forEach>
-	<a href="customer_center_faq.o?pages=${board_paging}&p_search=${p_search}&p_search_value=${p_search_values}&category=${category}" class="list_page_a">▶</a>
+	<a href="customer_center_faq.o?pages=${paging.board_paging}&p_search=${p_search}&p_search_value=${p_search_values}&category=${category}" class="list_page_a">▶</a>
   </div>
   
 <c:if test="${member_info.orders eq 3}">

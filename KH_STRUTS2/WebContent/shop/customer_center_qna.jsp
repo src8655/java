@@ -44,10 +44,10 @@
 
   <div class="list_page">
 	<a href="customer_center_qna.o?pages=1" class="list_page_a">◀</a>
-	<c:forEach begin="${pstarts}" end="${pends}" step="1" var="i">
+	<c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
 		<a href="customer_center_qna.o?pages=${i}" <c:if test="${i ne pages_int}"> class="list_page_a"</c:if> <c:if test="${i eq pages_int}"> class="list_page_a_hover"</c:if>>${i}</a>
 	</c:forEach>
-	<a href="customer_center_qna.o?pages=${board_paging}" class="list_page_a">▶</a>
+	<a href="customer_center_qna.o?pages=${paging.board_paging}" class="list_page_a">▶</a>
   </div>
   
   <div class="customer_center_btn">
