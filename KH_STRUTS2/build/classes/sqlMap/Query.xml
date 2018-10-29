@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<insert id="insert1" parameterClass="java.util.Map" >
+	INSERT INTO MIN_TSHOP_MEMBER(NAME) VALUES(
+	#name#
+	)
+	</insert>
+
+
+
+
+
+
+
+	<!-- List_DB_Bean  -->
+	<select id="List_getArticle" parameterClass="int" resultClass="shop.List_Data_Bean">
+	 	select * from MIN_TSHOP_LIST where NO=#no#
+	</select>
+	<select id="List_getArticles" parameterClass="java.util.Map" resultClass="shop.List_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_LIST where NAME like '%'||#searchs_value#||'%'
+	 	<isNotEqual property="searchs" compareValue="-1"> and CATEGORY=#searchs# </isNotEqual>
+	 	<isNotEqual property="sellers" compareValue="-1"> and SELLERS=#sellers# </isNotEqual>
+	 	
+	 	<isEqual property="order" compareValue="-1"> order by NO desc </isEqual>
+	 	<isEqual property="order" compareValue="1"> and BUY>=10 order by BUY desc </isEqual>
+	 	<isEqual property="order" compareValue="2"> and HIT>=10 order by HIT desc </isEqual>
+	 	<isEqual property="order" compareValue="3"> and SHIP_MONEY=0 </isEqual>
+	 	) a) where rnum between #start# and #end#
+	</select>
+	<insert id="List_insert" parameterClass="shop.List_Data_Bean" >
+		insert into MIN_TSHOP_LIST(CATEGORY,NAME,MONEY,DISCOUNT,MADE,SHIP_MONEY,SHIP_COMPANY,FILE1,FILE2,FILE3,FILE4,FILE5,MEMO,HIT,BUY,DATES,RMONEY,SELLERS)
+		values(
+			#category#,#name#,#money#,#discount#,#made#,#ship_money#,#ship_company#,#file1#,#file2#,#file3#,#file4#,#file5#,#memo#,#hit#,#buy#,#dates#,#rmoney#,#sellers#
+		)
+	</insert>
+	<select id="List_getCount" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_LIST where NAME like '%'||#searchs_value#||'%'
+	 	<isNotEqual property="searchs" compareValue="-1"> and CATEGORY=#searchs# </isNotEqual>
+	 	<isNotEqual property="sellers" compareValue="-1"> and SELLERS=#sellers# </isNotEqual>
+	 	
+	 	<isEqual property="order" compareValue="-1"> order by NO desc </isEqual>
+	 	<isEqual property="order" compareValue="1"> and BUY>=10 order by BUY desc </isEqual>
+	 	<isEqual property="order" compareValue="2"> and HIT>=10 order by HIT desc </isEqual>
+	 	<isEqual property="order" compareValue="3"> and SHIP_MONEY=0 </isEqual>
+	</select>
+	<delete id="List_delete" parameterClass="int">
+		delete from MIN_TSHOP_LIST where NO=#no#
+	</delete>
+	<update id="List_update" parameterClass="shop.List_Data_Bean">
+		update MIN_TSHOP_LIST set
+		CATEGORY=#category#,
+		NAME=#name#,
+		MONEY=#money#,
+		DISCOUNT=#discount#,
+		MADE=#made#,
+		SHIP_MONEY=#ship_money#,
+		SHIP_COMPANY=#ship_company#,
+		FILE1=#file1#,
+		FILE2=#file2#,
+		FILE3=#file3#,
+		FILE4=#file4#,
+		FILE5=#file5#,
+		MEMO=#memo#,
+		DATES=#dates#,
+		RMONEY=#rmoney#
+		where NO=#no#
+	</update>
+	<select id="List_existArticle" parameterClass="int" resultClass="int">
+	 	select count(*) from MIN_TSHOP_LIST where NO=#no#
+	</select>
+	<update id="List_addHit" parameterClass="shop.List_Data_Bean">
+		update MIN_TSHOP_LIST set HIT=#hit# where NO=#no#
+	</update>
+	<update id="List_addBuy" parameterClass="shop.List_Data_Bean">
+		update MIN_TSHOP_LIST set BUY=#buy# where NO=#no#
+	</update>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	<!-- Member_DB_Bean  -->
+	<select id="Member_login" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_MEMBER where USER_ID=#user_id# and USER_PW=#user_pw#
+	</select>
+	<select id="Member_findPw" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_MEMBER where USER_ID=#user_id# and NAME=#name# and PHONE1=#phone1# and PHONE2=#phone2# and PHONE3=#phone3# and QUEST=#quest# and ANSWER=#answer#
+	</select>
+	<update id="Member_changePw" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_MEMBER set USER_PW=#user_pw# where USER_ID=#user_id# and NAME=#name# and PHONE1=#phone1# and PHONE2=#phone2# and PHONE3=#phone3# and QUEST=#quest# and ANSWER=#answer#
+	</update>
+	<select id="Member_findId" parameterClass="java.util.Map" resultClass="String">
+	 	select USER_ID from MIN_TSHOP_MEMBER where NAME=#name# and PHONE1=#phone1# and PHONE2=#phone2# and PHONE3=#phone3#
+	</select>
+	<select id="Member_login_info" parameterClass="java.util.Map" resultClass="shop.Member_Data_Bean">
+	 	select * from MIN_TSHOP_MEMBER where USER_ID=#user_id# and USER_PW=#user_pw#
+	</select>
+	<select id="Member_getArticle" parameterClass="int" resultClass="shop.Member_Data_Bean">
+	 	select * from MIN_TSHOP_MEMBER where NO=#no#
+	</select>
+	<select id="Member_selectId" parameterClass="String" resultClass="int">
+	 	select count(*) from MIN_TSHOP_MEMBER where USER_ID=#user_id#
+	</select>
+	<insert id="Member_insert" parameterClass="shop.Member_Data_Bean" >
+		insert into MIN_TSHOP_MEMBER(NAME,USER_ID,USER_PW,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,COMPANY_NUMBER,ORDERS,BANK,BANK_NUM,POINT,QUEST,ANSWER)
+		values(#name#,#user_id#,#user_pw#,#email#,#zipcode#,#addr#,#phone1#,#phone2#,#phone3#,#company_number#,#orders#,#bank#,#bank_num#,#point#,#quest#,#answer#)
+	</insert>
+	<update id="Member_update" parameterClass="shop.Member_Data_Bean">
+	 	update MIN_TSHOP_MEMBER set 
+		ORDERS=#orders#,
+		COMPANY_NUMBER=#company_number#,
+		NAME=#name#,
+		EMAIL=#email#,
+		ZIPCODE=#zipcode#,
+		ADDR=#addr#,
+		PHONE1=#phone1#,
+		PHONE2=#phone2#,
+		PHONE3=#phone3#,
+		BANK=#bank#,
+		BANK_NUM=#bank_num#,
+		QUEST=#quest#,
+		ANSWER=#answer#
+		<isNotEqual property="user_pw" compareValue=""> ,USER_PW=#user_pw# </isNotEqual>
+		where NO=#no#
+	</update>
+	<update id="Member_setPoint" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_MEMBER set POINT=#point# where NO=#no#
+	</update>
+	<select id="Member_getArticles" parameterClass="java.util.Map" resultClass="shop.Member_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_MEMBER order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<select id="Member_count" resultClass="int">
+	 	select count(*) from MIN_TSHOP_MEMBER
+	</select>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Sell_DB_Bean  -->
+	<select id="Sell_getArticles2" parameterClass="java.util.Map" resultClass="shop.Sell_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_SELL where SELLERS_NO=#sellers_no# 
+	 	<isNotEqual property="status" compareValue="-1"> and STATUS=#status# </isNotEqual>
+	 	<isEqual property="status" compareValue="-1"> and STATUS!=5 </isEqual>
+	 	order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<select id="Sell_count2" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_SELL where SELLERS_NO=#sellers_no#
+	 	<isNotEqual property="status" compareValue="-1"> and STATUS=#status# </isNotEqual>
+	 	<isEqual property="status" compareValue="-1"> and STATUS!=5 </isEqual>
+	</select>
+	<update id="Sell_changeStatus" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_SELL set STATUS=#status# where NO=#no#
+	</update>
+	<update id="Sell_changeShipStatus" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_SELL set STATUS=4, SHIP_NUM=#ship_num# where NO=#no#
+	</update>
+	<insert id="Sell_insert" parameterClass="shop.Sell_Data_Bean" >
+		insert into MIN_TSHOP_SELL(GUEST_NO,SELLERS_NO,PRODUCT_NO,PRODUCT_NAME,COUNTS,MONEY,SHIP_MONEY,RMONEY,DATES,SHIP_DATES,SHIP_COMPANY,STATUS,ADDR,ZIPCODE,SHIP_MEMO,NAME,PHONE1,PHONE2,PHONE3,FILE1,TIMES,HASREVIEW)
+		values(#guest_no#,#sellers_no#,#product_no#,#product_name#,#counts#,#money#,#ship_money#,#rmoney#,#dates#,#ship_dates#,#ship_company#,#status#,#addr#,#zipcode#,#ship_memo#,#name#,#phone1#,#phone2#,#phone3#,#file1#,#times#,#hasreview#)
+	</insert>
+	<select id="Sell_getArticles" parameterClass="java.util.Map" resultClass="shop.Sell_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_SELL where GUEST_NO=#guest_no# order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<select id="Sell_guest_sell_count" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_SELL where GUEST_NO=#guest_no# and STATUS=#status#
+	</select>
+	<select id="Sell_count" parameterClass="int" resultClass="int">
+	 	select count(*) from MIN_TSHOP_SELL where GUEST_NO=#guest_no#
+	</select>
+	<select id="Sell_getArticles3" parameterClass="String" resultClass="shop.Sell_Data_Bean">
+	 	select * from MIN_TSHOP_SELL where TIMES=#times# order by NO desc
+	</select>
+	<select id="Sell_getArticle" parameterClass="int" resultClass="shop.Sell_Data_Bean">
+	 	select * from MIN_TSHOP_SELL where NO=#no#
+	</select>
+	<delete id="Sell_delete" parameterClass="int">
+		delete from MIN_TSHOP_SELL where NO=#no#
+	</delete>
+	<select id="Sell_group_count" parameterClass="String" resultClass="int">
+	 	select count(*) from MIN_TSHOP_SELL where TIMES=#times#
+	</select>
+	<update id="Sell_updateReview" parameterClass="int">
+	 	update MIN_TSHOP_SELL set HASREVIEW=1 where NO=#no#
+	</update>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Sell_Group_DB_Bean  -->
+	<insert id="Sell_Group_insert" parameterClass="shop.Sell_Group_Data_Bean" >
+		insert into MIN_TSHOP_SELL_GROUP(MONEY,SHIP_MONEY,RMONEY,BANK,BANK_NUM,NAME,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,SHIP_MEMO,TIMES,DATES,GUEST_NO,STATUS,POINT)
+		values(#money#,#ship_money#,#rmoney#,#bank#,#bank_num#,#name#,#zipcode#,#addr#,#phone1#,#phone2#,#phone3#,#ship_memo#,#times#,#dates#,#guest_no#,#status#,#point#)
+	</insert>
+	<select id="Sell_Group_getArticle" parameterClass="String" resultClass="shop.Sell_Group_Data_Bean">
+	 	select * from MIN_TSHOP_SELL_GROUP where TIMES=#times#
+	</select>
+	<update id="Sell_Group_setPoint" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_SELL_GROUP set POINT=#point# where NO=#no#
+	</update>
+	<delete id="Sell_Group_delete" parameterClass="String">
+		delete from MIN_TSHOP_SELL_GROUP where TIMES=#times#
+	</delete>
+	<update id="Sell_Group_delete_sell" parameterClass="shop.Sell_Group_Data_Bean">
+		update MIN_TSHOP_SELL_GROUP set MONEY=#money#, SHIP_MONEY=#ship_money#, RMONEY=#rmoney# where TIMES=#times#
+	</update>
+	<select id="Sell_Group_getPayArticles" parameterClass="int" resultClass="shop.Sell_Group_Data_Bean">
+	 	select * from MIN_TSHOP_SELL_GROUP where STATUS=#status#
+	</select>
+	<update id="Sell_Group_changeStatus" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_SELL_GROUP set STATUS=#status# where TIMES=#times#
+	</update>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- View_Qna_DB_Bean  -->
+	<select id="View_Qna_count" parameterClass="int" resultClass="int">
+	 	select count(*) from MIN_TSHOP_VIEW_QNA where PRODUCT_NO=#product_no#
+	</select>
+	<select id="View_Qna_getArticles" parameterClass="java.util.Map" resultClass="shop.View_Qna_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_VIEW_QNA where PRODUCT_NO=#product_no# order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<insert id="View_Qna_insert" parameterClass="shop.View_Qna_Data_Bean" >
+		insert into MIN_TSHOP_VIEW_QNA(PRODUCT_NO,GUEST_NO,GUEST_ID,CATEGORY,MEMO,SECRET,DATES,ANSWER,ISANSWER,SELLERS_NO)
+		values(#product_no#,#guest_no#,#guest_id#,#category#,#memo#,#secret#,#dates#,#answer#,#isanswer#,#sellers_no#)
+	</insert>
+	<select id="View_Qna_getArticle" parameterClass="int" resultClass="shop.View_Qna_Data_Bean">
+	 	select * from MIN_TSHOP_VIEW_QNA where NO=#no#
+	</select>
+	<delete id="View_Qna_delete" parameterClass="int">
+		delete from MIN_TSHOP_VIEW_QNA where NO=#no#
+	</delete>
+	<update id="View_Qna_answer" parameterClass="shop.View_Qna_Data_Bean">
+		update MIN_TSHOP_VIEW_QNA set ANSWER=#answer#, ISANSWER=#isanswer# where NO=#no#
+	</update>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	<!-- View_Review_DB_Bean  -->
+	<select id="View_Review_count" parameterClass="int" resultClass="int">
+	 	select count(*) from MIN_TSHOP_VIEW_REVIEW where PRODUCT_NO=#product_no#
+	</select>
+	<select id="View_Review_getArticles" parameterClass="java.util.Map" resultClass="shop.View_Review_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_VIEW_REVIEW where PRODUCT_NO=#product_no# order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<insert id="View_Review_insert" parameterClass="shop.View_Review_Data_Bean" >
+		insert into MIN_TSHOP_VIEW_REVIEW(GUEST_NO,PRODUCT_NO,STARS,REVIEW1,REVIEW2,MEMO,DATES,GUEST_ID)
+		values(#guest_no#,#product_no#,#stars#,#review1#,#review2#,#memo#,#dates#,#guest_id#)
+	</insert>
+	<select id="View_Review_getArticle" parameterClass="int" resultClass="shop.View_Review_Data_Bean">
+	 	select * from MIN_TSHOP_VIEW_REVIEW where NO=#no#
+	</select>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Qna_DB_Bean  -->
+	<select id="Qna_count" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_QNA
+	 	<isNotEqual property="guest_no" compareValue="-1"> where GUEST_NO=#guest_no# </isNotEqual>
+	</select>
+	<select id="Qna_getArticles" parameterClass="java.util.Map" resultClass="shop.Qna_Data_Bean">
+	 	select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_QNA
+	 	 <isNotEqual property="guest_no" compareValue="-1"> where GUEST_NO=#guest_no# </isNotEqual>
+	 	 order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<insert id="Qna_insert" parameterClass="shop.Qna_Data_Bean" >
+		insert into MIN_TSHOP_QNA(SUBJECT,MEMO,ANSWER,ISANSWER,DATES,GUEST_NO,CATEGORY)
+		values(#subject#,#memo#,#answer#,#isanswer#,#dates#,#guest_no#,#category#)
+	</insert>
+	<select id="Qna_getArticle" parameterClass="int" resultClass="shop.Qna_Data_Bean">
+	 	select * from MIN_TSHOP_QNA where NO=#no#
+	</select>
+	<update id="Qna_update" parameterClass="shop.Qna_Data_Bean">
+	 	update MIN_TSHOP_QNA set 
+		SUBJECT=#subject#,
+		MEMO=#memo#,
+		ANSWER=#answer#,
+		ISANSWER=#isanswer#,
+		DATES=#dates#,
+		GUEST_NO=#guest_no#,
+		CATEGORY=#category#
+		where NO=#no#
+	</update>
+	<delete id="Qna_delete" parameterClass="int">
+	 	delete from MIN_TSHOP_QNA where NO=#no#
+	</delete>
+	<update id="Qna_answer" parameterClass="shop.Qna_Data_Bean">
+	 	update MIN_TSHOP_QNA set ANSWER=#answer#, ISANSWER=#isanswer# where NO=#no#
+	</update>
+	<update id="Qna_answerDel" parameterClass="int">
+	 	update MIN_TSHOP_QNA set ANSWER='', ISANSWER=0 where NO=#no#
+	</update>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Faq_DB_Bean  -->
+	<select id="Faq_count" parameterClass="java.util.Map" resultClass="int">
+	 	select count(*) from MIN_TSHOP_FAQ
+	 	<isEqual property="search" compareValue="-1"> where SUBJECT like '%'||||'%' </isEqual>
+	 	<isEqual property="search" compareValue="1"> where SUBJECT like '%'||#search_value#||'%' </isEqual>
+	 	<isEqual property="search" compareValue="2"> where MEMO like '%'||#search_value#||'%' </isEqual>
+	 	<isEqual property="search" compareValue="3"> where SUBJECT like '%'||#search_value#||'%' or MEMO like '%'||#search_value#||'%' </isEqual>
+	 	<isNotEqual property="category" compareValue="-1"> and CATEGORY=#category# </isNotEqual>
+	</select>
+	<select id="Faq_getArticles" parameterClass="java.util.Map" resultClass="shop.Faq_Data_Bean">
+		select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_FAQ 
+	 	<isEqual property="search" compareValue="-1"> where SUBJECT like '%'||||'%' </isEqual>
+	 	<isEqual property="search" compareValue="1"> where SUBJECT like '%'||#search_value#||'%' </isEqual>
+	 	<isEqual property="search" compareValue="2"> where MEMO like '%'||#search_value#||'%' </isEqual>
+	 	<isEqual property="search" compareValue="3"> where SUBJECT like '%'||#search_value#||'%' or MEMO like '%'||#search_value#||'%' </isEqual>
+	 	<isNotEqual property="category" compareValue="-1"> and CATEGORY=#category# </isNotEqual>
+	 	order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<insert id="Faq_insert" parameterClass="shop.Faq_Data_Bean" >
+		insert into MIN_TSHOP_FAQ(CATEGORY,SUBJECT,MEMO,DATES)
+		values(#category#,#subject#,#memo#,#dates#)
+	</insert>
+	<select id="Faq_getArticle" parameterClass="int" resultClass="shop.Faq_Data_Bean">
+	 	select * from MIN_TSHOP_FAQ where NO=#no#
+	</select>
+	<update id="Faq_update" parameterClass="shop.Faq_Data_Bean">
+	 	update MIN_TSHOP_FAQ set
+		CATEGORY=#category#,
+		SUBJECT=#subject#,
+		MEMO=#memo#,
+		DATES=#dates#
+		where NO=#no#
+	</update>
+	<delete id="Faq_delete" parameterClass="int">
+	 	delete from MIN_TSHOP_FAQ where NO=#no#
+	</delete>
+	<!--   -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 
+
+ -->
+</sqlMap>
