@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+	<constant name="struts.action.extension" value="o" />
+    
+    
+    <package name="tour" extends="struts-default, tiles-default">
+    
+      <!-- 메인 -->
+      <action name="index" class="tour.Action_Index">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/index</result>
+      </action>
+      <action name="list_s" class="tour.Action_List_S">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/list_s</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      
+      
+      
+      
+      <!-- 리스트, 뷰 -->
+      <action name="list" class="tour.Action_List">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/list</result>
+      </action>
+      <action name="view" class="tour.Action_View">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/view</result>
+      </action>
+      
+      
+      
+      
+      
+      <!-- 회원 -->
+      <action name="join" class="tour.Action_Join">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/join</result>
+      </action>
+      <action name="join_write" class="tour.Action_Join" method="write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/join_write</result>
+      </action>
+      <action name="join_id_check" class="tour.Action_Join" method="id_check">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/join_id_check</result>
+      </action>
+      <action name="join_write_post" class="tour.Action_Join" method="write_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/join_write_post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      
+      
+      
+      
+      
+      <!-- 로그인, 아이디/비밀번호찾기 -->
+      <action name="login" class="tour.Action_Login">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/login</result>
+      </action>
+      <action name="login_post" class="tour.Action_Login" method="post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="logout" class="tour.Action_Login" method="logout">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="login_edit" class="tour.Action_Login" method="edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/login_edit</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="login_edit_post" class="tour.Action_Login" method="edit_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      
+      <action name="find_id" class="tour.Action_Find">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/find_id</result>
+      </action>
+      <action name="find_id_post" class="tour.Action_Find" method="id_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/find_id_post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="find_pw" class="tour.Action_Find" method="pw">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/find_pw</result>
+      </action>
+      <action name="find_pw_post" class="tour.Action_Find" method="pw_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/find_pw_post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="find_pw_change" class="tour.Action_Find" method="pw_change">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <!-- 장바구니, 예약 -->
+      <action name="basket" class="tour.Action_Basket">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/basket</result>
+      </action>
+      <action name="basket_add" class="tour.Action_Basket" method="add">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="basket_edit" class="tour.Action_Basket" method="edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="basket_del" class="tour.Action_Basket" method="del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      
+      <action name="reserve" class="tour.Action_Reserve">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/reserve</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="reserve_post" class="tour.Action_Reserve" method="post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/reserve_post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      
+      
+      
+      
+      
+      <!-- 마이페이지 -->
+      <action name="mypage" class="tour.Action_Mypage">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/mypage</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="mypage_view" class="tour.Action_Mypage" method="view">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/mypage_view</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="mypage_cancel" class="tour.Action_Mypage" method="cancel">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="mypage_review" class="tour.Action_Mypage" method="review">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/mypage_review</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="mypage_review_post" class="tour.Action_Mypage" method="review_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/mypage_review_post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <!-- 관리자페이지 -->
+      <action name="admin" class="tour.Action_Admin">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/admin</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_list" class="tour.Action_Admin_List">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/admin_list</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_list_write" class="tour.Action_Admin_List" method="write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/admin_list_write</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_list_write_post" class="tour.Action_Admin_List" method="write_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="fileUpload" />
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_list_reserve_post" class="tour.Action_Admin_List" method="reserve_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="admin_list_reserve_del" class="tour.Action_Admin_List" method="reserve_del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+      </action>
+      <action name="admin_list_edit" class="tour.Action_Admin_List" method="edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/admin_list_edit</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_list_edit_post" class="tour.Action_Admin_List" method="edit_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="fileUpload" />
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_list_del" class="tour.Action_Admin_List" method="del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      
+      <action name="admin_reserve" class="tour.Action_Admin_Reserve">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/admin_reserve</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_reserve_pay" class="tour.Action_Admin_Reserve" method="pay">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_reserve_view" class="tour.Action_Admin_Reserve" method="view">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/admin_reserve_view</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_member" class="tour.Action_Admin_Member">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/admin_member</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_member_edit" class="tour.Action_Admin_Member" method="edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/admin_member_edit</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_member_edit_post" class="tour.Action_Admin_Member" method="edit_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="admin_member_del" class="tour.Action_Admin_Member" method="del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      
+      
+      
+      
+      
+	  <!-- 고객센터 qna -->
+      <action name="qna" class="tour.Action_Qna">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/qna</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_write" class="tour.Action_Qna" method="write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/qna_write</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_write_post" class="tour.Action_Qna" method="write_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_view" class="tour.Action_Qna" method="view">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/qna_view</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_edit" class="tour.Action_Qna" method="edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/qna_edit</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_edit_post" class="tour.Action_Qna" method="edit_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_del" class="tour.Action_Qna" method="del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_answer" class="tour.Action_Qna" method="answer">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="qna_answer_del" class="tour.Action_Qna" method="answer_del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+
+
+
+
+
+
+
+
+
+
+	  <!-- 고객센터 notice -->
+      <action name="notice" class="tour.Action_Notice">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/notice</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="notice_write" class="tour.Action_Notice" method="write">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/notice_write</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="notice_write_post" class="tour.Action_Notice" method="write_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="notice_view" class="tour.Action_Notice" method="view">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/notice_view</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="notice_edit" class="tour.Action_Notice" method="edit">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/notice_edit</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="notice_edit_post" class="tour.Action_Notice" method="edit_post">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+      <action name="notice_del" class="tour.Action_Notice" method="del">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result name="success" type="tiles">tour/post</result>
+        <result name="error" type="tiles">tour/error</result>
+        <result name="login" type="tiles">tour/post</result>
+      </action>
+
+      
+      
+      
+      
+      
+    </package>
+    
+</struts>

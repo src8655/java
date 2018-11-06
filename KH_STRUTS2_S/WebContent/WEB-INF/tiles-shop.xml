@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- 결과 -->
+	<definition name="tour/post" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 결과" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/post.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/error" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 에러" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/error.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	<!-- 메인 -->
+	<definition name="tour/index" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 메인" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/index.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/list_s" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 검색" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/list_s.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	<!-- 리스트, 뷰 -->
+	<definition name="tour/list" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 리스트" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/list.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/view" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 보기" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/view.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	<!-- 회원가입 -->
+	<definition name="tour/join" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 약관동의" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/join.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/join_write" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 회원가입작성" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/join_write.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/join_id_check" template="/tour/template/layout_popup.jsp">
+		<put-attribute name="title" value="KHTOUR 아이디중복검사" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/join_id_check.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	
+	<!-- 로그인, 아이디/비번찾기 -->
+	<definition name="tour/join_write_post" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 회원가입완료" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/join_write_post.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/login" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 로그인" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/login.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/find_id" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 아이디찾기" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/find_id.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/find_id_post" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 아이디찾기결과" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/find_id_post.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/find_pw" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 비밀번호찾기" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/find_pw.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/find_pw_post" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 비밀번호찾기결과" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/find_pw_post.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/login_edit" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 회원정보수정" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/login_edit.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 장바구니, 예약 -->
+	<definition name="tour/basket" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 상품바구니" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/basket.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/reserve" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 상품예약" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/reserve.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/reserve_post" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 상품예약완료" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/reserve_post.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 마이페이지 -->
+	<definition name="tour/mypage" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 예약정보" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/mypage.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/mypage_view" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 예약상세정보" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/mypage_view.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/mypage_review" template="/tour/template/layout_popup.jsp">
+		<put-attribute name="title" value="KHTOUR 리뷰작성" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/mypage_review.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/mypage_review_post" template="/tour/template/layout_popup.jsp">
+		<put-attribute name="title" value="KHTOUR 리뷰작성완료" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/mypage_review_post.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 관리자페이지 -->
+	<definition name="tour/admin" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 관리자페이지" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/admin_list_write" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 작성하기" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin_list_write.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/admin_list" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 상품리스트" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin_list.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/admin_list_edit" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 상품수정" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin_list_edit.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/admin_reserve" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 예약리스트" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin_reserve.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/admin_reserve_view" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 예약상세보기" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin_reserve_view.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/admin_member" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 회원관리" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin_member.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/admin_member_edit" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 회원수정" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/admin_member_edit.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+
+	<!-- 고객센터 qna -->
+	<definition name="tour/qna" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 문의게시판" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/qna.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/qna_write" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 문의게시판 작성" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/qna_write.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/qna_view" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 문의게시판 보기" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/qna_view.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/qna_edit" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 문의게시판 수정" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/qna_edit.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 고객센터 notice -->
+	<definition name="tour/notice" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 공지사항" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/notice.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/notice_write" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 공지사항 작성" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/notice_write.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/notice_view" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 공지사항 보기" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/notice_view.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	<definition name="tour/notice_edit" template="/tour/template/layout.jsp">
+		<put-attribute name="title" value="KHTOUR 공지사항 수정" />
+		<put-attribute name="header" value="/tour/template/header.jsp" />
+		<put-attribute name="body" value="/tour/notice_edit.jsp" />
+		<put-attribute name="footer" value="/tour/template/footer.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+ 
+</tiles-definitions>

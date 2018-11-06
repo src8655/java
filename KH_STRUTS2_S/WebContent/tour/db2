@@ -1,0 +1,467 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 화요일-11월-06-2018   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Trigger MIN_TADDR_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TADDR_TRI" 
+   before insert on "LSM8655"."MIN_TADDR" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TADDR_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TADDR_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TBOARD_COMMENT_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TBOARD_COMMENT_TRI" 
+   before insert on "LSM8655"."MIN_TBOARD_COMMENT" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TBOARD_COMMENT_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TBOARD_COMMENT_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TBOARD_DATA_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TBOARD_DATA_TRI" 
+   before insert on "LSM8655"."MIN_TBOARD_DATA" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TBOARD_SEQ2.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TBOARD_DATA_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TMEMBER_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TMEMBER_TRI" 
+   before insert on "LSM8655"."MIN_TMEMBER" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TBOARD_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TMEMBER_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TOUR_LIST_RESERVE_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TOUR_LIST_RESERVE_TRI" 
+   before insert on "LSM8655"."MIN_TOUR_LIST_RESERVE" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TOUR_LIST_RESERVE_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TOUR_LIST_RESERVE_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TOUR_LIST_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TOUR_LIST_TRI" 
+   before insert on "LSM8655"."MIN_TOUR_LIST" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TOUR_LIST_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TOUR_LIST_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TOUR_MEMBER_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TOUR_MEMBER_TRI" 
+   before insert on "LSM8655"."MIN_TOUR_MEMBER" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TOUR_MEMBER_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TOUR_MEMBER_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TOUR_NOTICE_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TOUR_NOTICE_TRI" 
+   before insert on "LSM8655"."MIN_TOUR_NOTICE" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TOUR_NOTICE_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TOUR_NOTICE_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TOUR_QNA
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TOUR_QNA" 
+   before insert on "LSM8655"."MIN_TOUR_QNA" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TOUR_QNA_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TOUR_QNA" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TOUR_RESERVE_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TOUR_RESERVE_TRI" 
+   before insert on "LSM8655"."MIN_TOUR_RESERVE" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TOUR_RESERVE_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TOUR_RESERVE_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TOUR_REVIEW_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TOUR_REVIEW_TRI" 
+   before insert on "LSM8655"."MIN_TOUR_REVIEW" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TOUR_REVIEW_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TOUR_REVIEW_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_FAQ_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_FAQ_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_FAQ" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_FAQ_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_FAQ_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_LIST_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_LIST_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_LIST" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_LIST_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_LIST_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_MEMBER_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_MEMBER_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_MEMBER" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_MEMBER_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_MEMBER_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_QNA_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_QNA_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_QNA" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_QNA_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_QNA_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_SELL_GROUP_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_SELL_GROUP_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_SELL_GROUP" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_SELL_GROUP_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_SELL_GROUP_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_SELL_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_SELL_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_SELL" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_SELL_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_SELL_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_VIEW_QNA_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_VIEW_QNA_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_VIEW_QNA" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_VIEW_QNA_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_QNA_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_TSHOP_VIEW_REVIEW_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" 
+   before insert on "LSM8655"."MIN_TSHOP_VIEW_REVIEW" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_TSHOP_VIEW_REVIEW_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_TSHOP_VIEW_REVIEW_TRI" ENABLE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+--  파일이 생성됨 - 화요일-11월-06-2018   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence MIN_TADDR_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TADDR_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 42641 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TBOARD_COMMENT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TBOARD_COMMENT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 5001 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TBOARD_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TBOARD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 5181 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TBOARD_SEQ2
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TBOARD_SEQ2"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 7002 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TOUR_LIST_RESERVE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TOUR_LIST_RESERVE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1149 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TOUR_LIST_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TOUR_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1090 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TOUR_MEMBER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TOUR_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1042 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TOUR_NOTICE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TOUR_NOTICE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1030 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TOUR_QNA_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TOUR_QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1043 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TOUR_RESERVE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TOUR_RESERVE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1080 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TOUR_REVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TOUR_REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1040 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_FAQ_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_FAQ_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1452 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_LIST_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 10152 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_MEMBER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 5302 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_QNA_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 1252 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_SELL_GROUP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_GROUP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 4002 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_SELL_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_SELL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 6202 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_VIEW_QNA_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_VIEW_QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 2452 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_TSHOP_VIEW_REVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_TSHOP_VIEW_REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 50 START WITH 3402 CACHE 20 NOORDER  NOCYCLE ;

@@ -1,0 +1,129 @@
+	html {
+		height:100%;
+		border:0;
+	}
+
+	body {
+		height:100%;
+		margin: 0px;
+		padding: 10px;
+		border-style:none;
+		background-color:#EBEAE7
+	}
+
+	form {
+		margin: 0px;
+		padding: 0px;
+		display:inline;
+	}
+
+	BODY,TD,BR,LEGEND	{font-size:9pt}
+	LEGEND	{color:#1C4FAC}
+	.imgAlign	{cursor:pointer;border:3px solid buttonface}
+	.imgAlignOn	{cursor:pointer;border:3px solid #4C84BE}
+
+	fieldset {
+		margin: 6px 0px;
+	}
+
+	IMG.on	{cursor:pointer;border:1px solid #cdcdcd}
+	IMG.off	{cursor:pointer;border:1px solid white}
+
+	.tah11px {font-family:Tahoma;font-size:11px}
+
+	.bold { font-weight: bold}
+
+	A.AutoLinkType_red:link		{text-decoration:none;color:#D8442C;border-bottom:2px solid #E78B29}
+	A.AutoLinkType_red:visited	{text-decoration:none;color:#D8442C;border-bottom:2px solid #E78B29}
+	A.AutoLinkType_red:active	{text-decoration:none;color:#D8442C;border-bottom:2px solid #E78B29}
+	A.AutoLinkType_red:hover	{text-decoration:none;color:#A9250F;border-bottom:2px solid #DD7611}
+
+	A.AutoLinkType_blue:link	{text-decoration:none;color:#2A61A4;border-bottom:2px solid #37AFCD}
+	A.AutoLinkType_blue:visited	{text-decoration:none;color:#2A61A4;border-bottom:2px solid #37AFCD}
+	A.AutoLinkType_blue:active	{text-decoration:none;color:#2A61A4;border-bottom:2px solid #37AFCD}
+	A.AutoLinkType_blue:hover	{text-decoration:none;color:#144684;border-bottom:2px solid #3796CD}
+
+	A.AutoLinkType_green:link		{text-decoration:none;color:#368E36;border-bottom:2px solid #76BD31}
+	A.AutoLinkType_green:visited	{text-decoration:none;color:#368E36;border-bottom:2px solid #76BD31}
+	A.AutoLinkType_green:active		{text-decoration:none;color:#368E36;border-bottom:2px solid #76BD31}
+	A.AutoLinkType_green:hover		{text-decoration:none;color:#136F13;border-bottom:2px solid #5FA90F}
+
+	A.AutoLinkType_0001:link {text-decoration:none;color:#825C00;border-bottom:2px solid #FFC105}
+	A.AutoLinkType_0001:visited {text-decoration:none;color:#825C00;border-bottom:2px solid #FFC105}
+	A.AutoLinkType_0001:active {text-decoration:none;color:#825C00;border-bottom:2px solid #FFC105}
+	A.AutoLinkType_0001:hover {text-decoration:none;color:#DA9A00;border-bottom:2px solid #DEA700}
+
+	A.AutoLinkType_0002:link {text-decoration:none;color:#820006;border-bottom:2px solid #CB7BA3}
+	A.AutoLinkType_0002:visited {text-decoration:none;color:#820006;border-bottom:2px solid #CB7BA3}
+	A.AutoLinkType_0002:active {text-decoration:none;color:#820006;border-bottom:2px solid #CB7BA3}
+	A.AutoLinkType_0002:hover {text-decoration:none;color:#CB7BA3;border-bottom:2px solid #C5558F}
+
+	A.AutoLinkType_0003:link {text-decoration:none;color:#800082;border-bottom:2px solid #BC7ACC}
+	A.AutoLinkType_0003:visited {text-decoration:none;color:#800082;border-bottom:2px solid #BC7ACC}
+	A.AutoLinkType_0003:active {text-decoration:none;color:#800082;border-bottom:2px solid #BC7ACC}
+	A.AutoLinkType_0003:hover {text-decoration:none;color:#BC7ACC;border-bottom:2px solid #B65ECC}
+
+	A.AutoLinkType_0004:link {text-decoration:none;color:#001F82;border-bottom:2px solid #7987CD}
+	A.AutoLinkType_0004:visited {text-decoration:none;color:#001F82;border-bottom:2px solid #7987CD}
+	A.AutoLinkType_0004:active {text-decoration:none;color:#001F82;border-bottom:2px solid #7987CD}
+	A.AutoLinkType_0004:hover {text-decoration:none;color:#7987CD;border-bottom:2px solid #5168C9}
+
+	A.AutoLinkType_0005:link {text-decoration:none;color:#005E6C;border-bottom:2px solid #78C5CE}
+	A.AutoLinkType_0005:visited {text-decoration:none;color:#005E6C;border-bottom:2px solid #78C5CE}
+	A.AutoLinkType_0005:active {text-decoration:none;color:#005E6C;border-bottom:2px solid #78C5CE}
+	A.AutoLinkType_0005:hover {text-decoration:none;color:#78C5CE;border-bottom:2px solid #3BB6C5}
+
+	A.AutoLinkType_0006:link {text-decoration:none;color:#007782;border-bottom:2px solid #78CE9A}
+	A.AutoLinkType_0006:visited {text-decoration:none;color:#007782;border-bottom:2px solid #78CE9A}
+	A.AutoLinkType_0006:active {text-decoration:none;color:#007782;border-bottom:2px solid #78CE9A}
+	A.AutoLinkType_0006:hover {text-decoration:none;color:#78CE9A;border-bottom:2px solid #53C781}
+
+	A.AutoLinkType_0007:link {text-decoration:none;color:#2E6C00;border-bottom:2px solid #B5CE78}
+	A.AutoLinkType_0007:visited {text-decoration:none;color:#2E6C00;border-bottom:2px solid #B5CE78}
+	A.AutoLinkType_0007:active {text-decoration:none;color:#2E6C00;border-bottom:2px solid #B5CE78}
+	A.AutoLinkType_0007:hover {text-decoration:none;color:#B5CE78;border-bottom:2px solid #9FC446}
+
+	A.AutoLinkType_0008:link {text-decoration:none;border-bottom:2px solid #9D9D9D}
+	A.AutoLinkType_0008:visited {text-decoration:none;border-bottom:2px solid #9D9D9D}
+	A.AutoLinkType_0008:active {text-decoration:none;border-bottom:2px solid #9D9D9D}
+	A.AutoLinkType_0008:hover {text-decoration:none;color:#9D9D9D;border-bottom:2px solid #858585}
+
+	A.AutoLinkType_0009:link {text-decoration:none;color:#825C00;border-bottom:1px dashed #825C00;}
+	A.AutoLinkType_0009:visited {text-decoration:none;color:#825C00;border-bottom:1px dashed #825C00;}
+	A.AutoLinkType_0009:active {text-decoration:none;color:#825C00;border-bottom:1px dashed #825C00;}
+	A.AutoLinkType_0009:hover {text-decoration:none;color:#DA9A00;border-bottom:1px dashed #825C00}
+
+	A.AutoLinkType_0010:link {text-decoration:none;color:#820006;border-bottom:1px dashed #820006;}
+	A.AutoLinkType_0010:visited {text-decoration:none;color:#820006;border-bottom:1px dashed #820006;}
+	A.AutoLinkType_0010:active {text-decoration:none;color:#820006;border-bottom:1px dashed #820006;}
+	A.AutoLinkType_0010:hover {text-decoration:none;color:#FF67B6;border-bottom:1px dashed #820006;}
+
+	A.AutoLinkType_0011:link {text-decoration:none;color:#800082;border-bottom:1px dashed #800082;}
+	A.AutoLinkType_0011:visited {text-decoration:none;color:#800082;border-bottom:1px dashed #800082;}
+	A.AutoLinkType_0011:active {text-decoration:none;color:#800082;border-bottom:1px dashed #800082;}
+	A.AutoLinkType_0011:hover {text-decoration:none;color:#E167FF;border-bottom:1px dashed #800082;}
+
+	A.AutoLinkType_0012:link {text-decoration:none;color:#001F82;border-bottom:1px dashed #001F82;}
+	A.AutoLinkType_0012:visited {text-decoration:none;color:#001F82;border-bottom:1px dashed #001F82;}
+	A.AutoLinkType_0012:active {text-decoration:none;color:#001F82;border-bottom:1px dashed #001F82;}
+	A.AutoLinkType_0012:hover {text-decoration:none;color:#678EFF;border-bottom:1px dashed #001F82;}
+
+	A.AutoLinkType_0013:link {text-decoration:none;color:#005E6C;border-bottom:1px dashed #005E6C;}
+	A.AutoLinkType_0013:visited {text-decoration:none;color:#005E6C;border-bottom:1px dashed #005E6C;}
+	A.AutoLinkType_0013:active {text-decoration:none;color:#005E6C;border-bottom:1px dashed #005E6C;}
+	A.AutoLinkType_0013:hover {text-decoration:none;color:#00C7E4;border-bottom:1px dashed #005E6C;}
+
+	A.AutoLinkType_0014:link {text-decoration:none;color:#007782;border-bottom:1px dashed #007782;}
+	A.AutoLinkType_0014:visited {text-decoration:none;color:#007782;border-bottom:1px dashed #007782;}
+	A.AutoLinkType_0014:active {text-decoration:none;color:#007782;border-bottom:1px dashed #007782;}
+	A.AutoLinkType_0014:hover {text-decoration:none;color:#00CCDE;border-bottom:1px dashed #007782;}
+
+	A.AutoLinkType_0015:link {text-decoration:none;color:#2E6C00;border-bottom:1px dashed #2E6C00;}
+	A.AutoLinkType_0015:visited {text-decoration:none;color:#2E6C00;border-bottom:1px dashed #2E6C00;}
+	A.AutoLinkType_0015:active {text-decoration:none;color:#2E6C00;border-bottom:1px dashed #2E6C00;}
+	A.AutoLinkType_0015:hover {text-decoration:none;color:#62DA00;border-bottom:1px dashed #2E6C00;}
+
+	A.AutoLinkType_0016:link {text-decoration:none;border-bottom:1px dashed #404040;}
+	A.AutoLinkType_0016:visited {text-decoration:none;border-bottom:1px dashed #404040;}
+	A.AutoLinkType_0016:active {text-decoration:none;border-bottom:1px dashed #404040;}
+	A.AutoLinkType_0016:hover {text-decoration:none;color:#ABABAB;border-bottom:1px dashed #404040;}

@@ -1,0 +1,176 @@
+/* 사이트 전체에 적용되야하는 스타일 시작 */
+
+	/* 기본 링크 스타일 */
+ 
+
+
+	/* 추가 링크 스타일 */
+	A.AutoLinkType_red:link		{text-decoration:none;color:#D8442C;border-bottom:2px solid #E78B29}
+	A.AutoLinkType_red:visited	{text-decoration:none;color:#D8442C;border-bottom:2px solid #E78B29}
+	A.AutoLinkType_red:active	{text-decoration:none;color:#D8442C;border-bottom:2px solid #E78B29}
+	A.AutoLinkType_red:hover	{text-decoration:none;color:#A9250F;border-bottom:2px solid #DD7611}
+
+	A.AutoLinkType_blue:link	{text-decoration:none;color:#2A61A4;border-bottom:2px solid #37AFCD}
+	A.AutoLinkType_blue:visited	{text-decoration:none;color:#2A61A4;border-bottom:2px solid #37AFCD}
+	A.AutoLinkType_blue:active	{text-decoration:none;color:#2A61A4;border-bottom:2px solid #37AFCD}
+	A.AutoLinkType_blue:hover	{text-decoration:none;color:#144684;border-bottom:2px solid #3796CD}
+
+	A.AutoLinkType_green:link		{text-decoration:none;color:#368E36;border-bottom:2px solid #76BD31}
+	A.AutoLinkType_green:visited	{text-decoration:none;color:#368E36;border-bottom:2px solid #76BD31}
+	A.AutoLinkType_green:active		{text-decoration:none;color:#368E36;border-bottom:2px solid #76BD31}
+	A.AutoLinkType_green:hover		{text-decoration:none;color:#136F13;border-bottom:2px solid #5FA90F}
+
+	A.AutoLinkType_0001:link {text-decoration:none;color:#825C00;border-bottom:2px solid #FFC105}
+	A.AutoLinkType_0001:visited {text-decoration:none;color:#825C00;border-bottom:2px solid #FFC105}
+	A.AutoLinkType_0001:active {text-decoration:none;color:#825C00;border-bottom:2px solid #FFC105}
+	A.AutoLinkType_0001:hover {text-decoration:none;color:#DA9A00;border-bottom:2px solid #DEA700}
+
+	A.AutoLinkType_0002:link {text-decoration:none;color:#820006;border-bottom:2px solid #CB7BA3}
+	A.AutoLinkType_0002:visited {text-decoration:none;color:#820006;border-bottom:2px solid #CB7BA3}
+	A.AutoLinkType_0002:active {text-decoration:none;color:#820006;border-bottom:2px solid #CB7BA3}
+	A.AutoLinkType_0002:hover {text-decoration:none;color:#CB7BA3;border-bottom:2px solid #C5558F}
+
+	A.AutoLinkType_0003:link {text-decoration:none;color:#800082;border-bottom:2px solid #BC7ACC}
+	A.AutoLinkType_0003:visited {text-decoration:none;color:#800082;border-bottom:2px solid #BC7ACC}
+	A.AutoLinkType_0003:active {text-decoration:none;color:#800082;border-bottom:2px solid #BC7ACC}
+	A.AutoLinkType_0003:hover {text-decoration:none;color:#BC7ACC;border-bottom:2px solid #B65ECC}
+
+	A.AutoLinkType_0004:link {text-decoration:none;color:#001F82;border-bottom:2px solid #7987CD}
+	A.AutoLinkType_0004:visited {text-decoration:none;color:#001F82;border-bottom:2px solid #7987CD}
+	A.AutoLinkType_0004:active {text-decoration:none;color:#001F82;border-bottom:2px solid #7987CD}
+	A.AutoLinkType_0004:hover {text-decoration:none;color:#7987CD;border-bottom:2px solid #5168C9}
+
+	A.AutoLinkType_0005:link {text-decoration:none;color:#005E6C;border-bottom:2px solid #78C5CE}
+	A.AutoLinkType_0005:visited {text-decoration:none;color:#005E6C;border-bottom:2px solid #78C5CE}
+	A.AutoLinkType_0005:active {text-decoration:none;color:#005E6C;border-bottom:2px solid #78C5CE}
+	A.AutoLinkType_0005:hover {text-decoration:none;color:#78C5CE;border-bottom:2px solid #3BB6C5}
+
+	A.AutoLinkType_0006:link {text-decoration:none;color:#007782;border-bottom:2px solid #78CE9A}
+	A.AutoLinkType_0006:visited {text-decoration:none;color:#007782;border-bottom:2px solid #78CE9A}
+	A.AutoLinkType_0006:active {text-decoration:none;color:#007782;border-bottom:2px solid #78CE9A}
+	A.AutoLinkType_0006:hover {text-decoration:none;color:#78CE9A;border-bottom:2px solid #53C781}
+
+	A.AutoLinkType_0007:link {text-decoration:none;color:#2E6C00;border-bottom:2px solid #B5CE78}
+	A.AutoLinkType_0007:visited {text-decoration:none;color:#2E6C00;border-bottom:2px solid #B5CE78}
+	A.AutoLinkType_0007:active {text-decoration:none;color:#2E6C00;border-bottom:2px solid #B5CE78}
+	A.AutoLinkType_0007:hover {text-decoration:none;color:#B5CE78;border-bottom:2px solid #9FC446}
+
+	A.AutoLinkType_0008:link {text-decoration:none;border-bottom:2px solid #9D9D9D}
+	A.AutoLinkType_0008:visited {text-decoration:none;border-bottom:2px solid #9D9D9D}
+	A.AutoLinkType_0008:active {text-decoration:none;border-bottom:2px solid #9D9D9D}
+	A.AutoLinkType_0008:hover {text-decoration:none;color:#9D9D9D;border-bottom:2px solid #858585}
+
+	A.AutoLinkType_0009:link {text-decoration:none;color:#825C00;border-bottom:1px dashed #825C00;}
+	A.AutoLinkType_0009:visited {text-decoration:none;color:#825C00;border-bottom:1px dashed #825C00;}
+	A.AutoLinkType_0009:active {text-decoration:none;color:#825C00;border-bottom:1px dashed #825C00;}
+	A.AutoLinkType_0009:hover {text-decoration:none;color:#DA9A00;border-bottom:1px dashed #825C00}
+
+	A.AutoLinkType_0010:link {text-decoration:none;color:#820006;border-bottom:1px dashed #820006;}
+	A.AutoLinkType_0010:visited {text-decoration:none;color:#820006;border-bottom:1px dashed #820006;}
+	A.AutoLinkType_0010:active {text-decoration:none;color:#820006;border-bottom:1px dashed #820006;}
+	A.AutoLinkType_0010:hover {text-decoration:none;color:#FF67B6;border-bottom:1px dashed #820006;}
+
+	A.AutoLinkType_0011:link {text-decoration:none;color:#800082;border-bottom:1px dashed #800082;}
+	A.AutoLinkType_0011:visited {text-decoration:none;color:#800082;border-bottom:1px dashed #800082;}
+	A.AutoLinkType_0011:active {text-decoration:none;color:#800082;border-bottom:1px dashed #800082;}
+	A.AutoLinkType_0011:hover {text-decoration:none;color:#E167FF;border-bottom:1px dashed #800082;}
+
+	A.AutoLinkType_0012:link {text-decoration:none;color:#001F82;border-bottom:1px dashed #001F82;}
+	A.AutoLinkType_0012:visited {text-decoration:none;color:#001F82;border-bottom:1px dashed #001F82;}
+	A.AutoLinkType_0012:active {text-decoration:none;color:#001F82;border-bottom:1px dashed #001F82;}
+	A.AutoLinkType_0012:hover {text-decoration:none;color:#678EFF;border-bottom:1px dashed #001F82;}
+
+	A.AutoLinkType_0013:link {text-decoration:none;color:#005E6C;border-bottom:1px dashed #005E6C;}
+	A.AutoLinkType_0013:visited {text-decoration:none;color:#005E6C;border-bottom:1px dashed #005E6C;}
+	A.AutoLinkType_0013:active {text-decoration:none;color:#005E6C;border-bottom:1px dashed #005E6C;}
+	A.AutoLinkType_0013:hover {text-decoration:none;color:#00C7E4;border-bottom:1px dashed #005E6C;}
+
+	A.AutoLinkType_0014:link {text-decoration:none;color:#007782;border-bottom:1px dashed #007782;}
+	A.AutoLinkType_0014:visited {text-decoration:none;color:#007782;border-bottom:1px dashed #007782;}
+	A.AutoLinkType_0014:active {text-decoration:none;color:#007782;border-bottom:1px dashed #007782;}
+	A.AutoLinkType_0014:hover {text-decoration:none;color:#00CCDE;border-bottom:1px dashed #007782;}
+
+	A.AutoLinkType_0015:link {text-decoration:none;color:#2E6C00;border-bottom:1px dashed #2E6C00;}
+	A.AutoLinkType_0015:visited {text-decoration:none;color:#2E6C00;border-bottom:1px dashed #2E6C00;}
+	A.AutoLinkType_0015:active {text-decoration:none;color:#2E6C00;border-bottom:1px dashed #2E6C00;}
+	A.AutoLinkType_0015:hover {text-decoration:none;color:#62DA00;border-bottom:1px dashed #2E6C00;}
+
+	A.AutoLinkType_0016:link {text-decoration:none;border-bottom:1px dashed #404040;}
+	A.AutoLinkType_0016:visited {text-decoration:none;border-bottom:1px dashed #404040;}
+	A.AutoLinkType_0016:active {text-decoration:none;border-bottom:1px dashed #404040;}
+	A.AutoLinkType_0016:hover {text-decoration:none;color:#ABABAB;border-bottom:1px dashed #404040;}
+
+
+	/* 보이기 & 감추기 Div 스타일 */
+	.showhideDiv {
+		margin:6 0 6 10px; padding: 4px; border:1px solid #cccccc; display: none;
+	}
+	.showhideDivShow {
+		margin:6 0 6 10px; padding: 4px; border:1px solid #cccccc; display: block;
+	}
+
+	/* 보이기 & 감추기 링크 스타일 */
+	A.showhide:link {text-decoration:none;color:#005E6C;}
+	A.showhide:visited {text-decoration:none;color:#005E6C;}
+	A.showhide:active {text-decoration:none;color:#005E6C;}
+	A.showhide:hover {text-decoration:none;color:#78C5CE;}
+
+
+	/* simple Div 스타일 */
+	.simpleDiv {
+		padding:5px;margin:10px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #444444; line-height: 125%; background-color: #FAFAFA; border: #D1D7DC solid 1px;
+	}
+
+
+	/* extraHtml 에 사용된 Div 스타일 (사용중인 버튼세트의 alditor.css 에도 추가되어야 함!) */
+
+	.extraDiv1 {
+		padding:5px; margin:10px; border:1px solid #AECDFF; background:#E7EFF7;
+	}
+	.extraDiv2 {
+		padding:5px; margin:10px; border:1px solid silver; background:#EEE;
+	}
+	.extraDiv3 {
+		padding:5px; margin:10px; border:1px solid TAN; background:IVORY;
+	}
+	.extraDiv4 {
+		padding:5px; margin:10px; border:1px solid #FAC6C6; background:#FFF0F5;
+	}
+	.extraDiv5 {
+		padding:5px; margin:10px; border:1px solid #4BAF4B; background:#E4FFDA;
+	}
+	.extraDiv6 {
+		padding:5px; margin:10px; background-color:#FAF8DC;border: 1px solid tomato;
+	}
+	.extraDiv7 {
+		padding:5px; margin:10px; background-color:#FEFEE9;border: 1px solid #e4e4e4;
+	}
+	.extraDiv8 {
+		padding:5px; margin:10px; background-color:#FDEAEF;border: 1px solid #ED1066;
+	}
+	.extraDiv9 {
+		padding:5px; margin:10px; background-color:#E4D7DB;border: 1px solid #7F7978;
+	}
+	.extraDiv10 {
+		padding:5px; margin:10px; background-color:#E4E8DA;border: 1px solid #726938;
+	}
+	.extraDiv11 {
+		padding:5px; margin:10px; background-color:#BC8F8F;border: 1px solid #C32545;
+	}
+	.extraDiv12 {
+		padding:5px; margin:10px; background-color:#52515B;border: 1px solid #B99E7D;color:white;
+	}
+	.extraDiv13 {
+		padding:5px; margin:10px; background-color:#B17E34;border: 1px solid #907D7C;color:white;
+	}
+	.extraDiv14 {
+		padding:5px;margin:10px; font-family: Courier, 'Courier New', monospace; font-size: 11px; color: #006600; background-color: #FAFAFA; border: 1px solid #D1D7DC;
+	}
+	.extraDiv15 {
+		padding:5px; margin:10px; border: #000000 1px dotted; background-color: #f6f6f6;
+	}
+	.extraDiv16 {
+		padding:5px; margin:10px; border: #EF5900 1px dotted; background-color: #FEFEE9;
+	}
+
+/* 사이트 전체에 적용되야하는 스타일 끝 */
