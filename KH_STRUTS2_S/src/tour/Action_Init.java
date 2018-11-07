@@ -99,7 +99,7 @@ public class Action_Init {
 
 		
 		//실제로는 풀것
-		/*
+		
 		//예약대기중인 상품예약 중에 출발날짜가 초과된 상품은 모두 제거
 		List list = (List)sqlmap.queryForList("List_Reserve_getArticlesCheck");
 		for(int i=0;i<list.size();i++) {
@@ -109,8 +109,8 @@ public class Action_Init {
 			if(now >= st) {
 				sqlmap.delete("List_Reserve_del", rldata.getNo());
 			}
-		}*/
-		
+		}
+	
 		
 		
 		

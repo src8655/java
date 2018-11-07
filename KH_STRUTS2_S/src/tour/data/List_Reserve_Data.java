@@ -21,6 +21,8 @@ public class List_Reserve_Data {
 	
 	private int choice_cnts = 0;
 	
+	private String times_tmp = "";
+	
 	public int getNo() {
 		return no;
 	}
@@ -129,6 +131,12 @@ public class List_Reserve_Data {
 	}
 	public void setTimes(String times) {
 		this.times = times;
+	}
+	public String getTimes_tmp() {
+		return times_tmp;
+	}
+	public void setTimes_tmp(String times_tmp) {
+		this.times_tmp = times_tmp;
 	}
 	
 	

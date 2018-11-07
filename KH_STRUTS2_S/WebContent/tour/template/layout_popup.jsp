@@ -136,6 +136,13 @@ background:url(./images/star_02.jpg) no-repeat left top;
 .stars_label input[type=checkbox]:checked + label {
 background:url(./images/star_01.jpg) no-repeat left top;
 }
+.agree_popup_bg {
+font-size:12px;
+line-height:20px;
+height:440px;
+padding:20px;
+overflow-y:scroll;
+}
 </style>
 <script type="text/javascript">
 //값 리턴해주기

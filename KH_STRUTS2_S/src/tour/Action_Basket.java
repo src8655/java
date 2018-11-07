@@ -83,6 +83,12 @@ public class Action_Basket extends Action_Init implements Action, ServletRequest
 				lrdata.setMoney(lrdata.getMoney()*lrdata.getChoice_cnts());
 				lrdata.setMoneys(Number_Format.number_format(lrdata.getMoney()));
 
+				long tmp_now = cal.getTimeInMillis()/1000;
+				long tmp_after = Long.parseLong(lrdata.getTimes())/1000;
+				long tmp_result = tmp_after - tmp_now;
+				
+				//시간차 저장
+				lrdata.setTimes_tmp(Long.toString(tmp_result));
 				
 				list.add(lrdata);
 			}

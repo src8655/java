@@ -136,6 +136,11 @@ public class Action_Index extends Action_Init implements Action, ServletRequestA
 		
 		return SUCCESS;
 	}
+	public String agree_popup() throws Exception {
+		super.run();
+
+		return SUCCESS;
+	}
 
 	public List getList_special() {
 		return list_special;

@@ -5,7 +5,7 @@
   	<ul>
   		<li><a href="notice.o"><img src="./images/bottom_menu_01.jpg" alt="고객센터" /></a></li>
   		<li><a href="#"><img src="./images/bottom_menu_02.jpg" alt="사이트맵" /></a></li>
-  		<li style="border:0px;"><a href="#"><img src="./images/bottom_menu_03.jpg" alt="개인정보취급방침" /></a></li>
+  		<li style="border:0px;"><a href="#100" onclick="window.open('agree_popup.o','sb','toolbar=no,location=no,status=no,scrollbars=no,resizable=no,width=500px,height=500px');"><img src="./images/bottom_menu_03.jpg" alt="개인정보취급방침" /></a></li>
   	</ul>
   	<div id="copy">
   		<h1><img src="./images/copy_logo.jpg" alt="로고" /></h1>

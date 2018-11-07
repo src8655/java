@@ -29,6 +29,17 @@ public class Action_Basket extends Action_Init implements Action, ServletRequest
 	String total_ship_moneys = "";
 	String total_rmoneys = "";
 	
+	//edit
+	int no = -1;
+	int counts = -1;
+	
+	//delete
+	//int no = -1;
+	
+	//add
+	//int no = -1;
+	//int counts = -1;
+	int res = 1;
 	
 	@Override
 	public String execute() throws Exception {
@@ -87,45 +98,185 @@ public class Action_Basket extends Action_Init implements Action, ServletRequest
     public static String number_format(int dSource) {
         return new DecimalFormat("#,##0").format(dSource);
     }
+    public String edit() throws Exception {
+		super.run();
+		
+		if(no == -1) {
+			msg = "잘못된 접근입니다.";
+			return ERROR;
+		}
+		if(counts == -1) {
+			msg = "개수를 입력하세요.";
+			return ERROR;
+		}
+		
+		
+		HashMap map = (HashMap)session.getAttribute("basket");
+		map.put(no, counts);
+		session.setAttribute("basket", map);
+		
+		msg = "수정 성공.";
+		url = "basket.o";
+		return SUCCESS;
+	}
+    public String delete() throws Exception {
+		super.run();
+		
+		if(no == -1) {
+			msg = "잘못된 접근입니다.";
+			return ERROR;
+		}
+		
+		
+		HashMap map = (HashMap)session.getAttribute("basket");
+		map.remove(no);
+		session.setAttribute("basket", map);
+		
+
+		msg = "삭제 성공";
+		url = "basket.o";
+		return SUCCESS;
+	}
+    public String add() throws Exception {
+		super.run();
+		
+		if(no == -1) {
+			msg = "잘못된 접근입니다.";
+			return ERROR;
+		}
+		if(counts < 1) {
+			msg = "개수를 입력하세요.";
+			return ERROR;
+		}
+		
+		//최초 입력
+		if(session.getAttribute("basket") == null) {
+			HashMap map = new HashMap();
+			map.put(no, counts);
+			session.setAttribute("basket", map);		//no=counts 형태로 저장
+		}else {
+			//최초입력이 아닐때
+			HashMap map = (HashMap)session.getAttribute("basket");
+			map.put(no, counts);
+			session.setAttribute("basket", map);	//     //를 구분자로 씀
+		}
+		
+		
+		if(res == 1) {
+			msg = "추가성공";
+			url = "basket.o";
+			return SUCCESS;
+		}
+		
+		if(res == 0) {
+			msg = "추가실패";
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
 	public List getList() {
 		return list;
+	}
+
+	public void setList(List list) {
+		this.list = list;
 	}
 
 	public int getIsEmpty() {
 		return isEmpty;
 	}
 
+	public void setIsEmpty(int isEmpty) {
+		this.isEmpty = isEmpty;
+	}
+
 	public int getTotal_money() {
 		return total_money;
+	}
+
+	public void setTotal_money(int total_money) {
+		this.total_money = total_money;
 	}
 
 	public int getTotal_discount_money() {
 		return total_discount_money;
 	}
 
+	public void setTotal_discount_money(int total_discount_money) {
+		this.total_discount_money = total_discount_money;
+	}
+
 	public int getTotal_ship_money() {
 		return total_ship_money;
+	}
+
+	public void setTotal_ship_money(int total_ship_money) {
+		this.total_ship_money = total_ship_money;
 	}
 
 	public int getTotal_rmoney() {
 		return total_rmoney;
 	}
 
+	public void setTotal_rmoney(int total_rmoney) {
+		this.total_rmoney = total_rmoney;
+	}
+
 	public String getTotal_moneys() {
 		return total_moneys;
+	}
+
+	public void setTotal_moneys(String total_moneys) {
+		this.total_moneys = total_moneys;
 	}
 
 	public String getTotal_discount_moneys() {
 		return total_discount_moneys;
 	}
 
+	public void setTotal_discount_moneys(String total_discount_moneys) {
+		this.total_discount_moneys = total_discount_moneys;
+	}
+
 	public String getTotal_ship_moneys() {
 		return total_ship_moneys;
 	}
 
+	public void setTotal_ship_moneys(String total_ship_moneys) {
+		this.total_ship_moneys = total_ship_moneys;
+	}
+
 	public String getTotal_rmoneys() {
 		return total_rmoneys;
+	}
+
+	public void setTotal_rmoneys(String total_rmoneys) {
+		this.total_rmoneys = total_rmoneys;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public int getCounts() {
+		return counts;
+	}
+
+	public void setCounts(int counts) {
+		this.counts = counts;
+	}
+
+	public int getRes() {
+		return res;
+	}
+
+	public void setRes(int res) {
+		this.res = res;
 	}
     
 }

@@ -6,7 +6,7 @@
 
   <div id="header">
     <div id="header_l">
-      <a href="#"><img src="./images/header_add.jpg" alt="즐겨찾기에 추가" /></a>
+      <a href="#100" onclick="addFavorite();"><img src="./images/header_add.jpg" alt="즐겨찾기에 추가" /></a>
     </div>
     <h1><a href="index.o"><img src="./images/logo.jpg" alt="로고" /></a></h1>
     <ul>

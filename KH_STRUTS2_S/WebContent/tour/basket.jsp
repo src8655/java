@@ -3,6 +3,41 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
+<script type="text/javascript">
+<c:forEach items="${list}" var="lrdata">
+var times_${lrdata.no} = ${lrdata.times_tmp};
+function settime_${lrdata.no}() {
+	var times_data = times_${lrdata.no};
+	var times_second = times_data%60;		//초
+	times_data = Math.floor(times_data/60);
+	var times_minute = times_data%60;		//분
+	times_data = Math.floor(times_data/60);
+	var times_hour = times_data%24;			//시
+	times_data = Math.floor(times_data/24);
+
+	if(times_second < 10) times_second = "0"+times_second;
+	if(times_minute < 10) times_minute = "0"+times_minute;
+	if(times_hour < 10) times_hour = "0"+times_hour;
+	
+	document.getElementById("left_time_${lrdata.no}").innerHTML = "<span style='font-weight:bold;'>"+times_data+"</span> 일 <span style='font-weight:bold;'>"+times_hour+":"+times_minute+":"+times_second+"</span>";
+	times_${lrdata.no} = times_${lrdata.no} - 1;
+	setTimeout ("settime_${lrdata.no}();", 1000); 
+}
+</c:forEach>
+function timers() {
+	<c:forEach items="${list}" var="lrdata">
+	settime_${lrdata.no}();
+	</c:forEach>
+}
+</script>
+
+
+
+
+
+
 <div class="basket_top">
 	<h1>
 		<div><img src="./images/basket.jpg" alt="상품바구니" /></div>
@@ -51,7 +86,9 @@
 					</tr>
 					<tr>
 						<th>도시</th>
-						<td colspan="3">${lrdata.city}</td>
+						<td>${lrdata.city}</td>
+						<th>마감일</th>
+						<td><div class="left_time" id="left_time_${lrdata.no}" style="border:0px;padding-bottom:0px;margin:0px;"></div></td>
 					</tr>
 					<tr>
 						<th>출발일(여행기간)</th>

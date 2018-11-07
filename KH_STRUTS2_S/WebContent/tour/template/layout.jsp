@@ -491,6 +491,7 @@ border-right:1px solid #636363;
 border-left:1px solid #636363;
 }
 .con_tab_data_ul {
+height:177px;
 width:819px;
 list-style:none;
 margin:25px 0 0 0;
@@ -2304,6 +2305,7 @@ top:170px;
 margin:0 0 0 823px;
 position:absolute;
 width:327px;
+z-index:1000;
 overflow:hidden;
 }
 #floating_body {
@@ -2366,6 +2368,24 @@ color:#666666;
 font-family:'Arial';
 margin:0px;
 padding:0px;
+overflow:hidden;
+}
+
+
+
+
+
+
+
+
+
+
+.left_time {
+border-bottom:1px solid #eeeeee;
+background:url(./images/view_clock.jpg) no-repeat left top;
+background-position:0px 1px;
+margin:0 0 5px 0;
+padding:0 0 5px 17px;
 overflow:hidden;
 }
 </style>
@@ -2530,9 +2550,34 @@ function showhide(var1) {
 	else
 		tmp.style.display = "none";
 }
+
+
+
+
+
+
+//즐겨찾기추가
+function addFavorite() {
+    var title = document.title; //현재 보고 있는 페이지의 Title
+    var url = location.href; //현재 보고 있는 페이지의 Url
+    if (window.sidebar && window.sidebar.addPanel) { //firefox
+        window.sidebar.addPanel(title, url, "");
+    } else if (window.opera && window.print) { //opera
+        var elem = document.createElement('a');
+        elem.setAttribute('href', url);
+        elem.setAttribute('title', title);
+        elem.setAttribute('rel', 'sidebar');
+        elem.click();
+    } else if (document.all) {
+        window.external.AddFavorite(url, title);
+    } else {
+        alert("해당브라우저는 즐겨찾기 추가기능이 지원되지 않습니다.\n\nCtrl+D 키를 누르시면 즐겨찾기에 추가하실 수 있습니다.");
+        return true;
+    }
+}
 </script>
 </head>
-<body onload="floatingMenu();">
+<body onload="floatingMenu();timers();">
 
 <tiles:insertAttribute name="header" />
 

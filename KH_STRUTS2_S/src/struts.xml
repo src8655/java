@@ -15,6 +15,11 @@
         <interceptor-ref name="params"/>
         <result type="tiles">tour/index</result>
       </action>
+      <action name="agree_popup" class="tour.Action_Index" method="agree_popup">
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="params"/>
+        <result type="tiles">tour/agree_popup</result>
+      </action>
       <action name="list_s" class="tour.Action_List_S">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>

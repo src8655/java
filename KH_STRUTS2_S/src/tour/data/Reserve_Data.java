@@ -21,7 +21,8 @@ public class Reserve_Data {
 	private String startdates = "";
 	private String enddates = "";
 	private String times = "";
-	
+
+	private String times_tmp = "";
 	
 	public int getNo() {
 		return no;
@@ -136,6 +137,12 @@ public class Reserve_Data {
 	}
 	public void setTimes(String times) {
 		this.times = times;
+	}
+	public String getTimes_tmp() {
+		return times_tmp;
+	}
+	public void setTimes_tmp(String times_tmp) {
+		this.times_tmp = times_tmp;
 	}
 	
 	

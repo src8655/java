@@ -80,8 +80,22 @@ public class Action_Mypage extends Action_Init implements Action, ServletRequest
 		map.put("end", paging.getBoard_ends());
 		list = (List)sqlmap.queryForList("Reserve_getArticles", map);
 		
+		
+		for(int i=0;i<list.size();i++) {
+			Reserve_Data ldata = (Reserve_Data)list.get(i);
+			if(ldata.getStatus() != 1) continue;			//입금대기중상태아니면 넘어감
+			long tmp_now = cal.getTimeInMillis()/1000;
+			long tmp_after = Long.parseLong(ldata.getTimes())/1000;
+			long tmp_result = tmp_after - tmp_now;
+			
+			//시간차 저장
+			ldata.setTimes_tmp(Long.toString(tmp_result));
+		}
+		
+		
+		
 		//실제로는 풀것
-		/*
+		
 		//입금대기중인데 출발일 초과상태면 취소처리
 		for(int i=0;i<list.size();i++) {
 			Reserve_Data rdata = (Reserve_Data)list.get(i);
@@ -96,7 +110,7 @@ public class Action_Mypage extends Action_Init implements Action, ServletRequest
 				sqlmap.update("Reserve_setStatus", map2);
 				rdata.setStatus(4);
 			}
-		}*/
+		}
 		
 		return SUCCESS;
 	}
@@ -117,6 +131,15 @@ public class Action_Mypage extends Action_Init implements Action, ServletRequest
 		SqlMapClient sqlmap = FactoryService.getSqlmap();
 		
 		rdata = (Reserve_Data)sqlmap.queryForObject("Reserve_getArticle", no);
+		
+		if(rdata.getStatus() == 1) {
+			long tmp_now = cal.getTimeInMillis()/1000;
+			long tmp_after = Long.parseLong(rdata.getTimes())/1000;
+			long tmp_result = tmp_after - tmp_now;
+			
+			//시간차 저장
+			rdata.setTimes_tmp(Long.toString(tmp_result));
+		}
 		
 		//내 게시글이 아니면
 		if(rdata.getMember_no() != member_info.getNo()) {

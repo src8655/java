@@ -15,6 +15,7 @@ import com.opensymphony.xwork2.Action;
 
 import config.FactoryService;
 import tour.data.List_Data;
+import tour.data.List_Reserve_Data;
 
 public class Action_View extends Action_Init implements Action, ServletRequestAware, ServletResponseAware {
 	int no = -1;
@@ -52,7 +53,15 @@ public class Action_View extends Action_Init implements Action, ServletRequestAw
 		list_review = (List)sqlmap.queryForList("Review_getArticles", map);
 		
 		
-		
+		for(int i=0;i<list.size();i++) {
+			List_Reserve_Data lrdata = (List_Reserve_Data)list.get(i);
+			long tmp_now = cal.getTimeInMillis()/1000;
+			long tmp_after = Long.parseLong(lrdata.getTimes())/1000;
+			long tmp_result = tmp_after - tmp_now;
+			
+			//시간차 저장
+			lrdata.setTimes_tmp(Long.toString(tmp_result));
+		}
 		
 		
 		

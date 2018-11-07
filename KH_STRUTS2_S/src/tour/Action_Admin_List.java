@@ -53,6 +53,7 @@ public class Action_Admin_List extends Action_Init implements Action, ServletReq
 	int max_cnts = 0;
 	//int money = 0;
 	int special = 0;
+	String endtimes = "";
 	
 	//edit
 	int no = -1;
@@ -222,19 +223,32 @@ public class Action_Admin_List extends Action_Init implements Action, ServletReq
 		else lrdata.setSpecial(0);
 		lrdata.setDates(year+"-"+month+"-"+day);
 		
-		
-		String[] split = startdates.split("-");
-		if(split.length != 3) {
-			msg = "잘못된 출발일 형식입니다.";
+
+		String[] spt = endtimes.split("T");
+		if(spt.length != 2) {
+			msg = "잘못된 마감일 형식입니다.";
 			return ERROR;
 		}
-
+		String[] split_time = spt[1].split(":");
+		if(split_time.length != 2) {
+			msg = "잘못된 마감일 형식입니다.";
+			return ERROR;
+		}
+		String[] split = spt[0].split("-");
+		if(split.length != 3) {
+			msg = "잘못된 마감일 형식입니다.";
+			return ERROR;
+		}
+		
+		
 		//times
 		int y = Integer.parseInt(split[0]);
 		int m = Integer.parseInt(split[1]);
 		int d = Integer.parseInt(split[2]);
+		int hh = Integer.parseInt(split_time[0]);
+		int mm = Integer.parseInt(split_time[1]);
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(y, m-1, d);
+		calendar.set(y, m-1, d, hh, mm);
 		lrdata.setTimes(Long.toString(calendar.getTimeInMillis()));
 		
 		SqlMapClient sqlmap = FactoryService.getSqlmap();
@@ -528,6 +542,12 @@ public class Action_Admin_List extends Action_Init implements Action, ServletReq
 	}
 	public void setList(List list) {
 		this.list = list;
+	}
+	public String getEndtimes() {
+		return endtimes;
+	}
+	public void setEndtimes(String endtimes) {
+		this.endtimes = endtimes;
 	}
 	
 }

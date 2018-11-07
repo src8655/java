@@ -3,6 +3,42 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
+
+<script type="text/javascript">
+<c:if test="${rdata.status eq 1}">
+var times_${rdata.no} = ${rdata.times_tmp};
+function settime_${rdata.no}() {
+	var times_data = times_${rdata.no};
+	var times_second = times_data%60;		//초
+	times_data = Math.floor(times_data/60);
+	var times_minute = times_data%60;		//분
+	times_data = Math.floor(times_data/60);
+	var times_hour = times_data%24;			//시
+	times_data = Math.floor(times_data/24);
+
+	if(times_second < 10) times_second = "0"+times_second;
+	if(times_minute < 10) times_minute = "0"+times_minute;
+	if(times_hour < 10) times_hour = "0"+times_hour;
+	
+	document.getElementById("left_time_${rdata.no}").innerHTML = "<span style='font-weight:bold;'>"+times_data+"</span> 일 <span style='font-weight:bold;'>"+times_hour+":"+times_minute+":"+times_second+"</span>";
+	times_${rdata.no} = times_${rdata.no} - 1;
+	setTimeout ("settime_${rdata.no}();", 1000); 
+}
+</c:if>
+function timers() {
+	<c:if test="${rdata.status eq 1}">
+	settime_${rdata.no}();
+	</c:if>
+}
+</script>
+
+
+
+
+
+
 <div class="basket_top" style="width:770px;margin:0 auto;margin-top:10px;margin-bottom:20px;">
 	<h1 style="width:300px;">
 		<div><img src="./images/basket.jpg" alt="상세정보" /></div>
@@ -62,10 +98,20 @@
 							예약상품번호&nbsp;&nbsp;<span style="color:#029c14;">${rdata.list_reserve_no}</span>
 						</th>
 					</tr>
+					<c:if test="${rdata.status ne 1}">
 					<tr>
 						<th>도시</th>
 						<td colspan="3">${rdata.city}</td>
 					</tr>
+					</c:if>
+					<c:if test="${rdata.status eq 1}">
+					<tr>
+						<th>도시</th>
+						<td>${rdata.city}</td>
+						<th>마감일</th>
+						<td><div class="left_time" id="left_time_${rdata.no}" style="border:0px;padding-bottom:0px;margin:0px;"></div></td>
+					</tr>
+					</c:if>
 					<tr>
 						<th>출발일(여행기간)</th>
 						<td colspan="3">${rdata.startdates} ~ ${rdata.enddates}(${rdata.days}일)</td>

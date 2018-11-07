@@ -4,10 +4,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
+
+
+<script type="text/javascript">
+<c:forEach items="${list}" var="lrdata">
+var times_${lrdata.no} = ${lrdata.times_tmp};
+function settime_${lrdata.no}() {
+	var times_data = times_${lrdata.no};
+	var times_second = times_data%60;		//초
+	times_data = Math.floor(times_data/60);
+	var times_minute = times_data%60;		//분
+	times_data = Math.floor(times_data/60);
+	var times_hour = times_data%24;			//시
+	times_data = Math.floor(times_data/24);
+
+	if(times_second < 10) times_second = "0"+times_second;
+	if(times_minute < 10) times_minute = "0"+times_minute;
+	if(times_hour < 10) times_hour = "0"+times_hour;
+	
+	document.getElementById("left_time_${lrdata.no}").innerHTML = "<span style='font-weight:bold;'>"+times_data+"</span> 일 <span style='font-weight:bold;'>"+times_hour+":"+times_minute+":"+times_second+"</span>";
+	times_${lrdata.no} = times_${lrdata.no} - 1;
+	setTimeout ("settime_${lrdata.no}();", 1000); 
+}
+</c:forEach>
+function timers() {
+	<c:forEach items="${list}" var="lrdata">
+	settime_${lrdata.no}();
+	</c:forEach>
+}
+</script>
+
   	</div>
   	<div class="contents_color">
   	<!--  -->
   	
+
 	<div class="tour_view_bg">
 		<h1>${ldata.subject}</h1>
 		<div class="tour_view">
@@ -17,7 +49,7 @@
 				<p><span style="font-weight:bold;">여행도시</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ldata.city}</p>
 				<p><span style="font-weight:bold;">여행기간</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ldata.days}일</p>
 				<p><span style="font-weight:bold;">항공사명</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ldata.air}</p>
-				<p>
+				<p style="line-height:20px;">
 					${ldata.memo1}
 				</p>
 			</div>
@@ -30,7 +62,7 @@
 				<col width="70px" />
 					<tr>
 						<th>출발/도착일</th>
-						<th>상품명</th>
+						<th>상품명<c:if test="${level eq 3}">/마감시간</c:if></th>
 						<th>인원선택</th>
 						<th>상품가격</th>
 						<th>담기</th>
@@ -45,7 +77,10 @@
 									<input type="date" name="startdates" class="tour_view_input" /><br />
 									<input type="date" name="enddates" class="tour_view_input" />
 								</td>
-								<td><input type="text" name="subject" class="tour_view_input" /></td>
+								<td>
+									<input type="text" name="subject" class="tour_view_input" /><br />
+									<input type="datetime-local" name="endtimes" class="tour_view_input" placeholder="마감일 0000-00-00T00:00" />
+								</td>
 								<td><input type="text" name="max_cnts" class="tour_view_input" /></td>
 								<td>
 									<input type="text" name="money" class="tour_view_input" /><br />
@@ -59,10 +94,14 @@
 					<tr>
 					<form action="basket_add.o" method="post" id="lr_form_${lrdata.no}">
 					<input type="hidden" name="no" value="${lrdata.no}" />
-						<td><span style="color:#297fb8;font-weight:bold;">${lrdata.startdates}</span><br /><span style="font-weight:bold;">${lrdata.enddates}</span></td>
+						<td>
+							<div class="left_time" id="left_time_${lrdata.no}"></div>
+							<span style="color:#297fb8;font-weight:bold;">${lrdata.startdates}</span><br /><span style="font-weight:bold;">${lrdata.enddates}</span>
+						</td>
 						<td style="text-align:left;height:50px;">
 						<c:if test="${lrdata.special eq 1}"><span style="font-weight:bold;color:red;">[!특가!]</span></c:if>
-						${lrdata.subject}</td>
+						${lrdata.subject}
+						</td>
 						<td>
 							<select name="max_cnts">
 								<c:forEach begin="1" end="${lrdata.max_cnts}" step="1" var="i">
