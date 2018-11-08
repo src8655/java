@@ -237,7 +237,7 @@
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="buys_post" class="shop.Action_Buys_Post">
+      <action name="buys_post" class="shop.Action_Buys" method="post">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/buys_post</result>
