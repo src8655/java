@@ -62,7 +62,9 @@ public class Action_Mypage_Admin_Payment extends Action_Init implements Action, 
 		
 		
 		if(sgdb.changeStatus_M(times, 2)) res = 1;
-		//changeShipStatus_M
+		
+		Sell_DB_Bean sdb = Sell_DB_Bean.getInstance();
+		sdb.changeStatus_M(times, 2);
 		
 		if(res == 1) {
 			msg = "입금확인 완료.";

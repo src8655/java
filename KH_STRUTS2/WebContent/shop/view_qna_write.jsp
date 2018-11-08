@@ -6,7 +6,7 @@
   	<div class="view_qna_write_h"><h1>문의내용 작성</h1></div>
   	<form action="view_qna_write_post.o" method="post" id="view_qna_write_form">
   		<input type="hidden" name="product_no" value="${no}" />
-  		<input type="hidden" name="sellers_no" value="${sellers_no}" />
+  		<input type="hidden" name="sellers_no2" value="${sellers_no}" />
 	  	<table cellspacing="0" cellpadding="5" border="0">
 	  		<col width="100px" />
 	  		<col width="500px" />

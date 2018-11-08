@@ -813,4 +813,13 @@ public class Sell_DB_Bean {
     	
     	return true;
     }
+    public boolean changeStatus_M(String times, int status) throws SQLException {
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	Map map = new HashMap();
+    	map.put("times", times);
+    	map.put("status", status);
+    	sqlmap.update("Sell_changeStatus2", map);
+    	
+    	return true;
+    }
 }

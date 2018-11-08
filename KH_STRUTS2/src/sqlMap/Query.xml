@@ -191,6 +191,9 @@
 	<update id="Sell_updateReview" parameterClass="int">
 	 	update MIN_TSHOP_SELL set HASREVIEW=1 where NO=#no#
 	</update>
+	<update id="Sell_changeStatus2" parameterClass="java.util.Map">
+	 	update MIN_TSHOP_SELL set STATUS=#status# where TIMES=#times#
+	</update>
 	<!--   -->
 	
 	

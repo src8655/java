@@ -134,34 +134,35 @@
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="mypage_sell" class="shop.Action_Mypage_Sell">
+      <action name="mypage_sell" class="shop.Action_Mypage" method="sell">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/mypage_sell</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="mypage_sell_post" class="shop.Action_Mypage_Sell_Post">
+      <action name="mypage_sell_post" class="shop.Action_Mypage" method="sell_post">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/post</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="mypage_sell_end" class="shop.Action_Mypage_Sell_End">
+      <action name="mypage_sell_end" class="shop.Action_Mypage" method="sell_end">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/mypage_sell_end</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="mypage_list" class="shop.Action_Mypage_List">
+      <action name="mypage_list" class="shop.Action_Mypage" method="list">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/mypage_list</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
+      
       <action name="del" class="shop.Action_Del">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
@@ -284,14 +285,14 @@
       
       
       
-      <action name="view_review" class="shop.Action_View_Review">
+      <action name="view_review" class="shop.Action_View" method="review">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/view_review</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="view_review_post" class="shop.Action_View_Review_Post">
+      <action name="view_review_post" class="shop.Action_View" method="review_post">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/view_review_post</result>
@@ -305,31 +306,31 @@
       
       
       
-      <action name="view_qna_write" class="shop.Action_View_Qna_Write">
+      <action name="view_qna_write" class="shop.Action_View" method="qna_write">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result type="tiles">shop/view_qna_write</result>
       </action>
-      <action name="view_qna_write_post" class="shop.Action_View_Qna_Write_Post">
+      <action name="view_qna_write_post" class="shop.Action_View" method="qna_write_post">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/view_qna_write_post</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="view_qna_del" class="shop.Action_View_Qna_Del">
+      <action name="view_qna_del" class="shop.Action_View" method="qna_del">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/post</result>
         <result name="login" type="tiles">shop/post</result>
         <result name="error" type="tiles">shop/post2</result>
       </action>
-      <action name="view_qna_answer" class="shop.Action_View_Qna_Answer">
+      <action name="view_qna_answer" class="shop.Action_View" method="qna_answer">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result type="tiles">shop/view_qna_answer</result>
       </action>
-      <action name="view_qna_answer_post" class="shop.Action_View_Qna_Answer_Post">
+      <action name="view_qna_answer_post" class="shop.Action_View" method="qna_answer_post">
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="params"/>
         <result name="success" type="tiles">shop/view_qna_answer_post</result>
