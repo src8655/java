@@ -23,7 +23,7 @@ public class Qna_DB_Bean {
     public static Qna_DB_Bean getInstance() {
         return instance;
     }
-    
+    /*
     private Connection getConnection() throws Exception {
     	Context context = new InitialContext();
 		DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
@@ -227,9 +227,9 @@ public class Qna_DB_Bean {
     	
     	try {
 			conn = getConnection();
-			/*
-			pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_QNA where ISANSWER=?");
-			pstmt.setInt(1, 0);*/
+			
+			//pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_QNA where ISANSWER=?");
+			//pstmt.setInt(1, 0);
 			pstmt = conn.prepareStatement("select count(*) from MIN_TSHOP_QNA");
 			rs = pstmt.executeQuery();
 			
@@ -377,7 +377,7 @@ public class Qna_DB_Bean {
     	
     	return false;
     }
-    
+    */
     
     
     

@@ -236,7 +236,7 @@ public class Action_Buys extends Action_Init implements Action, ServletRequestAw
 			}
 			//포인트를 초기화
 			Member_DB_Bean mdb = Member_DB_Bean.getInstance();
-			mdb.setPoint(member_info.getNo(), member_info.getPoint() - point_num);
+			mdb.setPoint_M(member_info.getNo(), member_info.getPoint() - point_num);
 		}
 				
 		

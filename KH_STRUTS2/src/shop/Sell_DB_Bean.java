@@ -23,7 +23,7 @@ public class Sell_DB_Bean {
     public static Sell_DB_Bean getInstance() {
         return instance;
     }
-    
+    /*
     private Connection getConnection() throws Exception {
     	Context context = new InitialContext();
 		DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
@@ -633,7 +633,7 @@ public class Sell_DB_Bean {
     	return true;
     }
     
-
+*/
 	//금액 형태로 바꾸기
     public static String number_format(int dSource) {
         return new DecimalFormat("#,##0").format(dSource);
@@ -822,4 +822,20 @@ public class Sell_DB_Bean {
     	
     	return true;
     }
+  //같은 페이지에 같은 그룹의 개수 구하기
+    public int group_count_M2(int start, int end, String times, int guest_no) throws SQLException {
+    	int count = 0;
+    	
+    	SqlMapClient sqlmap = FactoryService.getSqlmap();
+    	Map map = new HashMap();
+    	map.put("start", start);
+    	map.put("end", end);
+    	map.put("times", times);
+    	map.put("guest_no", guest_no);
+    	
+    	count = (int)sqlmap.queryForObject("Sell_group_count2", map);
+    	
+    	return count;
+    }
+    
 }

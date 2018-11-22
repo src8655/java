@@ -23,7 +23,7 @@ public class View_Qna_DB_Bean {
     public static View_Qna_DB_Bean getInstance() {
         return instance;
     }
-    
+    /*
     private Connection getConnection() throws Exception {
     	Context context = new InitialContext();
 		DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
@@ -273,7 +273,7 @@ public class View_Qna_DB_Bean {
     	
     	return false;
     }
-    
+    */
     
     
     

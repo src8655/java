@@ -194,6 +194,9 @@
 	<update id="Sell_changeStatus2" parameterClass="java.util.Map">
 	 	update MIN_TSHOP_SELL set STATUS=#status# where TIMES=#times#
 	</update>
+	<select id="Sell_group_count2" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from (select * from (select rownum as rnum,a.* from (select * from MIN_TSHOP_SELL where GUEST_NO=#guest_no# order by NO desc) a) where rnum between #start# and #end#) where TIMES=#times#
+	</select>
 	<!--   -->
 	
 	

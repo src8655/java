@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Config 2.0//EN" 
+ "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true"/>
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+			<property name="JDBC.Username" value="LSM8655"/>
+			<property name="JDBC.Password" value="minho123"/>
+		</dataSource>
+	</transactionManager>
+	<sqlMap resource="/sqlMap/Query.xml"/>
+</sqlMapConfig>
+<!--
+	custom.dao패키지 내에는 전부 Ibatis프레임워크에 대한 내용이 있다.
+	iBatis는 SQL문장을 처리하는데 쓰이는 프레임워크이고  /WEB-INF/ibatis-2.3.4.726.jar 라이브러리가
+	환경설정XML(SqlMapConfig.xml)이나 실제 쿼리수행파일(Query.xml)이나 CustomDAO(DAO클래스)내용을
+	처리해준다. 여기서는 ORACLE DB를 사용하기 위한 환경설정을 해줬는데 ConnectionPool을 사용한것은 아니고
+	일반 JDBC를 사용했다.
+	
+	기존의 DAO 내용으로 보자면..
+	Class JDBC{	
+	private Connection conn=null;
+	private PreparedStatement ps=null;
+	private final String url="jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+	
+	public JDBC(){
+		try{
+			class.forName(oracle.jdbc.driver.OracleDriver);
+		}catch(Exception ex){System.out.println(ex.getMessage();}
+	}
+	
+	public void getConnection(){
+		try{
+			conn=DriverManager.getConnection(url,"scott","tiger");
+		}catch(Exception ex){System.out.println(ex.getMessage();}
+	}
+	}
+	에 해당되는 내용.
+	
+	이제 Query.xml로 이동
+-->

@@ -22,7 +22,7 @@ public class Member_DB_Bean {
     public static Member_DB_Bean getInstance() {
         return instance;
     }
-    
+    /*
     private Connection getConnection() throws Exception {
     	Context context = new InitialContext();
 		DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
@@ -511,7 +511,7 @@ public class Member_DB_Bean {
 
 		return true;
     }
-    
+    */
    
     
     

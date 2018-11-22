@@ -57,7 +57,7 @@ public class Action_Mypage_Guest extends Action_Init implements Action, ServletR
 			Sell_Data_Bean sdata = (Sell_Data_Bean)list.get(i);
 			
 			//새로운게 나오면 같은 그룹의 개수만큼 rowspan값을 지정
-			if(!sdata.getTimes().equals(tmp)) sdata.setRowspans(sdb.group_count(paging.getBoard_starts(), paging.getBoard_ends(), sdata.getTimes(), sdata.getGuest_no()));
+			if(!sdata.getTimes().equals(tmp)) sdata.setRowspans(sdb.group_count_M2(paging.getBoard_starts(), paging.getBoard_ends(), sdata.getTimes(), sdata.getGuest_no()));
 			tmp = sdata.getTimes();
 			//금액형태로 바꾸기
 			sdata.setMoneys(number_format(sdata.getMoney()));
@@ -111,7 +111,7 @@ public class Action_Mypage_Guest extends Action_Init implements Action, ServletR
 			Sell_Data_Bean sdata = (Sell_Data_Bean)list.get(i);
 			
 			//새로운게 나오면 같은 그룹의 개수만큼 rowspan값을 지정
-			if(!sdata.getTimes().equals(tmp)) sdata.setRowspans(sdb.group_count(sdata.getTimes()));
+			if(!sdata.getTimes().equals(tmp)) sdata.setRowspans(sdb.group_count_M(sdata.getTimes()));
 			tmp = sdata.getTimes();
 			//금액형태로 바꾸기
 			sdata.setMoneys(number_format(sdata.getMoney()));
@@ -213,7 +213,7 @@ public class Action_Mypage_Guest extends Action_Init implements Action, ServletR
 		
 		//상태를 배송완료로 설정
 		int res = 0;
-		if(sgdb.changeStatus(no, 5)) {
+		if(sgdb.changeStatus_M(no, 5)) {
 			res = 1;
 			
 			//구매확정 완료 후 에는 해당 제품에 구매 카운트를 추가함

@@ -23,7 +23,7 @@ public class Sell_Group_DB_Bean {
     public static Sell_Group_DB_Bean getInstance() {
         return instance;
     }
-    
+    /*
     private Connection getConnection() throws Exception {
     	Context context = new InitialContext();
 		DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
@@ -268,13 +268,13 @@ public class Sell_Group_DB_Bean {
     	try {
 			conn = getConnection();
 
-			/*
+			
 			//삭제한 그룹에 포인트가 있으면 멤버에게 돌려주기
-			Sell_Group_Data_Bean sgdata = getArticle(times);
-			Member_DB_Bean mdb = Member_DB_Bean.getInstance();
-			Member_Data_Bean mdata = mdb.getArticle(sgdata.getGuest_no());
-			mdb.setPoint(mdata.getNo(), mdata.getPoint()+sgdata.getPoint());
-			*/
+			//Sell_Group_Data_Bean sgdata = getArticle(times);
+			//Member_DB_Bean mdb = Member_DB_Bean.getInstance();
+			//Member_Data_Bean mdata = mdb.getArticle(sgdata.getGuest_no());
+			//mdb.setPoint(mdata.getNo(), mdata.getPoint()+sgdata.getPoint());
+			
 			
 			//times가 같은 group을 제거
 			pstmt = conn.prepareStatement("delete from MIN_TSHOP_SELL_GROUP where TIMES=?");
@@ -365,48 +365,48 @@ public class Sell_Group_DB_Bean {
     	return true;
     }
 
-	//금액 형태로 바꾸기
+	
+    
+    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //금액 형태로 바꾸기
     public static String number_format(int dSource) {
         return new DecimalFormat("#,##0").format(dSource);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //입력하기
     public boolean insert_M(Sell_Group_Data_Bean sgdata) throws SQLException {
     	SqlMapClient sqlmap = FactoryService.getSqlmap();
