@@ -82,6 +82,10 @@ public class BoardService implements Board {
 	public Comment_Data getArticleComment(String no) {
 		return (Comment_Data)sqlMapClientTemplate.queryForObject("Comment_getArticle", no);
 	}
+	@Override
+	public void deleteComment(String no) {
+		sqlMapClientTemplate.delete("Comment_del", no);
+	}
 
 
 }

@@ -69,6 +69,9 @@
 		select NO,NAME,MEMO,BOARD_NO,DATES,RT_NO,PASSWORD,LEVELS
 		from MIN_TEST_COMMENT where RT_NO=#rt_no# order by NO desc
 	</select>
+	<delete id="Comment_del" parameterClass="String">
+		delete from MIN_TEST_COMMENT where NO=#no#
+	</delete>
 	
 	
 	

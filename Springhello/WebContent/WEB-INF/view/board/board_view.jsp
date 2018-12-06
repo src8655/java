@@ -51,7 +51,7 @@
 		<th style="width:100px;background:#d5e9ff;border:none;border:1px solid #A0A0A0;">${data.name}
 			<span style="font-weight:normal;">
 				<br />${data.dates}<br />
-				<a href="board_comment_del.do?no=${data.no}&amp;data_no=${no}&amp;pages=${pages}">[삭제]</a>
+				<a href="board_comment_del.do?no=${data.no}&amp;board_no=${no}&amp;pages=${pages}&amp;lang=${lang}">[삭제]</a>
 				<a href="#100" onclick="showhide('cmm${data.no}')">[답글]</a>
 			</span>
 		</th>

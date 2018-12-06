@@ -39,6 +39,7 @@ import board.model.Comment_Data;
 import board.model.List_Data;
 import board.model.List_Data_Xml_List;
 import board.service.BoardService;
+import board.service.Comment_Del_Validator;
 import board.service.Comment_Write_Validator;
 import board.service.List_Del_Validator;
 import board.service.List_Edit_Validator;
@@ -409,6 +410,53 @@ public class BoardController {
 		for(int i=array.length-1;i>=0;i--)
 			sb.append(array[i]);
 		return sb.toString();
+	}
+	//댓글삭제
+	@RequestMapping("/board/board_comment_del.do")
+	public ModelAndView board_comment_del(
+			@RequestParam(value="pages", defaultValue="1") int pages,
+			@RequestParam(value="no", defaultValue="-1") String no,
+			@RequestParam(value="board_no", defaultValue="-1") int board_no) throws SQLException {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("board/board_comment_del");
+		mav.addObject("pages", pages);
+		mav.addObject("no", no);
+		mav.addObject("board_no",board_no);
+		
+		return mav;
+	}
+	//댓글삭제 완료
+	@RequestMapping("/board/board_comment_del_post.do")
+	public ModelAndView board_comment_del_post(
+			@ModelAttribute("cdata") Comment_Data cdata,
+			BindingResult result,
+			@RequestParam(value="pages", defaultValue="1") int pages,
+			@RequestParam(value="no", defaultValue="-1") String no,
+			@RequestParam(value="board_no", defaultValue="-1") int board_no,
+			@RequestParam(value="password", defaultValue="") String password,
+			@RequestParam(value="lang", defaultValue="") String lang) throws SQLException {
+		
+		Comment_Data cdatas = boardService.getArticleComment(no);
+		cdata.setPassword(Md5Enc.getEncMD5(cdata.getPassword().getBytes()));
+		cdata.setPassword2(cdatas.getPassword());
+
+		ModelAndView mav = new ModelAndView();
+		new Comment_Del_Validator().validate(cdata, result);
+		if(result.hasErrors()) {
+			ObjectError oerror = (ObjectError)result.getAllErrors().get(0);
+			mav.setViewName("board/error");
+			mav.addObject("msg",oerror.getCode());
+			return mav;
+		}
+		
+		boardService.deleteComment(no);
+		
+		mav.setViewName("board/post");
+		mav.addObject("msg", "삭제 완료");
+		mav.addObject("url", "board_view.do?no="+board_no+"&pages="+pages+"&lang="+lang);
+		
+		return mav;
 	}
 	
 	

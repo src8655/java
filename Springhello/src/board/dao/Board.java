@@ -23,4 +23,5 @@ public interface Board {
 	List<Comment_Data> getComments(int board_no);
 	List<Comment_Data> getArticle_rtComment(Comment_Data cdata);
 	Comment_Data getArticleComment(String no);
+	void deleteComment(String no);
 }

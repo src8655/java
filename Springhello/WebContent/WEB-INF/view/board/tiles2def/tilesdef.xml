@@ -41,5 +41,9 @@
 			<put-attribute name="title" value="게시판 수정" />
 			<put-attribute name="body" value="/WEB-INF/view/board/board_edit.jsp" />
 		</definition>
+		<definition name="board/board_comment_del" extends="base_layout">
+			<put-attribute name="title" value="게시판 댓글삭제" />
+			<put-attribute name="body" value="/WEB-INF/view/board/board_comment_del.jsp" />
+		</definition>
 		
 	</tiles-definitions>
