@@ -1,0 +1,13 @@
+
+1. 서버열기
+	MultiServer.java 바로 실행
+	
+
+2. 클라이언트열기
+	MultiClientRoom.java 바로실행하면 배열 오류뜸(args[0]부분)
+	Run Configurations 로 들어가서 Argument에 닉네임을 써서 실행
+
+
+3. 방만들면 리스트에 방이 추가됨
+
+4. 여러사람이 들어가도 상관없음

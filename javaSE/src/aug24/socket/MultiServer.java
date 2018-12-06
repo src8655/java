@@ -21,7 +21,7 @@ public class MultiServer {
 		room_list.add(25);
 		room_list.add(26);*/
 		
-		ServerSocket serverSocket = new ServerSocket(2537);  
+		ServerSocket serverSocket = new ServerSocket(2538);  
 		MultiServerThread mst = null;  
 		boolean isStop = false;  
 		while(!isStop) {   

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+	<!DOCTYPE tiles-definitions PUBLIC
+	       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+	<tiles-definitions>
+
+		<!-- 공통된 레이아웃 요소 -->
+		<definition name="base_layout" template="/WEB-INF/view/board/template/layout.jsp" >
+			<put-attribute name="header" value="/WEB-INF/view/board/template/header.jsp" />
+			<put-attribute name="footer" value="/WEB-INF/view/board/template/footer.jsp" />
+		</definition>
+		
+		<definition name="board/post" extends="base_layout">
+			<put-attribute name="title" value="게시판 성공" />
+			<put-attribute name="body" value="/WEB-INF/view/board/post.jsp" />
+		</definition>
+		<definition name="board/error" extends="base_layout">
+			<put-attribute name="title" value="게시판 실패" />
+			<put-attribute name="body" value="/WEB-INF/view/board/error.jsp" />
+		</definition>
+
+		<definition name="board/board" extends="base_layout">
+			<put-attribute name="title" value="게시판 리스트" />
+			<put-attribute name="body" value="/WEB-INF/view/board/board.jsp" />
+		</definition>
+		<definition name="board/board_write" extends="base_layout">
+			<put-attribute name="title" value="게시판 작성" />
+			<put-attribute name="body" value="/WEB-INF/view/board/board_write.jsp" />
+		</definition>
+		<definition name="board/board_view" extends="base_layout">
+			<put-attribute name="title" value="게시판 보기" />
+			<put-attribute name="body" value="/WEB-INF/view/board/board_view.jsp" />
+		</definition>
+		<definition name="board/board_del" extends="base_layout">
+			<put-attribute name="title" value="게시판 삭제" />
+			<put-attribute name="body" value="/WEB-INF/view/board/board_del.jsp" />
+		</definition>
+		<definition name="board/board_edit" extends="base_layout">
+			<put-attribute name="title" value="게시판 수정" />
+			<put-attribute name="body" value="/WEB-INF/view/board/board_edit.jsp" />
+		</definition>
+		
+	</tiles-definitions>

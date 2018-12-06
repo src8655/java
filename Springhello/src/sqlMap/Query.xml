@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+ "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<insert id="insert1" parameterClass="java.util.Map" >
+	INSERT INTO MIN_TSHOP_MEMBER(NAME) VALUES(
+	#name#
+	)
+	</insert>
+
+	<select id="List_Count" resultClass="int" >
+		select count(*) from MIN_TEST_BOARD
+	</select>
+	<select id="List_Select" parameterClass="java.util.Map" resultClass="board.model.List_Data" >
+		select NO,SUBJECT,MEMO,NAME,PASSWORD,HIT,DATES,FILE1,FILE2
+		from (select rownum as rnum,a.* from (select * from MIN_TEST_BOARD
+	 	order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<insert id="List_Insert" parameterClass="board.model.List_Data" >
+		INSERT INTO MIN_TEST_BOARD(SUBJECT,MEMO,NAME,PASSWORD,HIT,DATES,FILE1,FILE2)
+		VALUES(#subject#,#memo#,#name#,#password#,#hit#,#dates#,#file1#,#file2#)
+	</insert>
+	<select id="List_getArticle" parameterClass="int" resultClass="board.model.List_Data" >
+		select NO,SUBJECT,MEMO,NAME,PASSWORD,HIT,DATES,FILE1,FILE2 FROM MIN_TEST_BOARD WHERE NO=#no#
+	</select>
+	<update id="List_addHit" parameterClass="int" >
+		update MIN_TEST_BOARD set
+		HIT=HIT+1
+		where NO=#no#
+	</update>
+	<select id="List_Select_Ajax" parameterClass="String" resultClass="board.model.List_Data_Xml" >
+		select NO,SUBJECT,MEMO,NAME,HIT,DATES,FILE1,FILE2 from MIN_TEST_BOARD where SUBJECT like '%'||#search_value#||'%'
+	 	order by NO desc
+	</select>
+	<select id="List_Select_Xml" parameterClass="java.util.Map" resultClass="board.model.List_Data_Xml" >
+		select NO,SUBJECT,MEMO,NAME,HIT,DATES,FILE1,FILE2
+		from (select rownum as rnum,a.* from (select * from MIN_TEST_BOARD
+	 	order by NO desc) a) where rnum between #start# and #end#
+	</select>
+	<delete id="List_del" parameterClass="int" >
+		delete from MIN_TEST_BOARD where NO=#no#
+	</delete>
+	<update id="List_update" parameterClass="board.model.List_Data" >
+		update MIN_TEST_BOARD set
+		SUBJECT=#subject#,
+		NAME=#name#,
+		MEMO=#memo#,
+		FILE1=#file1#,
+		FILE2=#file2#
+		where NO=#no#
+	</update>
+	<insert id="Comment_Insert" parameterClass="board.model.Comment_Data" >
+		INSERT INTO MIN_TEST_COMMENT(NAME,MEMO,BOARD_NO,DATES,RT_NO,PASSWORD,LEVELS)
+		VALUES(#name#,#memo#,#board_no#,#dates#,#rt_no#,#password#,#levels#)
+	</insert>
+	<insert id="Comment_Insert_No" parameterClass="board.model.Comment_Data" >
+		INSERT INTO MIN_TEST_COMMENT(NO,NAME,MEMO,BOARD_NO,DATES,RT_NO,PASSWORD,LEVELS)
+		VALUES(#no#,#name#,#memo#,#board_no#,#dates#,#rt_no#,#password#,#levels#)
+	</insert>
+	<select id="Comment_Select" parameterClass="int" resultClass="board.model.Comment_Data" >
+		select NO,NAME,MEMO,BOARD_NO,DATES,RT_NO,PASSWORD,LEVELS
+		from MIN_TEST_COMMENT where BOARD_NO=#board_no# order by NO asc
+	</select>
+	<select id="Comment_getArticle" parameterClass="String" resultClass="board.model.Comment_Data" >
+		select NO,NAME,MEMO,BOARD_NO,DATES,RT_NO,PASSWORD,LEVELS
+		from MIN_TEST_COMMENT where NO=#no#
+	</select>
+	<select id="Comment_getArticle_rt" parameterClass="board.model.Comment_Data" resultClass="board.model.Comment_Data" >
+		select NO,NAME,MEMO,BOARD_NO,DATES,RT_NO,PASSWORD,LEVELS
+		from MIN_TEST_COMMENT where RT_NO=#rt_no# order by NO desc
+	</select>
+	
+	
+	
+	
+	
+	
+<!-- 
+
+ -->
+</sqlMap>

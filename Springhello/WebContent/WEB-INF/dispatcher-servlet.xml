@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xmlns:p="http://www.springframework.org/schema/p"
+			xsi:schemaLocation="http://www.springframework.org/schema/beans
+       							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <!-- ibatis설정 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+    	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+    	<property name="username" value="LSM8655" />
+    	<property name="password" value="minho123" />
+    </bean>
+    <bean id="sqlMapClient"
+   		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+   		<property name="dataSource" ref="dataSource" />
+   		<property name="configLocation" value="classpath:/config/SqlMapConfig.xml" />	
+   	</bean>
+   	<bean id="sqlMapClientTemplate"
+   		class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+   		<property name="sqlMapClient" ref="sqlMapClient" />	
+   	</bean>
+   	
+   	
+   	
+   	<!-- 게시판 컨트롤러 -->
+	<bean id="boardController" class="board.controller.BoardController"
+		p:boardService-ref="boardService"
+	/>
+	<bean id="boardService" class="board.service.BoardService" p:sqlMapClientTemplate-ref="sqlMapClientTemplate" />
+	
+	
+    
+
+
+	
+	
+
+	<!-- 업로드설정 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+
+	<!-- 다운로드설정 -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>
+	</bean>
+	<bean id="down" class="board.DownloadView" />
+	
+	
+	<!-- 엑셀로변환 클래스 선언 -->
+	<bean id="list_data_excel_class" class="board.board_toExcel" />
+	
+
+	<!-- 사용 프로퍼티 설정 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages.validation</value>
+				<value>messages.label</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 인터셉터설정 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="alwaysUseFullPath" value="true" />
+		<property name="interceptors">
+			<list>
+				<ref bean="localeChangeInterceptor" />
+				<ref bean="boardInterceptor" />
+			</list>
+		</property>
+	</bean>
+	<!-- 게시판 인터셉터 클래스 -->
+	<bean id="boardInterceptor" class="board.service.BoardInterceptor" />
+	<!-- 언어변환 인터셉터 클래스 -->
+	<!-- 언어변환 Locale 클래스 -->
+	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+		p:paramName="language" />
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+		
+		
+
+	
+	
+	
+	<!-- 어노테이션메소드핸들러어댑터(변환=@RequestBody) -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="alwaysUseFullPath" value="true" />		
+		<property name="messageConverters">
+			<list>
+				<!-- XML -->
+				<ref bean="marshallingHttpMessageConverter" />
+				<!-- JSON -->
+				<ref bean="jsonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- JSON변환 -->
+	<bean id="pageJsonReport" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>						<!-- 웹상에 출력하는 방법 -->
+	<bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />	<!-- @Requestbody 사용하는 방법 -->
+	
+	
+	<!-- XML변환 --> 
+	<bean id="marshallingHttpMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">	<!-- @Requestbody 사용하는 방법 -->
+		<property name="marshaller" ref="jaxb2Marshaller" />
+		<property name="unmarshaller" ref="jaxb2Marshaller" />
+	</bean>
+	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>board.model.List_Data_Xml_List</value>
+			</list>
+		</property>
+	</bean>
+	<!-- XML변환(그냥 보여주는거) -->
+	<bean id="pageXmlReport"
+		class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<property name="marshaller" ref="jaxb2Marshaller" />
+		<property name="modelKey" value="ldxl" />
+	</bean>
+	
+	
+	
+	<!-- 뷰 -->
+	<!-- <bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1"/>
+	</bean> -->
+	
+	
+	<!-- tiles 정의 -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">
+        	<list>
+        		<value>/WEB-INF/view/board/tiles2def/tilesdef.xml</value>
+        	</list>
+        </property>
+	</bean>
+	<!-- tiles Resolver 설정 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+	</bean>
+
+</beans>

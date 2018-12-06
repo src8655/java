@@ -70,7 +70,7 @@ public class MultiClientRoom {
         
     }
     public void init() throws IOException {
-        socket = new Socket("localhost", 2537);
+        socket = new Socket("localhost", 2538);
         System.out.println("connected...");
         oos = new ObjectOutputStream(socket.getOutputStream());
         ois = new ObjectInputStream(socket.getInputStream());
