@@ -467,6 +467,90 @@ public class BoardController {
 	
 	
 	
+	//ajax로 댓글작성 후 댓글 받기
+	@RequestMapping("/board/board_comment_post_ajax.do")
+	public ModelAndView board_comment_post_ajax(
+			@ModelAttribute("cdata") Comment_Data cdata,
+			BindingResult result,
+			@RequestParam(value="pages", defaultValue="1") int pages,
+			@RequestParam(value="lang", defaultValue="") String lang) throws Exception {
+		
+			Map map = new HashMap();
+		
+		new Comment_Write_Validator().validate(cdata, result);
+		if(result.hasErrors()) {
+			ObjectError oerror = (ObjectError)result.getAllErrors().get(0);
+			
+			map.put("msg",oerror.getCode());
+			map.put("result", false);
+			
+			return new ModelAndView("pageJsonReport","map",map);
+		}
+		
+		Calendar cal = Calendar.getInstance();
+		int years = cal.get(Calendar.YEAR);
+		int months = cal.get(Calendar.MONTH)+1;
+		int days = cal.get(Calendar.DATE);
+		
+		cdata.setDates(years+"-"+months+"-"+days);
+		cdata.setPassword(Md5Enc.getEncMD5(cdata.getPassword().getBytes()));
+		
+		//답답글이면
+		if(!cdata.getRt_no().equals("-1")) {
+			Comment_Data cdata_tmp = boardService.getArticleComment(cdata.getRt_no());	//답글대상 댓글 가져오기
+			int levels = cdata_tmp.getLevels()+1;										//레벨은 현 답글의 다음레벨
+			
+			int add = 1;	//단위
+			for(int i=0;i<levels;i++)
+				add *= 10;
+				
+			String no_tmp = cdata.getRt_no();
+			List list = boardService.getArticle_rtComment(cdata);						//같은 댓글을 답변하는 리스트
+			if(list.size() != 0) no_tmp = ((Comment_Data)list.get(0)).getNo();			//같은 댓글을 답변하는 리스트가 있다면
+				System.out.println(no_tmp);
+			String[] splt = no_tmp.split(":");
+			System.out.println(splt.length);
+			if(splt.length == 2) {						//소수점이 있을경우
+				String tmp = reverseString(splt[1]);	//소수점 뒤를 리버스
+				int tmp_int = Integer.parseInt(tmp);	//정수로바꾸고
+				tmp_int += add;							//단위를 더함
+				tmp = Integer.toString(tmp_int);		//문자열로바꾸고
+				tmp = reverseString(tmp);				//다시 리버스
+				no_tmp = splt[0]+":"+tmp;
+			}else {
+				int tmp_int = add;
+				String tmp = Integer.toString(tmp_int);
+				tmp = reverseString(tmp);
+				no_tmp = no_tmp+":"+tmp;
+			}
+			
+			cdata.setNo(no_tmp);
+			cdata.setLevels(levels);
+			
+				
+			boardService.insertComment_No(cdata);
+		}else {
+			boardService.insertComment(cdata);
+		}
+		
+		map.put("msg", "댓글등록 성공.");
+		map.put("result", true);
+		map.put("pages", pages);
+		map.put("lang", lang);
+		
+		//댓글
+		List list = boardService.getComments(cdata.getBoard_no());
+		map.put("list", list);
+		
+		return new ModelAndView("pageJsonReport","map",map);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -522,6 +606,21 @@ public class BoardController {
 		list = boardService.getList_Datas_Xml(paging.getBoard_starts(), paging.getBoard_ends());
 		
 		List_Data_Xml_List ldxl = new List_Data_Xml_List();
+		ldxl.setAllCount(list.size());
+		ldxl.setList(list);
+		
+		ModelAndView mav = new ModelAndView("pageXmlReport","ldxl",ldxl);
+		return mav;
+	}
+	
+	//XML로 변환2(MappingJacksonJsonView)
+	@RequestMapping("/board/toxml2.do")
+	public ModelAndView toxml2(@ModelAttribute("ldata") List_Data ldata) throws SQLException{
+		System.out.println(ldata.getName());
+		List list = boardService.getList_Datas_Ajax(ldata.getSubject());
+		
+		List_Data_Xml_List ldxl = new List_Data_Xml_List();
+		ldxl.setAllCount(list.size());
 		ldxl.setList(list);
 		
 		ModelAndView mav = new ModelAndView("pageXmlReport","ldxl",ldxl);
@@ -532,8 +631,9 @@ public class BoardController {
 	//json으로 변환(MappingJacksonHttpMessageConverter)
 	@RequestMapping("/board/ajax_test2.do")
 	@ResponseBody
-	public List ajax_test2(@RequestParam(value="search_value", defaultValue="") String search_value) throws SQLException{
-		List list = boardService.getList_Datas_Ajax(search_value);
+	public List ajax_test2(@ModelAttribute("ldata") List_Data ldata) throws SQLException{
+		System.out.println(ldata.getName());
+		List list = boardService.getList_Datas_Ajax(ldata.getSubject());
 		return list;
 	}
 	

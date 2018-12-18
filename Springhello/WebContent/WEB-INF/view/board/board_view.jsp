@@ -43,7 +43,7 @@
 </table>
 
 
-
+<div id="comment_list">
 <c:forEach var="data" items="${list}">
 <table cellpadding="7" cellspacing="0" class="comments">
 	<tr>
@@ -58,7 +58,7 @@
 		<td valign="top">
 			${data.memo}
 			
-			<form action="board_comment_post.do" id="cmm${data.no}" style="display:none;">
+			<form action="#100" id="cmm${data.no}" style="display:none;">
 			<input type="hidden" name="rt_no" value="${data.no}" />
 			<input type="hidden" name="board_no" value="${no}" />
 			<input type="hidden" name="pages" value="${pages}" />
@@ -76,7 +76,7 @@
 				</tr>
 				<tr>
 					<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="border:1px solid #b8c0cc;width:98%;height:40px;"></textarea></td>
-					<td style="text-align:center;width:80px;border-left:none;border-right:none;"><input type="submit" value="등록" style="background:#d5e9ff;border:1px solid #122942;width:98%;height:45px;font-size:12px;font-weight:bold;" /></td>
+					<td style="text-align:center;width:80px;border-left:none;border-right:none;"><input type="button" value="등록" onclick="comment_btn('cmm${data.no}')" style="background:#d5e9ff;border:1px solid #122942;width:98%;height:45px;font-size:12px;font-weight:bold;" /></td>
 				</tr>
 			</table>
 			</form>
@@ -86,11 +86,11 @@
 	</tr>
 </table>
 </c:forEach>
+</div>
 
 
 
-
-<form name="cm_b" action="board_comment_post.do">
+<form name="cm_b" action="#100" id="comment_write">
 <input type="hidden" name="rt_no" value="-1" />
 <input type="hidden" name="board_no" value="${no}" />
 <input type="hidden" name="pages" value="${pages}" />
@@ -108,7 +108,7 @@
 	</tr>
 	<tr>
 		<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="border:1px solid #b8c0cc;width:98%;height:40px;"></textarea></td>
-		<td style="text-align:center;width:80px;border-left:none;border-right:none;"><input type="submit" value="등록" style="background:#d5e9ff;border:1px solid #122942;width:98%;height:45px;font-size:12px;font-weight:bold;" /></td>
+		<td style="text-align:center;width:80px;border-left:none;border-right:none;"><input type="button" value="등록" onclick="comment_btn('comment_write')" style="background:#d5e9ff;border:1px solid #122942;width:98%;height:45px;font-size:12px;font-weight:bold;" /></td>
 	</tr>
 </table>
 </form>

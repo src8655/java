@@ -27,7 +27,7 @@ public class Action_Init {
 	//공통으로 받는 파라미터
 	public Calendar cal = Calendar.getInstance();
 	public int year = cal.get(Calendar.YEAR);
-	public int month = cal.get(Calendar.MONTH);
+	public int month = cal.get(Calendar.MONTH+1);
 	public int day = cal.get(Calendar.DATE);
 	public String pages = "1";
 	public int pages_int;

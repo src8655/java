@@ -144,39 +144,138 @@ function showhide(var1) {
 }
 
 
+
+//댓글입력 ajax
+function comment_btn(var2) {
+	var board_no = document.getElementById(var2).board_no.value;
+	var rt_no = document.getElementById(var2).rt_no.value;
+	var name = document.getElementById(var2).name.value;
+	var password = document.getElementById(var2).password.value;
+	var memo = document.getElementById(var2).memo.value;
+	
+	$.ajax({
+		url:'board_comment_post_ajax.do',
+		method:'GET',
+		datatype : "json",
+		contentType: "application/json; charset=utf-8",
+		data:{
+			board_no:board_no,
+			rt_no:rt_no,
+			name:name,
+			password:password,
+			memo:memo
+		},
+		success:function(result){
+			//alert(result);
+	
+			if(result.map.result == false) alert(result.map.msg);
+			else{
+				document.getElementById(var2).name.value = "";
+				document.getElementById(var2).password.value = "";
+				document.getElementById(var2).memo.value = "";
+				
+				var list = result.map.list;
+				var list_length = Object.keys(list).length;
+				//alert(list_length);
+				var i=0;
+				$("#comment_list").html("");
+				var htmls = "";
+				for(i=0;i<list_length;i++) {
+					var data = list[i];
+					htmls += '<table cellpadding="7" cellspacing="0" class="comments">';
+					htmls += '<tr>';
+					htmls += '<td style="width:'+(data.levels*20)+'px;border:0px;padding:0px;overflow:hidden;"></td>';
+					htmls += '<th style="width:100px;background:#d5e9ff;border:none;border:1px solid #A0A0A0;">'+data.name;
+					htmls += '<span style="font-weight:normal;">';
+					htmls += '<br />'+data.dates+'<br />';
+					htmls += '<a href="board_comment_del.do?no='+data.no+'&amp;board_no='+data.board_no+'&amp;pages='+result.map.pages+'&amp;lang='+result.map.lang+'">[삭제]</a>';
+					htmls += '<a href="#100" onclick="showhide(\'cmm'+data.no+'\')">[답글]</a>';
+					htmls += '</span>';
+					htmls += '</th>';
+					htmls += '<td valign="top">';
+					htmls += data.memo;
+
+					htmls += '<form action="#100" id="cmm'+data.no+'" style="display:none;">';
+					htmls += '<input type="hidden" name="rt_no" value="'+data.no+'" />';
+					htmls += '<input type="hidden" name="board_no" value="'+data.board_no+'" />';
+					htmls += '<input type="hidden" name="pages" value="'+result.map.pages+'" />';
+					htmls += '<input type="hidden" name="lang" value="'+result.map.lang+'" />';
+					htmls += '<table cellpadding="7" cellspacing="0" class="comments">';
+					htmls += '<col width="20%" />';
+					htmls += '<col width="30%" />';
+					htmls += '<col width="20%" />';
+					htmls += '<col width="20%" />';
+					htmls += '<tr>';
+					htmls += '<th style="background:#d5e9ff;border-left:1px solid #bbbbbb;">이름</th>';
+					htmls += '<td style="border-top:1px solid #122942;"><input type="text" name="name" /></td>';
+					htmls += '<th style="background:#d5e9ff;">비밀번호</th>';
+					htmls += '<td style="border-top:1px solid #122942;" colspan="2"><input type="password" name="password" /></td>';
+					htmls += '</tr>';
+					htmls += '<tr>';
+					htmls += '<td style="border-left:none;border-right:none;" colspan="4"><textarea name="memo" rows="100" cols="100" editable="0" style="border:1px solid #b8c0cc;width:98%;height:40px;"></textarea></td>';
+					htmls += '<td style="text-align:center;width:80px;border-left:none;border-right:none;"><input type="button" value="등록" onclick="comment_btn(\'cmm'+data.no+'\')" style="background:#d5e9ff;border:1px solid #122942;width:98%;height:45px;font-size:12px;font-weight:bold;" /></td>';
+					htmls += '</tr></table></form></td></tr></table>';
+				}
+				$("#comment_list").html(htmls);
+				
+			}
+			
+			
+		},
+		error:function(r,s,e) {
+			alert('error');
+		}
+	});
+}
+/*
+window.onload = function() {
+var a = document.getElementById("search_value");
+a.addEventListener("mouseover",tmp22);
+}
+function tmp22() {
+	alert("in");
+}
+*/
 //decodeURIComponent
 $(function(){
-	//$("#search_btn").click(function(){
+		
+	
+		
+		
+		
 		
 	$("#search_value").bind('keyup',function(e){
 		$.ajax({
-			url:'ajax_test2.do',
+			url:'toxml2.do',
 			method:'GET',
-			datatype : "json",
-			contentType: "application/json; charset=utf-8",
+			datatype : "xml",
 			data:{
-				search_value:$("#search_value").val()
+				search_value:$("#search_value").val(),
+				subject:$("#search_value").val(),
+				name:'ajax요청'
 			},
 			success:function(result){
 				//alert(result);
 				//alert(Object.keys(result.list).length);
+				
+				var list = $(result).find("list");
 				if($("#search_value").val() == "")
 					$("#search_resultsss").html("");
 				else{
 					var htmls = "";
-					var list_length = Object.keys(result).length;
+					var list_length = $(result).find("allCount").text();
 					htmls += '<table cellpadding="7" cellspacing="0" class="boards">';
 					htmls += '<col width="60" /><col width="240" /><col width="70" /><col width="70" /><col width="60" />';
 					htmls += '<tr><td colspan="5"></td></tr>';
 					var i=0;
 					for(i=0;i<list_length;i++) {
 						htmls += '<tr>';
-						var ldata = result[i];
+						var ldata = list[i];
 						htmls += '<td align="center">'+(i+1)+'</td>';
-						htmls += '<td><a href="board_view.do?pages=${pages}&amp;no='+ldata.no+'&lang=${lang}">'+ldata.subject+'</a></td>';
-						htmls += '<td align="center">'+ldata.name+'</td>';
-						htmls += '<td align="center">'+ldata.dates+'</td>';
-						htmls += '<td align="center">'+ldata.hit+'</td>';
+						htmls += '<td><a href="board_view.do?pages=${pages}&amp;no='+$(ldata).find("no").text()+'&lang=${lang}">'+$(ldata).find("subject").text()+'</a></td>';
+						htmls += '<td align="center">'+$(ldata).find("name").text()+'</td>';
+						htmls += '<td align="center">'+$(ldata).find("dates").text()+'</td>';
+						htmls += '<td align="center">'+$(ldata).find("hit").text()+'</td>';
 						htmls += '</tr>';
 					}
 					htmls += '</table>';
@@ -189,14 +288,56 @@ $(function(){
 		});
 	});
 });
+
+
+
+
+
+
+
+
+//test
+function ajaxs() {
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'ajax_test22.do');
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            //alert(xhr.responseText);
+            var doc = JSON.parse(xhr.responseText);
+            //alert(doc);
+            
+			var list = doc.list;
+			
+				var htmls = "";
+				var list_length = Object.keys(list).length;
+				htmls += '<table cellpadding="7" cellspacing="0" class="boards">';
+				htmls += '<col width="60" /><col width="240" /><col width="70" /><col width="70" /><col width="60" />';
+				htmls += '<tr><td colspan="5"></td></tr>';
+				var i=0;
+				for(i=0;i<list_length;i++) {
+					htmls += '<tr>';
+					var ldata = list[i];
+					htmls += '<td align="center">'+(i+1)+'</td>';
+					htmls += '<td><a href="board_view.do?pages=${pages}&amp;no='+ldata.no+'&lang=${lang}">'+ldata.subject+'</a></td>';
+					htmls += '<td align="center">'+ldata.name+'</td>';
+					htmls += '<td align="center">'+ldata.dates+'</td>';
+					htmls += '<td align="center">'+ldata.hit+'</td>';
+					htmls += '</tr>';
+				}
+				htmls += '</table>';
+				$("#search_resultsss").html(htmls);
+        }
+    }
+    xhr.send(); 
+}
 </script>
 </head>
 <body>
 
 <div style="width:700px;margin:0 auto;overflow:hidden;">
-<tiles:insertAttribute name="header" />
+	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="body" />
-<tiles:insertAttribute name="footer" />
+	<tiles:insertAttribute name="footer" />
 </div>
 
 </body>

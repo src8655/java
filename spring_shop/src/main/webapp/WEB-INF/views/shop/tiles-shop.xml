@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="shop/post" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 성공" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/post.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/post2" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 실패" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/post2.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+
+	<definition name="shop/index" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 메인화면" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/index.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/list" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 쇼핑하기" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/list.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/basket" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 장바구니" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/basket.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	
+	<definition name="shop/buys_post" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 구입" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/buys_post.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/buys" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 구입" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/buys.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/edit" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 수정하기" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/edit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/join_agree" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원가입 약관" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/join_agree.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/join_write_post" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원가입 완료" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/join_write_post.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/join_write" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원가입 작성" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/join_write.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/join" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원가입" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/join.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/login" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 로그인" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/login.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	
+	
+	<definition name="shop/mypage_admin_member_edit" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원수정" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_admin_member_edit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_admin_member" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원관리" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_admin_member.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_admin_payment" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 입금확인" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_admin_payment.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_admin" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 관리자페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_admin.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_guest_view" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 나의쇼핑정보" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_guest_view.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_guest" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 나의쇼핑정보" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_guest.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_list" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 판매자페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_list.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_sell_end" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 판매자페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_sell_end.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage_sell" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 판매자페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage_sell.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/mypage" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 판매자페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/mypage.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/view" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 상품보기" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/view.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/write" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 상품등록" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/write.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	
+	
+	<definition name="shop/join_id_check" template="/WEB-INF/views/shop/template/layout_popup.jsp">
+		<put-attribute name="title" value="12번가 아이디중복확인" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/join_id_check.jsp" />
+	</definition>
+	<definition name="shop/view_qna_answer_post" template="/WEB-INF/views/shop/template/layout_popup.jsp">
+		<put-attribute name="title" value="12번가 답변등록" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/view_qna_answer_post.jsp" />
+	</definition>
+	<definition name="shop/view_qna_answer" template="/WEB-INF/views/shop/template/layout_popup.jsp">
+		<put-attribute name="title" value="12번가 답변등록" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/view_qna_answer.jsp" />
+	</definition>
+	<definition name="shop/view_qna_write_post" template="/WEB-INF/views/shop/template/layout_popup.jsp">
+		<put-attribute name="title" value="12번가 질문등록" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/view_qna_write_post.jsp" />
+	</definition>
+	<definition name="shop/view_qna_write" template="/WEB-INF/views/shop/template/layout_popup.jsp">
+		<put-attribute name="title" value="12번가 질문등록" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/view_qna_write.jsp" />
+	</definition>
+	
+	<definition name="shop/view_review" template="/WEB-INF/views/shop/template/layout_popup.jsp">
+		<put-attribute name="title" value="12번가 리뷰작성" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/view_review.jsp" />
+	</definition>
+	<definition name="shop/view_review_post" template="/WEB-INF/views/shop/template/layout_popup.jsp">
+		<put-attribute name="title" value="12번가 리뷰작성" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/view_review_post.jsp" />
+	</definition>
+	
+	
+	
+	<definition name="shop/customer_center" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 고객센터" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/customer_center_qna_write" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 1:1문의" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center_qna_write.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/customer_center_qna" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 1:1문의" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center_qna.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/customer_center_qna_view" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 1:1문의" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center_qna_view.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/customer_center_qna_edit" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 1:1문의" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center_qna_edit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	
+	
+	<definition name="shop/customer_center_faq" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 자주묻는질문" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center_faq.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/customer_center_faq_write" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 자주묻는질문" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center_faq_write.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/customer_center_faq_edit" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 자주묻는질문" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/customer_center_faq_edit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	
+	
+	<definition name="shop/sitemap" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 사이트맵" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/sitemap.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	
+	<definition name="shop/join_edit" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 회원정보 수정" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/join_edit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	
+	
+	<definition name="shop/login_find_id" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 아이디찾기" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/login_find_id.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/login_find_id_post" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 아이디찾기" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/login_find_id_post.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/login_find_pw" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 비밀번호찾기" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/login_find_pw.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+	<definition name="shop/login_find_pw_post" template="/WEB-INF/views/shop/template/layout.jsp">
+		<put-attribute name="title" value="12번가 비밀번호찾기" />
+		<put-attribute name="header" value="/WEB-INF/views/shop/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/shop/login_find_pw_post.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/shop/template/footer.jsp" />
+		<put-attribute name="floating" value="/WEB-INF/views/shop/template/floating.jsp" />
+	</definition>
+
+</tiles-definitions>

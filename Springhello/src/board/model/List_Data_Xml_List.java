@@ -8,8 +8,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name="board-list")
+@XmlRootElement(name="boardlist")
 public class List_Data_Xml_List {
+	private int allCount = 0;
 	private List<List_Data_Xml> list;
 
 	public List<List_Data_Xml> getList() {
@@ -18,6 +19,14 @@ public class List_Data_Xml_List {
 
 	public void setList(List<List_Data_Xml> list) {
 		this.list = list;
+	}
+
+	public int getAllCount() {
+		return allCount;
+	}
+
+	public void setAllCount(int allCount) {
+		this.allCount = allCount;
 	}
 	
 }

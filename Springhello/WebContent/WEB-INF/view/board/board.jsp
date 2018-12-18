@@ -63,6 +63,6 @@
 </div>
 
 
-<input type="text" name="search_value" placeholder='<spring:message code="board.search" />' id="search_value" style="display:block;margin:0 auto;" />
+<input type="text" onclick="ajaxs()" name="search_value" placeholder='<spring:message code="board.search" />' id="search_value" style="display:block;margin:0 auto;" />
 <div id="search_resultsss" style="overflow:hidden">
 </div>
