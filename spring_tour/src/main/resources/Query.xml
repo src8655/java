@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tour">
+
+	
+	
+
+	<!-- List -->
+	<insert id="List_insert" parameterType="net.mytour.data.List_Data" >
+		INSERT INTO MIN_TOUR_LIST(SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1) VALUES(
+		#{subject},
+		#{city},
+		#{days},
+		#{air},
+		#{money},
+		#{moneys},
+		#{memo1},
+		#{memo2},
+		#{category},
+		#{buy},
+		#{hit},
+		#{dates},
+		#{file1}
+		)
+	</insert>
+	<select id="List_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.List_Data">
+		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
+		from (select rownum as rnum,a.* from (select * from MIN_TOUR_LIST where SUBJECT like '%'||#{searchs}||'%'
+		<if test="category != -1"> and CATEGORY=#{category} </if>
+	 	order by NO desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="List_getCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_LIST where SUBJECT like '%'||#{searchs}||'%'
+	 	<if test="category != -1"> and CATEGORY=#{category} </if>
+	</select>
+	<select id="List_getArticle" parameterType="int" resultType="net.mytour.data.List_Data">
+		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
+		from MIN_TOUR_LIST where NO=#{no}
+	</select>
+	<select id="List_getHit" parameterType="int" resultType="int">
+		select HIT from MIN_TOUR_LIST where NO=#{no}
+	</select>
+	<update id="List_setHit" parameterType="java.util.Map">
+		update MIN_TOUR_LIST set HIT=#{hit} where NO=#{no}
+	</update>
+	<select id="List_getBuy" parameterType="int" resultType="int">
+		select BUY from MIN_TOUR_LIST where NO=#{no}
+	</select>
+	<update id="List_setBuy" parameterType="java.util.Map">
+		update MIN_TOUR_LIST set BUY=#{buy} where NO=#{no}
+	</update>
+	<update id="List_edit" parameterType="net.mytour.data.List_Data">
+		update MIN_TOUR_LIST set 
+		SUBJECT=#{subject},
+		CITY=#{city},
+		DAYS=#{days},
+		AIR=#{air},
+		MONEY=#{money},
+		MONEYS=#{moneys},
+		MEMO1=#{memo1},
+		MEMO2=#{memo2},
+		CATEGORY=#{category},
+		DATES=#{dates},
+		FILE1=#{file1}
+		where NO=#{no}
+	</update>
+	<delete id="List_del" parameterType="int">
+		delete from MIN_TOUR_LIST where NO=#{no}
+	</delete>
+	<select id="List_getArticlesHit" parameterType="java.util.Map" resultType="net.mytour.data.List_Data">
+		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
+		from (select rownum as rnum,a.* from (select * from MIN_TOUR_LIST
+		<if test="category != -1">where CATEGORY=#{category} </if>
+	 	order by HIT desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="List_getArticlesBuy" parameterType="java.util.Map" resultType="net.mytour.data.List_Data">
+		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
+		from (select rownum as rnum,a.* from (select * from MIN_TOUR_LIST
+	 	order by BUY desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="List_getArticleHot" resultType="net.mytour.data.List_Data">
+		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
+		from (select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1,HIT+BUY as aa
+		from MIN_TOUR_LIST
+		order by aa desc)
+	</select>
+	<select id="List_getCountNo" parameterType="int" resultType="int">
+		select count(*) from MIN_TOUR_LIST where NO=#{no}
+	</select>
+	<!--  -->
+	
+	
+	<!-- List_Reserve -->
+	<insert id="List_Reserve_insert" parameterType="net.mytour.data.List_Reserve_Data" >
+		INSERT INTO MIN_TOUR_LIST_RESERVE(LIST_NO,STARTDATES,ENDDATES,SUBJECT,MONEY,MONEYS,MAX_CNTS,ISRESERVE,SPECIAL,DATES,TIMES) VALUES(
+		#{list_no},
+		#{startdates},
+		#{enddates},
+		#{subject},
+		#{money},
+		#{moneys},
+		#{max_cnts},
+		#{isreserve},
+		#{special},
+		#{dates},
+		#{times}
+		)
+	</insert>
+	<select id="List_Reserve_getArticles" parameterType="int" resultType="net.mytour.data.List_Reserve_Data">
+		select a.NO,a.LIST_NO,a.STARTDATES,a.ENDDATES,a.SUBJECT,a.MONEY,a.MONEYS,a.MAX_CNTS,a.ISRESERVE,a.SPECIAL,a.DATES,b.FILE1,a.TIMES
+		from MIN_TOUR_LIST_RESERVE a,MIN_TOUR_LIST b
+		where a.LIST_NO = b.NO
+		and a.LIST_NO=#{no}
+		and a.ISRESERVE=0
+		order by a.STARTDATES asc
+	</select>
+	<select id="List_Reserve_getArticle" parameterType="int" resultType="net.mytour.data.List_Reserve_Data">
+		select a.NO,a.LIST_NO,a.STARTDATES,a.ENDDATES,a.SUBJECT,a.MONEY,a.MONEYS,a.MAX_CNTS,a.ISRESERVE,a.SPECIAL,a.DATES,b.FILE1,b.CITY,b.DAYS,b.AIR,a.TIMES
+		from MIN_TOUR_LIST_RESERVE a,MIN_TOUR_LIST b
+		where a.LIST_NO = b.NO
+		and a.NO=#{no}
+	</select>
+	<update id="List_Reserve_setIsreserve" parameterType="java.util.Map">
+		update MIN_TOUR_LIST_RESERVE set ISRESERVE=#{isreserve} where NO=#{no}
+	</update>
+	<select id="List_Reserve_getArticlesCheck" resultType="net.mytour.data.List_Reserve_Data">
+		select a.NO,a.LIST_NO,a.STARTDATES,a.ENDDATES,a.SUBJECT,a.MONEY,a.MONEYS,a.MAX_CNTS,a.ISRESERVE,a.SPECIAL,a.DATES,b.FILE1,a.TIMES
+		from MIN_TOUR_LIST_RESERVE a,MIN_TOUR_LIST b
+		where a.LIST_NO = b.NO
+		and a.ISRESERVE=0
+		order by a.STARTDATES asc
+	</select>
+	<delete id="List_Reserve_del" parameterType="int">
+		delete from MIN_TOUR_LIST_RESERVE where NO=#{no}
+	</delete>
+	<select id="List_Reserve_getArticlesAll" parameterType="java.util.Map" resultType="net.mytour.data.List_Reserve_Data">
+		select NO,LIST_NO,STARTDATES,ENDDATES,SUBJECT,MONEY,MONEYS,MAX_CNTS,ISRESERVE,SPECIAL,DATES,FILE1,CITY,DAYS,AIR,CATEGORY,TIMES
+		from (select rownum as rnum,aa.* from (
+		select a.NO,a.LIST_NO,a.STARTDATES,a.ENDDATES,a.SUBJECT,a.MONEY,a.MONEYS,a.MAX_CNTS,a.ISRESERVE,a.SPECIAL,a.DATES,b.FILE1,b.CITY,b.DAYS,b.AIR,b.CATEGORY,a.TIMES
+		from MIN_TOUR_LIST_RESERVE a,MIN_TOUR_LIST b
+		where a.LIST_NO = b.NO and a.isreserve=0
+		
+		<if test="startdates != ''"> and a.STARTDATES=#{startdates} </if>
+		<if test="days != 0"> and b.DAYS=#{days} </if>
+		<if test="category != -1"> and b.CATEGORY=#{category} </if>
+		<if test="money != 0"><![CDATA[ and a.MONEY<=#{money} ]]></if>
+		<if test="subject != ''"> and a.SUBJECT like '%'||#{subject}||'%' </if>
+	 	
+	 	order by a.NO desc) aa) where rnum between #{start} and #{end}
+	</select>
+	<select id="List_Reserve_getCountAll" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_LIST_RESERVE a,MIN_TOUR_LIST b where a.LIST_NO = b.NO and a.isreserve=0
+		
+		<if test="startdates != ''"> and a.STARTDATES=#{startdates} </if>
+		<if test="days != 0"> and b.DAYS=#{days} </if>
+		<if test="category != -1"> and b.CATEGORY=#{category} </if>
+		<if test="money != 0"><![CDATA[ and a.MONEY<=#{money} ]]></if>
+		<if test="subject != ''"> and a.SUBJECT like '%'||#{subject}||'%' </if>
+	</select>
+	<select id="List_Reserve_getArticlesMain" parameterType="int" resultType="net.mytour.data.List_Reserve_Data">
+		select NO,LIST_NO,STARTDATES,ENDDATES,SUBJECT,MONEY,MONEYS,MAX_CNTS,ISRESERVE,SPECIAL,DATES,FILE1,CITY,DAYS,AIR,CATEGORY,TIMES
+		from (select rownum as rnum,aa.* from (
+		select a.NO,a.LIST_NO,a.STARTDATES,a.ENDDATES,a.SUBJECT,a.MONEY,a.MONEYS,a.MAX_CNTS,a.ISRESERVE,a.SPECIAL,a.DATES,b.FILE1,b.CITY,b.DAYS,b.AIR,b.CATEGORY,a.TIMES
+		from MIN_TOUR_LIST_RESERVE a,MIN_TOUR_LIST b
+		where a.LIST_NO = b.NO and a.isreserve=0 and a.SPECIAL=1
+	 	
+	 	order by a.NO desc) aa) where rnum between 0 and #{end}
+	</select>
+	<!--  -->
+
+
+
+
+
+
+	<!-- Member -->
+	<select id="Member_getUserIdCount" parameterType="String" resultType="int">
+		select count(*) from MIN_TOUR_MEMBER where USER_ID=#{user_id}
+	</select>
+	<insert id="Member_insert" parameterType="net.mytour.data.Member_Data" >
+		INSERT INTO MIN_TOUR_MEMBER(USER_ID,USER_PW,NAME,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,ORDERS,DATES) VALUES(
+		#{user_id},
+		#{user_pw},
+		#{name},
+		#{email},
+		#{zipcode},
+		#{addr},
+		#{phone1},
+		#{phone2},
+		#{phone3},
+		#{quest},
+		#{answer},
+		#{orders},
+		#{dates}
+		)
+	</insert>
+	<select id="Member_getUserIdPwCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_MEMBER where USER_ID=#{user_id} and USER_PW=#{user_pw}
+	</select>
+	<select id="Member_getArticle" parameterType="java.util.Map" resultType="net.mytour.data.Member_Data">
+		select * from MIN_TOUR_MEMBER where USER_ID=#{user_id} and USER_PW=#{user_pw}
+	</select>
+	<select id="Member_getFindId" parameterType="java.util.Map" resultType="String">
+		select USER_ID from MIN_TOUR_MEMBER where NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3}
+	</select>
+	<select id="Member_getFindPw" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_MEMBER where NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3} and QUEST=#{quest} and ANSWER=#{answer} and USER_ID=#{user_id}
+	</select>
+	<update id="Member_changePw" parameterType="net.mytour.data.Member_Data">
+		update MIN_TOUR_MEMBER set
+		USER_PW=#{user_pw}
+		where NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3} and QUEST=#{quest} and ANSWER=#{answer} and USER_ID=#{user_id}
+	</update>
+	<update id="Member_changeInfo" parameterType="net.mytour.data.Member_Data">
+		update MIN_TOUR_MEMBER set
+		NAME=#{name},
+		EMAIL=#{email},
+		ZIPCODE=#{zipcode},
+		ADDR=#{addr},
+		PHONE1=#{phone1},
+		PHONE2=#{phone2},
+		PHONE3=#{phone3},
+		QUEST=#{quest},
+		ANSWER=#{answer}
+		<if test="user_pw != 'none'">,USER_PW=#{user_pw}</if>
+		where NO=#{no}
+	</update>
+	<select id="Member_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.Member_Data">
+		select NO,USER_ID,USER_PW,NAME,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,ORDERS,DATES
+		from (select rownum as rnum,aa.* from (
+		
+		select NO,USER_ID,USER_PW,NAME,EMAIL,ZIPCODE,ADDR,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,ORDERS,DATES
+		from MIN_TOUR_MEMBER
+		
+		order by NO desc
+		) aa) where rnum between #{start} and #{end}
+	</select>
+	<select id="Member_getCount" resultType="int">
+		select count(*) from MIN_TOUR_MEMBER
+	</select>
+	<select id="Member_getArticleNo" parameterType="int" resultType="net.mytour.data.Member_Data">
+		select * from MIN_TOUR_MEMBER where NO=#{no}
+	</select>
+	<delete id="Member_delete" parameterType="java.util.Map">
+		delete from MIN_TOUR_MEMBER where NO=#{no}
+	</delete>
+	<!--  -->
+
+
+
+
+
+	<!-- Reserve -->
+	<insert id="Reserve_insert" parameterType="net.mytour.data.Reserve_Data" >
+		INSERT INTO MIN_TOUR_RESERVE(LIST_NO,LIST_RESERVE_NO,MONEY,MONEYS,CNTS,STATUS,MEMBER_NO,DATES,BANK,BANK_NUM) VALUES(
+		#{list_no},
+		#{list_reserve_no},
+		#{money},
+		#{moneys},
+		#{cnts},
+		#{status},
+		#{member_no},
+		#{dates},
+		#{bank},
+		#{bank_num}
+		)
+	</insert>
+	<select id="Reserve_getStatusCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_RESERVE where MEMBER_NO=#{member_no} and STATUS=#{status}
+	</select>
+	<select id="Reserve_getCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_RESERVE where MEMBER_NO=#{member_no}
+	</select>
+	<select id="Reserve_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.Reserve_Data">
+		select NO,LIST_NO,LIST_RESERVE_NO,MONEY,MONEYS,CNTS,STATUS,MEMBER_NO,DATES,BANK,BANK_NUM,
+		CITY,DAYS,AIR,FILE1,SUBJECT,STARTDATES,ENDDATES,TIMES
+		from (select rownum as rnum,aa.* from (
+		
+		select a.NO,a.LIST_NO,a.LIST_RESERVE_NO,a.MONEY,a.MONEYS,a.CNTS,a.STATUS,a.MEMBER_NO,a.DATES,a.BANK,a.BANK_NUM,
+		c.CITY,c.DAYS,c.AIR,c.FILE1,b.SUBJECT,b.STARTDATES,b.ENDDATES,b.TIMES
+		from MIN_TOUR_RESERVE a,MIN_TOUR_LIST_RESERVE b,MIN_TOUR_LIST c
+		where a.LIST_NO=c.NO and a.LIST_RESERVE_NO=b.NO
+		and MEMBER_NO=#{member_no}
+		
+		order by a.NO desc
+		) aa) where rnum between #{start} and #{end}
+	</select>
+	<select id="Reserve_getArticle" parameterType="int" resultType="net.mytour.data.Reserve_Data">
+		select a.NO,a.LIST_NO,a.LIST_RESERVE_NO,a.MONEY,a.MONEYS,a.CNTS,a.STATUS,a.MEMBER_NO,a.DATES,a.BANK,a.BANK_NUM,
+		c.CITY,c.DAYS,c.AIR,c.FILE1,b.SUBJECT,b.STARTDATES,b.ENDDATES,b.TIMES
+		from MIN_TOUR_RESERVE a,MIN_TOUR_LIST_RESERVE b,MIN_TOUR_LIST c
+		where a.LIST_NO=c.NO and a.LIST_RESERVE_NO=b.NO
+		and a.NO=#{no}
+	</select>
+	<update id="Reserve_setStatus" parameterType="java.util.Map">
+		update MIN_TOUR_RESERVE set STATUS=#{status} where NO=#{no}
+	</update>
+	<select id="Reserve_getArticlesAll" parameterType="java.util.Map" resultType="net.mytour.data.Reserve_Data">
+		select NO,LIST_NO,LIST_RESERVE_NO,MONEY,MONEYS,CNTS,STATUS,MEMBER_NO,DATES,BANK,BANK_NUM,
+		CITY,DAYS,AIR,FILE1,SUBJECT,STARTDATES,ENDDATES,TIMES
+		from (select rownum as rnum,aa.* from (
+		
+		select a.NO,a.LIST_NO,a.LIST_RESERVE_NO,a.MONEY,a.MONEYS,a.CNTS,a.STATUS,a.MEMBER_NO,a.DATES,a.BANK,a.BANK_NUM,
+		c.CITY,c.DAYS,c.AIR,c.FILE1,b.SUBJECT,b.STARTDATES,b.ENDDATES,b.TIMES
+		from MIN_TOUR_RESERVE a,MIN_TOUR_LIST_RESERVE b,MIN_TOUR_LIST c
+		where a.LIST_NO=c.NO and a.LIST_RESERVE_NO=b.NO
+		
+		<if test="status != -1"> and STATUS=#{status} </if>
+		
+		order by a.NO desc
+		) aa) where rnum between #{start} and #{end}
+	</select>
+	<select id="Reserve_getCountAll" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_RESERVE
+		<if test="status != -1"> where STATUS=#{status} </if>
+	</select>
+	<!--  -->
+
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Review -->
+	<insert id="Review_insert" parameterType="net.mytour.data.Review_Data" >
+		INSERT INTO MIN_TOUR_REVIEW(LIST_NO,STARS,MEMO,MEMBER_NO,USER_ID,DATES) VALUES(
+		#{list_no},
+		#{stars},
+		#{memo},
+		#{member_no},
+		#{user_id},
+		#{dates}
+		)
+	</insert>
+	<select id="Review_getCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_REVIEW where LIST_NO=#{list_no}
+	</select>
+	<select id="Review_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.Review_Data">
+		select NO,LIST_NO,STARS,MEMO,MEMBER_NO,USER_ID,DATES
+		from (select rownum as rnum,aa.* from (
+		select * from MIN_TOUR_REVIEW where LIST_NO=#{list_no}
+		order by NO desc
+		) aa) where rnum between #{start} and #{end}
+	</select>
+	<!--  -->
+	
+	
+	
+	
+	
+	
+	
+	<!-- Qna -->
+	<select id="Qna_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.Qna_Data">
+		select NO,MEMBER_NO,SUBJECT,QUEST,ANSWER,DATES,ISANSWER,NAME,PHONE1,PHONE2,PHONE3
+		from (select rownum as rnum,aa.* from (
+		
+		select a.NO,a.MEMBER_NO,a.SUBJECT,a.QUEST,a.ANSWER,a.DATES,a.ISANSWER,b.NAME,b.PHONE1,b.PHONE2,b.PHONE3
+		from MIN_TOUR_QNA a,MIN_TOUR_MEMBER b
+		where a.MEMBER_NO=b.NO
+		
+		<if test="member_no != -1"> and a.MEMBER_NO=#{member_no} </if>
+		<if test="status != -1"> and a.ISANSWER=#{status} </if>
+		
+		order by a.NO desc
+		) aa) where rnum between #{start} and #{end}
+	</select>
+	<select id="Qna_getCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_QNA where NO!=0
+		<if test="member_no != -1"> and MEMBER_NO=#{member_no} </if>
+		<if test="status != -1"> and ISANSWER=#{status} </if>
+	</select>
+	<insert id="Qna_insert" parameterType="net.mytour.data.Qna_Data" >
+		INSERT INTO MIN_TOUR_QNA(MEMBER_NO,SUBJECT,QUEST,ANSWER,DATES,ISANSWER) VALUES(
+		#{member_no},
+		#{subject},
+		#{quest},
+		#{answer},
+		#{dates},
+		#{isanswer}
+		)
+	</insert>
+	<select id="Qna_getArticle" parameterType="java.util.Map" resultType="net.mytour.data.Qna_Data">
+		select a.NO,a.MEMBER_NO,a.SUBJECT,a.QUEST,a.ANSWER,a.DATES,a.ISANSWER,b.NAME,b.PHONE1,b.PHONE2,b.PHONE3
+		from MIN_TOUR_QNA a,MIN_TOUR_MEMBER b
+		where a.MEMBER_NO=b.NO
+		and a.NO=#{no}
+	</select>
+	<update id="Qna_update" parameterType="net.mytour.data.Qna_Data">
+		update MIN_TOUR_QNA set
+		SUBJECT=#{subject},
+		QUEST=#{quest},
+		ANSWER=#{answer},
+		ISANSWER=#{isanswer},
+		DATES=#{dates}
+		where NO=#{no}
+	</update>
+	<delete id="Qna_delete" parameterType="java.util.Map">
+		delete from MIN_TOUR_QNA where NO=#{no}
+	</delete>
+	<update id="Qna_answer" parameterType="net.mytour.data.Qna_Data">
+		update MIN_TOUR_QNA set
+		ANSWER=#{answer},
+		ISANSWER=#{isanswer}
+		where NO=#{no}
+	</update>
+	<update id="Qna_answerDel" parameterType="net.mytour.data.Qna_Data">
+		update MIN_TOUR_QNA set
+		ANSWER=#{answer},
+		ISANSWER=#{isanswer}
+		where NO=#{no}
+	</update>
+	<!--  -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Notice -->
+	<select id="Notice_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.Notice_Data">
+		select NO,SUBJECT,MEMO,DATES
+		from (select rownum as rnum,aa.* from (
+		select * from MIN_TOUR_NOTICE order by NO desc
+		) aa) where rnum between #{start} and #{end}
+	</select>
+	<select id="Notice_getCount" resultType="int">
+		select count(*) from MIN_TOUR_NOTICE
+	</select>
+	<insert id="Notice_insert" parameterType="net.mytour.data.Notice_Data" >
+		INSERT INTO MIN_TOUR_NOTICE(SUBJECT,MEMO,DATES) VALUES(
+		#{subject},
+		#{memo},
+		#{dates}
+		)
+	</insert>
+	<select id="Notice_getArticle" parameterType="java.util.Map" resultType="net.mytour.data.Notice_Data">
+		select NO,SUBJECT,MEMO,DATES from MIN_TOUR_NOTICE where NO=#{no}
+	</select>
+	<update id="Notice_update" parameterType="net.mytour.data.Notice_Data" >
+		update MIN_TOUR_NOTICE set
+		SUBJECT=#{subject},
+		MEMO=#{memo},
+		DATES=#{dates}
+		where NO=#{no}
+	</update>
+	<delete id="Notice_delete" parameterType="net.mytour.data.Notice_Data" >
+		delete from MIN_TOUR_NOTICE where NO=#{no}
+	</delete>
+	<select id="Notice_getArticlesMain" parameterType="java.util.Map" resultType="net.mytour.data.Notice_Data">
+		select NO,SUBJECT,MEMO,DATES
+		from (select rownum as rnum,aa.* from (
+		select * from MIN_TOUR_NOTICE order by NO desc
+		) aa) where rnum between #{start} and #{end}
+	</select>
+	<!--  -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 
+
+ -->
+</mapper>

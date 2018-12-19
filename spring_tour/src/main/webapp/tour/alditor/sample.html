@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title> 알디터 샘플페이지 </title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<meta http-equiv=content-type content=text/html;charset=euc-kr>
+
+<style type=text/css>
+	html {
+		height:100%;
+		border:0;
+	}
+
+	body {
+		height:100%;
+		font-size:9pt;
+	}
+
+	form {
+		padding: 10px;
+		border:1px solid blue;
+	}
+</style>
+<SCRIPT language=JavaScript src="/alditor/alditor.js" type=text/javascript></SCRIPT>
+
+</head>
+
+<body>
+<h3 id="memo2">알디터 샘플 페이지</h3>
+<form name='f1'>
+	form 1.<br />
+	<textarea name=memo1 style="width:460px; height:200px">미리 들어있는 <b>내용</b>....</textarea>
+	<br />
+	<button onclick="alditorById('memo1'); return false;">알디터 on</button> <button onclick="killalditor('memo1'); return false;">알디터 off</button> <button onclick="switchMode(getAlditor('memo1')); return false;">모드 전환</button>
+	<br /><br />
+	<input type="submit" value="form 1. 전송" />
+</form>
+<br /><br />
+<form name='f2'>
+	form 2.<br />
+	<textarea name=memo2 rows=10 cols=40>sssss</textarea>
+	<br />
+	<button onclick="alditorById('memo2'); return false;">알디터 on</button> <button onclick="killalditor('memo2'); return false;">알디터 off</button> <button onclick="showTextarea(getAlditor('memo2')); return false;">소스창 전환</button>
+	<br /><br />
+	<textarea name=memo3 style="width:200px; height:100px" editable=0>이넘은 editable=0 이 적용되어서 자동변환시 변하되지 않음, 강제적 개별변환은 가능.</textarea>
+	<br />
+	<button onclick="alditorById('memo3'); return false;">알디터 on</button> <button onclick="killalditor('memo3'); return false;">알디터 off</button> <button onclick="showIframe(getAlditor('memo3')); return false;">에디터창 전환</button> <button onclick="document.getElementById('memo3').value='asdasd'; updateIframe(getAlditor('memo3'));return false;">값넣기</button>
+	<br /><br />
+	<textarea id=memo4 name=memo4 style="width:500px; height:300px"></textarea>
+	<br />
+	<button onclick="alditorById('memo4'); return false;">알디터 on</button> <button onclick="killalditor('memo4'); return false;">알디터 off</button> 
+	<br /><br />
+	<input type="submit" value="form 2. 전송" />
+</form>
+
+<button onclick="killalditorAll();";>전부 kill</button> <button onclick="alditorAll();";>전부 on</button>
+</body>
+</html>

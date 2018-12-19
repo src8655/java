@@ -1,0 +1,1475 @@
+<!--
+삐꿋님께서 미니위니에디터 용으로 만드신작품 
+(http://ganji.80port.net/bbs/view.php?id=miniwini_tip&no=23)
+
+알디터에 맞게 수정 - 알릭 (06-09-14)
+-->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>특수문자 입력기</title>
+<style type="text/css">
+	#fn2 { font-size: 11 pt; color:#FFFFFF; background-color:#b5c0d8; }
+	#fn3 { font-size: 10 pt; color: #0257b2;}
+	body {
+		font-size:9 pt;
+		color:black;
+		margin: 4px;
+	}
+	td {
+		font-size: 12px;
+		color: #0257b2;
+	}
+	.style1 {font-size: 9px}
+
+	input {
+		cursor:pointer;
+		font-size: 12px;
+		border: 1px solid #CCCCCC;
+		background-color: #FFFFFF;
+	}
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var preNo = 1;
+function showdiv(no) {
+	document.getElementById('link'+preNo).style.display = 'none';
+	document.getElementById('link'+no).style.display = 'block';
+	preNo = no;
+}
+
+function getQueryVariable(variable) {
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i=0;i<vars.length;i++) {
+		var pair = vars[i].split("=");
+		if (pair[0] == variable) {
+			return pair[1];
+		}
+	}
+	return '';
+}
+
+if (window.dialogArguments)
+{
+	var _iframe = window.dialogArguments._iframe;
+} else {
+	var _iframe = opener.document.getElementById(getQueryVariable('id'));
+}
+
+if (_iframe.contentWindow.document.selection)
+{
+	var _selection = _iframe.contentWindow.document.selection.createRange().text;
+}
+else
+{
+	var _selection = _iframe.contentWindow.getSelection();
+}
+
+if (typeof _selection == 'undefined') { var _selection = ''; }
+var g_sSelected = _selection;
+
+window.onload = function ()
+{
+	document.forms['jap'].elements['memo'].value = g_sSelected;
+}
+
+function completeInsert()
+{
+	_iframe.contentWindow.focus();
+	_iframe.contentWindow.document.execCommand("delete", false, null);
+	var sHTML = document.forms['jap'].elements['memo'].value;
+	if (window.dialogArguments)
+	{
+		_iframe.contentWindow.document.selection.createRange().pasteHTML(sHTML);
+	} else {
+		_iframe.contentWindow.document.execCommand("InsertHTML", false, sHTML);
+	}
+	self.close();
+}
+
+function onover(f) {
+	f.style.backgroundColor = '#e3e5f6';
+	f.style.color = '#ff5400';
+	f.style.cursor = 'pointer';
+}
+function onout(f) {
+	f.style.backgroundColor = '#ffffff';
+	f.style.color = '#0257b2';
+	f.style.cursor = 'pointer';
+}
+
+function insertChar(charValue)
+{
+	document.forms['jap'].elements['memo'].value += charValue;
+}
+//-->
+</script>
+</head>
+
+<body scroll="no" bgcolor="#EBEAE7">
+<div align=center style="margin-bottom: 6px;"><input onfocus="this.blur();" type="button" value="원, 괄호문자" onclick="showdiv(2); return false;" /><input onfocus="this.blur();" type="button" value="일본문자" onclick="showdiv(3); return false;" /><input onfocus="this.blur();" type="button" value="그리스, 러시아문자" onclick="showdiv(4); return false;" /><br /><input onfocus="this.blur();" type="button" value="기호문자" onclick="showdiv(1); return false;" /><input onfocus="this.blur();" type="button" value="영문전각, 한글자모" onclick="showdiv(5); return false;" /><input onfocus="this.blur();" type="button" value="선, 단위문자" onclick="showdiv(6); return false;" /></div>
+
+
+	<div style="height: 270px; overflow:auto" align=center>
+
+      <!-- 기호 문자 시작 -->
+      <div id="link1">
+        <table width="324" border="0" cellspacing="1" bgcolor="#C0C0C0" >
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('、');" onMouseOver="onover(this);" onMouseOut="onout(this)">、</td>
+          <td width="6%" id=fn3 onClick="insertChar('。');" onMouseOver="onover(this);" onMouseOut="onout(this)">。</td>
+          <td width="6%" id=fn3 onClick="insertChar('·');" onMouseOver="onover(this);" onMouseOut="onout(this)">·</td>
+          <td width="6%" id=fn3 onClick="insertChar('‥');" onMouseOver="onover(this);" onMouseOut="onout(this)">‥</td>
+          <td width="6%" id=fn3 onClick="insertChar('…');" onMouseOver="onover(this);" onMouseOut="onout(this)">…</td>
+          <td width="6%" id=fn3 onClick="insertChar('¨');" onMouseOver="onover(this);" onMouseOut="onout(this)">¨</td>
+          <td width="6%" id=fn3 onClick="insertChar('〃');" onMouseOver="onover(this);" onMouseOut="onout(this)">〃</td>
+          <td width="6%" id=fn3 onClick="insertChar('­');" onMouseOver="onover(this);" onMouseOut="onout(this)">­</td>
+          <td width="6%" id=fn3 onClick="insertChar('―');" onMouseOver="onover(this);" onMouseOut="onout(this)">―</td>
+          <td width="6%" id=fn3 onClick="insertChar('∥');" onMouseOver="onover(this);" onMouseOut="onout(this)">∥</td>
+          <td width="6%" id=fn3 onClick="insertChar('＼');" onMouseOver="onover(this);" onMouseOut="onout(this)">＼</td>
+          <td width="6%" id=fn3 onClick="insertChar('∼');" onMouseOver="onover(this);" onMouseOut="onout(this)">∼</td>
+          <td width="6%" id=fn3 onClick="insertChar('‘');" onMouseOver="onover(this);" onMouseOut="onout(this)">‘</td>
+          <td width="6%" id=fn3 onClick="insertChar('’');" onMouseOver="onover(this);" onMouseOut="onout(this)">’</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('“');" onMouseOver="onover(this);" onMouseOut="onout(this)">“</td>
+          <td width="6%" id=fn3 onClick="insertChar('”');" onMouseOver="onover(this);" onMouseOut="onout(this)">”</td>
+          <td width="6%" id=fn3 onClick="insertChar('〔');" onMouseOver="onover(this);" onMouseOut="onout(this)">〔</td>
+          <td width="6%" id=fn3 onClick="insertChar('〕');" onMouseOver="onover(this);" onMouseOut="onout(this)">〕</td>
+          <td width="6%" id=fn3 onClick="insertChar('〈');" onMouseOver="onover(this);" onMouseOut="onout(this)">〈</td>
+          <td width="6%" id=fn3 onClick="insertChar('〉');" onMouseOver="onover(this);" onMouseOut="onout(this)">〉</td>
+          <td width="6%" id=fn3 onClick="insertChar('《');" onMouseOver="onover(this);" onMouseOut="onout(this)">《</td>
+          <td width="6%" id=fn3 onClick="insertChar('》');" onMouseOver="onover(this);" onMouseOut="onout(this)">》</td>
+          <td width="6%" id=fn3 onClick="insertChar('「');" onMouseOver="onover(this);" onMouseOut="onout(this)">「</td>
+          <td width="6%" id=fn3 onClick="insertChar('」');" onMouseOver="onover(this);" onMouseOut="onout(this)">」</td>
+          <td width="6%" id=fn3 onClick="insertChar('『');" onMouseOver="onover(this);" onMouseOut="onout(this)">『</td>
+          <td width="6%" id=fn3 onClick="insertChar('』');" onMouseOver="onover(this);" onMouseOut="onout(this)">』</td>
+          <td width="6%" id=fn3 onClick="insertChar('【');" onMouseOver="onover(this);" onMouseOut="onout(this)">【</td>
+          <td width="6%" id=fn3 onClick="insertChar('】');" onMouseOver="onover(this);" onMouseOut="onout(this)">】</td>
+          <td width="6%" id=fn3 onClick="insertChar('±');" onMouseOver="onover(this);" onMouseOut="onout(this)">±</td>
+          <td width="6%" id=fn3 onClick="insertChar('×');" onMouseOver="onover(this);" onMouseOut="onout(this)">×</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('÷');" onMouseOver="onover(this);" onMouseOut="onout(this)">÷</td>
+          <td width="6%" id=fn3 onClick="insertChar('≠');" onMouseOver="onover(this);" onMouseOut="onout(this)">≠</td>
+          <td width="6%" id=fn3 onClick="insertChar('≤');" onMouseOver="onover(this);" onMouseOut="onout(this)">≤</td>
+          <td width="6%" id=fn3 onClick="insertChar('≥');" onMouseOver="onover(this);" onMouseOut="onout(this)">≥</td>
+          <td width="6%" id=fn3 onClick="insertChar('∞');" onMouseOver="onover(this);" onMouseOut="onout(this)">∞</td>
+          <td width="6%" id=fn3 onClick="insertChar('∴');" onMouseOver="onover(this);" onMouseOut="onout(this)">∴</td>
+          <td width="6%" id=fn3 onClick="insertChar('°');" onMouseOver="onover(this);" onMouseOut="onout(this)">°</td>
+          <td width="6%" id=fn3 onClick="insertChar('′');" onMouseOver="onover(this);" onMouseOut="onout(this)">′</td>
+
+
+          <td width="6%" id=fn3 onClick="insertChar('″');" onMouseOver="onover(this);" onMouseOut="onout(this)">″</td>
+          <td width="6%" id=fn3 onClick="insertChar('℃');" onMouseOver="onover(this);" onMouseOut="onout(this)">℃</td>
+          <td width="6%" id=fn3 onClick="insertChar('Å');" onMouseOver="onover(this);" onMouseOut="onout(this)">Å</td>
+          <td width="6%" id=fn3 onClick="insertChar('￠');" onMouseOver="onover(this);" onMouseOut="onout(this)">￠</td>
+          <td width="6%" id=fn3 onClick="insertChar('￡');" onMouseOver="onover(this);" onMouseOut="onout(this)">￡</td>
+          <td width="6%" id=fn3 onClick="insertChar('￥');" onMouseOver="onover(this);" onMouseOut="onout(this)">￥</td>
+          <td width="6%" id=fn3 onClick="insertChar('♂');" onMouseOver="onover(this);" onMouseOut="onout(this)">♂</td>
+          <td width="6%" id=fn3 onClick="insertChar('♀');" onMouseOver="onover(this);" onMouseOut="onout(this)">♀</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('∠');" onMouseOver="onover(this);" onMouseOut="onout(this)">∠</td>
+          <td width="6%" id=fn3 onClick="insertChar('⊥');" onMouseOver="onover(this);" onMouseOut="onout(this)">⊥</td>
+          <td width="6%" id=fn3 onClick="insertChar('⌒');" onMouseOver="onover(this);" onMouseOut="onout(this)">⌒</td>
+          <td width="6%" id=fn3 onClick="insertChar('∂');" onMouseOver="onover(this);" onMouseOut="onout(this)">∂</td>
+          <td width="6%" id=fn3 onClick="insertChar('∇');" onMouseOver="onover(this);" onMouseOut="onout(this)">∇</td>
+          <td width="6%" id=fn3 onClick="insertChar('≡');" onMouseOver="onover(this);" onMouseOut="onout(this)">≡</td>
+          <td width="6%" id=fn3 onClick="insertChar('≒');" onMouseOver="onover(this);" onMouseOut="onout(this)">≒</td>
+          <td width="6%" id=fn3 onClick="insertChar('§');" onMouseOver="onover(this);" onMouseOut="onout(this)">§</td>
+          <td width="6%" id=fn3 onClick="insertChar('※');" onMouseOver="onover(this);" onMouseOut="onout(this)">※</td>
+          <td width="6%" id=fn3 onClick="insertChar('☆');" onMouseOver="onover(this);" onMouseOut="onout(this)">☆</td>
+          <td width="6%" id=fn3 onClick="insertChar('★');" onMouseOver="onover(this);" onMouseOut="onout(this)">★</td>
+          <td width="6%" id=fn3 onClick="insertChar('○');" onMouseOver="onover(this);" onMouseOut="onout(this)">○</td>
+          <td width="6%" id=fn3 onClick="insertChar('●');" onMouseOver="onover(this);" onMouseOut="onout(this)">●</td>
+          <td width="6%" id=fn3 onClick="insertChar('◎');" onMouseOver="onover(this);" onMouseOut="onout(this)">◎</td>
+          <td width="6%" id=fn3 onClick="insertChar('◇');" onMouseOver="onover(this);" onMouseOut="onout(this)">◇</td>
+          <td width="6%" id=fn3 onClick="insertChar('◆');" onMouseOver="onover(this);" onMouseOut="onout(this)">◆</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('□');" onMouseOver="onover(this);" onMouseOut="onout(this)">□</td>
+          <td width="6%" id=fn3 onClick="insertChar('■');" onMouseOver="onover(this);" onMouseOut="onout(this)">■</td>
+          <td width="6%" id=fn3 onClick="insertChar('△');" onMouseOver="onover(this);" onMouseOut="onout(this)">△</td>
+          <td width="6%" id=fn3 onClick="insertChar('▲');" onMouseOver="onover(this);" onMouseOut="onout(this)">▲</td>
+          <td width="6%" id=fn3 onClick="insertChar('▽');" onMouseOver="onover(this);" onMouseOut="onout(this)">▽</td>
+          <td width="6%" id=fn3 onClick="insertChar('▼');" onMouseOver="onover(this);" onMouseOut="onout(this)">▼</td>
+          <td width="6%" id=fn3 onClick="insertChar('→');" onMouseOver="onover(this);" onMouseOut="onout(this)">→</td>
+          <td width="6%" id=fn3 onClick="insertChar('←');" onMouseOver="onover(this);" onMouseOut="onout(this)">←</td>
+          <td width="6%" id=fn3 onClick="insertChar('↑');" onMouseOver="onover(this);" onMouseOut="onout(this)">↑</td>
+          <td width="6%" id=fn3 onClick="insertChar('↓');" onMouseOver="onover(this);" onMouseOut="onout(this)">↓</td>
+          <td width="6%" id=fn3 onClick="insertChar('↔');" onMouseOver="onover(this);" onMouseOut="onout(this)">↔</td>
+          <td width="6%" id=fn3 onClick="insertChar('〓');" onMouseOver="onover(this);" onMouseOut="onout(this)">〓</td>
+          <td width="6%" id=fn3 onClick="insertChar('≪');" onMouseOver="onover(this);" onMouseOut="onout(this)">≪</td>
+          <td width="6%" id=fn3 onClick="insertChar('≫');" onMouseOver="onover(this);" onMouseOut="onout(this)">≫</td>
+          <td width="6%" id=fn3 onClick="insertChar('√');" onMouseOver="onover(this);" onMouseOut="onout(this)">√</td>
+          <td width="6%" id=fn3 onClick="insertChar('∽');" onMouseOver="onover(this);" onMouseOut="onout(this)">∽</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('∝');" onMouseOver="onover(this);" onMouseOut="onout(this)">∝</td>
+          <td width="6%" id=fn3 onClick="insertChar('∵');" onMouseOver="onover(this);" onMouseOut="onout(this)">∵</td>
+          <td width="6%" id=fn3 onClick="insertChar('∫');" onMouseOver="onover(this);" onMouseOut="onout(this)">∫</td>
+          <td width="6%" id=fn3 onClick="insertChar('∬');" onMouseOver="onover(this);" onMouseOut="onout(this)">∬</td>
+          <td width="6%" id=fn3 onClick="insertChar('∈');" onMouseOver="onover(this);" onMouseOut="onout(this)">∈</td>
+          <td width="6%" id=fn3 onClick="insertChar('∋');" onMouseOver="onover(this);" onMouseOut="onout(this)">∋</td>
+          <td width="6%" id=fn3 onClick="insertChar('⊆');" onMouseOver="onover(this);" onMouseOut="onout(this)">⊆</td>
+          <td width="6%" id=fn3 onClick="insertChar('⊇');" onMouseOver="onover(this);" onMouseOut="onout(this)">⊇</td>
+          <td width="6%" id=fn3 onClick="insertChar('⊂');" onMouseOver="onover(this);" onMouseOut="onout(this)">⊂</td>
+          <td width="6%" id=fn3 onClick="insertChar('⊃');" onMouseOver="onover(this);" onMouseOut="onout(this)">⊃</td>
+          <td width="6%" id=fn3 onClick="insertChar('∪');" onMouseOver="onover(this);" onMouseOut="onout(this)">∪</td>
+          <td width="6%" id=fn3 onClick="insertChar('∩');" onMouseOver="onover(this);" onMouseOut="onout(this)">∩</td>
+          <td width="6%" id=fn3 onClick="insertChar('∧');" onMouseOver="onover(this);" onMouseOut="onout(this)">∧</td>
+          <td width="6%" id=fn3 onClick="insertChar('∨');" onMouseOver="onover(this);" onMouseOut="onout(this)">∨</td>
+          <td width="6%" id=fn3 onClick="insertChar('￢');" onMouseOver="onover(this);" onMouseOut="onout(this)">￢</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('⇒');" onMouseOver="onover(this);" onMouseOut="onout(this)">⇒</td>
+          <td width="6%" id=fn3 onClick="insertChar('⇔');" onMouseOver="onover(this);" onMouseOut="onout(this)">⇔</td>
+          <td width="6%" id=fn3 onClick="insertChar('∀');" onMouseOver="onover(this);" onMouseOut="onout(this)">∀</td>
+          <td width="6%" id=fn3 onClick="insertChar('∃');" onMouseOver="onover(this);" onMouseOut="onout(this)">∃</td>
+          <td width="6%" id=fn3 onClick="insertChar('´');" onMouseOver="onover(this);" onMouseOut="onout(this)">´</td>
+          <td width="6%" id=fn3 onClick="insertChar('～');" onMouseOver="onover(this);" onMouseOut="onout(this)">～</td>
+          <td width="6%" id=fn3 onClick="insertChar('ˇ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ˇ</td>
+          <td width="6%" id=fn3 onClick="insertChar('˘');" onMouseOver="onover(this);" onMouseOut="onout(this)">˘</td>
+          <td width="6%" id=fn3 onClick="insertChar('˝');" onMouseOver="onover(this);" onMouseOut="onout(this)">˝</td>
+          <td width="6%" id=fn3 onClick="insertChar('˚');" onMouseOver="onover(this);" onMouseOut="onout(this)">˚</td>
+          <td width="6%" id=fn3 onClick="insertChar('˙');" onMouseOver="onover(this);" onMouseOut="onout(this)">˙</td>
+          <td width="6%" id=fn3 onClick="insertChar('¸');" onMouseOver="onover(this);" onMouseOut="onout(this)">¸</td>
+          <td width="6%" id=fn3 onClick="insertChar('˛');" onMouseOver="onover(this);" onMouseOut="onout(this)">˛</td>
+          <td width="6%" id=fn3 onClick="insertChar('¡');" onMouseOver="onover(this);" onMouseOut="onout(this)">¡</td>
+          <td width="6%" id=fn3 onClick="insertChar('¿');" onMouseOver="onover(this);" onMouseOut="onout(this)">¿</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ː');" onMouseOver="onover(this);" onMouseOut="onout(this)">ː</td>
+          <td width="6%" id=fn3 onClick="insertChar('∮');" onMouseOver="onover(this);" onMouseOut="onout(this)">∮</td>
+          <td width="6%" id=fn3 onClick="insertChar('∑');" onMouseOver="onover(this);" onMouseOut="onout(this)">∑</td>
+          <td width="6%" id=fn3 onClick="insertChar('∏');" onMouseOver="onover(this);" onMouseOut="onout(this)">∏</td>
+          <td width="6%" id=fn3 onClick="insertChar('¤');" onMouseOver="onover(this);" onMouseOut="onout(this)">¤</td>
+          <td width="6%" id=fn3 onClick="insertChar('℉');" onMouseOver="onover(this);" onMouseOut="onout(this)">サ</td>
+          <td width="6%" id=fn3 onClick="insertChar('‰');" onMouseOver="onover(this);" onMouseOut="onout(this)">℉</td>
+          <td width="6%" id=fn3 onClick="insertChar('◁');" onMouseOver="onover(this);" onMouseOut="onout(this)">◁</td>
+          <td width="6%" id=fn3 onClick="insertChar('◀');" onMouseOver="onover(this);" onMouseOut="onout(this)">◀</td>
+          <td width="6%" id=fn3 onClick="insertChar('▷');" onMouseOver="onover(this);" onMouseOut="onout(this)">▷</td>
+          <td width="6%" id=fn3 onClick="insertChar('▶');" onMouseOver="onover(this);" onMouseOut="onout(this)">▶</td>
+          <td width="6%" id=fn3 onClick="insertChar('♤');" onMouseOver="onover(this);" onMouseOut="onout(this)">♤</td>
+          <td width="6%" id=fn3 onClick="insertChar('♠');" onMouseOver="onover(this);" onMouseOut="onout(this)">♠</td>
+          <td width="6%" id=fn3 onClick="insertChar('♡');" onMouseOver="onover(this);" onMouseOut="onout(this)">♡</td>
+          <td width="6%" id=fn3 onClick="insertChar('♥');" onMouseOver="onover(this);" onMouseOut="onout(this)">♥</td>
+          <td width="6%" id=fn3 onClick="insertChar('♧');" onMouseOver="onover(this);" onMouseOut="onout(this)">♧</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('♣');" onMouseOver="onover(this);" onMouseOut="onout(this)">♣</td>
+          <td width="6%" id=fn3 onClick="insertChar('⊙');" onMouseOver="onover(this);" onMouseOut="onout(this)">⊙</td>
+          <td width="6%" id=fn3 onClick="insertChar('◈');" onMouseOver="onover(this);" onMouseOut="onout(this)">◈</td>
+          <td width="6%" id=fn3 onClick="insertChar('▣');" onMouseOver="onover(this);" onMouseOut="onout(this)">▣</td>
+          <td width="6%" id=fn3 onClick="insertChar('◐');" onMouseOver="onover(this);" onMouseOut="onout(this)">◐</td>
+          <td width="6%" id=fn3 onClick="insertChar('◑');" onMouseOver="onover(this);" onMouseOut="onout(this)">◑</td>
+          <td width="6%" id=fn3 onClick="insertChar('▒');" onMouseOver="onover(this);" onMouseOut="onout(this)">▒</td>
+          <td width="6%" id=fn3 onClick="insertChar('▤');" onMouseOver="onover(this);" onMouseOut="onout(this)">▤</td>
+          <td width="6%" id=fn3 onClick="insertChar('▥');" onMouseOver="onover(this);" onMouseOut="onout(this)">▥</td>
+          <td width="6%" id=fn3 onClick="insertChar('▨');" onMouseOver="onover(this);" onMouseOut="onout(this)">▨</td>
+          <td width="6%" id=fn3 onClick="insertChar('▧');" onMouseOver="onover(this);" onMouseOut="onout(this)">▧</td>
+          <td width="6%" id=fn3 onClick="insertChar('▦');" onMouseOver="onover(this);" onMouseOut="onout(this)">▦</td>
+          <td width="6%" id=fn3 onClick="insertChar('▩');" onMouseOver="onover(this);" onMouseOut="onout(this)">▩</td>
+          <td width="6%" id=fn3 onClick="insertChar('♨');" onMouseOver="onover(this);" onMouseOut="onout(this)">♨</td>
+          <td width="6%" id=fn3 onClick="insertChar('☏');" onMouseOver="onover(this);" onMouseOut="onout(this)">☏</td>
+          <td width="6%" id=fn3 onClick="insertChar('☎');" onMouseOver="onover(this);" onMouseOut="onout(this)">☎</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('☜');" onMouseOver="onover(this);" onMouseOut="onout(this)">☜</td>
+          <td width="6%" id=fn3 onClick="insertChar('☞');" onMouseOver="onover(this);" onMouseOut="onout(this)">☞</td>
+          <td width="6%" id=fn3 onClick="insertChar('¶');" onMouseOver="onover(this);" onMouseOut="onout(this)">¶</td>
+          <td width="6%" id=fn3 onClick="insertChar('†');" onMouseOver="onover(this);" onMouseOut="onout(this)">†</td>
+          <td width="6%" id=fn3 onClick="insertChar('‡');" onMouseOver="onover(this);" onMouseOut="onout(this)">‡</td>
+          <td width="6%" id=fn3 onClick="insertChar('↕');" onMouseOver="onover(this);" onMouseOut="onout(this)">↕</td>
+          <td width="6%" id=fn3 onClick="insertChar('↗');" onMouseOver="onover(this);" onMouseOut="onout(this)">↗</td>
+          <td width="6%" id=fn3 onClick="insertChar('↖');" onMouseOver="onover(this);" onMouseOut="onout(this)">↖</td>
+          <td width="6%" id=fn3 onClick="insertChar('↙');" onMouseOver="onover(this);" onMouseOut="onout(this)">↙</td>
+          <td width="6%" id=fn3 onClick="insertChar('↘');" onMouseOver="onover(this);" onMouseOut="onout(this)">↘</td>
+          <td width="6%" id=fn3 onClick="insertChar('♭');" onMouseOver="onover(this);" onMouseOut="onout(this)">♭</td>
+          <td width="6%" id=fn3 onClick="insertChar('♩');" onMouseOver="onover(this);" onMouseOut="onout(this)">♩</td>
+          <td width="6%" id=fn3 onClick="insertChar('♪');" onMouseOver="onover(this);" onMouseOut="onout(this)">♪</td>
+          <td width="6%" id=fn3 onClick="insertChar('♬');" onMouseOver="onover(this);" onMouseOut="onout(this)">♬</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉿');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉿</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈜');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈜</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('№');" onMouseOver="onover(this);" onMouseOut="onout(this)">№</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏇');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏇</td>
+          <td width="6%" id=fn3 onClick="insertChar('™');" onMouseOver="onover(this);" onMouseOut="onout(this)">™</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏂');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏂</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏘');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏘</td>
+          <td width="6%" id=fn3 onClick="insertChar('℡');" onMouseOver="onover(this);" onMouseOut="onout(this)">℡</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        </table>
+      </div>
+      <!-- 기호문자 끝 -->
+
+      		
+      <!-- 원.괄호문자 시작-->
+      <div id="link2" style="display:none">
+        <table width="324" border="0" cellspacing="1" bgcolor="#C0C0C0" >
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('Æ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Æ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Ð');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ð</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ª');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ª</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Ħ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ħ</span></td>
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ĳ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ĳ</span></td>
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ŀ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ŀ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Ł');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ł</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Ø');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ø</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Œ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Œ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('º');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">º</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Þ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Þ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Ŧ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ŧ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('Ŋ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">Ŋ</span></td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉠');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉠</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉡');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉡</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉢');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉢</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉣');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉣</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉤');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉤</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉥');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉥</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉦');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉦</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉧');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉧</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉨');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉨</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉩');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉩</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉪');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉪</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉫');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉫</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉬');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉬</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉭');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉭</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉮');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉮</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('㉯');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉯</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉰');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉰</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉱');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉱</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉲');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉲</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉳');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉳</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉴');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉴</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉵');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉵</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉶');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉶</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉷');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉷</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉸');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉸</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉹');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉹</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉺');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉺</td>
+          <td width="6%" id=fn3 onClick="insertChar('㉻');" onMouseOver="onover(this);" onMouseOut="onout(this)">㉻</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓐ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓐ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓑ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓑ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓒ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓒ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ⓓ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓓ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓔ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓔ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓕ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓕ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓖ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓖ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓗ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓗ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓘ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓘ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓙ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓙ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓚ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓚ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓛ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓛ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓜ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓜ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓝ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓝ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓞ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓞ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓟ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓟ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓠ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓠ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓡ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓡ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓢ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓢ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ⓣ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓣ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓤ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓤ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓥ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓥ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓦ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓦ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓧ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓧ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓨ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓨ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⓩ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⓩ</td>
+          <td width="6%" id=fn3 onClick="insertChar('①');" onMouseOver="onover(this);" onMouseOut="onout(this)">①</td>
+          <td width="6%" id=fn3 onClick="insertChar('②');" onMouseOver="onover(this);" onMouseOut="onout(this)">②</td>
+          <td width="6%" id=fn3 onClick="insertChar('③');" onMouseOver="onover(this);" onMouseOut="onout(this)">③</td>
+          <td width="6%" id=fn3 onClick="insertChar('④');" onMouseOver="onover(this);" onMouseOut="onout(this)">④</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑤');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑤</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑥');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑥</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑦');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑦</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑧');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑧</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑨');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑨</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('⑩');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑩</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑪');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑪</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑫');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑫</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑬');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑬</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑭');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑭</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑮');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑮</td>
+          <td width="6%" id=fn3 onClick="insertChar('½');" onMouseOver="onover(this);" onMouseOut="onout(this)">½</td>
+          <td width="6%" id=fn3 onClick="insertChar('⅓');" onMouseOver="onover(this);" onMouseOut="onout(this)">⅓</td>
+          <td width="6%" id=fn3 onClick="insertChar('⅔');" onMouseOver="onover(this);" onMouseOut="onout(this)">⅔</td>
+          <td width="6%" id=fn3 onClick="insertChar('¼');" onMouseOver="onover(this);" onMouseOut="onout(this)">¼</td>
+          <td width="6%" id=fn3 onClick="insertChar('¾');" onMouseOver="onover(this);" onMouseOut="onout(this)">¾</td>
+          <td width="6%" id=fn3 onClick="insertChar('⅛');" onMouseOver="onover(this);" onMouseOut="onout(this)">⅛</td>
+          <td width="6%" id=fn3 onClick="insertChar('⅜');" onMouseOver="onover(this);" onMouseOut="onout(this)">⅜</td>
+          <td width="6%" id=fn3 onClick="insertChar('⅝');" onMouseOver="onover(this);" onMouseOut="onout(this)">⅝</td>
+          <td width="6%" id=fn3 onClick="insertChar('⅞');" onMouseOver="onover(this);" onMouseOut="onout(this)">⅞</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('æ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">æ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('đ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">đ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ð');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ð</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ħ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ħ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ı');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ı</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ĳ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ĳ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ĸ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ĸ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ŀ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ŀ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ł');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ł</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ø');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ø</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('œ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">œ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ß');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ß</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('þ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">þ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ŧ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ŧ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('ŋ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ŋ</span></td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ŉ');" onMouseOver="onover(this);" onMouseOut="onout(this)"><span class="style1">ŉ</span></td>
+          <td width="6%" id=fn3 onClick="insertChar('㈀');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈀</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈁');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈁</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈂');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈂</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈃');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈃</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈄');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈄</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈅');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈅</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈆');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈆</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈇');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈇</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈈');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈈</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈉');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈉</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈊');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈊</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈋');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈋</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈌');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈌</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈍');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈍</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈎');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈎</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('㈏');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈏</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈐');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈐</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈑');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈑</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈒');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈒</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈓');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈓</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈔');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈔</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈕');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈕</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈖');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈖</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈗');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈗</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈘');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈘</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈙');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈙</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈚');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈚</td>
+          <td width="6%" id=fn3 onClick="insertChar('㈛');" onMouseOver="onover(this);" onMouseOut="onout(this)">㈛</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒜');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒜</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒝');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒝</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒞');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒞</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('⒟');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒟</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒠');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒠</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒡');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒡</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒢');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒢</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒣');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒣</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒤');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒤</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒥');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒥</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒦');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒦</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒧');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒧</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒨');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒨</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒩');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒩</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒪');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒪</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒫');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒫</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒬');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒬</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒭');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒭</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒮');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒮</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('⒯');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒯</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒰');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒰</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒱');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒱</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒲');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒲</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒳');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒳</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒴');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒴</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒵');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒵</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑴');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑴</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑵');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑵</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑶');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑶</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑷');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑷</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑸');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑸</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑹');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑹</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑺');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑺</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑻');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑻</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑼');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑼</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('⑽');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑽</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑾');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑾</td>
+          <td width="6%" id=fn3 onClick="insertChar('⑿');" onMouseOver="onover(this);" onMouseOut="onout(this)">⑿</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒀');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒀</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒁');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒁</td>
+          <td width="6%" id=fn3 onClick="insertChar('⒂');" onMouseOver="onover(this);" onMouseOut="onout(this)">⒂</td>
+          <td width="6%" id=fn3 onClick="insertChar('¹');" onMouseOver="onover(this);" onMouseOut="onout(this)">¹</td>
+          <td width="6%" id=fn3 onClick="insertChar('²');" onMouseOver="onover(this);" onMouseOut="onout(this)">²</td>
+          <td width="6%" id=fn3 onClick="insertChar('³');" onMouseOver="onover(this);" onMouseOut="onout(this)">³</td>
+          <td width="6%" id=fn3 onClick="insertChar('⁴');" onMouseOver="onover(this);" onMouseOut="onout(this)">⁴</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⁿ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⁿ</td>
+          <td width="6%" id=fn3 onClick="insertChar('₁');" onMouseOver="onover(this);" onMouseOut="onout(this)">₁</td>
+          <td width="6%" id=fn3 onClick="insertChar('₂');" onMouseOver="onover(this);" onMouseOut="onout(this)">₂</td>
+          <td width="6%" id=fn3 onClick="insertChar('₃');" onMouseOver="onover(this);" onMouseOut="onout(this)">₃</td>
+          <td width="6%" id=fn3 onClick="insertChar('₄');" onMouseOver="onover(this);" onMouseOut="onout(this)">₄</td>
+          <td>&nbsp;</td>
+        </tr>
+        </table>
+      </div>
+      <!-- 원.괄호문자 끝-->
+      		
+      		
+      		
+      		
+      <!-- 일본문자 시작 -->
+      <div id="link3" style="display:none">
+        <table width="324" border="0" cellspacing="1" bgcolor="#C0C0C0" >
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぁ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぁ</td>
+          <td width="6%" id=fn3 onClick="insertChar('あ');" onMouseOver="onover(this);" onMouseOut="onout(this)">あ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぃ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぃ</td>
+          <td width="6%" id=fn3 onClick="insertChar('い');" onMouseOver="onover(this);" onMouseOut="onout(this)">い</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぅ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぅ</td>
+          <td width="6%" id=fn3 onClick="insertChar('う');" onMouseOver="onover(this);" onMouseOut="onout(this)">う</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぇ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぇ</td>
+          <td width="6%" id=fn3 onClick="insertChar('え');" onMouseOver="onover(this);" onMouseOut="onout(this)">え</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぉ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぉ</td>
+          <td width="6%" id=fn3 onClick="insertChar('お');" onMouseOver="onover(this);" onMouseOut="onout(this)">お</td>
+          <td width="6%" id=fn3 onClick="insertChar('か');" onMouseOver="onover(this);" onMouseOut="onout(this)">か</td>
+          <td width="6%" id=fn3 onClick="insertChar('が');" onMouseOver="onover(this);" onMouseOut="onout(this)">が</td>
+          <td width="6%" id=fn3 onClick="insertChar('き');" onMouseOver="onover(this);" onMouseOut="onout(this)">き</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぎ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぎ</td>
+          <td width="6%" id=fn3 onClick="insertChar('く');" onMouseOver="onover(this);" onMouseOut="onout(this)">く</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ぐ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぐ</td>
+          <td width="6%" id=fn3 onClick="insertChar('け');" onMouseOver="onover(this);" onMouseOut="onout(this)">け</td>
+          <td width="6%" id=fn3 onClick="insertChar('げ');" onMouseOver="onover(this);" onMouseOut="onout(this)">げ</td>
+          <td width="6%" id=fn3 onClick="insertChar('こ');" onMouseOver="onover(this);" onMouseOut="onout(this)">こ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ご');" onMouseOver="onover(this);" onMouseOut="onout(this)">ご</td>
+          <td width="6%" id=fn3 onClick="insertChar('さ');" onMouseOver="onover(this);" onMouseOut="onout(this)">さ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ざ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ざ</td>
+          <td width="6%" id=fn3 onClick="insertChar('し');" onMouseOver="onover(this);" onMouseOut="onout(this)">し</td>
+          <td width="6%" id=fn3 onClick="insertChar('じ');" onMouseOver="onover(this);" onMouseOut="onout(this)">じ</td>
+          <td width="6%" id=fn3 onClick="insertChar('す');" onMouseOver="onover(this);" onMouseOut="onout(this)">す</td>
+          <td width="6%" id=fn3 onClick="insertChar('ず');" onMouseOver="onover(this);" onMouseOut="onout(this)">ず</td>
+          <td width="6%" id=fn3 onClick="insertChar('せ');" onMouseOver="onover(this);" onMouseOut="onout(this)">せ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぜ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぜ</td>
+          <td width="6%" id=fn3 onClick="insertChar('そ');" onMouseOver="onover(this);" onMouseOut="onout(this)">そ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぞ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぞ</td>
+          <td width="6%" id=fn3 onClick="insertChar('た');" onMouseOver="onover(this);" onMouseOut="onout(this)">た</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('だ');" onMouseOver="onover(this);" onMouseOut="onout(this)">だ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ち');" onMouseOver="onover(this);" onMouseOut="onout(this)">ち</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぢ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぢ</td>
+          <td width="6%" id=fn3 onClick="insertChar('っ');" onMouseOver="onover(this);" onMouseOut="onout(this)">っ</td>
+          <td width="6%" id=fn3 onClick="insertChar('つ');" onMouseOver="onover(this);" onMouseOut="onout(this)">つ</td>
+          <td width="6%" id=fn3 onClick="insertChar('づ');" onMouseOver="onover(this);" onMouseOut="onout(this)">づ</td>
+          <td width="6%" id=fn3 onClick="insertChar('て');" onMouseOver="onover(this);" onMouseOut="onout(this)">て</td>
+          <td width="6%" id=fn3 onClick="insertChar('で');" onMouseOver="onover(this);" onMouseOut="onout(this)">で</td>
+          <td width="6%" id=fn3 onClick="insertChar('と');" onMouseOver="onover(this);" onMouseOut="onout(this)">と</td>
+          <td width="6%" id=fn3 onClick="insertChar('ど');" onMouseOver="onover(this);" onMouseOut="onout(this)">ど</td>
+          <td width="6%" id=fn3 onClick="insertChar('な');" onMouseOver="onover(this);" onMouseOut="onout(this)">な</td>
+          <td width="6%" id=fn3 onClick="insertChar('に');" onMouseOver="onover(this);" onMouseOut="onout(this)">に</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぬ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぬ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ね');" onMouseOver="onover(this);" onMouseOut="onout(this)">ね</td>
+          <td width="6%" id=fn3 onClick="insertChar('の');" onMouseOver="onover(this);" onMouseOut="onout(this)">の</td>
+          <td width="6%" id=fn3 onClick="insertChar('は');" onMouseOver="onover(this);" onMouseOut="onout(this)">は</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ば');" onMouseOver="onover(this);" onMouseOut="onout(this)">ば</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぱ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぱ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ひ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ひ</td>
+          <td width="6%" id=fn3 onClick="insertChar('び');" onMouseOver="onover(this);" onMouseOut="onout(this)">び</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぴ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぴ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ふ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ふ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぶ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぶ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぷ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぷ</td>
+          <td width="6%" id=fn3 onClick="insertChar('へ');" onMouseOver="onover(this);" onMouseOut="onout(this)">へ</td>
+          <td width="6%" id=fn3 onClick="insertChar('べ');" onMouseOver="onover(this);" onMouseOut="onout(this)">べ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぺ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぺ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ほ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ほ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぼ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぼ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ぽ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ぽ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ま');" onMouseOver="onover(this);" onMouseOut="onout(this)">ま</td>
+          <td width="6%" id=fn3 onClick="insertChar('み');" onMouseOver="onover(this);" onMouseOut="onout(this)">み</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('む');" onMouseOver="onover(this);" onMouseOut="onout(this)">む</td>
+          <td width="6%" id=fn3 onClick="insertChar('め');" onMouseOver="onover(this);" onMouseOut="onout(this)">め</td>
+          <td width="6%" id=fn3 onClick="insertChar('も');" onMouseOver="onover(this);" onMouseOut="onout(this)">も</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゃ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゃ</td>
+          <td width="6%" id=fn3 onClick="insertChar('や');" onMouseOver="onover(this);" onMouseOut="onout(this)">や</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゅ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゅ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゆ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゆ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ょ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ょ</td>
+          <td width="6%" id=fn3 onClick="insertChar('よ');" onMouseOver="onover(this);" onMouseOut="onout(this)">よ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ら');" onMouseOver="onover(this);" onMouseOut="onout(this)">ら</td>
+          <td width="6%" id=fn3 onClick="insertChar('り');" onMouseOver="onover(this);" onMouseOut="onout(this)">り</td>
+          <td width="6%" id=fn3 onClick="insertChar('る');" onMouseOver="onover(this);" onMouseOut="onout(this)">る</td>
+          <td width="6%" id=fn3 onClick="insertChar('れ');" onMouseOver="onover(this);" onMouseOut="onout(this)">れ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ろ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ろ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゎ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゎ</td>
+          <td width="6%" id=fn3 onClick="insertChar('わ');" onMouseOver="onover(this);" onMouseOut="onout(this)">わ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ゐ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゐ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゑ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゑ</td>
+          <td width="6%" id=fn3 onClick="insertChar('を');" onMouseOver="onover(this);" onMouseOut="onout(this)">を</td>
+          <td width="6%" id=fn3 onClick="insertChar('ん');" onMouseOver="onover(this);" onMouseOut="onout(this)">ん</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('ァ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ァ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ア');" onMouseOver="onover(this);" onMouseOut="onout(this)">ア</td>
+          <td width="6%" id=fn3 onClick="insertChar('ィ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ィ</td>
+          <td width="6%" id=fn3 onClick="insertChar('イ');" onMouseOver="onover(this);" onMouseOut="onout(this)">イ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゥ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゥ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ウ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ウ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ェ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ェ</td>
+          <td width="6%" id=fn3 onClick="insertChar('エ');" onMouseOver="onover(this);" onMouseOut="onout(this)">エ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ォ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ォ</td>
+          <td width="6%" id=fn3 onClick="insertChar('オ');" onMouseOver="onover(this);" onMouseOut="onout(this)">オ</td>
+          <td width="6%" id=fn3 onClick="insertChar('カ');" onMouseOver="onover(this);" onMouseOut="onout(this)">カ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ガ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ガ</td>
+          <td width="6%" id=fn3 onClick="insertChar('キ');" onMouseOver="onover(this);" onMouseOut="onout(this)">キ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ギ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ギ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ク');" onMouseOver="onover(this);" onMouseOut="onout(this)">ク</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('グ');" onMouseOver="onover(this);" onMouseOut="onout(this)">グ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ケ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ケ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゲ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゲ</td>
+          <td width="6%" id=fn3 onClick="insertChar('コ');" onMouseOver="onover(this);" onMouseOut="onout(this)">コ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゴ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゴ</td>
+          <td width="6%" id=fn3 onClick="insertChar('サ');" onMouseOver="onover(this);" onMouseOut="onout(this)">サ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ザ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ザ</td>
+          <td width="6%" id=fn3 onClick="insertChar('シ');" onMouseOver="onover(this);" onMouseOut="onout(this)">シ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ジ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ジ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ス');" onMouseOver="onover(this);" onMouseOut="onout(this)">ス</td>
+          <td width="6%" id=fn3 onClick="insertChar('ズ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ズ</td>
+          <td width="6%" id=fn3 onClick="insertChar('セ');" onMouseOver="onover(this);" onMouseOut="onout(this)">セ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゼ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゼ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ソ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ソ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ゾ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ゾ</td>
+          <td width="6%" id=fn3 onClick="insertChar('タ');" onMouseOver="onover(this);" onMouseOut="onout(this)">タ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ダ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ダ</td>
+          <td width="6%" id=fn3 onClick="insertChar('チ');" onMouseOver="onover(this);" onMouseOut="onout(this)">チ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヂ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヂ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ッ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ッ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ツ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ツ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヅ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヅ</td>
+          <td width="6%" id=fn3 onClick="insertChar('テ');" onMouseOver="onover(this);" onMouseOut="onout(this)">テ</td>
+          <td width="6%" id=fn3 onClick="insertChar('デ');" onMouseOver="onover(this);" onMouseOut="onout(this)">デ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ト');" onMouseOver="onover(this);" onMouseOut="onout(this)">ト</td>
+          <td width="6%" id=fn3 onClick="insertChar('ド');" onMouseOver="onover(this);" onMouseOut="onout(this)">ド</td>
+          <td width="6%" id=fn3 onClick="insertChar('ナ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ナ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ニ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ニ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヌ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヌ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ネ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ネ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ノ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ノ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ハ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ハ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('バ');" onMouseOver="onover(this);" onMouseOut="onout(this)">バ</td>
+          <td width="6%" id=fn3 onClick="insertChar('パ');" onMouseOver="onover(this);" onMouseOut="onout(this)">パ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヒ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヒ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ビ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ビ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ピ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ピ</td>
+          <td width="6%" id=fn3 onClick="insertChar('フ');" onMouseOver="onover(this);" onMouseOut="onout(this)">フ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ブ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ブ</td>
+          <td width="6%" id=fn3 onClick="insertChar('プ');" onMouseOver="onover(this);" onMouseOut="onout(this)">プ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヘ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヘ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ベ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ベ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ペ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ペ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ホ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ホ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ボ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ボ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ポ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ポ</td>
+          <td width="6%" id=fn3 onClick="insertChar('マ');" onMouseOver="onover(this);" onMouseOut="onout(this)">マ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ミ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ミ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ム');" onMouseOver="onover(this);" onMouseOut="onout(this)">ム</td>
+          <td width="6%" id=fn3 onClick="insertChar('メ');" onMouseOver="onover(this);" onMouseOut="onout(this)">メ</td>
+          <td width="6%" id=fn3 onClick="insertChar('モ');" onMouseOver="onover(this);" onMouseOut="onout(this)">モ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ャ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ャ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヤ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヤ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ュ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ュ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ユ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ユ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ョ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ョ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヨ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヨ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ラ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ラ</td>
+          <td width="6%" id=fn3 onClick="insertChar('リ');" onMouseOver="onover(this);" onMouseOut="onout(this)">リ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ル');" onMouseOver="onover(this);" onMouseOut="onout(this)">ル</td>
+          <td width="6%" id=fn3 onClick="insertChar('レ');" onMouseOver="onover(this);" onMouseOut="onout(this)">レ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ロ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ロ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヮ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヮ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ワ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ワ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ヰ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヰ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヱ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヱ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヲ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヲ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ン');" onMouseOver="onover(this);" onMouseOut="onout(this)">ン</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヴ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヴ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヵ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヵ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ヶ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ヶ</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        </table>
+      </div>
+      <!-- 일본문자 끝 -->
+      		
+      		
+      <!-- 그리스.러시아문자 시작 -->
+      <div id="link4" style="display:none">
+        <table width="324" border="0" cellspacing="1" bgcolor="#C0C0C0" >
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅰ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅰ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅱ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅱ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅲ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅲ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅳ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅳ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅴ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅴ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅵ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅵ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅶ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅶ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅷ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅷ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅸ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅸ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ⅹ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ⅹ</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('Ⅰ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅰ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅱ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅱ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅲ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅲ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅳ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅳ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅴ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅴ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅵ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅵ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅶ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅶ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅷ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅷ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅸ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅸ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ⅹ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ⅹ</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('Α');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Α</td>
+          <td width="6%" id=fn3 onClick="insertChar('Β');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Β</td>
+          <td width="6%" id=fn3 onClick="insertChar('Γ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Γ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Δ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Δ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ε');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ε</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ζ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ζ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Η');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Η</td>
+          <td width="6%" id=fn3 onClick="insertChar('Θ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Θ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ι');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ι</td>
+          <td width="6%" id=fn3 onClick="insertChar('Κ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Κ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Λ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Λ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Μ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Μ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ν');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ν</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ξ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ξ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ο');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ο</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('Π');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Π</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ρ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ρ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Σ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Σ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Τ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Τ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Υ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Υ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Φ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Φ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Χ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Χ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ψ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ψ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ω');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ω</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('α');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">α</td>
+          <td width="6%" id=fn3 onClick="insertChar('β');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">β</td>
+          <td width="6%" id=fn3 onClick="insertChar('γ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">γ</td>
+          <td width="6%" id=fn3 onClick="insertChar('δ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">δ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ε');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ε</td>
+          <td width="6%" id=fn3 onClick="insertChar('ζ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ζ</td>
+          <td width="6%" id=fn3 onClick="insertChar('η');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">η</td>
+          <td width="6%" id=fn3 onClick="insertChar('θ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">θ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ι');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ι</td>
+          <td width="6%" id=fn3 onClick="insertChar('κ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">κ</td>
+          <td width="6%" id=fn3 onClick="insertChar('λ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">λ</td>
+          <td width="6%" id=fn3 onClick="insertChar('μ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">μ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ν');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ν</td>
+          <td width="6%" id=fn3 onClick="insertChar('ξ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ξ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ο');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ο</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('π');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">π</td>
+          <td width="6%" id=fn3 onClick="insertChar('ρ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ρ</td>
+          <td width="6%" id=fn3 onClick="insertChar('σ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">σ</td>
+          <td width="6%" id=fn3 onClick="insertChar('τ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">τ</td>
+          <td width="6%" id=fn3 onClick="insertChar('υ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">υ</td>
+          <td width="6%" id=fn3 onClick="insertChar('φ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">φ</td>
+          <td width="6%" id=fn3 onClick="insertChar('χ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">χ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ψ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ψ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ω');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ω</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('А');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">А</td>
+          <td width="6%" id=fn3 onClick="insertChar('Б');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Б</td>
+          <td width="6%" id=fn3 onClick="insertChar('В');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">В</td>
+          <td width="6%" id=fn3 onClick="insertChar('Г');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Г</td>
+          <td width="6%" id=fn3 onClick="insertChar('Д');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Д</td>
+          <td width="6%" id=fn3 onClick="insertChar('Е');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Е</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ё');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ё</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ж');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ж</td>
+          <td width="6%" id=fn3 onClick="insertChar('З');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">З</td>
+          <td width="6%" id=fn3 onClick="insertChar('И');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">И</td>
+          <td width="6%" id=fn3 onClick="insertChar('Й');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Й</td>
+          <td width="6%" id=fn3 onClick="insertChar('К');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">К</td>
+          <td width="6%" id=fn3 onClick="insertChar('Л');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Л</td>
+          <td width="6%" id=fn3 onClick="insertChar('М');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">М</td>
+          <td width="6%" id=fn3 onClick="insertChar('Н');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Н</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td height="14" width="6%" id=fn3 onClick="insertChar('О');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">О</td>
+          <td width="6%" id=fn3 onClick="insertChar('П');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">П</td>
+          <td width="6%" id=fn3 onClick="insertChar('Р');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Р</td>
+          <td width="6%" id=fn3 onClick="insertChar('С');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">С</td>
+          <td width="6%" id=fn3 onClick="insertChar('Т');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Т</td>
+          <td width="6%" id=fn3 onClick="insertChar('У');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">У</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ф');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ф</td>
+          <td width="6%" id=fn3 onClick="insertChar('Х');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Х</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ц');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ц</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ч');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ч</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ш');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ш</td>
+          <td width="6%" id=fn3 onClick="insertChar('Щ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Щ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ъ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ъ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ы');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ы</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ь');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ь</td>
+          <td width="6%" id=fn3 onClick="insertChar('Э');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Э</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('Ю');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Ю</td>
+          <td width="6%" id=fn3 onClick="insertChar('Я');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">Я</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('а');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">а</td>
+          <td width="6%" id=fn3 onClick="insertChar('б');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">б</td>
+          <td width="6%" id=fn3 onClick="insertChar('в');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">в</td>
+          <td width="6%" id=fn3 onClick="insertChar('г');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">г</td>
+          <td width="6%" id=fn3 onClick="insertChar('д');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">д</td>
+          <td width="6%" id=fn3 onClick="insertChar('е');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">е</td>
+          <td width="6%" id=fn3 onClick="insertChar('ё');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ё</td>
+          <td width="6%" id=fn3 onClick="insertChar('ж');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ж</td>
+          <td width="6%" id=fn3 onClick="insertChar('з');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">з</td>
+          <td width="6%" id=fn3 onClick="insertChar('и');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">и</td>
+          <td width="6%" id=fn3 onClick="insertChar('й');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">й</td>
+          <td width="6%" id=fn3 onClick="insertChar('к');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">к</td>
+          <td width="6%" id=fn3 onClick="insertChar('л');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">л</td>
+          <td width="6%" id=fn3 onClick="insertChar('м');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">м</td>
+          <td width="6%" id=fn3 onClick="insertChar('н');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">н</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td height="14" width="6%" id=fn3 onClick="insertChar('о');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">о</td>
+          <td width="6%" id=fn3 onClick="insertChar('п');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">п</td>
+          <td width="6%" id=fn3 onClick="insertChar('р');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">р</td>
+          <td width="6%" id=fn3 onClick="insertChar('с');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">с</td>
+          <td width="6%" id=fn3 onClick="insertChar('т');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">т</td>
+          <td width="6%" id=fn3 onClick="insertChar('у');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">у</td>
+          <td width="6%" id=fn3 onClick="insertChar('ф');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ф</td>
+          <td width="6%" id=fn3 onClick="insertChar('х');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">х</td>
+          <td width="6%" id=fn3 onClick="insertChar('ц');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ц</td>
+          <td width="6%" id=fn3 onClick="insertChar('ч');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ч</td>
+          <td width="6%" id=fn3 onClick="insertChar('ш');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ш</td>
+          <td width="6%" id=fn3 onClick="insertChar('щ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">щ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ъ');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ъ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ы');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ы</td>
+          <td width="6%" id=fn3 onClick="insertChar('ь');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ь</td>
+          <td width="6%" id=fn3 onClick="insertChar('э');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">э</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ю');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">ю</td>
+          <td width="6%" id=fn3 onClick="insertChar('я');" onMouseOver="onover(this);" onMouseOut="onout(this)" class="style1">я</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        </table>
+      </div>
+      <!-- 그리스.러시아문자 끝-->
+      		
+      		
+      		
+      <!-- 영문전각 한글자모 시작-->
+      <div id="link5" style="display:none">
+        <table width="324" border="0" cellspacing="1" bgcolor="#C0C0C0" >
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('！');" onMouseOver="onover(this);" onMouseOut="onout(this)">！</td>
+          <td width="6%" id=fn3 onClick="insertChar('＂');" onMouseOver="onover(this);" onMouseOut="onout(this)">＂</td>
+          <td width="6%" id=fn3 onClick="insertChar('＃');" onMouseOver="onover(this);" onMouseOut="onout(this)">＃</td>
+          <td width="6%" id=fn3 onClick="insertChar('＄');" onMouseOver="onover(this);" onMouseOut="onout(this)">＄</td>
+          <td width="6%" id=fn3 onClick="insertChar('％');" onMouseOver="onover(this);" onMouseOut="onout(this)">％</td>
+          <td width="6%" id=fn3 onClick="insertChar('＆');" onMouseOver="onover(this);" onMouseOut="onout(this)">＆</td>
+          <td width="6%" id=fn3 onClick="insertChar('＇');" onMouseOver="onover(this);" onMouseOut="onout(this)">＇</td>
+          <td width="6%" id=fn3 onClick="insertChar('（');" onMouseOver="onover(this);" onMouseOut="onout(this)">（</td>
+          <td width="6%" id=fn3 onClick="insertChar('）');" onMouseOver="onover(this);" onMouseOut="onout(this)">）</td>
+          <td width="6%" id=fn3 onClick="insertChar('＊');" onMouseOver="onover(this);" onMouseOut="onout(this)">＊</td>
+          <td width="6%" id=fn3 onClick="insertChar('＋');" onMouseOver="onover(this);" onMouseOut="onout(this)">＋</td>
+          <td width="6%" id=fn3 onClick="insertChar('，');" onMouseOver="onover(this);" onMouseOut="onout(this)">，</td>
+          <td width="6%" id=fn3 onClick="insertChar('－');" onMouseOver="onover(this);" onMouseOut="onout(this)">－</td>
+          <td width="6%" id=fn3 onClick="insertChar('．');" onMouseOver="onover(this);" onMouseOut="onout(this)">．</td>
+          <td width="6%" id=fn3 onClick="insertChar('／');" onMouseOver="onover(this);" onMouseOut="onout(this)">／</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('０');" onMouseOver="onover(this);" onMouseOut="onout(this)">０</td>
+          <td width="6%" id=fn3 onClick="insertChar('１');" onMouseOver="onover(this);" onMouseOut="onout(this)">１</td>
+          <td width="6%" id=fn3 onClick="insertChar('２');" onMouseOver="onover(this);" onMouseOut="onout(this)">２</td>
+          <td width="6%" id=fn3 onClick="insertChar('３');" onMouseOver="onover(this);" onMouseOut="onout(this)">３</td>
+          <td width="6%" id=fn3 onClick="insertChar('４');" onMouseOver="onover(this);" onMouseOut="onout(this)">４</td>
+          <td width="6%" id=fn3 onClick="insertChar('５');" onMouseOver="onover(this);" onMouseOut="onout(this)">５</td>
+          <td width="6%" id=fn3 onClick="insertChar('６');" onMouseOver="onover(this);" onMouseOut="onout(this)">６</td>
+          <td width="6%" id=fn3 onClick="insertChar('７');" onMouseOver="onover(this);" onMouseOut="onout(this)">７</td>
+          <td width="6%" id=fn3 onClick="insertChar('８');" onMouseOver="onover(this);" onMouseOut="onout(this)">８</td>
+          <td width="6%" id=fn3 onClick="insertChar('９');" onMouseOver="onover(this);" onMouseOut="onout(this)">９</td>
+          <td width="6%" id=fn3 onClick="insertChar('：');" onMouseOver="onover(this);" onMouseOut="onout(this)">：</td>
+          <td width="6%" id=fn3 onClick="insertChar('；');" onMouseOver="onover(this);" onMouseOut="onout(this)">；</td>
+          <td width="6%" id=fn3 onClick="insertChar('＜');" onMouseOver="onover(this);" onMouseOut="onout(this)">＜</td>
+          <td width="6%" id=fn3 onClick="insertChar('＝');" onMouseOver="onover(this);" onMouseOut="onout(this)">＝</td>
+          <td width="6%" id=fn3 onClick="insertChar('＞');" onMouseOver="onover(this);" onMouseOut="onout(this)">＞</td>
+          <td width="6%" id=fn3 onClick="insertChar('？');" onMouseOver="onover(this);" onMouseOut="onout(this)">？</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('＠');" onMouseOver="onover(this);" onMouseOut="onout(this)">＠</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ａ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ａ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｂ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｂ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｃ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｃ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｄ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｄ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｅ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｅ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｆ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｆ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｇ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｇ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｈ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｈ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｉ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｉ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｊ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｊ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｋ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｋ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｌ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｌ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｍ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｍ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｎ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｎ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｏ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｏ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('Ｐ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｐ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｑ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｑ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｒ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｒ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｓ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｓ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｔ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｔ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｕ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｕ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｖ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｖ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｗ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｗ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｘ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｘ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｙ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｙ</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ｚ');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ｚ</td>
+          <td width="6%" id=fn3 onClick="insertChar('［');" onMouseOver="onover(this);" onMouseOut="onout(this)">［</td>
+          <td width="6%" id=fn3 onClick="insertChar('￦');" onMouseOver="onover(this);" onMouseOut="onout(this)">￦</td>
+          <td width="6%" id=fn3 onClick="insertChar('］');" onMouseOver="onover(this);" onMouseOut="onout(this)">］</td>
+          <td width="6%" id=fn3 onClick="insertChar('＾');" onMouseOver="onover(this);" onMouseOut="onout(this)">＾</td>
+          <td width="6%" id=fn3 onClick="insertChar('＿');" onMouseOver="onover(this);" onMouseOut="onout(this)">＿</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('｀');" onMouseOver="onover(this);" onMouseOut="onout(this)">｀</td>
+          <td width="6%" id=fn3 onClick="insertChar('ａ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ａ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｂ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｂ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｃ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｃ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｄ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｄ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｅ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｅ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｆ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｆ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｇ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｇ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｈ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｈ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｉ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｉ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｊ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｊ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｋ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｋ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｌ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｌ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｍ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｍ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｎ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｎ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｏ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｏ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ｏ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｏ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｑ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｑ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｒ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｒ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｓ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｓ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｔ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｔ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｕ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｕ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｖ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｖ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｗ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｗ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｘ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｘ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｙ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｙ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ｚ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ｚ</td>
+          <td width="6%" id=fn3 onClick="insertChar('｛');" onMouseOver="onover(this);" onMouseOut="onout(this)">｛</td>
+          <td width="6%" id=fn3 onClick="insertChar('｜');" onMouseOver="onover(this);" onMouseOut="onout(this)">｜</td>
+          <td width="6%" id=fn3 onClick="insertChar('｝');" onMouseOver="onover(this);" onMouseOut="onout(this)">｝</td>
+          <td width="6%" id=fn3 onClick="insertChar('￣');" onMouseOver="onover(this);" onMouseOut="onout(this)">￣</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄱ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄱ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄲ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄲ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄳ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄳ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄴ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄴ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄵ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄵ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄶ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄶ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄷ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄷ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄸ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄸ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄹ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄹ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄺ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄺ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄻ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄻ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄼ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄼ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄽ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄽ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄾ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄾ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㄿ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㄿ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ㅀ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅀ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅁ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅁ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅂ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅂ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅃ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅃ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅄ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅄ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅅ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅅ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅆ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅆ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅇ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅇ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅈ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅈ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅉ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅉ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅊ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅊ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅋ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅋ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅌ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅌ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅍ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅍ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅎ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅎ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅏ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅏ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ㅐ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅐ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅑ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅑ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅒ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅒ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅓ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅓ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅔ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅔ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅕ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅕ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅖ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅖ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅗ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅗ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅘ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅘ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅙ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅙ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅚ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅚ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅛ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅛ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅜ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅜ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅝ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅝ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅞ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅞ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅟ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅟ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ㅠ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅠ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅡ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅡ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅢ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅢ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅣ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅣ</td>
+          <td>&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅥ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅥ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅦ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅦ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅧ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅧ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅨ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅨ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅩ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅩ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅪ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅪ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅫ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅫ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅬ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅬ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅭ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅭ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅮ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅮ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅯ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅯ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ㅰ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅰ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅱ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅱ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅲ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅲ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅳ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅳ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅴ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅴ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅵ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅵ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅶ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅶ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅷ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅷ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅸ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅸ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅹ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅹ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅺ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅺ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅻ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅻ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅼ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅼ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅽ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅽ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅾ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅾ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㅿ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㅿ</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('ㆀ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆀ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆁ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆁ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆂ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆂ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆃ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆃ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆄ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆄ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆅ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆅ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆆ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆆ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆇ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆇ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆈ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆈ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆉ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆉ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆊ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆊ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆋ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆋ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆌ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆌ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆍ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆍ</td>
+          <td width="6%" id=fn3 onClick="insertChar('ㆎ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ㆎ</td>
+          <td>&nbsp;</td>
+        </tr>
+        </table>
+      </div>
+      <!-- 영문전각 한글자모 끝-->
+      		
+      		
+      <!-- 선.단위문자 시작-->
+      <div id="link6" style="display:none">
+        <table width="324" border="0" cellspacing="1" bgcolor="#C0C0C0" >
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('─');" onMouseOver="onover(this);" onMouseOut="onout(this)">─</td>
+          <td width="6%" id=fn3 onClick="insertChar('│');" onMouseOver="onover(this);" onMouseOut="onout(this)">│</td>
+          <td width="6%" id=fn3 onClick="insertChar('┌');" onMouseOver="onover(this);" onMouseOut="onout(this)">┌</td>
+          <td width="6%" id=fn3 onClick="insertChar('┐');" onMouseOver="onover(this);" onMouseOut="onout(this)">┐</td>
+          <td width="6%" id=fn3 onClick="insertChar('┘');" onMouseOver="onover(this);" onMouseOut="onout(this)">┘</td>
+          <td width="6%" id=fn3 onClick="insertChar('└');" onMouseOver="onover(this);" onMouseOut="onout(this)">└</td>
+          <td width="6%" id=fn3 onClick="insertChar('├');" onMouseOver="onover(this);" onMouseOut="onout(this)">├</td>
+          <td width="6%" id=fn3 onClick="insertChar('┬');" onMouseOver="onover(this);" onMouseOut="onout(this)">┬</td>
+          <td width="6%" id=fn3 onClick="insertChar('┤');" onMouseOver="onover(this);" onMouseOut="onout(this)">┤</td>
+          <td width="6%" id=fn3 onClick="insertChar('┴');" onMouseOver="onover(this);" onMouseOut="onout(this)">┴</td>
+          <td width="6%" id=fn3 onClick="insertChar('┼');" onMouseOver="onover(this);" onMouseOut="onout(this)">┼</td>
+          <td width="6%" id=fn3 onClick="insertChar('━');" onMouseOver="onover(this);" onMouseOut="onout(this)">━</td>
+          <td width="6%" id=fn3 onClick="insertChar('┃');" onMouseOver="onover(this);" onMouseOut="onout(this)">┃</td>
+          <td width="6%" id=fn3 onClick="insertChar('┏');" onMouseOver="onover(this);" onMouseOut="onout(this)">┏</td>
+          <td width="6%" id=fn3 onClick="insertChar('┓');" onMouseOver="onover(this);" onMouseOut="onout(this)">┓</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('┛');" onMouseOver="onover(this);" onMouseOut="onout(this)">┛</td>
+          <td width="6%" id=fn3 onClick="insertChar('┗');" onMouseOver="onover(this);" onMouseOut="onout(this)">┗</td>
+          <td width="6%" id=fn3 onClick="insertChar('┣');" onMouseOver="onover(this);" onMouseOut="onout(this)">┣</td>
+          <td width="6%" id=fn3 onClick="insertChar('┳');" onMouseOver="onover(this);" onMouseOut="onout(this)">┳</td>
+          <td width="6%" id=fn3 onClick="insertChar('┫');" onMouseOver="onover(this);" onMouseOut="onout(this)">┫</td>
+          <td width="6%" id=fn3 onClick="insertChar('┻');" onMouseOver="onover(this);" onMouseOut="onout(this)">┻</td>
+          <td width="6%" id=fn3 onClick="insertChar('╋');" onMouseOver="onover(this);" onMouseOut="onout(this)">╋</td>
+          <td width="6%" id=fn3 onClick="insertChar('┠');" onMouseOver="onover(this);" onMouseOut="onout(this)">┠</td>
+          <td width="6%" id=fn3 onClick="insertChar('┯');" onMouseOver="onover(this);" onMouseOut="onout(this)">┯</td>
+          <td width="6%" id=fn3 onClick="insertChar('┨');" onMouseOver="onover(this);" onMouseOut="onout(this)">┨</td>
+          <td width="6%" id=fn3 onClick="insertChar('┷');" onMouseOver="onover(this);" onMouseOut="onout(this)">┷</td>
+          <td width="6%" id=fn3 onClick="insertChar('┿');" onMouseOver="onover(this);" onMouseOut="onout(this)">┿</td>
+          <td width="6%" id=fn3 onClick="insertChar('┝');" onMouseOver="onover(this);" onMouseOut="onout(this)">┝</td>
+          <td width="6%" id=fn3 onClick="insertChar('┰');" onMouseOver="onover(this);" onMouseOut="onout(this)">┰</td>
+          <td width="6%" id=fn3 onClick="insertChar('┥');" onMouseOver="onover(this);" onMouseOut="onout(this)">┥</td>
+          <td width="6%" id=fn3 onClick="insertChar('┸');" onMouseOver="onover(this);" onMouseOut="onout(this)">┸</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('╂');" onMouseOver="onover(this);" onMouseOut="onout(this)">╂</td>
+          <td width="6%" id=fn3 onClick="insertChar('┒');" onMouseOver="onover(this);" onMouseOut="onout(this)">┒</td>
+          <td width="6%" id=fn3 onClick="insertChar('┑');" onMouseOver="onover(this);" onMouseOut="onout(this)">┑</td>
+          <td width="6%" id=fn3 onClick="insertChar('┚');" onMouseOver="onover(this);" onMouseOut="onout(this)">┚</td>
+          <td width="6%" id=fn3 onClick="insertChar('┙');" onMouseOver="onover(this);" onMouseOut="onout(this)">┙</td>
+          <td width="6%" id=fn3 onClick="insertChar('┖');" onMouseOver="onover(this);" onMouseOut="onout(this)">┖</td>
+          <td width="6%" id=fn3 onClick="insertChar('┕');" onMouseOver="onover(this);" onMouseOut="onout(this)">┕</td>
+          <td width="6%" id=fn3 onClick="insertChar('┎');" onMouseOver="onover(this);" onMouseOut="onout(this)">┎</td>
+          <td width="6%" id=fn3 onClick="insertChar('┍');" onMouseOver="onover(this);" onMouseOut="onout(this)">┍</td>
+          <td width="6%" id=fn3 onClick="insertChar('┞');" onMouseOver="onover(this);" onMouseOut="onout(this)">┞</td>
+          <td width="6%" id=fn3 onClick="insertChar('┟');" onMouseOver="onover(this);" onMouseOut="onout(this)">┟</td>
+          <td width="6%" id=fn3 onClick="insertChar('┡');" onMouseOver="onover(this);" onMouseOut="onout(this)">┡</td>
+          <td width="6%" id=fn3 onClick="insertChar('┢');" onMouseOver="onover(this);" onMouseOut="onout(this)">┢</td>
+          <td width="6%" id=fn3 onClick="insertChar('┦');" onMouseOver="onover(this);" onMouseOut="onout(this)">┦</td>
+          <td width="6%" id=fn3 onClick="insertChar('┧');" onMouseOver="onover(this);" onMouseOut="onout(this)">┧</td>
+          <td width="6%" id=fn3 onClick="insertChar('┩');" onMouseOver="onover(this);" onMouseOut="onout(this)">┩</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('┪');" onMouseOver="onover(this);" onMouseOut="onout(this)">┪</td>
+          <td width="6%" id=fn3 onClick="insertChar('┭');" onMouseOver="onover(this);" onMouseOut="onout(this)">┭</td>
+          <td width="6%" id=fn3 onClick="insertChar('┮');" onMouseOver="onover(this);" onMouseOut="onout(this)">┮</td>
+          <td width="6%" id=fn3 onClick="insertChar('┱');" onMouseOver="onover(this);" onMouseOut="onout(this)">┱</td>
+          <td width="6%" id=fn3 onClick="insertChar('┲');" onMouseOver="onover(this);" onMouseOut="onout(this)">┲</td>
+          <td width="6%" id=fn3 onClick="insertChar('┵');" onMouseOver="onover(this);" onMouseOut="onout(this)">┵</td>
+          <td width="6%" id=fn3 onClick="insertChar('┶');" onMouseOver="onover(this);" onMouseOut="onout(this)">┶</td>
+          <td width="6%" id=fn3 onClick="insertChar('┹');" onMouseOver="onover(this);" onMouseOut="onout(this)">┹</td>
+          <td width="6%" id=fn3 onClick="insertChar('┺');" onMouseOver="onover(this);" onMouseOut="onout(this)">┺</td>
+          <td width="6%" id=fn3 onClick="insertChar('┽');" onMouseOver="onover(this);" onMouseOut="onout(this)">┽</td>
+          <td width="6%" id=fn3 onClick="insertChar('┾');" onMouseOver="onover(this);" onMouseOut="onout(this)">┾</td>
+          <td width="6%" id=fn3 onClick="insertChar('╀');" onMouseOver="onover(this);" onMouseOut="onout(this)">╀</td>
+          <td width="6%" id=fn3 onClick="insertChar('╁');" onMouseOver="onover(this);" onMouseOut="onout(this)">╁</td>
+          <td width="6%" id=fn3 onClick="insertChar('╃');" onMouseOver="onover(this);" onMouseOut="onout(this)">╃</td>
+          <td width="6%" id=fn3 onClick="insertChar('╄');" onMouseOver="onover(this);" onMouseOut="onout(this)">╄</td>
+          <td width="6%" id=fn3 onClick="insertChar('╅');" onMouseOver="onover(this);" onMouseOut="onout(this)">╅</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('╆');" onMouseOver="onover(this);" onMouseOut="onout(this)">╆</td>
+          <td width="6%" id=fn3 onClick="insertChar('╇');" onMouseOver="onover(this);" onMouseOut="onout(this)">╇</td>
+          <td width="6%" id=fn3 onClick="insertChar('╈');" onMouseOver="onover(this);" onMouseOut="onout(this)">╈</td>
+          <td width="6%" id=fn3 onClick="insertChar('╉');" onMouseOver="onover(this);" onMouseOut="onout(this)">╉</td>
+          <td width="6%" id=fn3 onClick="insertChar('╊');" onMouseOver="onover(this);" onMouseOut="onout(this)">╊</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎕');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎕</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎖');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎖</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎗');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎗</td>
+          <td width="6%" id=fn3 onClick="insertChar('ℓ');" onMouseOver="onover(this);" onMouseOut="onout(this)">ℓ</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎘');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎘</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏄');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏄</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎣');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎣</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎤');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎤</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎥');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎥</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎦');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎦</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎙');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎙</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎚');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎚</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎛');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎛</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎜');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎜</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎝');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎝</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('㎞');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎞</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎟');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎟</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎠');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎠</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎡');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎡</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎢');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎢</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏊');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏊</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎍');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎍</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎎');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎎</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎏');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎏</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏏');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏏</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎈');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎈</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎉');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎉</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏈');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏈</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎧');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎧</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎨');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎨</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎰');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎰</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('㎱');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎱</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎲');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎲</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎳');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎳</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎴');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎴</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎵');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎵</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎶');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎶</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎷');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎷</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎸');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎸</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎹');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎹</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎀');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎀</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎁');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎁</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎂');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎂</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎃');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎃</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎄');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎄</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎺');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎺</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎻');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎻</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('㎼');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎼</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎽');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎽</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎾');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎾</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎿');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎿</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎐');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎐</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎑');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎑</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎒');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎒</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎓');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎓</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎔');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎔</td>
+          <td width="6%" id=fn3 onClick="insertChar('Ω');" onMouseOver="onover(this);" onMouseOut="onout(this)">Ω</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏀');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏀</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏁');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏁</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎊');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎊</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎋');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎋</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎌');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎌</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏖');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏖</td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%" id=fn3 onClick="insertChar('㏅');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏅</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎭');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎭</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎮');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎮</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎯');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎯</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏛');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏛</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎩');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎩</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎪');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎪</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎫');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎫</td>
+          <td width="6%" id=fn3 onClick="insertChar('㎬');" onMouseOver="onover(this);" onMouseOut="onout(this)">㎬</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏝');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏝</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏐');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏐</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏓');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏓</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏃');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏃</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏉');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏉</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏜');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏜</td>
+          <td width="6%" id=fn3 onClick="insertChar('㏆');" onMouseOver="onover(this);" onMouseOut="onout(this)">㏆</td>
+        </tr>
+        					
+        <tr align="center" bgcolor="#FFFFFF">
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+          <td width="6%">&nbsp;</td>
+        </tr>
+        </table>
+      </div>
+      <!-- 선.단위문자 끝-->
+	</div>
+
+<div align=center>
+  <FORM name=jap style="margin:0px; padding:0px; display:inline">
+	  <input name="memo" type="text" value="" size="39" maxlength="255"> <input type="button" value="삽입" onclick="completeInsert(); return false;" /> <input type="button" value="닫기" onclick="self.close(); return false;" />
+  </FORM>
+</div>
+
+</body>
+</html>

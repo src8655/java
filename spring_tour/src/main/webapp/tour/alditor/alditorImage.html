@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title> 이미지/동영상/음악/플래시 삽입 </title>
+		<meta name="Generator" content="EditPlus">
+		<meta name="Author" content="">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<meta http-equiv=content-type content=text/html;charset=euc-kr>
+
+<link rel=StyleSheet HREF='./alditorPop.css' type='text/css' title='CSS'>
+
+		<script language=javascript type=text/javascript>
+		<!--
+			var _selection = '';
+
+			function getQueryVariable(variable) {
+				var query = window.location.search.substring(1);
+				var vars = query.split("&");
+				for (var i=0;i<vars.length;i++) {
+					var pair = vars[i].split("=");
+					if (pair[0] == variable) {
+						return pair[1];
+					}
+				}
+				return '';
+			}
+
+			var _iframe = opener.document.getElementById(getQueryVariable('id'));
+			var _uploadLink = opener.config.uploadLink;
+
+			if(window.showModelessDialog)
+			{
+				var sel = _iframe.contentWindow.document.selection;
+				var range = sel.createRange();
+				if (sel.type == "Control" && range.item(0).tagName.toLowerCase() == 'img')
+				{
+					_selection= range.item(0).src;
+				}
+			} else {
+				var sel = _iframe.contentWindow.getSelection();
+				var range = sel.getRangeAt(0);
+				var p = range.commonAncestorContainer;
+				if ( !range.collapsed && range.startContainer == range.endContainer && range.startOffset - range.endOffset <= 1 && range.startContainer.hasChildNodes() )
+				{
+					p = range.startContainer.childNodes[range.startOffset];
+				}
+				if (p.nodeName == 'IMG')
+				{
+					_selection = p.src;
+				}
+			}
+
+			window.onload = function ()
+			{
+				var uploadButton = document.createElement('input');
+				uploadButton.value = " Upload ";
+				uploadButton.className = "tah11px";
+				uploadButton.type = "button";
+				uploadButton.title = "외부의 화일 링크서비스를 이용합니다.";
+				uploadButton.onclick = function () {
+						var a = window.open(_uploadLink,'uploadWin','width=800, height=650, top=0, left=0, menubar=no, status=no, scrollbars=yes, toolbar=no, resizable=yes');
+						a.focus();
+					}
+				document.getElementById('uploader').appendChild(uploadButton);
+
+				document.getElementById('imgUrl').value = _selection;
+				document.getElementById('imgUrl').focus();
+			}
+
+			var g_sUrl = "";
+			var g_sThumbnailUrl = "";
+			var g_sAlign = "newline";
+			var g_sBorderColor = "#8c8c8c";
+
+			function checkInsertImage()
+			{	
+				g_sUrl = document.getElementById("imgUrl").value;
+				if (!trim(g_sUrl))
+				{
+					alert("삽입할 이미지의 주소를 입력해주세요.");
+					document.getElementById('imgUrl').focus();
+					return;
+				} else {
+					genHTML();
+				}
+			}
+
+			function checkURL(obj)
+			{
+				var sUrl = trim(obj.value);
+				var sExt = sUrl.substring(sUrl.lastIndexOf("."));
+				var sComp = sExt.toUpperCase();
+				if (sComp==".WMA" || sComp==".MP3" || sComp==".ASF" || sComp==".WMV" || sComp == ".AVI" || sComp == ".MPG")
+				{
+					document.getElementById('objType2').checked = true;
+					chooseType(document.getElementById('objType2'));
+				} else if (sComp==".SWF")
+				{
+					document.getElementById('objType3').checked = true;
+					chooseType(document.getElementById('objType3'));
+				} else if (sComp==".FLV")
+				{
+					document.getElementById('objType4').checked = true;
+					chooseType(document.getElementById('objType4'));
+				}
+				else if (sComp==".GIF" || sComp==".JPG" || sComp==".BMP" || sComp==".PNG")
+				{
+					document.getElementById('objType1').checked = true;
+					chooseType(document.getElementById('objType1'));
+				}
+			}
+
+			function chooseType(obj) {
+				if(obj.id == "objType1")
+				{
+					document.getElementById("imgLink").disabled = false;
+					document.getElementById("LimgLink").disabled = false;
+					document.getElementById("wmode").disabled = true;
+					document.getElementById("Lwmode").disabled = true;
+				}
+				if(obj.id == "objType2")
+				{
+					document.getElementById("imgLink").disabled = true;
+					document.getElementById("LimgLink").disabled = true;
+					document.getElementById("wmode").disabled = true;
+					document.getElementById("Lwmode").disabled = true;
+				}
+				if(obj.id == "objType3" || obj.id == "objType4")
+				{
+					document.getElementById("imgLink").disabled = true;
+					document.getElementById("LimgLink").disabled = true;
+					document.getElementById("wmode").disabled = false;
+					document.getElementById("Lwmode").disabled = false;
+				}
+			}
+
+			function genHTML()
+			{
+				var nBorder = document.getElementById("nBorder").value;
+				var types = document.getElementsByName('objType');
+				var chosenType;
+
+				for (i=0; i< types.length ; i++ )
+				{
+					if (types[i].checked)
+					{
+						chosenType = types[i].value;
+						break;
+					}
+				}
+
+				if (chosenType == 1)
+				{
+					var tag = "img name='target_resize_image[]'";
+				}
+
+				if (chosenType == 2)
+				{
+					var tag = "embed";
+				}
+
+				if (chosenType == 3 || chosenType == 4)
+				{
+					var tag = "embed";
+					if (document.getElementById("wmode").checked)
+					{
+						tag += " wmode='transparent'";
+					}
+				}
+
+				if (document.getElementById("mediaWidth").value) {  tag += " width="+document.getElementById("mediaWidth").value;	}
+				if (document.getElementById("mediaHeight").value) { tag += " height="+document.getElementById("mediaHeight").value;}
+
+				var link = trim(document.getElementById("imgLink").value);
+				if (link)
+				{
+					var aStart = '<a href="'+ link +'" target="_blank">';
+					var aEnd = '</a>';
+				} else {
+					var aStart = '';
+					var aEnd = '';
+				}
+
+				if (g_sAlign=="newline") {
+					if (chosenType == 4)
+					{
+						var sHTML = "<div>"+aStart+"<"+tag+" style=\"border:"+nBorder+"px solid "+g_sBorderColor+"\" border=0 src='/alditor/images/flvplayer.swf?file="+g_sUrl+"'>"+aEnd+"</div><br />";
+					} else {
+						var sHTML = "<div>"+aStart+"<"+tag+" style=\"border:"+nBorder+"px solid "+g_sBorderColor+"\" border=0 src='"+g_sUrl+"'>"+aEnd+"</div><br />";
+					}
+				} else {
+					if (chosenType == 4)
+					{
+						var sHTML = aStart+"<"+tag+" style=\"border:"+nBorder+"px solid "+g_sBorderColor+"\" border=0 src='/alditor/images/flvplayer.swf?file="+g_sUrl+"' align="+g_sAlign+">"+aEnd;
+					} else {
+						var sHTML = aStart+"<"+tag+" style=\"border:"+nBorder+"px solid "+g_sBorderColor+"\" border=0 src='"+g_sUrl+"' align="+g_sAlign+">"+aEnd;
+					}
+				}
+
+				_iframe.contentWindow.focus();
+				_iframe.contentWindow.document.execCommand("delete", false, null);
+				if (window.showModelessDialog)
+				{
+					_iframe.contentWindow.document.selection.createRange().pasteHTML(sHTML);
+				} else {
+					_iframe.contentWindow.document.execCommand("InsertHTML", false, sHTML);
+				}
+				self.close();
+			}
+
+			function setImgAlignType(sAlign, evt)
+			{
+				document.getElementById("imgAlign1").className = "imgAlign";
+				document.getElementById("imgAlign2").className = "imgAlign";
+				document.getElementById("imgAlign3").className = "imgAlign";
+				document.getElementById("imgAlign4").className = "imgAlign";
+				document.getElementById("imgAlign5").className = "imgAlign";
+
+				evt = evt || window.event;
+				var t = evt.target ? evt.target : evt.srcElement;
+
+				t.className = "imgAlignOn";
+				g_sAlign = sAlign;
+			}
+
+			function check_number(field) {
+			val=field.value;
+			new_val='';
+				for(i=0;i<val.length;i++){
+					char = val.substring(i,i+1);
+					if(char<'0' || char>'9'){
+						alert('숫자만 입력하세요.');
+						field.value = new_val;
+						field.focus();
+						return false;
+					}else{
+						new_val = new_val + char;
+					}
+				}
+			}
+
+			function trim(str) {
+				return str.replace (/(^\s*)|(\s*$)/g, "");
+			}
+
+			///// 컬러픽커
+			var setColor;
+			var pressButton;
+
+			function changeBorderColor(buttonObj) {
+				pressButton = buttonObj
+				var colorSelector = document.getElementById("colorSelector");
+				colorSelector.style.left = getOffsetLeft(buttonObj) + 4 + 'px';
+				colorSelector.style.top = getOffsetTop(buttonObj) - 95 + 'px';
+				colorSelector.style.display="";
+			}
+
+			function hideColorSelector(change)
+			{
+				if (change == true)
+				{
+					pressButton.style.backgroundColor = setColor;
+					g_sBorderColor = "#"+setColor;
+				}
+				document.getElementById("colorSelector").style.display="none";
+			}
+
+			function previewColor(color) {
+				document.getElementById("color_view").bgColor = color;
+				document.getElementById("color_value").style.color = "#"+color;
+				document.getElementById("color_value").value = color;
+			}
+			function chooseColor(color, hold) {
+				setColor = color;
+				hideColorSelector(true);
+			}
+
+			// 위치관련
+			function getOffsetTop(elm) {
+				var mOffsetTop = elm.offsetTop;
+				var mOffsetParent = elm.offsetParent;
+				while(mOffsetParent){
+					mOffsetTop += mOffsetParent.offsetTop;
+					mOffsetParent = mOffsetParent.offsetParent;
+				}
+				return mOffsetTop;
+			}
+
+			function getOffsetLeft(elm) {
+				var mOffsetLeft = elm.offsetLeft;
+				var mOffsetParent = elm.offsetParent;
+				while(mOffsetParent){
+					mOffsetLeft += mOffsetParent.offsetLeft;
+					mOffsetParent = mOffsetParent.offsetParent;
+				}
+				return mOffsetLeft;
+			}
+
+			var colorHTML = '<div id="colorSelector" style="BORDER: #9b9b9b 1px solid; PADDING: 5px; DISPLAY: none; Z-INDEX: 3; WIDTH: 155px; POSITION: absolute; HEIGHT: 97px; BACKGROUND-COLOR: #ffffff" align="center" unselectable="on"><table cellspacing="1" cellpadding="0" width="145" bgcolor="#000000" border="0"><tbody><tr height="11"><td style="cursor:pointer;" onmouseover="previewColor(\'FE1100\')" onclick="chooseColor(\'FE1100\');" bgcolor="#fe1100" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FE4C24\')" onclick="chooseColor(\'FE4C24\');" bgcolor="#fe4c24" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FE875A\')" onclick="chooseColor(\'FE875A\');" bgcolor="#fe875a" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FECDA7\')" onclick="chooseColor(\'FECDA7\');" bgcolor="#fecda7" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'040967\')" onclick="chooseColor(\'040967\');" bgcolor="#040967" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'2D328D\')" onclick="chooseColor(\'2D328D\');" bgcolor="#2d328d" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'44499A\')" onclick="chooseColor(\'44499A\');" bgcolor="#44499a" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'686EB8\')" onclick="chooseColor(\'686EB8\');" bgcolor="#686eb8" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'007B1D\')" onclick="chooseColor(\'007B1D\');" bgcolor="#007b1d" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'2F9D4C\')" onclick="chooseColor(\'2F9D4C\');" bgcolor="#2f9d4c" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'8BCDA2\')" onclick="chooseColor(\'8BCDA2\');" bgcolor="#8bcda2" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'AEDEC1\')" onclick="chooseColor(\'AEDEC1\');" bgcolor="#aedec1" unselectable="on"></td></tr><tr height="11"><td style="cursor:pointer;" onmouseover="previewColor(\'6E0017\')" onclick="chooseColor(\'6E0017\');" bgcolor="#6e0017" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'7B243D\')" onclick="chooseColor(\'7B243D\');" bgcolor="#7b243d" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'834C6B\')" onclick="chooseColor(\'834C6B\');" bgcolor="#834c6b" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'987E95\')" onclick="chooseColor(\'987E95\');" bgcolor="#987e95" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'006BD4\')" onclick="chooseColor(\'006BD4\');" bgcolor="#006bd4" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'0087E1\')" onclick="chooseColor(\'0087E1\');" bgcolor="#0087e1" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'37B7FE\')" onclick="chooseColor(\'37B7FE\');" bgcolor="#37b7fe" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'A7DEFE\')" onclick="chooseColor(\'A7DEFE\');" bgcolor="#a7defe" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FEFE00\')" onclick="chooseColor(\'FEFE00\');" bgcolor="#fefe00" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FEFE03\')" onclick="chooseColor(\'FEFE03\');" bgcolor="#fefe03" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FEFE9F\')" onclick="chooseColor(\'FEFE9F\');" bgcolor="#fefe9f" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FEFED0\')" onclick="chooseColor(\'FEFED0\');" bgcolor="#fefed0" unselectable="on"></td></tr><tr height="11"><td style="cursor:pointer;" onmouseover="previewColor(\'4E003D\')" onclick="chooseColor(\'4E003D\');" bgcolor="#4e003d" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'6D2262\')" onclick="chooseColor(\'6D2262\');" bgcolor="#6d2262" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'926594\')" onclick="chooseColor(\'926594\');" bgcolor="#926594" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'C2A9C5\')" onclick="chooseColor(\'C2A9C5\');" bgcolor="#c2a9c5" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'005557\')" onclick="chooseColor(\'005557\');" bgcolor="#005557" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'03747B\')" onclick="chooseColor(\'03747B\');" bgcolor="#03747b" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'579D9F\')" onclick="chooseColor(\'579D9F\');" bgcolor="#579d9f" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'A2C6CC\')" onclick="chooseColor(\'A2C6CC\');" bgcolor="#a2c6cc" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'F45F00\')" onclick="chooseColor(\'F45F00\');" bgcolor="#f45f00" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FE9739\')" onclick="chooseColor(\'FE9739\');" bgcolor="#fe9739" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FECD8A\')" onclick="chooseColor(\'FECD8A\');" bgcolor="#fecd8a" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'FEE2B0\')" onclick="chooseColor(\'FEE2B0\');" bgcolor="#fee2b0" unselectable="on"></td></tr><tr height="11"><td style="cursor:pointer;" onmouseover="previewColor(\'1B0B73\')" onclick="chooseColor(\'1B0B73\');" bgcolor="#1b0b73" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'4C379D\')" onclick="chooseColor(\'4C379D\');" bgcolor="#4c379d" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'876EBA\')" onclick="chooseColor(\'876EBA\');" bgcolor="#876eba" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'BBBAEF\')" onclick="chooseColor(\'BBBAEF\');" bgcolor="#bbbaef" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'008E37\')" onclick="chooseColor(\'008E37\');" bgcolor="#008e37" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'26B168\')" onclick="chooseColor(\'26B168\');" bgcolor="#26b168" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'47BE80\')" onclick="chooseColor(\'47BE80\');" bgcolor="#47be80" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'76D3A2\')" onclick="chooseColor(\'76D3A2\');" bgcolor="#76d3a2" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'B31C00\')" onclick="chooseColor(\'B31C00\');" bgcolor="#b31c00" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'B03F21\')" onclick="chooseColor(\'B03F21\');" bgcolor="#b03f21" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'AE623A\')" onclick="chooseColor(\'AE623A\');" bgcolor="#ae623a" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'AC6E54\')" onclick="chooseColor(\'AC6E54\');" bgcolor="#ac6e54" unselectable="on"></td></tr><tr height="11"><td style="cursor:pointer;" onmouseover="previewColor(\'FEFEFE\')" onclick="chooseColor(\'FEFEFE\');" bgcolor="#fefefe" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'E6E6E6\')" onclick="chooseColor(\'E6E6E6\');" bgcolor="#e6e6e6" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'CDCDCD\')" onclick="chooseColor(\'CDCDCD\');" bgcolor="#cdcdcd" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'B4B4B4\')" onclick="chooseColor(\'B4B4B4\');" bgcolor="#b4b4b4" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'A8A8A8\')" onclick="chooseColor(\'A8A8A8\');" bgcolor="#a8a8a8" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'8D8D8D\')" onclick="chooseColor(\'8D8D8D\');" bgcolor="#8d8d8d" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'747474\')" onclick="chooseColor(\'747474\');" bgcolor="#747474" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'595959\')" onclick="chooseColor(\'595959\');" bgcolor="#595959" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'4B4B4B\')" onclick="chooseColor(\'4B4B4B\');" bgcolor="#4b4b4b" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'303030\')" onclick="chooseColor(\'303030\');" bgcolor="#303030" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'0A0A0A\')" onclick="chooseColor(\'0A0A0A\');" bgcolor="#0a0a0a" unselectable="on"></td><td style="cursor:pointer;" onmouseover="previewColor(\'000000\')" onclick="chooseColor(\'000000\');" bgcolor="#000000" unselectable="on"></td></tr></tbody></table><table cellspacing="0" cellpadding="0" width="145" border="0" bgcolor="#FFFFFF"><tbody><tr height=6><td colspan=3></td></tr><tr><td style="cursor:pointer;" unselectable="on"><input unselectable="on" readonly="readonly" id="color_value" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; WIDTH: 57px; COLOR: #8d8d8d; BORDER-BOTTOM: #cccccc 1px solid; HEIGHT: 18px" maxlength="6" value="" name="color_value"/></td><td unselectable="on"><table height="18" cellspacing="1" cellpadding="0" width="51" bgcolor="#cccccc" border="0"><tbody><tr valign="center" align="middle" bgcolor="#ffffff"><td><table height="12" cellspacing="0" cellpadding="0" width="45" border="0"  bgcolor="#FFFFFF"><tbody><tr><td id="color_view" unselectable="on"></td></tr></tbody></table></td></tr></tbody></table></td><td style="cursor:pointer;" align="right" onclick="chooseColor();" unselectable="on"><img unselectable="on" src="./images/ok.gif" border="0"/></td></tr></tbody></table></div>';
+			document.write(colorHTML);
+			//////
+		//-->
+		</script>
+
+	</head>
+    <body scroll=no> 
+		<center>
+			<fieldset style="width:95%;padding:8px">  
+				<legend> 개체 삽입 </legend>  
+				<table border="0" cellpadding="0" cellspacing="0" width="100%" class="fixed">  
+				<col></col>
+				<col style="padding-left:8px"></col>
+					<tr height=24>
+					<td>종류:</td>
+						<td>  
+							<input onclick="chooseType(this);" type="radio" name="objType" value=1 id="objType1" checked> <label for="objType1">이미지</label>
+							<input onclick="chooseType(this);" type="radio" name="objType" value=2 id="objType2"> <label for="objType2">동영상/음악</label> 
+							<input onclick="chooseType(this);" type="radio" name="objType" value=3 id="objType3"> <label for="objType3">플래시</label>
+							<input onclick="chooseType(this);" type="radio" name="objType" value=4 id="objType4"> <label for="objType4">플래시동영상(.flv)</label>
+						</td>
+					</tr> 
+					<tr height=24> 
+					<td>주소: </td>
+						<td>  
+							<input onkeyup="checkURL(this)" id="imgUrl" type="text" size="50" style="width:100%" />  
+						</td>  
+					</tr>
+					<tr title="이미지에 링크를 넣고 싶으시면 주소를 입력하세요" height=24>
+					<td id="LimgLink">링크: </td>
+						<td>  
+							<input id="imgLink" type="text" size="30" style="width:100%" /> 
+						</td>  
+					</tr>
+					<tr height=24>
+					<td>설정: </td>
+						<td>  
+							넓이: <input onkeyup="check_number(this);" type="text" id="mediaWidth" name="mediaWidth" size="4"/>&nbsp;&nbsp;&nbsp;&nbsp;높이: <input  onkeyup="check_number(this);" type="text" id="mediaHeight" name="mediaHeight" size="4"/>&nbsp;&nbsp;&nbsp;&nbsp;<label for="wmode" id="Lwmode" disabled="disabled">투명 배경</label> <input type="checkbox" id="wmode" value="transparent" checked="checked" disabled="disabled">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="uploader" align="right"></span>			
+						</td>  
+					</tr>					
+				</table>  
+			</fieldset>  
+			<fieldset style="width:95%;padding:8px">  
+				<legend> 레이아웃 </legend>  
+				<table border="0" cellpadding="5" cellspacing="0" align="center">  
+					<tr align="center">
+						<td>  
+							<img id="imgAlign1" class="imgAlign" onclick="setImgAlignType('',event)" src="./images/imgInsertImageAlignType_none.png" border="0"/>  
+						</td>
+						<td>  
+							<img id="imgAlign2" class="imgAlign" onclick="setImgAlignType('absmiddle',event)" src="./images/imgInsertImageAlignType_absmiddle.png" border="0"/>  
+						</td>  
+						<td>  
+							<img id="imgAlign3" class="imgAlignOn" onclick="setImgAlignType('newline',event)" src="./images/imgInsertImageAlignType_newline.png" border="0"/>  
+						</td>
+						<td>  
+							<img id="imgAlign4" class="imgAlign" onclick="setImgAlignType('left',event)" src="./images/imgInsertImageAlignType_left.png" border="0"/>  
+						</td>  
+						<td>  
+							<img id="imgAlign5" class="imgAlign" onclick="setImgAlignType('right',event)" src="./images/imgInsertImageAlignType_right.png" border="0"/>  
+						</td>  
+					</tr>  
+					<tr align="center">  
+						<td>없음</td>  
+						<td>세로 중앙</td>
+						<td>줄바꿈</td>  
+						<td>왼쪽</td>  
+						<td>오른쪽</td>  
+					</tr>  
+				</table>  
+			</fieldset>  
+			<fieldset style="width:95%;padding:8px">  
+				<legend> 테두리 </legend>  
+				<table border="0" cellpadding="0" cellspacing="0" align="center">  
+					<tr>  
+						<td width="40">두께</td>  
+						<td width="100">  
+							<select id="nBorder">  
+								<option value="0">0 px</option>  
+								<option value="1">1 px</option>  
+								<option value="2">2 px</option>  
+								<option value="3">3 px </option>  
+								<option value="3">4 px </option>  
+								<option value="3">5 px </option>  
+							</select>  
+						</td>  
+						<td width="40">색상</td>  
+						<td width="100">  
+							<button onclick="changeBorderColor(this)" style="border:0px;width:50px;background-color:#8c8c8c">...</button>  
+						</td>  
+					</tr>  
+				</table>  
+			</fieldset>  
+			<table border="0" cellpadding="0" cellspacing="0" align="center">  
+				<tr>  
+					<td height="40" align="right" style="padding-right:5px">  
+						<button onclick="checkInsertImage()" class="tah11px bold" style="width:80px">OK</button>  
+					</td>  
+					<td style="padding-left:5px">  
+						<button style="width:80px" onclick="self.close()" class="tah11px">CANCEL</button>  
+					</td>  
+				</tr>  
+			</table>  
+		</center>
+    </body> 
+</html>

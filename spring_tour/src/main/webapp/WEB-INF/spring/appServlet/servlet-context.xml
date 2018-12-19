@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+ 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2"></beans:property>
+	</beans:bean>
+	
+	<context:component-scan base-package="net.mytour" />
+	
+	
+	
+
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />		
+		<beans:property name="username" value="LSM8655" />
+		<beans:property name="password" value="minho123" />
+	</beans:bean>
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="configLocation" value="classpath:SqlMapConfig.xml" />
+	</beans:bean>
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
+		<beans:constructor-arg ref="sqlSessionFactory" />
+	</beans:bean>
+	
+   	
+	
+	<!-- tiles Resolver 설정 -->
+  	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> 
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+		<beans:property name="order" value="1"></beans:property> 
+	</beans:bean>
+	
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/views/tour/tiles-shop.xml</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="preparerFactoryClass" value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
+	</beans:bean>
+	
+	<!-- 업로드설정 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></beans:bean>
+	
+	<!-- 인터셉터 -->
+	<interceptors> 
+        <interceptor>
+            <mapping path="/**" />
+            <beans:bean class="net.mytour.ext.TourInterceptor"></beans:bean>            
+        </interceptor>
+    </interceptors>
+    
+	
+</beans:beans>
