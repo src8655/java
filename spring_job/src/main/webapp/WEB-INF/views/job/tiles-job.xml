@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- 결과 -->
+	<definition name="job/post" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 결과" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header3.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/post.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
+	</definition>
+	<definition name="job/error" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 에러" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header3.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/error.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
+	</definition>
+	
+	
+	<!-- 로그인 -->
+	<definition name="job/login" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 로그인" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header3.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/login.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
+	</definition>
+	
+	<!-- 회원가입 -->
+	<definition name="job/join" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 회원가입" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header3.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/join.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
+	</definition>
+	
+	<!-- 리스트 -->
+	<definition name="job/list" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 회원가입" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header1.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/list.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
+	</definition>
+	
+ 
+</tiles-definitions>

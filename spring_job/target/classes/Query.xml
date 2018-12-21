@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="job">
+
+
+	<!-- Member -->
+	<select id="MemberExistEmail" parameterType="com.myjob.data.MemberData" resultType="int">
+		select count(*) FROM MIN_JOB_MEMBER where EMAIL=#{email}
+	</select>
+	<insert id="MemberInsert" parameterType="com.myjob.data.MemberData">
+		INSERT INTO MIN_JOB_MEMBER(EMAIL,PASSWORD,NAME,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,COMPANY,COMPANY_CATE,COMPANY_NUM,ORDERS,DATES)
+		VALUES(
+		#{email},
+		#{password},
+		#{name},
+		#{phone1},
+		#{phone2},
+		#{phone3},
+		#{quest},
+		#{answer},
+		#{company},
+		#{company_cate},
+		#{company_num},
+		#{orders},
+		#{dates}
+		)
+	</insert>
+	<select id="MemberLogin" parameterType="com.myjob.data.MemberData" resultType="com.myjob.data.MemberData">
+		select * FROM MIN_JOB_MEMBER where EMAIL=#{email} and password=#{password}
+	</select>
+	<select id="MemberExistLogin" parameterType="com.myjob.data.MemberData" resultType="int">
+		select count(*) FROM MIN_JOB_MEMBER where EMAIL=#{email} and password=#{password}
+	</select>
+	
+	
+	
+	
+	<!-- Company -->
+	<insert id="CompanyInsert" parameterType="com.myjob.data.CompanyData">
+		INSERT INTO MIN_JOB_COMPANY(MEMBER_NO,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2)
+		VALUES(
+		#{member_no},
+		#{url},
+		#{info},
+		#{name},
+		#{founding},
+		#{count},
+		#{company_type},
+		#{money},
+		#{addr},
+		#{file1},
+		#{file2}
+		)
+	</insert>
+	
+	
+	
+	
+	
+	
+	<!-- 
+
+	List
+	<insert id="List_insert" parameterType="net.mytour.data.List_Data" >
+		INSERT INTO MIN_TOUR_LIST(SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1) VALUES(
+		#{subject},
+		#{city},
+		#{days},
+		#{air},
+		#{money},
+		#{moneys},
+		#{memo1},
+		#{memo2},
+		#{category},
+		#{buy},
+		#{hit},
+		#{dates},
+		#{file1}
+		)
+	</insert>
+	<select id="List_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.List_Data">
+		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
+		from (select rownum as rnum,a.* from (select * from MIN_TOUR_LIST where SUBJECT like '%'||#{searchs}||'%'
+		<if test="category != -1"> and CATEGORY=#{category} </if>
+	 	order by NO desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="List_getCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_TOUR_LIST where SUBJECT like '%'||#{searchs}||'%'
+	 	<if test="category != -1"> and CATEGORY=#{category} </if>
+	</select>
+	<select id="List_getArticle" parameterType="int" resultType="net.mytour.data.List_Data">
+		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
+		from MIN_TOUR_LIST where NO=#{no}
+	</select>
+	<select id="List_getHit" parameterType="int" resultType="int">
+		select HIT from MIN_TOUR_LIST where NO=#{no}
+	</select>
+	<update id="List_setHit" parameterType="java.util.Map">
+		update MIN_TOUR_LIST set HIT=#{hit} where NO=#{no}
+	</update> -->
+	
+	
+	
+	
+	
+<!-- 
+
+ -->
+</mapper>
