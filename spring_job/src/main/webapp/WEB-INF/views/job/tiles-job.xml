@@ -19,6 +19,13 @@
 		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
 	</definition>
 	
+	<!-- 메인 -->
+	<definition name="job/index" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 메인" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header1.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/index.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
+	</definition>
 	
 	<!-- 로그인 -->
 	<definition name="job/login" template="/WEB-INF/views/job/template/layout.jsp">
@@ -38,10 +45,36 @@
 	
 	<!-- 리스트 -->
 	<definition name="job/list" template="/WEB-INF/views/job/template/layout.jsp">
-		<put-attribute name="title" value="JOB 회원가입" />
+		<put-attribute name="title" value="JOB 리스트" />
 		<put-attribute name="header" value="/WEB-INF/views/job/template/header1.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/job/list.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
+	</definition>
+	<definition name="job/view" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 상세보기" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header2.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/view.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer2.jsp" />
+	</definition>
+	<definition name="job/edit" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 기업관리" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header3.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/edit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
+	</definition>
+	
+	<!-- 리뷰 -->
+	<definition name="job/review" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 리뷰" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header2.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/review.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer2.jsp" />
+	</definition>
+	<definition name="job/review_write" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 리뷰작성" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header3.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/review_write.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
 	</definition>
 	
  

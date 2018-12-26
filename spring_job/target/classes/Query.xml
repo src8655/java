@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	<select id="MemberLogin" parameterType="com.myjob.data.MemberData" resultType="com.myjob.data.MemberData">
-		select * FROM MIN_JOB_MEMBER where EMAIL=#{email} and password=#{password}
+		select * FROM MIN_JOB_MEMBER where EMAIL=#{email, jdbcType=VARCHAR} and password=#{password}
 	</select>
 	<select id="MemberExistLogin" parameterType="com.myjob.data.MemberData" resultType="int">
 		select count(*) FROM MIN_JOB_MEMBER where EMAIL=#{email} and password=#{password}
@@ -54,6 +54,62 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{file2}
 		)
 	</insert>
+	<select id="CompanyGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.CompanyData">
+		select NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		from (select rownum as rnum,a.* from (
+		select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		from MIN_JOB_MEMBER aa, MIN_JOB_COMPANY bb
+		where aa.NO=bb.MEMBER_NO
+		and COMPANY like '%'||#{searchValue}||'%'
+		order by aa.NO desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="CompanyGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from MIN_JOB_MEMBER aa, min_job_company bb
+		where aa.NO=bb.MEMBER_NO
+		and COMPANY like '%'||#{searchValue}||'%'
+	</select>
+	<select id="CompanyGetArticle" parameterType="int" resultType="com.myjob.data.CompanyData">
+		select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		from MIN_JOB_MEMBER aa, MIN_JOB_COMPANY bb
+		where aa.NO=bb.MEMBER_NO
+		and MEMBER_NO=${member_no}
+	</select>
+	<update id="CompanyUpdate" parameterType="com.myjob.data.CompanyData">
+		update MIN_JOB_COMPANY set
+		URL=#{url},
+		INFO=#{info},
+		NAME=#{name},
+		FOUNDING=#{founding},
+		COUNT=#{count},
+		COMPANY_TYPE=#{company_type},
+		MONEY=#{money},
+		ADDR=#{addr},
+		FILE1=#{file1},
+		FILE2=#{file2}
+		where MEMBER_NO=#{member_no}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Count -->
+	<insert id="CountInsert" parameterType="com.myjob.data.CountData">
+		insert into MIN_JOB_COUNT(DATES,MEMBER_NO)
+		values(#{dates},#{member_no})
+	</insert>
+	<select id="CountGetCount" parameterType="com.myjob.data.CountData" resultType="int">
+		select count(*) from MIN_JOB_COUNT where DATES=#{dates} and MEMBER_NO=#{member_no}
+	</select>
+	
+	
+	
 	
 	
 	

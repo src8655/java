@@ -10,16 +10,32 @@
     
       <div class="col-sm-1"></div>
       <div class="col-sm-4 top_menu_align_left">
-        <ul>
-          <li><a href="#">기업정보</a></li>
-          <li><a href="#">채용정보</a></li>
+        <ul class="header_ul">
+          <li class="header_ul_li"><a href="#" class="header_ul_li_a">기업정보</a></li>
+          <li class="header_ul_li"><a href="#" class="header_ul_li_a">채용정보</a></li>
         </ul>
       </div>
       <div class="col-sm-2"><h1><a href="#"><img src="./images/logo.jpg" alt="logo" /></a></h1></div>
       <div class="col-sm-4 top_menu_align">
-        <ul>
-          <li><a href="login.o">로그인</a></li>
-          <li><a href="join.o">회원가입</a></li>
+        <ul class="header_ul">
+        <c:if test="${memberInfo eq null}">
+          <li class="header_ul_li"><a href="login.o" class="header_ul_li_a">로그인</a></li>
+          <li class="header_ul_li"><a href="join.o" class="header_ul_li_a">회원가입</a></li>
+        </c:if>
+        <c:if test="${memberInfo ne null}">
+          <li class="header_ul_li" onmousemove="show('top_sub_id');" onmouseleave="hide('top_sub_id')"><a href="#100" class="header_ul_li_a">${memberInfo.name} 님</a>
+          	<div id="top_sub_id" class="top_sub" style="display:none;">
+          		<a href="logout.o">로그아웃</a>
+          		<a href="login_edit.o">회원수정</a>
+          	</div>
+          </li>
+          <c:if test="${memberInfo.orders eq 1}">
+            <li class="header_ul_li"><a href="#100" class="header_ul_li_a">마이페이지</a></li>
+          </c:if>
+          <c:if test="${memberInfo.orders eq 2}">
+            <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>
+          </c:if>
+        </c:if>
         </ul>
       </div>
       <div class="col-sm-1"></div>

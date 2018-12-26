@@ -37,7 +37,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 
 @Controller
-public class TourController {
+public class JobController {
 
 	String msg = "";
 	String url = "";

@@ -18,9 +18,25 @@
         </div>
       </div>
       <div class="col-sm-4 top_menu_align">
-        <ul>
-          <li><a href="login.o">로그인</a></li>
-          <li><a href="join.o">회원가입</a></li>
+        <ul class="header_ul">
+        <c:if test="${memberInfo eq null}">
+          <li class="header_ul_li"><a href="login.o" class="header_ul_li_a">로그인</a></li>
+          <li class="header_ul_li"><a href="join.o" class="header_ul_li_a">회원가입</a></li>
+        </c:if>
+        <c:if test="${memberInfo ne null}">
+          <li class="header_ul_li" onmousemove="show('top_sub_id');" onmouseleave="hide('top_sub_id')"><a href="#100" class="header_ul_li_a">${memberInfo.name} 님</a>
+          	<div id="top_sub_id" class="top_sub" style="display:none;">
+          		<a href="logout.o">로그아웃</a>
+          		<a href="login_edit.o">회원수정</a>
+          	</div>
+          </li>
+          <c:if test="${memberInfo.orders eq 1}">
+            <li class="header_ul_li"><a href="#100" class="header_ul_li_a">마이페이지</a></li>
+          </c:if>
+          <c:if test="${memberInfo.orders eq 2}">
+            <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>
+          </c:if>
+        </c:if>
         </ul>
       </div>
       <div class="col-sm-1"></div>
@@ -30,7 +46,8 @@
   </div>
 </div>
 
-<div class="main_subject_bg" style="background:url(./images/office_bk.jpg) no-repeat center top;">
+<c:if test="${cdata.file2 eq ''}"><div class="main_subject_bg" style="background:url(./images/office_bk.jpg) no-repeat center top;"></c:if>
+<c:if test="${cdata.file2 ne ''}"><div class="main_subject_bg" style="background:url(./upload/${cdata.file2}) no-repeat center top;"></c:if>
   <div class="main_subject">
     <div class="container">
       <div class="row">
@@ -38,23 +55,35 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-7">
           <p class="m_s_left">
-            <img src="./images/company_logo.jpg" alt="company_logo" width="100px" height="100px" />
+          	<c:if test="${cdata.file1 eq ''}"><img src="./images/company_logo.jpg" width="100px" height="100px" alt="logo" /></c:if>
+          	<c:if test="${cdata.file1 ne ''}"><img src="./upload/${cdata.file1}" width="100px" height="100px" alt="logo" /></c:if>
           </p>
           <p class="m_s_right">
-            <h3>페이스북코리아(유)</h3>
-            IT/웹/통신
+            <h3>${cdata.company}</h3>
+              <c:if test="${cdata.company_cate eq 1}">서비스업</c:if>
+              <c:if test="${cdata.company_cate eq 2}">제조/화학</c:if>
+              <c:if test="${cdata.company_cate eq 3}">의료/제약/복지</c:if>
+              <c:if test="${cdata.company_cate eq 4}">유통/무역/운송</c:if>
+              <c:if test="${cdata.company_cate eq 5}">교육업</c:if>
+              <c:if test="${cdata.company_cate eq 6}">건설업</c:if>
+              <c:if test="${cdata.company_cate eq 7}">IT/웹/통신</c:if>
+              <c:if test="${cdata.company_cate eq 8}">미디어/디자인</c:if>
+              <c:if test="${cdata.company_cate eq 9}">은행/금융업</c:if>
+              <c:if test="${cdata.company_cate eq 10}">기관/협회</c:if>
             <br />
             <a href="#" class="follow_btn"><img src="./images/heart.jpg" alt="heart" />팔로우</a>
             <img src="./images/star.png" alt="star" /> 4.7
             <br />
-            <a href="#" class="url_btn">http://newsroom.fb.com/company-info/</a>
+            <a href="${cdata.url}" class="url_btn">${cdata.url}</a>
           </p>
         </div>
         <div class="col-sm-3 cover_img_align">
-          <a href="#" class="cover_img_btn">
-            <img src="./images/camera.png" alt="camera" />
-            커버이미지 관리
-          </a>
+          <c:if test="${memberInfo ne null}">
+          <c:if test="${memberInfo.no eq cdata.member_no}">
+          <a href="edit.o?member_no=${cdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}" class="cover_img_btn">
+            <img src="./images/camera.png" alt="camera" />기업정보 관리</a>
+          </c:if>
+          </c:if>
         </div>
         <div class="col-sm-1"></div>
       
@@ -74,11 +103,11 @@
         
         <div class="col-sm-10">
           <ul>
-            <li><a href="#" class="nav_ul_li_a_hover">
+            <li><a href="view.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}" class="nav_ul_li_a_hover">
               <span>Info</span><br />
               기업정보
             </a></li>
-            <li><a href="#" class="nav_ul_li_a">
+            <li><a href="review.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}" class="nav_ul_li_a">
               <span>38</span><br />
               기업리뷰
             </a></li>

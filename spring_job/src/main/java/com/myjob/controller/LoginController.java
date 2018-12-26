@@ -40,6 +40,7 @@ import com.myjob.dao.MemberDao;
 import com.myjob.data.CompanyData;
 import com.myjob.data.MemberData;
 import com.myjob.ext.Md5Enc;
+import com.myjob.ext.ActionTime;
 
 import oracle.net.aso.MD5;
 
@@ -58,10 +59,12 @@ public class LoginController {
 	
 	//로그인
 	@RequestMapping("/job/login.o")
-	public ModelAndView login() throws SQLException {
+	public ModelAndView login(
+			@CookieValue(value="save_id_auth", defaultValue="") String save_id_auth
+			) throws SQLException {
 		ModelAndView mav = new ModelAndView();
 		
-		
+		mav.addObject("save_id_auth", save_id_auth);
 		mav.setViewName("job/login");
 		return mav;
 	}
@@ -75,8 +78,7 @@ public class LoginController {
 		Map map = new HashMap();
 		
 		password = Md5Enc.getEncMD5(password.getBytes());
-		System.out.println(email);
-		System.out.println(password);
+		
 		if(!memberService.existLogin(email, password)) {
 			map.put("msg", "아이디 또는 비밀번호를 확인해주세요.");
 			map.put("result", false);
@@ -87,10 +89,49 @@ public class LoginController {
 	}
 	//로그인
 	@RequestMapping("/job/login_post.o")
-	public ModelAndView login_post() throws SQLException {
+	public ModelAndView login_post(
+			@RequestParam(value="email", defaultValue="") String email,
+			@RequestParam(value="password", defaultValue="") String password,
+			@RequestParam(value="save_id", defaultValue="-1") int save_id,
+			HttpSession session,
+			HttpServletResponse response
+			) throws SQLException {
 		ModelAndView mav = new ModelAndView();
 		
+		password = Md5Enc.getEncMD5(password.getBytes());
+
+		session.setAttribute("job_email", email);
+		session.setAttribute("job_password", password);
 		
+		if(save_id == 1) {
+			Cookie cookie = new Cookie("save_id_auth", email);
+			response.addCookie(cookie);
+		}else {
+			Cookie cookie = new Cookie("save_id_auth", "");
+			response.addCookie(cookie);
+		}
+		
+		msg = "로그인 성공";
+		url = "index.o";
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("job/post");
+		return mav;
+	}
+	//로그아웃
+	@RequestMapping("/job/logout.o")
+	public ModelAndView logout(
+			HttpSession session
+			) throws SQLException {
+		ModelAndView mav = new ModelAndView();
+
+		session.setAttribute("job_email", "");
+		session.setAttribute("job_password", "");
+		
+		msg = "로그아웃 성공";
+		url = "index.o";
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
 		mav.setViewName("job/post");
 		return mav;
 	}
@@ -114,6 +155,9 @@ public class LoginController {
 			mdata.setCompany_cate(-1);
 			mdata.setCompany_num("");
 		}
+		
+		
+		mdata.setDates(ActionTime.getDate());
 		
 		//암호화
 		mdata.setPassword(Md5Enc.getEncMD5(mdata.getPassword().getBytes()));

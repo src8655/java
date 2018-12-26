@@ -21,13 +21,13 @@
     <div class="login_box" style="margin-top:50px;">
       <h1>로그인</h1>
       <form action="login_post.o" method="post" onsubmit="return login_submit(this)">
-        <input type="text" name="email" placeholder="이메일 주소" class="login_input" onchange="login_email_check(this);" />
+        <input type="text" name="email" placeholder="이메일 주소" class="login_input" value="${save_id_auth}" onchange="login_email_check(this);" />
         <div id="login_email_msg" class="join_msg"></div>
         <input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="login_password_check(this);" />
         <div id="login_password_msg" class="join_msg"></div>
         <input type="submit" value="로그인" class="login_btn" />
         <div id="login_msg" class="join_msg"></div>
-        <input type="checkbox" id="save_id" />
+        <input type="checkbox" name="save_id" id="save_id" value="1" <c:if test="${save_id_auth ne ''}">checked</c:if> />
         <label for="save_id">아이디 저장</label>
       </form>
       <div class="login_find">

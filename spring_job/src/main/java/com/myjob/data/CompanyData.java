@@ -14,6 +14,34 @@ public class CompanyData {
 	private String file1 = "";
 	private String file2 = "";
 	
+	private String company = "";
+	private int company_cate = -1;
+	private String company_num = "";
+	
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public int getCompany_cate() {
+		return company_cate;
+	}
+
+	public void setCompany_cate(int company_cate) {
+		this.company_cate = company_cate;
+	}
+
+	public String getCompany_num() {
+		return company_num;
+	}
+
+	public void setCompany_num(String company_num) {
+		this.company_num = company_num;
+	}
+
 	public int getNo() {
 		return no;
 	}
