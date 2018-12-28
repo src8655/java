@@ -779,6 +779,7 @@ font-weight:bold;
 text-decoration:none;
 }
 .paging_a {
+background:#ffffff;
 border-top:1px solid #d9d9d9;
 border-bottom:1px solid #d9d9d9;
 color:#666666;
@@ -791,12 +792,14 @@ color:#ffffff;
 font-weight:bold;
 }
 .paging_radius_l {
+background:#ffffff;
 border-top:1px solid #d9d9d9;
 border-bottom:1px solid #d9d9d9;
 border-top-left-radius:5px;
 border-bottom-left-radius:5px;
 }
 .paging_radius_r {
+background:#ffffff;
 border-top:1px solid #d9d9d9;
 border-bottom:1px solid #d9d9d9;
 border-top-right-radius:5px;
@@ -1026,8 +1029,6 @@ color:#ffffff;
 .review_write_box {
 background:#ffffff;
 padding:30px;
-margin:10px 0 30px 0;
-display:inline-block;
 text-align:left;
 }
 .review_write_box h1 {
@@ -1084,7 +1085,57 @@ padding:10px;
 margin:0 5px 0 5px;
 text-align:center;
 }
-
+.write_hide {
+background:rgba(0,0,0,0.5);
+right:0px;
+bottom:0px;
+position:fixed;
+left:0px;
+top:0px;
+z-index:2000;
+}
+.write_hide_scroll {
+width:100%;
+height:100%;
+position:absolute;
+left:0px;
+right:0px;
+top:0px;
+bottom:0px;
+z-index:2500;
+}
+.write_hide_scroll2 {
+background:#ffffff;
+position:absolute;
+top:10px;
+bottom:10px;
+overflow-y:scroll;
+z-index:3000;
+}
+.interview_write_bar {
+list-style:none;
+height:18px;
+margin:15px 0 0 0;
+padding:0px;
+display:inline-block;
+}
+.interview_write_bar li {
+width:45px;
+height:18px;
+float:left;
+border-radius:1px;
+margin:0 1px 0 0;
+padding:0px;
+overflow:hidden;
+}
+.interview_write_bar li a {
+width:45px;
+height:18px;
+display:block;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
 
 
 
@@ -1171,8 +1222,10 @@ text-align:center;
   .join_t {
     width:400px;
   }
-  .review_write_box {
+  .write_hide_scroll2 {
   	width:800px;
+  	left:50%;
+  	margin-left:-400px;
   }
   .review_write_box_line div {
     float:left;
@@ -1264,8 +1317,10 @@ text-align:center;
   .join_t {
     width:400px;
   }
-  .review_write_box {
+  .write_hide_scroll2 {
   	width:700px;
+  	left:50%;
+  	margin-left:-350px;
   }
   .review_write_box_line div {
     float:left;
@@ -1357,8 +1412,10 @@ text-align:center;
   .join_t {
     width:400px;
   }
-  .review_write_box {
+  .write_hide_scroll2 {
   	width:600px;
+  	left:50%;
+  	margin-left:-300px;
   }
   .review_write_box_line div {
     float:left;
@@ -1453,8 +1510,12 @@ text-align:center;
   .join_t {
     width:100%;
   }
-  .review_write_box {
-    width:100%;
+  .write_hide_scroll2 {
+  	width:90%;
+  	margin:0 auto;
+  	left:50%;
+  	right:10px;
+  	margin-left:-45%;
   }
   .review_write_box_line div {
     float:left;

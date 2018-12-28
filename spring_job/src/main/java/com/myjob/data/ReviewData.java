@@ -14,6 +14,28 @@ public class ReviewData {
 	private String memo3 = "";
 	private int member_no = -1;
 	private String dates = "";
+	private int writer_no = -1;
+	private int prof = -1;
+	private int status = -1;
+	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getProf() {
+		return prof;
+	}
+	public void setProf(int prof) {
+		this.prof = prof;
+	}
+	public int getWriter_no() {
+		return writer_no;
+	}
+	public void setWriter_no(int writer_no) {
+		this.writer_no = writer_no;
+	}
 	public int getNo() {
 		return no;
 	}

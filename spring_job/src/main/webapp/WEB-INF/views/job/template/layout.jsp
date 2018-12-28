@@ -526,6 +526,13 @@ function show(var1) {
 function hide(var1) {
 	document.getElementById(var1).style.display="none";
 }
+function show2(var1) {
+	$("#"+var1).fadeIn(50);
+	
+}
+function hide2(var1) {
+	$("#"+var1).fadeOut(50);
+}
 ////////////////////////////////////
 
 
@@ -572,6 +579,7 @@ function rw_stars_btn(stars_num, stars_id, stars_input, stars_msg) {
 //리뷰작성 유효성체크
 var rw_stars = false;
 var rw_types = false;
+var rw_prof = false;
 var rw_memo1 = false;
 var rw_memo2 = false;
 var rw_memo3 = false;
@@ -597,6 +605,15 @@ function rw_types_check(var1) {
 	}else{
 		document.getElementById("types_msg").innerHTML = "";
 		rw_types = true;
+	}	
+}
+function rw_prof_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("prof_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		rw_prof = false;
+	}else{
+		document.getElementById("prof_msg").innerHTML = "";
+		rw_prof = true;
 	}	
 }
 function rw_memo1_check(var1) {
@@ -678,6 +695,7 @@ function rw_stars5_check(var1) {
 function review_write_submit(var1) {
 	rw_stars_check(var1.stars);
 	rw_types_check(var1.types);
+	rw_prof_check(var1.prof);
 	rw_memo1_check(var1.memo1);
 	rw_memo2_check(var1.memo2);
 	rw_memo3_check(var1.memo3);
@@ -689,6 +707,7 @@ function review_write_submit(var1) {
 	
 	if(!rw_stars || 
 		!rw_types || 
+		!rw_prof  || 
 		!rw_memo1 || 
 		!rw_memo2 || 
 		!rw_memo3 || 
@@ -701,6 +720,274 @@ function review_write_submit(var1) {
 	}else return true;
 }
 
+
+
+
+
+
+
+
+
+//연봉 입력 유효성검사
+var iw_positions = false;
+var iw_money = false;
+var iw_prof = false;
+var iw_empl = false;
+
+function iw_prof_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("iw_prof_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		iw_prof = false;
+	}else{
+		document.getElementById("iw_prof_msg").innerHTML = "";
+		iw_prof = true;
+	}
+}
+function iw_positions_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("iw_positions_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		iw_positions = false;
+	}else{
+		document.getElementById("iw_positions_msg").innerHTML = "";
+		iw_positions = true;
+	}
+}
+function iw_empl_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("iw_empl_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		iw_empl = false;
+	}else{
+		document.getElementById("iw_empl_msg").innerHTML = "";
+		iw_empl = true;
+	}
+}
+function iw_money_check(var1) {
+	if(var1.value == "") {
+		document.getElementById("iw_money_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		iw_money = false;
+	}else{
+		document.getElementById("iw_money_msg").innerHTML = "";
+		iw_money = true;
+	}
+}
+function income_write_submit(var1) {
+	iw_prof_check(var1.prof);
+	iw_positions_check(var1.positions);
+	iw_empl_check(var1.empl);
+	iw_money_check(var1.money);
+	if(!iw_positions || !iw_money || !iw_prof || !iw_empl) {
+		return false;
+	}else return true;
+}
+////////////////////////////////////////////
+
+
+
+
+
+
+
+//면접난이도
+
+function itw_difficulty_btn(stars_num, stars_id, stars_input, stars_msg) {
+	var i=0;
+	
+	for(i=1;i<=5;i++) document.getElementById(stars_id+""+i).setAttribute("class","interview_bk_0");			//전부 흑백으로
+	for(i=1;i<=stars_num;i++) document.getElementById(stars_id+""+i).setAttribute("class","interview_bk_"+i);	//선택한 번호까지 컬러로
+	
+	document.getElementById(stars_input).value = stars_num;		//input에 값넣기
+
+	var msg = "";
+	var color = "";
+	switch(stars_num) {
+	case 1:
+		msg = "매우 쉬움";
+		color = "#6fba1f";
+		break;
+	case 2:
+		msg = "쉬움";
+		color = "#8ad43b";
+		break;
+	case 3:
+		msg = "보통";
+		color = "#fb9f00";
+		break;
+	case 4:
+		msg = "어려움";
+		color = "#fb6400";
+		break;
+	case 5:
+		msg = "매우어려움";
+		color = "#e62b0d";
+		break;
+		default:
+			break;
+	}
+	document.getElementById(stars_msg).innerHTML = "<span style='color:"+color+";'>"+msg+"</span>";
+}
+//////////////////////////////////////////
+
+
+//면접후기 유효성검사
+var itw_prof = false;
+var itw_positions = false;
+var itw_difficulty = false;
+var itw_interviewdate = false;
+var itw_interviewdir = false;
+var itw_memo1 = false;
+var itw_memo2 = false;
+var itw_memo3 = false;
+var itw_memo4 = false;
+var itw_memo5 = false;
+var itw_interviewresult = false;
+var itw_interviewex = false;
+
+
+function itw_prof_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("itw_prof_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		itw_prof = false;
+	}else{
+		document.getElementById("itw_prof_msg").innerHTML = "";
+		itw_prof = true;
+	}
+}
+function itw_positions_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("itw_positions_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		itw_positions = false;
+	}else{
+		document.getElementById("itw_positions_msg").innerHTML = "";
+		itw_positions = true;
+	}
+}
+function itw_difficulty_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("itw_difficulty_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		itw_difficulty = false;
+	}else{
+		document.getElementById("itw_difficulty_msg").innerHTML = "";
+		itw_difficulty = true;
+	}
+}
+function itw_interviewdate_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("itw_interviewdate_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		itw_interviewdate = false;
+	}else{
+		document.getElementById("itw_interviewdate_msg").innerHTML = "";
+		itw_interviewdate = true;
+	}
+}
+function itw_interviewdir_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("itw_interviewdir_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		itw_interviewdir = false;
+	}else{
+		document.getElementById("itw_interviewdir_msg").innerHTML = "";
+		itw_interviewdir = true;
+	}
+}
+function itw_memo1_check(var1) {
+	if(var1.value == "") {
+		document.getElementById("itw_memo1_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		itw_memo1 = false;
+	}else{
+		document.getElementById("itw_memo1_msg").innerHTML = "";
+		itw_memo1 = true;
+	}
+}
+function itw_memo2_check(var1) {
+	if(var1.value == "") {
+		document.getElementById("itw_memo2_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		itw_memo2 = false;
+	}else{
+		document.getElementById("itw_memo2_msg").innerHTML = "";
+		itw_memo2 = true;
+	}
+}
+function itw_memo3_check(var1) {
+	if(var1.value == "") {
+		document.getElementById("itw_memo3_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		itw_memo3 = false;
+	}else{
+		document.getElementById("itw_memo3_msg").innerHTML = "";
+		itw_memo3 = true;
+	}
+}
+function itw_memo4_check(var1) {
+	if(var1.value == "") {
+		document.getElementById("itw_memo4_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		itw_memo4 = false;
+	}else{
+		document.getElementById("itw_memo4_msg").innerHTML = "";
+		itw_memo4 = true;
+	}
+}
+function itw_memo5_check(var1) {
+	if(var1.value == "") {
+		document.getElementById("itw_memo5_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		itw_memo5 = false;
+	}else{
+		document.getElementById("itw_memo5_msg").innerHTML = "";
+		itw_memo5 = true;
+	}
+}
+function itw_interviewresult_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("itw_interviewresult_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		itw_interviewresult = false;
+	}else{
+		document.getElementById("itw_interviewresult_msg").innerHTML = "";
+		itw_interviewresult = true;
+	}
+}
+function itw_interviewex_check(var1) {
+	if(var1.value == -1) {
+		document.getElementById("itw_interviewex_msg").innerHTML = "<span style='color:red;'>선택해주세요.</span>";
+		itw_interviewex = false;
+	}else{
+		document.getElementById("itw_interviewex_msg").innerHTML = "";
+		itw_interviewex = true;
+	}
+}
+function interview_write_submit(var1) {
+	itw_prof_check(var1.prof);
+	itw_positions_check(var1.positions);
+	itw_difficulty_check(var1.difficulty);
+	itw_interviewdate_check(var1.interviewdate);
+	itw_interviewdir_check(var1.interviewdir);
+	itw_memo1_check(var1.memo1);
+	itw_memo2_check(var1.memo2);
+	itw_memo3_check(var1.memo3);
+	itw_memo4_check(var1.memo4);
+	itw_memo5_check(var1.memo5);
+	itw_interviewresult_check(var1.interviewresult);
+	itw_interviewex_check(var1.interviewex);
+	
+	if(!itw_prof ||
+			!itw_positions ||
+			!itw_difficulty ||
+			!itw_interviewdate ||
+			!itw_interviewdir ||
+			!itw_memo1 ||
+			!itw_memo2 ||
+			!itw_memo3 ||
+			!itw_memo4 ||
+			!itw_memo5 ||
+			!itw_interviewresult ||
+			!itw_interviewex) {
+		return false;
+	}else return true;
+}
+
+
+
+
+
+
+
+////////////////////////////////////////
 
 
 

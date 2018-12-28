@@ -18,6 +18,12 @@ public class CompanyData {
 	private int company_cate = -1;
 	private String company_num = "";
 	
+	private int count_review = 0;
+	private int count_income = 0;
+	private int count_interview = 0;
+	private double avg_stars = 0;
+	private int acv_money = 0;
+	
 	public String getCompany() {
 		return company;
 	}

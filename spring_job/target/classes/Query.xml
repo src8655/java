@@ -116,6 +116,166 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+	
+	<!-- Review -->
+	<insert id="ReviewInsert" parameterType="com.myjob.data.ReviewData">
+		insert into MIN_JOB_REVIEW(TYPES,STARS,STARS1,STARS2,STARS3,STARS4,STARS5,MEMO1,MEMO2,MEMO3,MEMBER_NO,DATES,WRITER_NO,PROF,STATUS)
+		values(
+		#{types},
+		#{stars},
+		#{stars1},
+		#{stars2},
+		#{stars3},
+		#{stars4},
+		#{stars5},
+		#{memo1},
+		#{memo2},
+		#{memo3},
+		#{member_no},
+		#{dates},
+		#{writer_no},
+		#{prof},
+		#{status}
+		)
+	</insert>
+	<select id="ReviewGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_JOB_REVIEW where MEMBER_NO=#{member_no}
+	</select>
+	<select id="ReviewGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.ReviewData">
+		select NO,TYPES,STARS,STARS1,STARS2,STARS3,STARS4,STARS5,MEMO1,MEMO2,MEMO3,MEMBER_NO,DATES,WRITER_NO,PROF,STATUS
+		from (select rownum as rnum,a.* from (
+		select NO,TYPES,STARS,STARS1,STARS2,STARS3,STARS4,STARS5,MEMO1,MEMO2,MEMO3,MEMBER_NO,DATES,WRITER_NO,PROF,STATUS
+		from MIN_JOB_REVIEW
+		where MEMBER_NO=#{member_no}
+		order by NO desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="ReviewGetMyCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_JOB_REVIEW where MEMBER_NO=#{member_no} and WRITER_NO=#{writer_no}
+	</select>
+	<select id="ReviewGetAllStars" parameterType="java.util.Map" resultType="com.myjob.data.ReviewData">
+		select 
+		sum(STARS) as STARS,
+		sum(STARS1) as STARS1,
+		sum(STARS2) as STARS2,
+		sum(STARS3) as STARS3,
+		sum(STARS4) as STARS4,
+		sum(STARS5) as STARS5
+		from MIN_JOB_REVIEW where MEMBER_NO=#{member_no}
+	</select>
+	
+	
+	
+	<!-- Income -->
+	<insert id="IncomeInsert">
+		insert into MIN_JOB_INCOME(MEMBER_NO,WRITER_NO,POSITIONS,MONEY,DATES,PROF,EMPL,STATUS)
+		values(
+		#{member_no},
+		#{writer_no},
+		#{positions},
+		#{money},
+		#{dates},
+		#{prof},
+		#{empl},
+		#{status}
+		)
+	</insert>
+	<select id="IncomeGetMyCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_JOB_INCOME where MEMBER_NO=#{member_no} and WRITER_NO=#{writer_no}
+	</select>
+	<select id="IncomeGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_JOB_INCOME where MEMBER_NO=#{member_no}
+	</select>
+	<select id="IncomeGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.IncomeData">
+		select POSITIONS, avg(MONEY) as MONEY, count(*) as COUNT
+		from MIN_JOB_INCOME
+		where MEMBER_NO=#{member_no}
+		group by POSITIONS
+		order by POSITIONS asc
+	</select>
+	<select id="IncomeGetMoneyMaxMin" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select max(MONEY) as MAXS, min(MONEY) as MINS, avg(MONEY) as AVGS from
+		(select POSITIONS, avg(MONEY) as MONEY, count(*) as COUNT
+		from MIN_JOB_INCOME
+		where MEMBER_NO=#{member_no}
+		group by POSITIONS
+		order by POSITIONS asc)
+	</select>
+	<select id="IncomeGetLank" parameterType="java.util.Map" resultType="int">
+		select RNUM from
+		(select rownum as RNUM, a.*
+		from (select MEMBER_NO, avg(MONEY) as MONEY
+				from MIN_JOB_INCOME
+		        group by MEMBER_NO
+		        order by MONEY desc) a) where MEMBER_NO=#{member_no}
+	</select>
+	
+	
+	
+	
+	
+	<!-- Interview -->
+	<insert id="InterviewInsert" parameterType="com.myjob.data.InterviewData">
+		insert into MIN_JOB_INTERVIEW(PROF,POSITIONS,DIFFICULTY,INTERVIEWDATE,INTERVIEWDIR,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,INTERVIEWRESULT,INTERVIEWEX,DATES,STATUS,MEMBER_NO,WRITER_NO)
+		values(
+		#{prof},
+		#{positions},
+		#{difficulty},
+		#{interviewdate},
+		#{interviewdir},
+		#{memo1},
+		#{memo2},
+		#{memo3},
+		#{memo4},
+		#{memo5},
+		#{interviewresult},
+		#{interviewex},
+		#{dates},
+		#{status},
+		#{member_no},
+		#{writer_no}
+		)
+	</insert>
+	<select id="InterviewGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_JOB_INTERVIEW where MEMBER_NO=#{member_no}
+	</select>
+	<select id="InterviewGetMyCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_JOB_INTERVIEW where MEMBER_NO=#{member_no} and WRITER_NO=${writer_no}
+	</select>
+	<select id="InterviewGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.InterviewData">
+		select NO,PROF,POSITIONS,DIFFICULTY,INTERVIEWDATE,INTERVIEWDIR,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,INTERVIEWRESULT,INTERVIEWEX,DATES,STATUS,MEMBER_NO,WRITER_NO
+		from (select rownum as rnum,a.* from (
+		select NO,PROF,POSITIONS,DIFFICULTY,INTERVIEWDATE,INTERVIEWDIR,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,INTERVIEWRESULT,INTERVIEWEX,DATES,STATUS,MEMBER_NO,WRITER_NO
+		from MIN_JOB_INTERVIEW
+		where MEMBER_NO=#{member_no}
+		order by NO desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="InterviewGetDifficulty" parameterType="java.util.Map" resultType="double">
+		select avg(DIFFICULTY) as DIFFICULTY
+		from MIN_JOB_INTERVIEW
+		where MEMBER_NO=#{member_no}
+	</select>
+	<select id="InterviewGetInterviewdir" parameterType="java.util.Map" resultType="int">
+		select count(*) as COUNT
+		from MIN_JOB_INTERVIEW
+		where MEMBER_NO=#{member_no}
+		and INTERVIEWDIR=#{interviewdir}
+	</select>
+	<select id="InterviewGetInterviewex" parameterType="java.util.Map" resultType="int">
+		select count(*) as COUNT
+		from MIN_JOB_INTERVIEW
+		where MEMBER_NO=#{member_no}
+		and INTERVIEWEX=#{interviewex}
+	</select>
+	<select id="InterviewGetInterviewresult" parameterType="java.util.Map" resultType="int">
+		select count(*) as COUNT
+		from MIN_JOB_INTERVIEW
+		where MEMBER_NO=#{member_no}
+		and INTERVIEWRESULT=#{interviewresult}
+	</select>
+	
+	
+	
+	
 	<!-- 
 
 	List
