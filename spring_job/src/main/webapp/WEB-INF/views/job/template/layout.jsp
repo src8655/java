@@ -527,11 +527,11 @@ function hide(var1) {
 	document.getElementById(var1).style.display="none";
 }
 function show2(var1) {
-	$("#"+var1).fadeIn(50);
+	$("#"+var1).fadeIn(100);
 	
 }
 function hide2(var1) {
-	$("#"+var1).fadeOut(50);
+	$("#"+var1).fadeOut(100);
 }
 ////////////////////////////////////
 

@@ -73,17 +73,31 @@ public class ListController {
 	//리스트
 	@RequestMapping("/job/list.o")
 	public ModelAndView list(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		int count = companyService.getCount(searchValue);
+		int count = companyService.getCount(searchValue, search, searchType, searchSort);
 		Action_Paging paging = new Action_Paging(count, 10, pages);
-		List list = companyService.getArticles(paging.getBoard_starts(), paging.getBoard_ends(), searchValue);
+		List list = companyService.getArticles(paging.getBoard_starts(), paging.getBoard_ends(), searchValue, search, searchType, searchSort);
+		
+		for(int i=0;i<list.size();i++) {
+			CompanyData tmp = (CompanyData)list.get(i);
+			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
+			tmp.setAvg_stars_p((int)((tmp.getAvg_stars()/5.0)*92.0));
+			tmp.setAvg_stars(Math.round(tmp.getAvg_stars()*10.0)/10.0);
+		}
 		
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
+
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchSort", searchSort);
+		mav.addObject("search", search);
 		mav.addObject("count", count);
 		mav.addObject("pages", pages);
 		mav.addObject("searchValue", searchValue);
@@ -96,6 +110,9 @@ public class ListController {
 	//상세보기
 	@RequestMapping("/job/view.o")
 	public ModelAndView view(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="member_no", defaultValue="-1") int member_no,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
@@ -136,6 +153,9 @@ public class ListController {
 		
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchSort", searchSort);
+		mav.addObject("search", search);
 		mav.addObject("tab", 1);
 		mav.addObject("cdata", cdata);
 		mav.addObject("member_no", member_no);
@@ -148,6 +168,9 @@ public class ListController {
 	//기업관리
 	@RequestMapping("/job/edit.o")
 	public ModelAndView edit(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="member_no", defaultValue="-1") int member_no,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue
@@ -160,6 +183,9 @@ public class ListController {
 		
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchSort", searchSort);
+		mav.addObject("search", search);
 		mav.addObject("cdata", cdata);
 		mav.addObject("member_no", member_no);
 		mav.addObject("pages", pages);
@@ -171,6 +197,9 @@ public class ListController {
 	//기업관리 수정완료
 	@RequestMapping("/job/edit_post.o")
 	public ModelAndView edit_post(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@ModelAttribute("cdata") CompanyData cdata,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
@@ -224,7 +253,7 @@ public class ListController {
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "수정 완료";
-		url = "view.o?member_no="+cdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf;
+		url = "view.o?member_no="+cdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search;
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");
@@ -233,6 +262,9 @@ public class ListController {
 	//리뷰
 	@RequestMapping("/job/review.o")
 	public ModelAndView review(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="member_no", defaultValue="-1") int member_no,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
@@ -259,6 +291,7 @@ public class ListController {
 		
 
 		double stars = 0;
+		int stars_bar = 0;
 		double stars1 = 0;
 		double stars2 = 0;
 		double stars3 = 0;
@@ -274,6 +307,7 @@ public class ListController {
 		if(count2 != 0) {
 			ReviewData rdata = reviewService.getAllStars(member_no);
 			stars = Math.floor((rdata.getStars()/(double)count2)*10.0)/10.0;
+			stars_bar = (int)((stars/5.0)*68.0);
 			stars1 = Math.floor((rdata.getStars1()/(double)count2)*10.0)/10.0;
 			stars2 = Math.floor((rdata.getStars2()/(double)count2)*10.0)/10.0;
 			stars3 = Math.floor((rdata.getStars3()/(double)count2)*10.0)/10.0;
@@ -286,6 +320,7 @@ public class ListController {
 			stars_bar5 = (int)Math.floor((stars5/5.0)*100.0);
 		}
 		mav.addObject("stars", stars);
+		mav.addObject("stars_bar", stars_bar);
 		mav.addObject("stars1", stars1);
 		mav.addObject("stars2", stars2);
 		mav.addObject("stars3", stars3);
@@ -302,6 +337,9 @@ public class ListController {
 
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchSort", searchSort);
+		mav.addObject("search", search);
 		mav.addObject("tab", 2);
 		mav.addObject("cdata", cdata);
 		mav.addObject("member_no", member_no);
@@ -315,6 +353,9 @@ public class ListController {
 	//리뷰작성
 	@RequestMapping("/job/review_write_post.o")
 	public ModelAndView review_write_post(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@ModelAttribute("rdata") ReviewData rdata,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
@@ -355,7 +396,7 @@ public class ListController {
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "작성 성공.";
-		url = "review.o?member_no="+rdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf;
+		url = "review.o?member_no="+rdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search;
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");
@@ -369,6 +410,9 @@ public class ListController {
 	//연봉
 	@RequestMapping("/job/income.o")
 	public ModelAndView income(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="member_no", defaultValue="-1") int member_no,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
@@ -419,6 +463,9 @@ public class ListController {
 
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchSort", searchSort);
+		mav.addObject("search", search);
 		mav.addObject("tab", 3);
 		mav.addObject("cdata", cdata);
 		mav.addObject("member_no", member_no);
@@ -431,6 +478,9 @@ public class ListController {
 	//연봉작성
 	@RequestMapping("/job/income_write_post.o")
 	public ModelAndView income_write(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@ModelAttribute("idata") IncomeData idata,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
@@ -471,7 +521,7 @@ public class ListController {
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "작성 성공.";
-		url = "income.o?member_no="+idata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf;
+		url = "income.o?member_no="+idata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search;
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");
@@ -485,6 +535,9 @@ public class ListController {
 	//면접후기
 	@RequestMapping("/job/interview.o")
 	public ModelAndView interview(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="member_no", defaultValue="-1") int member_no,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
@@ -581,6 +634,9 @@ public class ListController {
 
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchSort", searchSort);
+		mav.addObject("search", search);
 		mav.addObject("tab", 4);
 		mav.addObject("cdata", cdata);
 		mav.addObject("member_no", member_no);
@@ -594,6 +650,9 @@ public class ListController {
 	//면접후기 작성완료
 	@RequestMapping("/job/interview_write_post.o")
 	public ModelAndView interview_write_post(
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
 			@ModelAttribute("itdata") InterviewData	itdata,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
@@ -636,7 +695,7 @@ public class ListController {
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "작성 성공.";
-		url = "interview.o?member_no="+itdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&pages_r="+pages_r;
+		url = "interview.o?member_no="+itdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&pages_r="+pages_r+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search;
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");

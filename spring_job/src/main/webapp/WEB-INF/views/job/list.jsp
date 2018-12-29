@@ -24,7 +24,7 @@
       <div class="c_list_t"><span>${count}</span> 검색결과</div>
       <ul>
       <c:forEach items="${list}" var="cdata">
-        <li><a href="view.o?member_no=${cdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}">
+        <li><a href="view.o?member_no=${cdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}">
           <div class="hidden-xs" style="width:30px;height:30px;float:left;"></div>
           <div class="c_list_l">
           	<c:if test="${cdata.file1 eq ''}"><img src="./images/company_logo.jpg" alt="company_logo" width="78px" height="78px" /></c:if>
@@ -47,31 +47,31 @@
               <c:if test="${cdata.company_cate eq 9}">은행/금융업</c:if>
               <c:if test="${cdata.company_cate eq 10}">기관/협회</c:if>
             </p>
-            <p class="hidden-xs">28 기업리뷰 | 107 연봉정보 | 30 면접정보</p>
+            <p class="hidden-xs">${cdata.count_review} 기업리뷰 | ${cdata.count_income} 연봉정보 | ${cdata.count_interview} 면접정보</p>
             <p class="hidden-sm hidden-md hidden-lg">28 리뷰 | 107 연봉 | 30 면접</p>
           </div>
           <div class="hidden-xs" style="width:30px;height:30px;float:right;"></div>
           <div class="c_list_r">
-            <h4>총 만족도 <span style="font-weight:bold;">4.7</span></h4>
+            <h4>총 만족도 <span style="font-weight:bold;">${cdata.avg_stars}</span></h4>
             <div class="list_star_r">
               <div class="list_star_line0"></div>
               <!-- 92px -->
-              <div class="list_star_line1" style="width:66px;"></div>
+              <div class="list_star_line1" style="width:${cdata.avg_stars_p}px;"></div>
             </div>
-            <p>평균 <span style="font-size:15px;">5,300</span> 만원</p>
+            <p>평균 <span style="font-size:15px;">${cdata.avg_moneys}</span> 만원</p>
           </div>
         </a></li>
         </c:forEach>
       </ul>
       <div class="paging">
-        <a href="list.o?pages=1&searchValue=${searchValue_utf}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
+        <a href="list.o?pages=1&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
-        	<a href="list.o?pages=${i}&searchValue=${searchValue_utf}"
+        	<a href="list.o?pages=${i}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}"
         		<c:if test="${i ne pages}"> class="paging_a"</c:if> <c:if test="${i eq pages}"> class="paging_a_hover"</c:if>>
         		${i}
         	</a>
         </c:forEach>
-        <a href="list.o?pages=${paging.board_paging}&searchValue=${searchValue_utf}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
+        <a href="list.o?pages=${paging.board_paging}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
     </div>
     

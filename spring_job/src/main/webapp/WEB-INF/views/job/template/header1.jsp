@@ -51,32 +51,34 @@
       <div class="row">
       
         <div class="hidden-xs col-sm-3 c_list_select_align_l">
-            <select class="c_list_select">
+            <select class="c_list_select" name="searchType" onchange="location.href='list.o?search=${search}&searchValue=${searchValue}&searchSort=${searchSort}&searchType='+this.value;">
               <option value="-1">산업군</option>
-              <option value="1">서비스업</option>
-              <option value="2">제조/화학</option>
-              <option value="3">의료/제약/복지</option>
-              <option value="4">유통/무역/운송</option>
-              <option value="5">교육업</option>
-              <option value="6">건설업</option>
-              <option value="7">IT/웹/통신</option>
-              <option value="8">미디어/디자인</option>
-              <option value="9">은행/금융업</option>
-              <option value="10">기관/협회</option>
+              <option value="1" <c:if test="${searchType eq 1}">selected</c:if>>서비스업</option>
+              <option value="2" <c:if test="${searchType eq 2}">selected</c:if>>제조/화학</option>
+              <option value="3" <c:if test="${searchType eq 3}">selected</c:if>>의료/제약/복지</option>
+              <option value="4" <c:if test="${searchType eq 4}">selected</c:if>>유통/무역/운송</option>
+              <option value="5" <c:if test="${searchType eq 5}">selected</c:if>>교육업</option>
+              <option value="6" <c:if test="${searchType eq 6}">selected</c:if>>건설업</option>
+              <option value="7" <c:if test="${searchType eq 7}">selected</c:if>>IT/웹/통신</option>
+              <option value="8" <c:if test="${searchType eq 8}">selected</c:if>>미디어/디자인</option>
+              <option value="9" <c:if test="${searchType eq 9}">selected</c:if>>은행/금융업</option>
+              <option value="10" <c:if test="${searchType eq 10}">selected</c:if>>기관/협회</option>
             </select>
         </div>
         <div class="col-xs-12 col-sm-6 align-center">
           <div class="list_search">
-            <form>
+            <form action="list.o">
+              <input type="hidden" name="searchType" value="${searchType}" />
+              <input type="hidden" name="searchSort" value="${searchSort}" />
               <div class="list_search_l">
-                <select>
+                <select name="search">
                   <option value="-1">통합</option>
-                  <option value="1">기업</option>
-                  <option value="2">채용</option>
+                  <option value="1" <c:if test="${search eq 1}">selected</c:if>>기업</option>
+                  <option value="2" <c:if test="${search eq 2}">selected</c:if>>채용</option>
                 </select>
               </div>
               <div class="list_search_c">
-                <input type="text" />
+                <input type="text" name="searchValue" value="${searchValue}" />
               </div>
               <div class="list_search_r">
                 <input type="submit" value="" />
@@ -86,23 +88,26 @@
         </div>
         
         <div class="col-xs-12 col-sm-3 c_list_select_align_r">
-          <select class="hidden-sm hidden-md hidden-lg c_list_select">
+          <select class="hidden-sm hidden-md hidden-lg c_list_select" name="searchType" onchange="location.href='list.o?search=${search}&searchValue=${searchValue}&searchSort=${searchSort}&searchType='+this.value;">
             <option value="-1">산업군</option>
-            <option value="1">서비스업</option>
-            <option value="2">제조/화학</option>
-            <option value="3">의료/제약/복지</option>
-            <option value="4">유통/무역/운송</option>
-            <option value="5">교육업</option>
-            <option value="6">건설업</option>
-            <option value="7">IT/웹/통신</option>
-            <option value="8">미디어/디자인</option>
-            <option value="9">은행/금융업</option>
-            <option value="10">기관/협회</option>
+              <option value="1" <c:if test="${searchType eq 1}">selected</c:if>>서비스업</option>
+              <option value="2" <c:if test="${searchType eq 2}">selected</c:if>>제조/화학</option>
+              <option value="3" <c:if test="${searchType eq 3}">selected</c:if>>의료/제약/복지</option>
+              <option value="4" <c:if test="${searchType eq 4}">selected</c:if>>유통/무역/운송</option>
+              <option value="5" <c:if test="${searchType eq 5}">selected</c:if>>교육업</option>
+              <option value="6" <c:if test="${searchType eq 6}">selected</c:if>>건설업</option>
+              <option value="7" <c:if test="${searchType eq 7}">selected</c:if>>IT/웹/통신</option>
+              <option value="8" <c:if test="${searchType eq 8}">selected</c:if>>미디어/디자인</option>
+              <option value="9" <c:if test="${searchType eq 9}">selected</c:if>>은행/금융업</option>
+              <option value="10" <c:if test="${searchType eq 10}">selected</c:if>>기관/협회</option>
           </select>
-          <select class="c_list_select">
+          <select class="c_list_select" name="searchSort" onchange="location.href='list.o?search=${search}&searchValue=${searchValue}&searchType=${searchType}&searchSort='+this.value;">
             <option value="-1">정렬선택</option>
-            <option value="1">총 만족도 순</option>
-            <option value="2">리뷰 많은 순</option>
+            <option value="1" <c:if test="${searchSort eq 1}">selected</c:if>>총 만족도 순</option>
+            <option value="2" <c:if test="${searchSort eq 2}">selected</c:if>>연봉 금액 순</option>
+            <option value="3" <c:if test="${searchSort eq 3}">selected</c:if>>리뷰 많은 순</option>
+            <option value="4" <c:if test="${searchSort eq 4}">selected</c:if>>연봉 정보 순</option>
+            <option value="5" <c:if test="${searchSort eq 5}">selected</c:if>>면접 정보 순</option>
           </select>
         </div>
       

@@ -23,18 +23,24 @@ public class CompanyService implements CompanyDao {
 	}
 
 	@Override
-	public List getArticles(int start, int end, String searchValue) {
+	public List getArticles(int start, int end, String searchValue, int search, int searchType, int searchSort) {
 		Map map = new HashMap();
-		map.put("searchValue", searchValue);
 		map.put("start", start);
 		map.put("end", end);
+		map.put("searchValue", searchValue);
+		map.put("search", search);
+		map.put("searchType", searchType);
+		map.put("searchSort", searchSort);
 		return (List)sqlSessionTemplate.selectList("CompanyGetArticles", map);
 	}
 
 	@Override
-	public Integer getCount(String searchValue) {
+	public Integer getCount(String searchValue, int search, int searchType, int searchSort) {
 		Map map = new HashMap();
 		map.put("searchValue", searchValue);
+		map.put("search", search);
+		map.put("searchType", searchType);
+		map.put("searchSort", searchSort);
 		return (Integer)sqlSessionTemplate.selectOne("CompanyGetCount", map);
 	}
 

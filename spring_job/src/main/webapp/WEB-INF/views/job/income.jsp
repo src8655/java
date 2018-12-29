@@ -11,6 +11,9 @@
     <input type="hidden" name="pages" value="${pages}" />
     <input type="hidden" name="member_no" value="${member_no}" />
     <input type="hidden" name="searchValue" value="${searchValue_utf}" />
+    <input type="hidden" name="search" value="${search}" />
+    <input type="hidden" name="searchType" value="${searchType}" />
+    <input type="hidden" name="searchSort" value="${searchSort}" />
     <div class="write_hide_scroll2">
     <div class="review_write_box">
       <h1>기업연봉 작성</h1>

@@ -103,19 +103,19 @@
         
         <div class="col-sm-10">
           <ul>
-            <li><a href="view.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}" <c:if test="${tab eq 1}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 1}">class="nav_ul_li_a"</c:if>>
+            <li><a href="view.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 1}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 1}">class="nav_ul_li_a"</c:if>>
               <span>Info</span><br />
               기업정보
             </a></li>
-            <li><a href="review.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}" <c:if test="${tab eq 2}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 2}">class="nav_ul_li_a"</c:if>>
+            <li><a href="review.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 2}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 2}">class="nav_ul_li_a"</c:if>>
               <span>${count2}</span><br />
               기업리뷰
             </a></li>
-            <li><a href="income.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}" <c:if test="${tab eq 3}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 3}">class="nav_ul_li_a"</c:if>>
+            <li><a href="income.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 3}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 3}">class="nav_ul_li_a"</c:if>>
               <span>${count3}</span><br />
               연봉정보
             </a></li>
-            <li><a href="interview.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}" <c:if test="${tab eq 4}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 4}">class="nav_ul_li_a"</c:if>>
+            <li><a href="interview.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 4}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 4}">class="nav_ul_li_a"</c:if>>
               <span>${count4}</span><br />
               면접후기
             </a></li>

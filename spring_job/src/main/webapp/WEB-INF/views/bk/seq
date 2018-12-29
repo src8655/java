@@ -1,0 +1,33 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 토요일-12월-29-2018   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence MIN_JOB_COMPANY_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_JOB_COMPANY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 42 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_JOB_COUNT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_JOB_COUNT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 82 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_JOB_INCOME_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_JOB_INCOME_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 42 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_JOB_INTERVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_JOB_INTERVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 22 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_JOB_MEMBER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_JOB_MEMBER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 62 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MIN_JOB_REVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "LSM8655"."MIN_JOB_REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 42 CACHE 20 NOORDER  NOCYCLE ;

@@ -22,8 +22,67 @@ public class CompanyData {
 	private int count_income = 0;
 	private int count_interview = 0;
 	private double avg_stars = 0;
-	private int acv_money = 0;
+	private int avg_money = 0;
+
+	private int avg_stars_p = 0;
+	private String avg_moneys = "";
 	
+	public int getAvg_stars_p() {
+		return avg_stars_p;
+	}
+
+	public void setAvg_stars_p(int avg_stars_p) {
+		this.avg_stars_p = avg_stars_p;
+	}
+
+	public int getAvg_money() {
+		return avg_money;
+	}
+
+	public void setAvg_money(int avg_money) {
+		this.avg_money = avg_money;
+	}
+
+	public String getAvg_moneys() {
+		return avg_moneys;
+	}
+
+	public void setAvg_moneys(String avg_moneys) {
+		this.avg_moneys = avg_moneys;
+	}
+
+	public int getCount_review() {
+		return count_review;
+	}
+
+	public void setCount_review(int count_review) {
+		this.count_review = count_review;
+	}
+
+	public int getCount_income() {
+		return count_income;
+	}
+
+	public void setCount_income(int count_income) {
+		this.count_income = count_income;
+	}
+
+	public int getCount_interview() {
+		return count_interview;
+	}
+
+	public void setCount_interview(int count_interview) {
+		this.count_interview = count_interview;
+	}
+
+	public double getAvg_stars() {
+		return avg_stars;
+	}
+
+	public void setAvg_stars(double avg_stars) {
+		this.avg_stars = avg_stars;
+	}
+
 	public String getCompany() {
 		return company;
 	}

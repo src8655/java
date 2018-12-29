@@ -55,19 +55,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	<select id="CompanyGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.CompanyData">
-		select NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		<!-- select NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
 		from (select rownum as rnum,a.* from (
 		select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
 		from MIN_JOB_MEMBER aa, MIN_JOB_COMPANY bb
 		where aa.NO=bb.MEMBER_NO
 		and COMPANY like '%'||#{searchValue}||'%'
-		order by aa.NO desc) a) where rnum between #{start} and #{end}
+		order by aa.NO desc) a) where rnum between #{start} and #{end} -->
+		select NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY,COUNT_INTERVIEW
+		from (select rownum as rnum,a.* from
+
+		(select NO,exb1.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,NVL(COUNT_REVIEW,0) as COUNT_REVIEW,NVL(AVG_STARS,0) as AVG_STARS,NVL(COUNT_INCOME,0) as COUNT_INCOME,NVL(AVG_MONEY,0) as AVG_MONEY,NVL(COUNT_INTERVIEW,0) as COUNT_INTERVIEW
+		from (select NO,exb0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY
+		from (select NO,EXA0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS
+		from (select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		from (MIN_JOB_MEMBER aa), (MIN_JOB_COMPANY bb) where aa.NO=bb.MEMBER_NO
+		
+		and company like '%'||#{searchValue}||'%'
+		<if test="searchType != -1">and COMPANY_CATE=${searchType}</if>
+		) exa0
+		
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_REVIEW, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO) exb0
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO
+		<if test="searchSort == 1">order by AVG_STARS desc</if>
+		<if test="searchSort == 2">order by AVG_MONEY desc</if>
+		<if test="searchSort == 3">order by COUNT_REVIEW desc</if>
+		<if test="searchSort == 4">order by COUNT_INCOME desc</if>
+		<if test="searchSort == 5">order by COUNT_INTERVIEW desc</if>
+		<if test="searchSort == -1">order by NO desc</if>
+		) a
+		
+		
+		
+
+		)
+		 where rnum between #{start} and #{end}
 	</select>
 	<select id="CompanyGetCount" parameterType="java.util.Map" resultType="int">
-		select count(*)
+		<!-- select count(*)
 		from MIN_JOB_MEMBER aa, min_job_company bb
 		where aa.NO=bb.MEMBER_NO
-		and COMPANY like '%'||#{searchValue}||'%'
+		and COMPANY like '%'||#{searchValue}||'%' -->
+		select count(*) from
+
+		(select NO,exb1.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY,COUNT_INTERVIEW
+		from (select NO,exb0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY
+		from (select NO,EXA0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS
+		from (select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		from (MIN_JOB_MEMBER aa), (MIN_JOB_COMPANY bb) where aa.NO=bb.MEMBER_NO
+		
+		and company like '%'||#{searchValue}||'%'
+		<if test="searchType != -1">and COMPANY_CATE=${searchType}</if>
+		) exa0
+		
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_REVIEW, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO) exb0
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO) a
+		
 	</select>
 	<select id="CompanyGetArticle" parameterType="int" resultType="com.myjob.data.CompanyData">
 		select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2

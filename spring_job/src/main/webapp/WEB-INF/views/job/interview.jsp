@@ -9,6 +9,9 @@
     <input type="hidden" name="pages" value="${pages}" />
     <input type="hidden" name="member_no" value="${member_no}" />
     <input type="hidden" name="searchValue" value="${searchValue_utf}" />
+    <input type="hidden" name="search" value="${search}" />
+    <input type="hidden" name="searchType" value="${searchType}" />
+    <input type="hidden" name="searchSort" value="${searchSort}" />
     <div class="write_hide_scroll2">
     <div class="review_write_box">
       <h1>면접후기 작성</h1>
@@ -442,14 +445,14 @@
     
     
       <div class="paging">
-        <a href="interview.o?member_no=${member_no}&pages_r=1&searchValue=${searchValue_utf}&pages=${pages}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
+        <a href="interview.o?member_no=${member_no}&pages_r=1&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
-        	<a href="interview.o?member_no=${member_no}&pages_r=${i}&searchValue=${searchValue_utf}&pages=${pages}"
+        	<a href="interview.o?member_no=${member_no}&pages_r=${i}&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}"
         		<c:if test="${i ne pages}"> class="paging_a"</c:if> <c:if test="${i eq pages}"> class="paging_a_hover"</c:if>>
         		${i}
         	</a>
         </c:forEach>
-        <a href="interview.o?member_no=${member_no}&pages_r=${paging.board_paging}&searchValue=${searchValue_utf}&pages=${pages}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
+        <a href="interview.o?member_no=${member_no}&pages_r=${paging.board_paging}&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
     
     
