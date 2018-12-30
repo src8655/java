@@ -85,12 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="searchSort == 5">order by COUNT_INTERVIEW desc</if>
 		<if test="searchSort == -1">order by NO desc</if>
 		) a
-		
-		
-		
-
-		)
-		 where rnum between #{start} and #{end}
+		) where rnum between #{start} and #{end}
 	</select>
 	<select id="CompanyGetCount" parameterType="java.util.Map" resultType="int">
 		<!-- select count(*)

@@ -24,6 +24,69 @@ float:left;
 float:right;
 }
 
+.xs_menu {
+background:rgba(0,0,0,0.5);
+position:fixed;
+left:0px;
+right:0px;
+top:0px;
+bottom:0px;
+z-index:5000;
+}
+.xs_menu ul {
+background:#ffffff;
+border:1px solid #eeeeee;
+border-radius:10px;
+list-style:none;
+margin:20px;
+padding:0px;
+overflow:hidden;
+}
+.xs_menu ul li {
+border-bottom:1px solid #eeeeee;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.xs_menu ul li a {
+padding:15px;
+font-size:15px;
+display:block;
+text-decoration:none;
+color:#000000;
+overflow:hidden;
+}
+
+.header_logo_bg {
+width:200px;
+margin:0 auto;
+overflow:hidden;
+}
+.nav_menu {
+float:right;
+width:35px;
+height:25px;
+border-radius:5px;
+border:1px solid #e8e8e8;
+background:#fafafa;
+padding:0px;
+margin:10px 0 0 0;
+overflow:hidden;
+}
+.nav_menu div {
+border-radius:5px;
+background:#a7a7a7;
+margin:0 auto;
+margin-top:4px;
+width:20px;
+height:2px;
+overflow:hidden;
+}
+.nav_blank {
+width:30px;
+height:30px;
+display:inline-block;
+}
 
 .header {
 background:#3ac453;
@@ -33,7 +96,6 @@ width:103px;
 height:20px;
 line-height:20px;
 padding:0px;
-overflow:hidden;
 }
 .search_box_align {
 text-align:center;
@@ -1489,13 +1551,13 @@ overflow:hidden;
     text-align:center;
   }
   .list_search {
-    width:355px;
+    width:325px;
   }
   .list_search_c {
-    width:220px;
+    width:190px;
   }
   .list_search_c input {
-    width:219px;
+    width:189px;
   }
   .c_list_select_align_r {
     text-align:center;
@@ -1524,5 +1586,11 @@ overflow:hidden;
   .review_write_box_line p {
     float:left;
     width:100%;
+  }
+  .align-xs-center {
+  	text-align:center;
+  }
+  .logo_float{
+  	float:left;
   }
 }

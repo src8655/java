@@ -48,7 +48,7 @@
               <c:if test="${cdata.company_cate eq 10}">기관/협회</c:if>
             </p>
             <p class="hidden-xs">${cdata.count_review} 기업리뷰 | ${cdata.count_income} 연봉정보 | ${cdata.count_interview} 면접정보</p>
-            <p class="hidden-sm hidden-md hidden-lg">28 리뷰 | 107 연봉 | 30 면접</p>
+            <p class="hidden-sm hidden-md hidden-lg">${cdata.count_review} 기업 | ${cdata.count_income} 연봉 | ${cdata.count_interview} 면접</p>
           </div>
           <div class="hidden-xs" style="width:30px;height:30px;float:right;"></div>
           <div class="c_list_r">
@@ -63,6 +63,7 @@
         </a></li>
         </c:forEach>
       </ul>
+    </div>
       <div class="paging">
         <a href="list.o?pages=1&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
@@ -73,7 +74,6 @@
         </c:forEach>
         <a href="list.o?pages=${paging.board_paging}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
-    </div>
     
 
     

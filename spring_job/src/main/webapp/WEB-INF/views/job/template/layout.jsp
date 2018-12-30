@@ -533,6 +533,9 @@ function show2(var1) {
 function hide2(var1) {
 	$("#"+var1).fadeOut(100);
 }
+function toggle2(var1) {
+	$("#"+var1).slideToggle(100);
+}
 ////////////////////////////////////
 
 

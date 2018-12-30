@@ -4,13 +4,48 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<div class="xs_menu" id="xs_menu_id" style="display:none;">
+	<ul>
+		<li><a href="#100" onclick="hide2('xs_menu_id');document.body.style.overflow='scroll';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>
+        <c:if test="${memberInfo eq null}">
+		<li><a href="login.o">로그인</a></li>
+		<li><a href="join.o">회원가입</a></li>
+        </c:if>
+        <c:if test="${memberInfo ne null}">
+          <li onclick="toggle2('top_sub_id');">
+            <a href="#100">${memberInfo.name} 님</a>
+          </li>
+          <div id="top_sub_id" style="display:none;">
+          	<li><a href="logout.o" style="background:#e6e6e6;">&nbsp;&nbsp;로그아웃</a></li>
+          	<li><a href="login_edit.o" style="background:#e6e6e6;">&nbsp;&nbsp;회원수정</a></li>
+          </div>
+          <c:if test="${memberInfo.orders eq 1}">
+            <li><a href="#100">마이페이지</a></li>
+          </c:if>
+          <c:if test="${memberInfo.orders eq 2}">
+            <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
+          </c:if>
+        </c:if>
+	    <li><a href="">기업정보</a></li>
+	    <li><a href="">채용정보</a></li>
+	</ul>
+</div>
 <div class="header">
   <div class="container">
     <div class="row">
     
       <div class="col-sm-1"></div>
-      <div class="col-sm-3"><h1><a href="#"><img src="./images/logo.jpg" alt="logo" /></a></h1></div>
+      <div class="col-sm-3">
+      
+      	<div class="header_logo_bg">
+			<a href="#100" onclick="show2('xs_menu_id');document.body.style.overflow='hidden';" class="hidden-sm hidden-md hidden-lg nav_menu">
+				<div></div>
+				<div></div>
+				<div></div>
+			</a>
+	      	<h1 class="logo_float"><a href="#"><img src="./images/logo.jpg" alt="logo" /></a></h1>
+      	</div>
+      </div>
       <div class="col-sm-3 search_box_align">
         <div class="search_box">
           <input type="text" />
@@ -18,7 +53,7 @@
         </div>
       </div>
       <div class="col-sm-4 top_menu_align">
-        <ul class="header_ul">
+        <ul class="header_ul hidden-xs">
         <c:if test="${memberInfo eq null}">
           <li class="header_ul_li"><a href="login.o" class="header_ul_li_a">로그인</a></li>
           <li class="header_ul_li"><a href="join.o" class="header_ul_li_a">회원가입</a></li>
