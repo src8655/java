@@ -34,10 +34,37 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.myjob.dao.CompanyDao;
+import com.myjob.dao.CountDao;
+import com.myjob.dao.IncomeDao;
+import com.myjob.dao.InterviewDao;
+import com.myjob.dao.RecruitDao;
+import com.myjob.dao.RecruitListDao;
+import com.myjob.dao.ReviewDao;
+import com.myjob.data.CompanyData;
+import com.myjob.data.RecruitData;
+import com.myjob.ext.ActionTime;
+import com.myjob.ext.Action_Paging;
+import com.myjob.ext.NumberFormat;
+
 
 
 @Controller
 public class JobController {
+	@Autowired
+	CompanyDao companyService;
+	@Autowired
+	CountDao countService;
+	@Autowired
+	ReviewDao reviewService;
+	@Autowired
+	IncomeDao incomeService;
+	@Autowired
+	InterviewDao interviewService;
+	@Autowired
+	RecruitDao recruitService;
+	@Autowired
+	RecruitListDao recruitListService;
 
 	String msg = "";
 	String url = "";
@@ -46,6 +73,27 @@ public class JobController {
 	@RequestMapping("/job/index.o")
 	public ModelAndView index() throws SQLException {
 		ModelAndView mav = new ModelAndView();
+		
+		
+		List list = companyService.getArticles(1, 5, "", -1, -1, -1);
+		
+		for(int i=0;i<list.size();i++) {
+			CompanyData tmp = (CompanyData)list.get(i);
+			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
+			tmp.setAvg_stars_p((int)((tmp.getAvg_stars()/5.0)*92.0));
+			tmp.setAvg_stars(Math.round(tmp.getAvg_stars()*10.0)/10.0);
+		}
+		mav.addObject("list", list);
+		
+		
+		List list2 = recruitService.getArticles(1, 5, "", -1, -1, -1);
+		for(int i=0;i<list2.size();i++) {
+			RecruitData tmp = (RecruitData)list2.get(i);
+			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
+			tmp.setAvg_stars(Math.round(tmp.getAvg_stars()*10.0)/10.0);
+			tmp.setDday(ActionTime.dDay(tmp.getEnddates()));
+		}
+		mav.addObject("list2", list2);
 		
 		mav.setViewName("job/index");
 		return mav;

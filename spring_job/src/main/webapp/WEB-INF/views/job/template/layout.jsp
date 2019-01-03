@@ -377,7 +377,7 @@ function login_submit(var1) {
 
 
 
-//파일처리
+//파일처리1 이미지
 function open_file(files) {
 document.getElementById(files).click();
 }
@@ -389,8 +389,13 @@ reader.onload = function (e) {
 reader.readAsDataURL(files.files[0]);
 }
 /////////////////////////
-
-
+//파일처리2 기타파일
+function open_file2(files) {
+	document.getElementById(files).click();
+}
+function change_file2(var1, files) {
+	document.getElementById(var1).value = files.value;
+}
 
 
 
@@ -983,14 +988,480 @@ function interview_write_submit(var1) {
 		return false;
 	}else return true;
 }
-
-
-
-
-
-
-
 ////////////////////////////////////////
+
+
+
+
+
+
+
+
+//채용정보 유효성검사
+var rc_subject = false;
+var rc_enddates = false;
+var rc_keyword = false;
+var rc_memo1 = true;
+var rc_memo2 = true;
+var rc_memo3 = true;
+var rc_memo4 = true;
+var rc_memo5 = true;
+var rc_contact = false;
+var rc_prof = false;
+var rc_empl = false;
+var rc_grade = false;
+var rc_money = false;
+var rc_positions1 = false;
+var rc_positions2 = false;
+
+function rc_subject_check(var1) {
+	var temp = "rc_subject";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_subject = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_subject = true;
+	}
+}
+function rc_enddates_check(var1) {
+	var temp = "rc_enddates";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_enddates = false;
+	}else{
+		var tmp = var1.value.split("-");
+		if(tmp.length != 3) {
+			document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>잘못된 날짜 형식입니다.</span>";
+			rc_enddates = false;
+		}else{
+			document.getElementById(temp+"_msg").innerHTML = "";
+			rc_enddates = true;
+		}
+	}
+}
+function rc_keyword_check(var1) {
+	var temp = "rc_keyword";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_keyword = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_keyword = true;
+	}
+}
+
+function rc_memo1_check(var1) {}
+function rc_memo2_check(var1) {}
+function rc_memo3_check(var1) {}
+function rc_memo4_check(var1) {}
+function rc_memo5_check(var1) {}
+
+function rc_contact_check(var1) {
+	var temp = "rc_contact";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_contact = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_contact = true;
+	}
+}
+function rc_prof_check(var1) {
+	var temp = "rc_prof";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_prof = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_prof = true;
+	}
+}
+function rc_empl_check(var1) {
+	var temp = "rc_empl";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_empl = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_empl = true;
+	}
+}
+function rc_grade_check(var1) {
+	var temp = "rc_grade";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_grade = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_grade = true;
+	}
+}
+function rc_money_check(var1) {
+	var temp = "rc_money";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_money = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_money = true;
+	}
+}
+function rc_positions1_check(var1) {
+	var temp = "rc_positions1";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_positions1 = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_positions1 = true;
+	}
+}
+function rc_positions2_check(var1) {
+	var temp = "rc_positions2";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc_positions2 = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc_positions2 = true;
+	}
+}
+function recruit_write_submit(var1) {
+	rc_subject_check(var1.subject);
+	rc_enddates_check(var1.enddates);
+	rc_keyword_check(var1.keyword);
+	rc_memo1_check(var1.memo1);
+	rc_memo2_check(var1.memo2);
+	rc_memo3_check(var1.memo3);
+	rc_memo4_check(var1.memo4);
+	rc_memo5_check(var1.memo5);
+	rc_contact_check(var1.contact);
+	rc_prof_check(var1.prof);
+	rc_empl_check(var1.empl);
+	rc_grade_check(var1.grade);
+	rc_money_check(var1.money);
+	rc_positions1_check(var1.positions1);
+	rc_positions2_check(var1.positions2);
+	
+	if(
+			!rc_subject  ||
+			!rc_enddates  ||
+			!rc_keyword  ||
+			!rc_memo1  ||
+			!rc_memo2  ||
+			!rc_memo3  ||
+			!rc_memo4  ||
+			!rc_memo5  ||
+			!rc_contact  ||
+			!rc_prof ||
+			!rc_empl ||
+			!rc_grade ||
+			!rc_money ||
+			!rc_positions1 ||
+			!rc_positions2
+	){
+		return false;
+	} else return true;
+}
+////////////////////////////////////////
+
+
+
+
+
+
+
+//채용정보 수정 유효성검사
+var rc2_subject = false;
+var rc2_enddates = false;
+var rc2_keyword = false;
+var rc2_memo1 = true;
+var rc2_memo2 = true;
+var rc2_memo3 = true;
+var rc2_memo4 = true;
+var rc2_memo5 = true;
+var rc2_contact = false;
+var rc2_prof = false;
+var rc2_empl = false;
+var rc2_grade = false;
+var rc2_money = false;
+var rc2_positions1 = false;
+var rc2_positions2 = false;
+
+function rc2_subject_check(var1) {
+	var temp = "rc2_subject";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_subject = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_subject = true;
+	}
+}
+function rc2_enddates_check(var1) {
+	var temp = "rc2_enddates";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_enddates = false;
+	}else{
+		var tmp = var1.value.split("-");
+		if(tmp.length != 3) {
+			document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>잘못된 날짜 형식입니다.</span>";
+			rc2_enddates = false;
+		}else{
+			document.getElementById(temp+"_msg").innerHTML = "";
+			rc2_enddates = true;
+		}
+	}
+}
+function rc2_keyword_check(var1) {
+	var temp = "rc2_keyword";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_keyword = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_keyword = true;
+	}
+}
+
+function rc2_memo1_check(var1) {}
+function rc2_memo2_check(var1) {}
+function rc2_memo3_check(var1) {}
+function rc2_memo4_check(var1) {}
+function rc2_memo5_check(var1) {}
+
+function rc2_contact_check(var1) {
+	var temp = "rc2_contact";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_contact = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_contact = true;
+	}
+}
+function rc2_prof_check(var1) {
+	var temp = "rc2_prof";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_prof = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_prof = true;
+	}
+}
+function rc2_empl_check(var1) {
+	var temp = "rc2_empl";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_empl = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_empl = true;
+	}
+}
+function rc2_grade_check(var1) {
+	var temp = "rc2_grade";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_grade = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_grade = true;
+	}
+}
+function rc2_money_check(var1) {
+	var temp = "rc2_money";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_money = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_money = true;
+	}
+}
+function rc2_positions1_check(var1) {
+	var temp = "rc2_positions1";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_positions1 = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_positions1 = true;
+	}
+}
+function rc2_positions2_check(var1) {
+	var temp = "rc2_positions2";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rc2_positions2 = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rc2_positions2 = true;
+	}
+}
+function recruit_edit_submit(var1) {
+	rc2_subject_check(var1.subject);
+	rc2_enddates_check(var1.enddates);
+	rc2_keyword_check(var1.keyword);
+	rc2_memo1_check(var1.memo1);
+	rc2_memo2_check(var1.memo2);
+	rc2_memo3_check(var1.memo3);
+	rc2_memo4_check(var1.memo4);
+	rc2_memo5_check(var1.memo5);
+	rc2_contact_check(var1.contact);
+	rc2_prof_check(var1.prof);
+	rc2_empl_check(var1.empl);
+	rc2_grade_check(var1.grade);
+	rc2_money_check(var1.money);
+	rc2_positions1_check(var1.positions1);
+	rc2_positions2_check(var1.positions2);
+	
+	if(
+			!rc2_subject  ||
+			!rc2_enddates  ||
+			!rc2_keyword  ||
+			!rc2_memo1  ||
+			!rc2_memo2  ||
+			!rc2_memo3  ||
+			!rc2_memo4  ||
+			!rc2_memo5  ||
+			!rc2_contact  ||
+			!rc2_prof ||
+			!rc2_empl ||
+			!rc2_grade ||
+			!rc2_money ||
+			!rc2_positions1 ||
+			!rc2_positions2
+	){
+		return false;
+	} else return true;
+}
+/////////////////////////////////////////
+
+
+
+
+
+
+
+//다이어로그
+function dialog(var1, var2) {
+	var reVal = confirm(var1);
+	if(reVal == true) {
+		location.href=var2;
+	}
+}
+/////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+//지원서 작성 유효성검사
+var rca_name = false;
+var rca_phone1 = false;
+var rca_phone2 = false;
+var rca_phone3 = false;
+var rca_email = false;
+var rca_files1 = false;
+
+function rca_name_check(var1) {
+	var temp = "rca_name";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rca_name = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rca_name = true;
+	}
+}
+function rca_phone1_check(var1) {
+	var temp = "rca_phone";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rca_phone1 = false;
+	}else{
+		rca_phone1 = true;
+		if(!rca_phone2 || !rca_phone3) {
+			document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		}else{
+			document.getElementById(temp+"_msg").innerHTML = "";
+		}
+	}
+}
+function rca_phone2_check(var1) {
+	var temp = "rca_phone";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rca_phone2 = false;
+	}else{
+		rca_phone2 = true;
+		if(!rca_phone1 || !rca_phone3) {
+			document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		}else{
+			document.getElementById(temp+"_msg").innerHTML = "";
+		}
+	}
+}
+function rca_phone3_check(var1) {
+	var temp = "rca_phone";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rca_phone3 = false;
+	}else{
+		rca_phone3 = true;
+		if(!rca_phone1 || !rca_phone2) {
+			document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		}else{
+			document.getElementById(temp+"_msg").innerHTML = "";
+		}
+	}
+}
+function rca_email_check(var1) {
+	var temp = "rca_email";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rca_email = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rca_email = true;
+	}
+}
+function rca_files1_check(var1) {
+	var temp = "rca_files1";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rca_files1 = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rca_files1 = true;
+	}
+}
+function recruit_add_submit(var1) {
+	rca_name_check(var1.name);
+	rca_phone1_check(var1.phone1);
+	rca_phone2_check(var1.phone2);
+	rca_phone3_check(var1.phone3);
+	rca_email_check(var1.email);
+	rca_files1_check(var1.file1);
+	
+	if(!rca_name ||
+			!rca_phone1 ||
+			!rca_phone2 ||
+			!rca_phone3 ||
+			!rca_email ||
+			!rca_files1){
+		return false;
+	}else return true;
+}
+/////////////////////////////////////////
 
 
 

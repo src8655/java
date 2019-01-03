@@ -59,11 +59,11 @@
         <div id="name_msg" class="join_msg"></div>
         <div class="join_phone" style="overflow:hidden;">
           <h4>전화번호</h4>
-          <input type="text" name="phone1" placeholder="010" class="login_input" style="padding-left:10px;width:20%;float:left;" onchange="phone1_check(this);" />
+          <input type="text" name="phone1" placeholder="010" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="phone1_check(this);" />
           <div>-</div>
-          <input type="text" name="phone2" placeholder="0000" class="login_input" style="padding-left:10px;width:20%;float:left;" onchange="phone2_check(this);" />
+          <input type="text" name="phone2" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="phone2_check(this);" />
           <div>-</div>
-          <input type="text" name="phone3" placeholder="0000" class="login_input" style="padding-left:10px;width:20%;float:left;" onchange="phone3_check(this);" />
+          <input type="text" name="phone3" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="phone3_check(this);" />
         </div>
         <div id="phone_msg" class="join_msg"></div>
         <div class="join_quest">

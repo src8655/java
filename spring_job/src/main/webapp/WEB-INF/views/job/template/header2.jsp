@@ -12,10 +12,10 @@
 		<li><a href="join.o">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">
-          <li onclick="toggle2('top_sub_id');">
+          <li onclick="toggle2('top_sub_id2');">
             <a href="#100">${memberInfo.name} 님</a>
           </li>
-          <div id="top_sub_id" style="display:none;">
+          <div id="top_sub_id2" style="display:none;">
           	<li><a href="logout.o" style="background:#e6e6e6;">&nbsp;&nbsp;로그아웃</a></li>
           	<li><a href="login_edit.o" style="background:#e6e6e6;">&nbsp;&nbsp;회원수정</a></li>
           </div>
@@ -26,8 +26,8 @@
             <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
           </c:if>
         </c:if>
-	    <li><a href="">기업정보</a></li>
-	    <li><a href="">채용정보</a></li>
+	    <li><a href="list.o?search=1">기업정보</a></li>
+	    <li><a href="list.o?search=2">채용정보</a></li>
 	</ul>
 </div>
 <div class="header">
@@ -43,13 +43,15 @@
 				<div></div>
 				<div></div>
 			</a>
-	      	<h1 class="logo_float"><a href="#"><img src="./images/logo.jpg" alt="logo" /></a></h1>
+	      	<h1 class="logo_float"><a href="index.o"><img src="./images/logo.jpg" alt="logo" /></a></h1>
       	</div>
       </div>
       <div class="col-sm-3 search_box_align">
         <div class="search_box">
-          <input type="text" />
-          <a href="#"><img src="./images/search_btn.jpg" alt="search" /></a>
+          <form action="list.o" id="top_search">
+          <input type="text" name="searchValue" />
+          <a href="#100" onclick="top_search.submit();"><img src="./images/search_btn.jpg" alt="search" /></a>
+          </form>
         </div>
       </div>
       <div class="col-sm-4 top_menu_align">
@@ -81,8 +83,8 @@
   </div>
 </div>
 
-<c:if test="${cdata.file2 eq ''}"><div class="main_subject_bg" style="background:url(./images/office_bk.jpg) no-repeat center top;"></c:if>
-<c:if test="${cdata.file2 ne ''}"><div class="main_subject_bg" style="background:url(./upload/${cdata.file2}) no-repeat center top;"></c:if>
+<c:if test="${cdata.file2 eq ''}"><div class="main_subject_bg" style="background:url(./images/office_bk.jpg) no-repeat center center;"></c:if>
+<c:if test="${cdata.file2 ne ''}"><div class="main_subject_bg" style="background:url(./upload/${cdata.file2}) no-repeat center center"></c:if>
   <div class="main_subject">
     <div class="container">
       <div class="row">
@@ -107,7 +109,7 @@
               <c:if test="${cdata.company_cate eq 10}">기관/협회</c:if>
             <br />
             <a href="#" class="follow_btn"><img src="./images/heart.jpg" alt="heart" />팔로우</a>
-            <img src="./images/star.png" alt="star" /> 4.7
+            <img src="./images/star.png" alt="star" /> ${cdata.avg_stars}
             <br />
             <a href="${cdata.url}" class="url_btn">${cdata.url}</a>
           </p>
@@ -115,7 +117,7 @@
         <div class="col-sm-3 cover_img_align">
           <c:if test="${memberInfo ne null}">
           <c:if test="${memberInfo.no eq cdata.member_no}">
-          <a href="edit.o?member_no=${cdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}" class="cover_img_btn">
+          <a href="edit.o?member_no=${cdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&pages_rc=${pages_rc}" class="cover_img_btn">
             <img src="./images/camera.png" alt="camera" />기업정보 관리</a>
           </c:if>
           </c:if>
@@ -138,24 +140,24 @@
         
         <div class="col-sm-10">
           <ul>
-            <li><a href="view.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 1}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 1}">class="nav_ul_li_a"</c:if>>
+            <li><a href="view.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 1}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 1}">class="nav_ul_li_a"</c:if>>
               <span>Info</span><br />
               기업정보
             </a></li>
-            <li><a href="review.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 2}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 2}">class="nav_ul_li_a"</c:if>>
+            <li><a href="review.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 2}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 2}">class="nav_ul_li_a"</c:if>>
               <span>${count2}</span><br />
               기업리뷰
             </a></li>
-            <li><a href="income.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 3}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 3}">class="nav_ul_li_a"</c:if>>
+            <li><a href="income.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 3}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 3}">class="nav_ul_li_a"</c:if>>
               <span>${count3}</span><br />
               연봉정보
             </a></li>
-            <li><a href="interview.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" <c:if test="${tab eq 4}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 4}">class="nav_ul_li_a"</c:if>>
+            <li><a href="interview.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 4}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 4}">class="nav_ul_li_a"</c:if>>
               <span>${count4}</span><br />
               면접후기
             </a></li>
-            <li><a href="#" <c:if test="${tab eq 5}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 5}">class="nav_ul_li_a"</c:if>>
-              <span>D-1</span><br />
+            <li><a href="recruit.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 5}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 5}">class="nav_ul_li_a"</c:if>>
+              <span>D-${count5}</span><br />
               채용공고
             </a></li>
           </ul>

@@ -12,10 +12,10 @@
 		<li><a href="join.o">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">
-          <li onclick="toggle2('top_sub_id');">
+          <li onclick="toggle2('top_sub_id2');">
             <a href="#100">${memberInfo.name} 님</a>
           </li>
-          <div id="top_sub_id" style="display:none;">
+          <div id="top_sub_id2" style="display:none;">
           	<li><a href="logout.o" style="background:#e6e6e6;">&nbsp;&nbsp;로그아웃</a></li>
           	<li><a href="login_edit.o" style="background:#e6e6e6;">&nbsp;&nbsp;회원수정</a></li>
           </div>
@@ -26,8 +26,8 @@
             <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
           </c:if>
         </c:if>
-	    <li><a href="">기업정보</a></li>
-	    <li><a href="">채용정보</a></li>
+	    <li><a href="list.o?search=1">기업정보</a></li>
+	    <li><a href="list.o?search=2">채용정보</a></li>
 	</ul>
 </div>
 
@@ -38,8 +38,8 @@
       <div class="col-sm-1"></div>
       <div class="col-sm-4 top_menu_align_left">
         <ul class="header_ul hidden-xs">
-          <li class="header_ul_li"><a href="#" class="header_ul_li_a">기업정보</a></li>
-          <li class="header_ul_li"><a href="#" class="header_ul_li_a">채용정보</a></li>
+          <li class="header_ul_li"><a href="list.o?search=1" class="header_ul_li_a">기업정보</a></li>
+          <li class="header_ul_li"><a href="list.o?search=2" class="header_ul_li_a">채용정보</a></li>
         </ul>
       </div>
       <div class="col-sm-2">
@@ -49,7 +49,7 @@
 				<div></div>
 				<div></div>
 			</a>
-	      	<h1 class="logo_float"><a href="#"><img src="./images/logo.jpg" alt="logo" /></a></h1>
+	      	<h1 class="logo_float"><a href="index.o"><img src="./images/logo.jpg" alt="logo" /></a></h1>
       	</div>
 	  </div>
       <div class="col-sm-4 top_menu_align">
@@ -87,7 +87,7 @@
       <div class="row">
       
         <div class="hidden-xs col-sm-3 c_list_select_align_l">
-            <select class="c_list_select" name="searchType" onchange="location.href='list.o?search=${search}&searchValue=${searchValue}&searchSort=${searchSort}&searchType='+this.value;">
+            <select class="c_list_select" name="searchType" onchange="location.href='list.o?search=${search}&searchValue=${searchValue_utf}&searchSort=${searchSort}&searchType='+this.value;">
               <option value="-1">산업군</option>
               <option value="1" <c:if test="${searchType eq 1}">selected</c:if>>서비스업</option>
               <option value="2" <c:if test="${searchType eq 2}">selected</c:if>>제조/화학</option>
@@ -124,7 +124,7 @@
         </div>
         
         <div class="col-xs-12 col-sm-3 c_list_select_align_r">
-          <select class="hidden-sm hidden-md hidden-lg c_list_select" name="searchType" onchange="location.href='list.o?search=${search}&searchValue=${searchValue}&searchSort=${searchSort}&searchType='+this.value;">
+          <select class="hidden-sm hidden-md hidden-lg c_list_select" name="searchType" onchange="location.href='list.o?search=${search}&searchValue=${searchValue_utf}&searchSort=${searchSort}&searchType='+this.value;">
             <option value="-1">산업군</option>
               <option value="1" <c:if test="${searchType eq 1}">selected</c:if>>서비스업</option>
               <option value="2" <c:if test="${searchType eq 2}">selected</c:if>>제조/화학</option>
@@ -137,7 +137,7 @@
               <option value="9" <c:if test="${searchType eq 9}">selected</c:if>>은행/금융업</option>
               <option value="10" <c:if test="${searchType eq 10}">selected</c:if>>기관/협회</option>
           </select>
-          <select class="c_list_select" name="searchSort" onchange="location.href='list.o?search=${search}&searchValue=${searchValue}&searchType=${searchType}&searchSort='+this.value;">
+          <select class="c_list_select" name="searchSort" onchange="location.href='list.o?search=${search}&searchValue=${searchValue_utf}&searchType=${searchType}&searchSort='+this.value;">
             <option value="-1">정렬선택</option>
             <option value="1" <c:if test="${searchSort eq 1}">selected</c:if>>총 만족도 순</option>
             <option value="2" <c:if test="${searchSort eq 2}">selected</c:if>>연봉 금액 순</option>

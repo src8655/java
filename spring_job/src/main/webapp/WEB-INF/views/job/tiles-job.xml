@@ -87,5 +87,13 @@
 		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer2.jsp" />
 	</definition>
 	
+	<!-- 채용정보 -->
+	<definition name="job/recruit" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 채용정보" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header2.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/recruit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer2.jsp" />
+	</definition>
+	
  
 </tiles-definitions>

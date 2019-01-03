@@ -1,6 +1,7 @@
 package com.myjob.ext;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class ActionTime {
 	public static String getDate() {
@@ -34,5 +35,21 @@ public class ActionTime {
 		if(day < 10) days = "0"+days;
 		
 		return (years+"-"+months+"-"+days);
+	}
+	public static int dDay(String dates) {
+		if(dates == null) return 0;
+		Calendar cal = Calendar.getInstance();
+		
+		long ms = cal.getTimeInMillis();
+		
+		String[] tmp = dates.split("-");
+		if(tmp.length != 3 || tmp == null) return 0;
+		cal.set(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1])-1, Integer.parseInt(tmp[2]), 0, 0);
+		
+		
+		
+		ms = cal.getTimeInMillis() - ms;
+		
+		return (int)((((ms/(long)1000)/(long)60)/(long)60)/(long)24);
 	}
 }

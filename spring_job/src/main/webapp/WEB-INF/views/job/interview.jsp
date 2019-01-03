@@ -6,6 +6,7 @@
 <div class="write_hide" id="review_write" style="display:none;">
 <div class="write_hide_scroll">
     <form action="interview_write_post.o" method="post" onsubmit="return interview_write_submit(this);">
+    <input type="hidden" name="pages_rc" value="${pages_rc}" />
     <input type="hidden" name="pages" value="${pages}" />
     <input type="hidden" name="member_no" value="${member_no}" />
     <input type="hidden" name="searchValue" value="${searchValue_utf}" />
@@ -221,11 +222,18 @@
     <div class="col-sm-10">
     
     
-    
+    <c:if test="${memberInfo eq null}">
     <div class="review_write">
-    	<c:if test="${memberInfo eq null}"><a href="login.o">새로운 면접후기 작성하기</a></c:if>
-    	<c:if test="${memberInfo ne null}"><a href="#100" onclick="show2('review_write');document.body.style.overflow = 'hidden';">새로운 면접후기 작성하기</a></c:if>
+    	<a href="login.o">새로운 면접후기 작성하기</a>
     </div>
+    </c:if>
+    <c:if test="${memberInfo ne null}">
+    <c:if test="${memberInfo.orders eq 1}">
+    <div class="review_write">
+    	<a href="#100" onclick="show2('review_write');document.body.style.overflow = 'hidden';">새로운 면접후기 작성하기</a>
+    </div>
+    </c:if>
+    </c:if>
     
     
     
@@ -445,14 +453,14 @@
     
     
       <div class="paging">
-        <a href="interview.o?member_no=${member_no}&pages_r=1&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
+        <a href="interview.o?member_no=${member_no}&pages_r=1&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
-        	<a href="interview.o?member_no=${member_no}&pages_r=${i}&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}"
+        	<a href="interview.o?member_no=${member_no}&pages_r=${i}&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}"
         		<c:if test="${i ne pages}"> class="paging_a"</c:if> <c:if test="${i eq pages}"> class="paging_a_hover"</c:if>>
         		${i}
         	</a>
         </c:forEach>
-        <a href="interview.o?member_no=${member_no}&pages_r=${paging.board_paging}&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
+        <a href="interview.o?member_no=${member_no}&pages_r=${paging.board_paging}&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
     
     

@@ -8,6 +8,7 @@
 <div class="write_hide" id="review_write" style="display:none;">
 <div class="write_hide_scroll">
     <form action="income_write_post.o" method="post" onsubmit="return income_write_submit(this);">
+    <input type="hidden" name="pages_rc" value="${pages_rc}" />
     <input type="hidden" name="pages" value="${pages}" />
     <input type="hidden" name="member_no" value="${member_no}" />
     <input type="hidden" name="searchValue" value="${searchValue_utf}" />
@@ -145,13 +146,18 @@
     <div class="col-sm-1 col-md-2 col-lg-2"></div>
     <div class="col-sm-10 col-md-8 col-lg-8">
     
-    
+    <c:if test="${memberInfo eq null}">
     <div class="review_write">
-    	<c:if test="${memberInfo eq null}"><a href="login.o">새로운 연봉정보 작성하기</a></c:if>
-    	<c:if test="${memberInfo ne null}"><a href="#100" onclick="show2('review_write');document.body.style.overflow = 'hidden';">새로운 연봉정보 작성하기</a></c:if>
+    	<a href="login.o">새로운 연봉정보 작성하기</a>
     </div>
-    
-    
+    </c:if>
+    <c:if test="${memberInfo ne null}">
+    <c:if test="${memberInfo.orders eq 1}">
+    <div class="review_write">
+    	<a href="#100" onclick="show2('review_write');document.body.style.overflow = 'hidden';">새로운 연봉정보 작성하기</a>
+    </div>
+    </c:if>
+    </c:if>
     
     
     <div class="income_header">
