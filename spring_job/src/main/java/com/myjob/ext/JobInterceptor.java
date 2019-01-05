@@ -2,6 +2,7 @@ package com.myjob.ext;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -40,6 +41,13 @@ public class JobInterceptor extends HandlerInterceptorAdapter {
 		if(job_email == null) job_email = "";
 		if(job_password == null) job_password = "";
 		memberInfo = memberService.login(job_email, job_password);
+		
+		if(memberInfo != null) {
+			if( memberInfo.getFollow() == null || memberInfo.getFollow().equals(""))
+				memberInfo.setFollow_list(new ArrayList());
+			else
+				memberInfo.setFollow_list(new ArrayList(Arrays.asList(memberInfo.getFollow().split(","))));
+		}
 		
 		request.setAttribute("memberInfo", memberInfo);
 		return super.preHandle(request, response, handler);

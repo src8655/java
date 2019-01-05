@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -143,6 +144,51 @@ public class LoginController {
 		mav.setViewName("job/join");
 		return mav;
 	}
+	//회원수정
+	@RequestMapping("/job/login_edit.o")
+	public ModelAndView login_edit(
+			HttpServletRequest request
+			) throws SQLException {
+		ModelAndView mav = new ModelAndView();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("job/error");
+			return mav;
+		}
+		
+		
+		mav.setViewName("job/login_edit");
+		return mav;
+	}
+	//회원수정 완료
+	@RequestMapping("/job/login_edit_post.o")
+	public ModelAndView login_edit_post(
+			HttpServletRequest request
+			) throws SQLException {
+		ModelAndView mav = new ModelAndView();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("job/error");
+			return mav;
+		}
+		
+		
+		
+		msg = "회원수정 성공";
+		url = "index.o";
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("job/post");
+		return mav;
+	}
 	//회원가입 완료
 	@RequestMapping("/job/join_post.o")
 	public ModelAndView join_post(
@@ -205,5 +251,59 @@ public class LoginController {
 		map.put("msg", "사용할 수 있는 이메일입니다.");
 		map.put("result", true);
 		return map;
+	}
+
+	//팔로우 ajax
+	@RequestMapping("/job/follow_ajax.o")
+	@ResponseBody
+	public Map follow_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		if(member_no == -1) {
+			map.put("msg", "잘못된 접근입니다");
+			map.put("result", -1);
+			return map;
+		}
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
+		if(mdata == null) {
+			map.put("msg", "잘못된 접근입니다");
+			map.put("result", -1);
+			return map;
+		}
+		
+		
+		ArrayList<String> list;
+		String member_nos = Integer.toString(member_no);
+		
+		if(mdata.getFollow() == null || mdata.getFollow().equals("")) list = new ArrayList<String>();
+		else list = new ArrayList<String>(Arrays.asList(mdata.getFollow().split(",")));
+		
+		if(list.contains(member_nos)) {
+			list.remove(member_nos);
+			String tmp = "";
+			for(int i=0;i<list.size();i++) {
+				if(i != 0) tmp += ",";
+				tmp += (String)list.get(i);
+			}
+			memberService.followUpdate(tmp, mdata.getNo());
+			map.put("msg", "해제되었습니다.");
+			map.put("result", 1);
+			return map;
+		}else {
+			list.add(member_nos);
+			String tmp = "";
+			for(int i=0;i<list.size();i++) {
+				if(i != 0) tmp += ",";
+				tmp += (String)list.get(i);
+			}
+			memberService.followUpdate(tmp, mdata.getNo());
+			map.put("msg", "등록되었습니다.");
+			map.put("result", 2);
+			return map;
+		}
 	}
 }

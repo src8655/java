@@ -18,6 +18,7 @@
 	    <div class="main_category">
 	    	<h3>산업군</h3>
 	    	<div class="main_category_items">
+	    		<a href="list.o">전체</a>
 	    		<a href="list.o?searchType=1">서비스업</a>
 				<a href="list.o?searchType=2">제조/화학</a>
 				<a href="list.o?searchType=3">의료/제약/복지</a>
@@ -51,7 +52,8 @@
           <div class="c_lists_c">
             <h4>
               ${cdata.company}
-              <img src="./images/list_heart.jpg" alt="하트" />
+              <c:if test="${cdata.isfollow eq -1}"><img src="./images/list_heart.jpg" alt="하트" /></c:if>
+              <c:if test="${cdata.isfollow eq 1}"><img src="./images/list_heart2.jpg" alt="하트" /></c:if>
             </h4>
             <p class="hidden-md">
               <c:if test="${cdata.company_cate eq 1}">서비스업</c:if>
@@ -108,7 +110,7 @@
       </div>
       <ul class="c_lists_ul">
       <c:forEach items="${list2}" var="rcdata">
-        <li><a href="recruit.o?member_no=${rcdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}">
+        <li><a href="recruit_view.o?member_no=${rcdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&recruit_no=${rcdata.no}">
           <div class="c_lists2_l hidden-lg hidden-md hidden-xs">
           	<c:if test="${rcdata.file1 eq ''}"><img src="./images/company_logo.jpg" alt="company_logo" width="78px" height="78px" /></c:if>
           	<c:if test="${rcdata.file1 ne ''}"><img src="./upload/${rcdata.file1}" alt="company_logo" width="78px" height="78px" /></c:if>

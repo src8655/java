@@ -62,17 +62,18 @@ public class RecruitService implements RecruitDao {
 	}
 
 	@Override
-	public Integer getCount(String searchValue, int search, int searchType, int searchSort) {
+	public Integer getCount(String searchValue, int search, int searchType, int searchSort, int status) {
 		Map map = new HashMap();
 		map.put("searchValue", searchValue);
 		map.put("search", search);
 		map.put("searchType", searchType);
 		map.put("searchSort", searchSort);
+		map.put("status", status);
 		return (Integer)sqlSessionTemplate.selectOne("RecruitGetCount", map);
 	}
 
 	@Override
-	public List getArticles(int start, int end, String searchValue, int search, int searchType, int searchSort) {
+	public List getArticles(int start, int end, String searchValue, int search, int searchType, int searchSort, int status) {
 		Map map = new HashMap();
 		map.put("start", start);
 		map.put("end", end);
@@ -80,7 +81,26 @@ public class RecruitService implements RecruitDao {
 		map.put("search", search);
 		map.put("searchType", searchType);
 		map.put("searchSort", searchSort);
+		map.put("status", status);
 		return (List)sqlSessionTemplate.selectList("RecruitGetArticles", map);
+	}
+
+	@Override
+	public List getListArticles(int start, int end, int member_no, int status) {
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("member_no", member_no);
+		map.put("status", status);
+		return (List)sqlSessionTemplate.selectList("RecruitGetListArticles", map);
+	}
+
+	@Override
+	public Integer getListCount(int member_no, int status) {
+		Map map = new HashMap();
+		map.put("member_no", member_no);
+		map.put("status", status);
+		return (Integer)sqlSessionTemplate.selectOne("RecruitGetListCount", map);
 	}
 
 }

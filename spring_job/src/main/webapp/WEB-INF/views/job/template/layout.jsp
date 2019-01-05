@@ -34,6 +34,7 @@ var join_answer = false;
 var join_company = false;
 var join_company_cate = false;
 var join_company_num = false;
+var join_password_v = "";
 
 //회원가입 탭
 function join_tab(var1, var2) {
@@ -287,6 +288,103 @@ function join_submit(var1) {
 	}
 	
 	return result;
+}
+
+
+
+
+
+
+function password_checks(var1) {
+	join_password_v = var1.value;
+	document.getElementById("password2_msg").innerHTML = "";
+	join_password2 = false;
+	if(var1.value == "") {
+		document.getElementById("password_msg").innerHTML = "";
+		join_password = true;
+		join_password2 = false;
+	}else if(join_password_v.length < 5) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "비밀번호가 짧습니다.";
+		htmls += '</span>';
+		document.getElementById("password_msg").innerHTML = htmls;
+		join_password = false;
+	}else{
+		var htmls = "";
+		htmls = '<span style="color:blue;">';
+		htmls += "사용할 수 있는 비밀번호입니다.";
+		htmls += '</span>';
+		document.getElementById("password_msg").innerHTML = htmls;
+		join_password = true;
+	}
+}
+function password2_checks(var1) {
+	if(var1.value == "") {
+		if(join_password_v != "") {
+			var htmls = "";
+			htmls = '<span style="color:red;">';
+			htmls += "비밀번호를 입력해주세요.";
+			htmls += '</span>';
+			document.getElementById("password2_msg").innerHTML = htmls;
+			join_password2 = false;
+		}else{
+			join_password2 = true;
+			document.getElementById("password2_msg").innerHTML = "";
+		}
+	}else if(var1.value != join_password_v) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "비밀번호가 다릅니다.";
+		htmls += '</span>';
+		document.getElementById("password2_msg").innerHTML = htmls;
+		join_password2 = false;
+	}else{
+		var htmls = "";
+		htmls = '<span style="color:blue;">';
+		htmls += "비밀번호가 같습니다.";
+		htmls += '</span>';
+		document.getElementById("password2_msg").innerHTML = htmls;
+		join_password2 = true;
+	}
+}
+function login_edit_submit(var1) {
+	
+	password_checks(var1.password);
+	password2_checks(var1.password2);
+	name_check(var1.name);
+	phone1_check(var1.phone1);
+	phone2_check(var1.phone2);
+	phone3_check(var1.phone3);
+	quest_check(var1.quest);
+	answer_check(var1.answer);
+	
+	if(var1.orders.value == 2) {
+	company_check(var1.company);
+	company_cate_check(var1.company_cate);
+	company_num_check(var1.company_num);
+	}
+	var result = true;
+	if(!join_password
+			|| !join_password2
+			|| !join_name
+			|| !join_phone1
+			|| !join_phone2
+			|| !join_phone3
+			|| !join_quest
+			|| !join_answer) {
+		
+		result = false;
+	}
+	if(var1.orders.value == 2) {
+		if(!join_company
+				|| !join_company_cate
+				|| !join_company_num){
+			result = false;
+		}
+	}
+	
+    return result;
 }
 /////////////////////////
 
@@ -1463,6 +1561,43 @@ function recruit_add_submit(var1) {
 }
 /////////////////////////////////////////
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//팔로우 ajax
+function follow_ajax(var1, var2) {
+	$.ajax({
+		url:'follow_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:var1
+		},
+		success:function(result){
+			alert(result.msg);
+			if(result.result == 1)
+				document.getElementById(var2).setAttribute("src","./images/heart.jpg");
+			else if(result.result == 2)
+				document.getElementById(var2).setAttribute("src","./images/heart2.jpg");
+		},
+		error:function(r,s,e) {
+			alert('error');
+		}
+	});
+}
+
+//////////////////////////////////////////
 
 
 </script>

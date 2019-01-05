@@ -35,6 +35,14 @@
 		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
 	</definition>
 	
+	<!-- 회원수정 -->
+	<definition name="job/login_edit" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 회원수정" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header3.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/login_edit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer3.jsp" />
+	</definition>
+	
 	<!-- 회원가입 -->
 	<definition name="job/join" template="/WEB-INF/views/job/template/layout.jsp">
 		<put-attribute name="title" value="JOB 회원가입" />
@@ -92,6 +100,14 @@
 		<put-attribute name="title" value="JOB 채용정보" />
 		<put-attribute name="header" value="/WEB-INF/views/job/template/header2.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/job/recruit.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer2.jsp" />
+	</definition>
+	
+	<!-- 채용정보 보기 -->
+	<definition name="job/recruit_view" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 채용정보 보기" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header2.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/recruit_view.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer2.jsp" />
 	</definition>
 	

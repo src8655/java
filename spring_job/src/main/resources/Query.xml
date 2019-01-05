@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) FROM MIN_JOB_MEMBER where EMAIL=#{email}
 	</select>
 	<insert id="MemberInsert" parameterType="com.myjob.data.MemberData">
-		INSERT INTO MIN_JOB_MEMBER(EMAIL,PASSWORD,NAME,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,COMPANY,COMPANY_CATE,COMPANY_NUM,ORDERS,DATES)
+		INSERT INTO MIN_JOB_MEMBER(EMAIL,PASSWORD,NAME,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,COMPANY,COMPANY_CATE,COMPANY_NUM,ORDERS,DATES,FOLLOW)
 		VALUES(
 		#{email},
 		#{password},
@@ -24,7 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{company_cate},
 		#{company_num},
 		#{orders},
-		#{dates}
+		#{dates},
+		#{follow}
 		)
 	</insert>
 	<select id="MemberLogin" parameterType="com.myjob.data.MemberData" resultType="com.myjob.data.MemberData">
@@ -32,6 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="MemberExistLogin" parameterType="com.myjob.data.MemberData" resultType="int">
 		select count(*) FROM MIN_JOB_MEMBER where EMAIL=#{email} and password=#{password}
+	</select>
+	<select id="MemberFollowUpdate" parameterType="java.util.Map">
+		update MIN_JOB_MEMBER set FOLLOW=#{follow} where NO=#{no}
 	</select>
 	
 	
@@ -320,7 +324,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Recruit -->
 	<insert id="RecruitInsert" parameterType="com.myjob.data.RecruitData">
-		insert into MIN_JOB_RECRUIT(SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO)
+		insert into MIN_JOB_RECRUIT(SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO,STATUS)
 		values(
 			#{subject},
 			#{keyword},
@@ -338,7 +342,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{positions2},
 			#{enddates},
 			#{dates},
-			#{member_no}
+			#{member_no},
+			#{status}
 		)
 	</insert>
 	<select id="RecruitExist" parameterType="java.util.Map" resultType="int">
@@ -347,7 +352,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where MEMBER_NO=#{member_no}
 	</select>
 	<select id="RecruitGetArticle" parameterType="java.util.Map" resultType="com.myjob.data.RecruitData">
-		select NO,SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO
+		select NO,SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO,STATUS
 		from MIN_JOB_RECRUIT
 		where MEMBER_NO=#{member_no}
 	</select>
@@ -357,7 +362,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where MEMBER_NO=#{member_no}
 	</select>
 	<select id="RecruitGetArticleNo" parameterType="java.util.Map" resultType="com.myjob.data.RecruitData">
-		select NO,SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO
+		select NO,SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO,STATUS
 		from MIN_JOB_RECRUIT
 		where NO=#{no}
 	</select>
@@ -378,22 +383,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		POSITIONS1 = #{positions1},
 		POSITIONS2 = #{positions2},
 		ENDDATES = #{enddates},
-		DATES = #{dates}
+		DATES = #{dates},
+		STATUS = #{status}
 		where NO=#{no}
 	</update>
 	<delete id="RecruitDel" parameterType="java.util.Map">
 		delete from MIN_JOB_RECRUIT where NO=${no}
 	</delete>
 	<select id="RecruitGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.RecruitData">
-		select NO,SUBJECT,KEYWORD,ENDDATES,MEMBER_NO,COMPANY,COMPANY_CATE,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY,COUNT_INTERVIEW,FILE1
+		select STATUS,NO,SUBJECT,KEYWORD,ENDDATES,MEMBER_NO,COMPANY,COMPANY_CATE,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY,COUNT_INTERVIEW,FILE1
 		from (select rownum as rnum,a.* from
 		
-		(select exb1.NO,exb1.SUBJECT,exb1.KEYWORD,exb1.ENDDATES,exb1.MEMBER_NO,exb1.COMPANY,exb1.COMPANY_CATE,exb1.FILE1,NVL(exb1.COUNT_REVIEW,0) as COUNT_REVIEW,NVL(exb1.AVG_STARS,0) as AVG_STARS,NVL(exb1.COUNT_INCOME,0) as COUNT_INCOME,NVL(exb1.AVG_MONEY,0) as AVG_MONEY,NVL(exa3.COUNT_INTERVIEW,0) as COUNT_INTERVIEW
-		from (select exb0.NO,exb0.SUBJECT,exb0.KEYWORD,exb0.ENDDATES,exb0.MEMBER_NO,exb0.COMPANY,exb0.COMPANY_CATE,exb0.COUNT_REVIEW,exb0.AVG_STARS,exb0.FILE1,exa2.COUNT_INCOME,exa2.AVG_MONEY
-		from (select exa0.NO,exa0.SUBJECT,exa0.KEYWORD,exa0.ENDDATES,exa0.MEMBER_NO,exa0.COMPANY,exa0.COMPANY_CATE,exa0.FILE1,exa1.COUNT_REVIEW,exa1.AVG_STARS
-		from (select v1.NO,SUBJECT,KEYWORD,ENDDATES,v1.MEMBER_NO,v2.COMPANY,v2.COMPANY_CATE,v3.FILE1 from MIN_JOB_RECRUIT v1,MIN_JOB_MEMBER v2,MIN_JOB_COMPANY v3
+		(select STATUS,exb1.NO,exb1.SUBJECT,exb1.KEYWORD,exb1.ENDDATES,exb1.MEMBER_NO,exb1.COMPANY,exb1.COMPANY_CATE,exb1.FILE1,NVL(exb1.COUNT_REVIEW,0) as COUNT_REVIEW,NVL(exb1.AVG_STARS,0) as AVG_STARS,NVL(exb1.COUNT_INCOME,0) as COUNT_INCOME,NVL(exb1.AVG_MONEY,0) as AVG_MONEY,NVL(exa3.COUNT_INTERVIEW,0) as COUNT_INTERVIEW
+		from (select STATUS,exb0.NO,exb0.SUBJECT,exb0.KEYWORD,exb0.ENDDATES,exb0.MEMBER_NO,exb0.COMPANY,exb0.COMPANY_CATE,exb0.COUNT_REVIEW,exb0.AVG_STARS,exb0.FILE1,exa2.COUNT_INCOME,exa2.AVG_MONEY
+		from (select STATUS,exa0.NO,exa0.SUBJECT,exa0.KEYWORD,exa0.ENDDATES,exa0.MEMBER_NO,exa0.COMPANY,exa0.COMPANY_CATE,exa0.FILE1,exa1.COUNT_REVIEW,exa1.AVG_STARS
+		from (select STATUS,v1.NO,SUBJECT,KEYWORD,ENDDATES,v1.MEMBER_NO,v2.COMPANY,v2.COMPANY_CATE,v3.FILE1 from MIN_JOB_RECRUIT v1,MIN_JOB_MEMBER v2,MIN_JOB_COMPANY v3
 		where v1.MEMBER_NO=v2.NO and v2.NO=v3.MEMBER_NO
 		
+		and STATUS=#{status}
 		and (
 			upper(SUBJECT) like upper('%'||#{searchValue}||'%')
 			or upper(KEYWORD) like upper('%'||#{searchValue}||'%')
@@ -420,12 +427,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*)
 		from (select rownum as rnum,a.* from
 		
-		(select exb1.NO,exb1.SUBJECT,exb1.KEYWORD,exb1.ENDDATES,exb1.MEMBER_NO,exb1.COMPANY,exb1.COMPANY_CATE,exb1.FILE1,NVL(exb1.COUNT_REVIEW,0) as COUNT_REVIEW,NVL(exb1.AVG_STARS,0) as AVG_STARS,NVL(exb1.COUNT_INCOME,0) as COUNT_INCOME,NVL(exb1.AVG_MONEY,0) as AVG_MONEY,NVL(exa3.COUNT_INTERVIEW,0) as COUNT_INTERVIEW
-		from (select exb0.NO,exb0.SUBJECT,exb0.KEYWORD,exb0.ENDDATES,exb0.MEMBER_NO,exb0.COMPANY,exb0.COMPANY_CATE,exb0.COUNT_REVIEW,exb0.AVG_STARS,exb0.FILE1,exa2.COUNT_INCOME,exa2.AVG_MONEY
-		from (select exa0.NO,exa0.SUBJECT,exa0.KEYWORD,exa0.ENDDATES,exa0.MEMBER_NO,exa0.COMPANY,exa0.COMPANY_CATE,exa0.FILE1,exa1.COUNT_REVIEW,exa1.AVG_STARS
-		from (select v1.NO,SUBJECT,KEYWORD,ENDDATES,v1.MEMBER_NO,v2.COMPANY,v2.COMPANY_CATE,v3.FILE1 from MIN_JOB_RECRUIT v1,MIN_JOB_MEMBER v2,MIN_JOB_COMPANY v3
+		(select STATUS,exb1.NO,exb1.SUBJECT,exb1.KEYWORD,exb1.ENDDATES,exb1.MEMBER_NO,exb1.COMPANY,exb1.COMPANY_CATE,exb1.FILE1,NVL(exb1.COUNT_REVIEW,0) as COUNT_REVIEW,NVL(exb1.AVG_STARS,0) as AVG_STARS,NVL(exb1.COUNT_INCOME,0) as COUNT_INCOME,NVL(exb1.AVG_MONEY,0) as AVG_MONEY,NVL(exa3.COUNT_INTERVIEW,0) as COUNT_INTERVIEW
+		from (select STATUS,exb0.NO,exb0.SUBJECT,exb0.KEYWORD,exb0.ENDDATES,exb0.MEMBER_NO,exb0.COMPANY,exb0.COMPANY_CATE,exb0.COUNT_REVIEW,exb0.AVG_STARS,exb0.FILE1,exa2.COUNT_INCOME,exa2.AVG_MONEY
+		from (select STATUS,exa0.NO,exa0.SUBJECT,exa0.KEYWORD,exa0.ENDDATES,exa0.MEMBER_NO,exa0.COMPANY,exa0.COMPANY_CATE,exa0.FILE1,exa1.COUNT_REVIEW,exa1.AVG_STARS
+		from (select STATUS,v1.NO,SUBJECT,KEYWORD,ENDDATES,v1.MEMBER_NO,v2.COMPANY,v2.COMPANY_CATE,v3.FILE1 from MIN_JOB_RECRUIT v1,MIN_JOB_MEMBER v2,MIN_JOB_COMPANY v3
 		where v1.MEMBER_NO=v2.NO and v2.NO=v3.MEMBER_NO
 		
+		and STATUS=#{status}
 		and (
 			upper(SUBJECT) like upper('%'||#{searchValue}||'%')
 			or upper(KEYWORD) like upper('%'||#{searchValue}||'%')
@@ -438,13 +446,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
 		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO) a)
 	</select>
+	<select id="RecruitGetListArticles" parameterType="java.util.Map" resultType="com.myjob.data.RecruitData">
+		select NO,SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO,STATUS
+		from (select rownum as rnum,a.* from (
+		select NO,SUBJECT,KEYWORD,MEMO1,MEMO2,MEMO3,MEMO4,MEMO5,CONTACT,PROF,EMPL,GRADE,MONEY,POSITIONS1,POSITIONS2,ENDDATES,DATES,MEMBER_NO,STATUS
+		from MIN_JOB_RECRUIT
+		where MEMBER_NO=#{member_no} and STATUS=#{status}
+		order by NO desc) a) where rnum between #{start} and #{end}
+	</select>
+	<select id="RecruitGetListCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from MIN_JOB_RECRUIT where MEMBER_NO=#{member_no} and STATUS=#{status}
+	</select>
 	<!--  -->
 	
 	
 	
 	<!-- RecruitList -->
 	<insert id="RecruitListInsert" parameterType="com.myjob.data.RecruitListData">
-		insert into MIN_JOB_RECRUIT_LIST(NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO)
+		insert into MIN_JOB_RECRUIT_LIST(NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO)
 		values(
 		#{name},
 		#{phone1},
@@ -455,7 +474,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{file2},
 		#{member_no},
 		#{dates},
-		#{writer_no}
+		#{writer_no},
+		#{recruit_no}
 		)
 	</insert>
 	

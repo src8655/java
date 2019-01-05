@@ -1,5 +1,7 @@
 package com.myjob.data;
 
+import java.util.ArrayList;
+
 public class MemberData {
 	private int no = -1;
 	private String email = "";
@@ -16,7 +18,22 @@ public class MemberData {
 	private String company_num = "";
 	private int orders = -1;
 	private String dates = "";
+	private String follow = "";
 	
+	private ArrayList follow_list;
+	
+	public ArrayList getFollow_list() {
+		return follow_list;
+	}
+	public void setFollow_list(ArrayList follow_list) {
+		this.follow_list = follow_list;
+	}
+	public String getFollow() {
+		return follow;
+	}
+	public void setFollow(String follow) {
+		this.follow = follow;
+	}
 	public int getNo() {
 		return no;
 	}

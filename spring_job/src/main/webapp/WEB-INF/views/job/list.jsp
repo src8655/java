@@ -33,7 +33,8 @@
           <div class="c_list_c">
             <h4>
               ${cdata.company}
-              <img src="./images/list_heart.jpg" alt="하트" />
+              <c:if test="${cdata.isfollow eq -1}"><img src="./images/list_heart.jpg" alt="하트" /></c:if>
+              <c:if test="${cdata.isfollow eq 1}"><img src="./images/list_heart2.jpg" alt="하트" /></c:if>
             </h4>
             <p>
               <c:if test="${cdata.company_cate eq 1}">서비스업</c:if>
@@ -65,14 +66,14 @@
       </ul>
     </div>
       <div class="paging">
-        <a href="list.o?pages=1&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
+        <a href="list.o?pages=1&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
-        	<a href="list.o?pages=${i}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}"
+        	<a href="list.o?pages=${i}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}"
         		<c:if test="${i ne pages}"> class="paging_a"</c:if> <c:if test="${i eq pages}"> class="paging_a_hover"</c:if>>
         		${i}
         	</a>
         </c:forEach>
-        <a href="list.o?pages=${paging.board_paging}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
+        <a href="list.o?pages=${paging.board_paging}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
     </c:if>
 
@@ -96,7 +97,7 @@
       <div class="c_list_t"><span>${count2}</span> 검색결과</div>
       <ul>
       <c:forEach items="${list2}" var="rcdata">
-        <li><a href="recruit.o?member_no=${rcdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}">
+        <li><a href="recruit_view.o?member_no=${rcdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&recruit_no=${rcdata.no}">
           <div class="hidden-xs" style="width:30px;height:30px;float:left;"></div>
           <div class="c_list2_l">
           	<c:if test="${rcdata.file1 eq ''}"><img src="./images/company_logo.jpg" alt="company_logo" width="78px" height="78px" /></c:if>
@@ -173,7 +174,7 @@
     
         <div class="c_lists c_lists_left">
       <div class="index_list_top">
-      	<a href="list.o?search=1">기업정보 (${count})</a>
+      	<a href="list.o?search=1" style="background:#ffffff;color:#333333;border-bottom:1px solid #e6e6e6;text-align:left;padding-left:20px;">기업정보 (${count})</a>
       </div>
       <ul class="c_lists_ul2">
       <c:forEach items="${list}" var="cdata">
@@ -185,7 +186,8 @@
           <div class="c_lists_c">
             <h4>
               ${cdata.company}
-              <img src="./images/list_heart.jpg" alt="하트" />
+              <c:if test="${cdata.isfollow eq -1}"><img src="./images/list_heart.jpg" alt="하트" /></c:if>
+              <c:if test="${cdata.isfollow eq 1}"><img src="./images/list_heart2.jpg" alt="하트" /></c:if>
             </h4>
             <p class="hidden-md">
               <c:if test="${cdata.company_cate eq 1}">서비스업</c:if>
@@ -231,6 +233,7 @@
         </a></li>
         </c:forEach>
       </ul>
+      <div class="index_list_bottom">
       <div class="paging">
         <a href="list.o?pages=1&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
@@ -241,15 +244,16 @@
         </c:forEach>
         <a href="list.o?pages=${paging.board_paging}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
+      </div>
     </div>
 	<!-- 채용정보 -->
 	<div class="c_lists c_lists_right">
       <div class="index_list_top">
-      	<a href="list.o?search=2">채용정보 (${count2})</a>
+      	<a href="list.o?search=2" style="background:#ffffff;color:#333333;border-bottom:1px solid #e6e6e6;text-align:left;padding-left:20px;">채용정보 (${count2})</a>
       </div>
       <ul class="c_lists_ul2">
       <c:forEach items="${list2}" var="rcdata">
-        <li><a href="recruit.o?member_no=${rcdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}">
+        <li><a href="recruit_view.o?member_no=${rcdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&recruit_no=${rcdata.no}">
           <div class="c_lists2_l hidden-lg hidden-md hidden-xs">
           	<c:if test="${rcdata.file1 eq ''}"><img src="./images/company_logo.jpg" alt="company_logo" width="78px" height="78px" /></c:if>
           	<c:if test="${rcdata.file1 ne ''}"><img src="./upload/${rcdata.file1}" alt="company_logo" width="78px" height="78px" /></c:if>
@@ -283,6 +287,7 @@
         </a></li>
         </c:forEach>
       </ul>
+      <div class="index_list_bottom">
       <div class="paging">
         <a href="list.o?pages_rc=1&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages=${pages}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging2.pstarts}" end="${paging2.pends}" step="1" var="i">
@@ -292,6 +297,7 @@
         	</a>
         </c:forEach>
         <a href="list.o?pages_rc=${paging2.board_paging}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages=${pages}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
+      </div>
       </div>
     </div>
     

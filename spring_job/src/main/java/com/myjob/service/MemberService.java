@@ -1,5 +1,8 @@
 package com.myjob.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +46,13 @@ public class MemberService implements MemberDao {
 		boolean result = true;
 		if(count == 0) result = false;
 		return result;
+	}
+
+	@Override
+	public void followUpdate(String follow, int no) {
+		Map map = new HashMap();
+		map.put("follow", follow);
+		map.put("no", no);
+		sqlSessionTemplate.update("MemberFollowUpdate", map);
 	}
 }

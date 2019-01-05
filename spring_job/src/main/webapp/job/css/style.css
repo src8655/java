@@ -1552,6 +1552,99 @@ text-align:center;
 .main_category_items a:hover {
 background-color:rgba(0,0,0,0.2);
 }
+.recruit_list {
+margin-top:15px;
+overflow:hidden;
+}
+.recruit_list ul {
+list-style:none;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.recruit_list ul li {
+float:left;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.recruit_list ul li a {
+height:185px;
+display:block;
+color:#333333;
+background:#ffffff;
+text-decoration:none;
+padding:20px;
+margin:7px;
+border:1px solid #ffffff;
+overflow:hidden;
+}
+.recruit_list ul li a:hover {
+border:1px solid #3ac453;
+}
+.recruit_list_dday {
+height:22px;
+line-height:22px;
+padding:0 10px 0 10px;
+font-size:12px;
+background:#ffffff;
+color:#fba208;
+border:1px solid #fba208;
+border-radius:20px;
+display:inline-block;
+}
+.recruit_list ul li a h4 {
+width:100%;
+line-height:30px;
+height:30px;
+margin:10px 0 0 0;
+padding:0px;
+font-size:17px;
+font-weight:bold;
+overflow:hidden;
+}
+.recruit_list ul li a p {
+width:100%;
+margin:3px 0 0 0;
+padding:0px;
+line-height:30px;
+height:30px;
+color:#999999;
+font-size:14px;
+overflow:hidden;
+}
+.recruit_list_keywords {
+margin:25px 0 0 0;
+width:100%;
+height:22px;
+padding:0px;
+overflow:hidden;
+}
+.recruit_list_keywords div {
+display:inline-block;
+height:22px;
+line-height:22px;
+background:#f0f7fb;
+color:#7c8b97;
+font-size:12px;
+padding:0 10px 0 10px;
+margin:0 0 4px 0;
+}
+.index_list_bottom {
+display:block;
+width:100%;
+margin:0px;
+padding:0px;
+text-align:center;
+background:#ffffff;
+border-top:1px solid #e6e6e6;
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
+overflow:hidden;
+}
+
+
+
 
 
 
@@ -1677,6 +1770,9 @@ background-color:rgba(0,0,0,0.2);
     height:500px;
     overflow-y:scroll;
   }
+  .recruit_list ul li {
+    width:50%;
+  }
 }
 @media screen and (max-width:1200px) {
   .header h1 {
@@ -1799,6 +1895,9 @@ background-color:rgba(0,0,0,0.2);
     height:500px;
     overflow-y:scroll;
   }
+  .recruit_list ul li {
+    width:50%;
+  }
 }
 @media screen and (max-width:992px) {
   .header h1 {
@@ -1918,6 +2017,9 @@ background-color:rgba(0,0,0,0.2);
   .c_lists_ul2 {
   	height:auto;
     overflow-y:auto;
+  }
+  .recruit_list ul li {
+    width:50%;
   }
 }
 @media screen and (max-width:767px) {
@@ -2051,5 +2153,8 @@ background-color:rgba(0,0,0,0.2);
   .c_lists_ul2 {
   	height:auto;
     overflow-y:auto;
+  }
+  .recruit_list ul li {
+    width:100%;
   }
 }

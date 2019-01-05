@@ -108,7 +108,16 @@
               <c:if test="${cdata.company_cate eq 9}">은행/금융업</c:if>
               <c:if test="${cdata.company_cate eq 10}">기관/협회</c:if>
             <br />
-            <a href="#" class="follow_btn"><img src="./images/heart.jpg" alt="heart" />팔로우</a>
+            <c:if test="${memberInfo eq null}">
+            	<a href="login.o" class="follow_btn"><img src="./images/heart.jpg" alt="heart" />팔로우</a>
+            </c:if>
+            <c:if test="${memberInfo ne null}">
+            	<a href="#100" onclick="follow_ajax(${member_no},'follow_heart');" class="follow_btn">
+            		<c:if test="${cdata.isfollow eq -1}"><img src="./images/heart.jpg" alt="heart" id="follow_heart" /></c:if>
+            		<c:if test="${cdata.isfollow eq 1}"><img src="./images/heart2.jpg" alt="heart" id="follow_heart" /></c:if>
+            		팔로우
+            	</a>
+            </c:if>
             <img src="./images/star.png" alt="star" /> ${cdata.avg_stars}
             <br />
             <a href="${cdata.url}" class="url_btn">${cdata.url}</a>
@@ -157,7 +166,7 @@
               면접후기
             </a></li>
             <li><a href="recruit.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 5}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 5}">class="nav_ul_li_a"</c:if>>
-              <span>D-${count5}</span><br />
+              <span>${count5}</span><br />
               채용공고
             </a></li>
           </ul>

@@ -12,6 +12,8 @@ public interface RecruitDao {
 	RecruitData getArticleNo(int no);
 	void update(RecruitData rcdata);
 	void del(int no);
-	Integer getCount(String searchValue, int search, int searchType, int searchSort);
-	List getArticles(int start, int end, String searchValue, int search, int searchType, int searchSort);
+	Integer getCount(String searchValue, int search, int searchType, int searchSort, int status);
+	List getArticles(int start, int end, String searchValue, int search, int searchType, int searchSort, int status);
+	List getListArticles(int start, int end, int member_no, int status);
+	Integer getListCount(int member_no, int status);
 }

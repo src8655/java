@@ -1,5 +1,7 @@
 package com.myjob.data;
 
+import java.util.List;
+
 public class RecruitData {
 	private int no = -1;
 	private String subject = "";
@@ -19,6 +21,7 @@ public class RecruitData {
 	private String enddates = "";
 	private String dates = "";
 	private int member_no = -1;
+	private int status = 1;
 
 	private String company = "";
 	private int company_cate = -1;
@@ -31,7 +34,20 @@ public class RecruitData {
 
 	private String avg_moneys = "";
 	private int dday = 0;
+	private List keywords = null;
 	
+	public List getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(List keywords) {
+		this.keywords = keywords;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	public int getDday() {
 		return dday;
 	}

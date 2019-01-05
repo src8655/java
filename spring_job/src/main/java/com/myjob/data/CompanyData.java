@@ -27,6 +27,16 @@ public class CompanyData {
 	private int avg_stars_p = 0;
 	private String avg_moneys = "";
 	
+	private int isfollow = -1;
+	
+	public int getIsfollow() {
+		return isfollow;
+	}
+
+	public void setIsfollow(int isfollow) {
+		this.isfollow = isfollow;
+	}
+
 	public int getAvg_stars_p() {
 		return avg_stars_p;
 	}

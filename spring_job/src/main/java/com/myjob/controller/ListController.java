@@ -87,9 +87,12 @@ public class ListController {
 			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
 			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="pages", defaultValue="1") int pages,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
 		
 		int count = companyService.getCount(searchValue, search, searchType, searchSort);
 		Action_Paging paging = new Action_Paging(count, 10, pages);
@@ -100,15 +103,20 @@ public class ListController {
 			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
 			tmp.setAvg_stars_p((int)((tmp.getAvg_stars()/5.0)*92.0));
 			tmp.setAvg_stars(Math.round(tmp.getAvg_stars()*10.0)/10.0);
+			
+			
+			if((mdata != null && mdata.getFollow_list() != null) &&  mdata.getFollow_list().contains(Integer.toString(tmp.getMember_no())))
+				tmp.setIsfollow(1);
+			else tmp.setIsfollow(-1);
 		}
 		
 		
 		
 		
 		
-		int count2 = recruitService.getCount(searchValue, search, searchType, searchSort);
+		int count2 = recruitService.getCount(searchValue, search, searchType, searchSort, 1);
 		Action_Paging paging2 = new Action_Paging(count2, 10, pages_rc);
-		List list2 = recruitService.getArticles(paging2.getBoard_starts(), paging2.getBoard_ends(), searchValue, search, searchType, searchSort);
+		List list2 = recruitService.getArticles(paging2.getBoard_starts(), paging2.getBoard_ends(), searchValue, search, searchType, searchSort, 1);
 		for(int i=0;i<list2.size();i++) {
 			RecruitData tmp = (RecruitData)list2.get(i);
 			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
@@ -153,22 +161,21 @@ public class ListController {
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
 			@CookieValue(value="job_view", defaultValue="") String job_view,
-			HttpServletResponse response
+			HttpServletResponse response,
+			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
 		int count2 = reviewService.getCount(member_no);
 		mav.addObject("count2", count2);
 		int count3 = incomeService.getCount(member_no);
 		mav.addObject("count3", count3);
 		int count4 = interviewService.getCount(member_no);
 		mav.addObject("count4", count4);
-		//D- 계산
-		int count5 = ActionTime.dDay(recruitService.getEnddates(member_no));
-		int count = recruitService.exist(member_no);
+		int count5 = recruitService.getListCount(member_no, 1);
 		mav.addObject("count5", count5);
-		mav.addObject("count", count);
 
 		//조회수 추가
 		if(!job_view.contains(ActionTime.getDate()+"=="+member_no)) {
@@ -191,7 +198,11 @@ public class ListController {
 		
 		CompanyData cdata = companyService.getArticle(member_no);
 		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
-		
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
 		
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
@@ -319,9 +330,16 @@ public class ListController {
 			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
-
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
 		CompanyData cdata = companyService.getArticle(member_no);
 		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
 
 		int count2 = reviewService.getCount(member_no);
 		mav.addObject("count2", count2);
@@ -329,11 +347,8 @@ public class ListController {
 		mav.addObject("count3", count3);
 		int count4 = interviewService.getCount(member_no);
 		mav.addObject("count4", count4);
-		//D- 계산
-		int count5 = ActionTime.dDay(recruitService.getEnddates(member_no));
-		int count = recruitService.exist(member_no);
+		int count5 = recruitService.getListCount(member_no, 1);
 		mav.addObject("count5", count5);
-		mav.addObject("count", count);
 		
 		
 		Action_Paging paging = new Action_Paging(count2, 3, pages_r);
@@ -479,6 +494,13 @@ public class ListController {
 		CompanyData cdata = companyService.getArticle(member_no);
 		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
 		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
+		
 		//리스트 개수
 		int count2 = reviewService.getCount(member_no);
 		mav.addObject("count2", count2);
@@ -486,11 +508,8 @@ public class ListController {
 		mav.addObject("count3", count3);
 		int count4 = interviewService.getCount(member_no);
 		mav.addObject("count4", count4);
-		//D- 계산
-		int count5 = ActionTime.dDay(recruitService.getEnddates(member_no));
-		int count = recruitService.exist(member_no);
+		int count5 = recruitService.getListCount(member_no, 1);
 		mav.addObject("count5", count5);
-		mav.addObject("count", count);
 		
 		//연봉 최대 최소 평균 순위 구하기
 		int maxs = 0;
@@ -614,6 +633,13 @@ public class ListController {
 		CompanyData cdata = companyService.getArticle(member_no);
 		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
 		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
+		
 		//리스트 개수
 		int count2 = reviewService.getCount(member_no);
 		mav.addObject("count2", count2);
@@ -621,11 +647,8 @@ public class ListController {
 		mav.addObject("count3", count3);
 		int count4 = interviewService.getCount(member_no);
 		mav.addObject("count4", count4);
-		//D- 계산
-		int count5 = ActionTime.dDay(recruitService.getEnddates(member_no));
-		int count = recruitService.exist(member_no);
+		int count5 = recruitService.getListCount(member_no, 1);
 		mav.addObject("count5", count5);
-		mav.addObject("count", count);
 		
 		Action_Paging paging = new Action_Paging(count4, 3, pages_r);
 		List list = interviewService.getArticles(member_no, paging.getBoard_starts(), paging.getBoard_ends());
@@ -803,6 +826,12 @@ public class ListController {
 		
 		CompanyData cdata = companyService.getArticle(member_no);
 		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
 		
 		//리스트 개수
 		int count2 = reviewService.getCount(member_no);
@@ -811,32 +840,23 @@ public class ListController {
 		mav.addObject("count3", count3);
 		int count4 = interviewService.getCount(member_no);
 		mav.addObject("count4", count4);
-		//D- 계산
-		int count5 = ActionTime.dDay(recruitService.getEnddates(member_no));
-		int count = recruitService.exist(member_no);
+		int count5 = recruitService.getListCount(member_no, 1);
 		mav.addObject("count5", count5);
-		mav.addObject("count", count);
 		
-		RecruitData rcdata = recruitService.getArticle(member_no);
-		mav.addObject("rcdata", rcdata);
-
-		if(count != 0) {
-			String memo1 = rcdata.getMemo1().replace("\n", "<br />");
-			String memo2 = rcdata.getMemo2().replace("\n", "<br />");
-			String memo3 = rcdata.getMemo3().replace("\n", "<br />");
-			String memo4 = rcdata.getMemo4().replace("\n", "<br />");
-			String memo5 = rcdata.getMemo5().replace("\n", "<br />");
-			mav.addObject("memo1", memo1);
-			mav.addObject("memo2", memo2);
-			mav.addObject("memo3", memo3);
-			mav.addObject("memo4", memo4);
-			mav.addObject("memo5", memo5);
-
-			List keyword = new ArrayList<String>(Arrays.asList(rcdata.getKeyword().split(",")));
-			List contact = new ArrayList<String>(Arrays.asList(rcdata.getContact().split(",")));
-			mav.addObject("keyword", keyword);
-			mav.addObject("contact", contact);
+		
+		Action_Paging paging = new Action_Paging(count5, 4, pages_r);
+		List list = recruitService.getListArticles(paging.getBoard_starts(), paging.getBoard_ends(), member_no, 1);
+		
+		for(int i=0;i<list.size();i++) {
+			RecruitData tmp = (RecruitData)list.get(i);
+			tmp.setDday(ActionTime.dDay(tmp.getEnddates()));
+			tmp.setKeywords(new ArrayList<String>(Arrays.asList(tmp.getKeyword().split(","))));
 		}
+		
+		mav.addObject("paging", paging);
+		mav.addObject("list", list);
+		
+		
 		
 		
 		
@@ -868,6 +888,7 @@ public class ListController {
 			@ModelAttribute("rcdata") RecruitData rcdata,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
 			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -883,14 +904,6 @@ public class ListController {
 		}
 		if(mdata.getNo() != rcdata.getMember_no()) {
 			msg = "잘못된 접근입니다.";
-			mav.addObject("msg", msg);
-			mav.setViewName("job/error");
-			return mav;
-		}
-		//이미 존재하면
-		int tmp = recruitService.exist(rcdata.getMember_no());
-		if(tmp != 0) {
-			msg = "채용정보가 이미 존재합니다.";
 			mav.addObject("msg", msg);
 			mav.setViewName("job/error");
 			return mav;
@@ -905,15 +918,95 @@ public class ListController {
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "작성 성공.";
-		url = "recruit.o?member_no="+rcdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc;
+		url = "recruit.o?member_no="+rcdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc+"&pages_r="+pages_r;
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");
 		return mav;
 	}
+	//채용정보
+	@RequestMapping("/job/recruit_view.o")
+	public ModelAndView recruit_view(
+			@RequestParam(value="pages_rc", defaultValue="1") int pages_rc,
+			@RequestParam(value="searchType", defaultValue="-1") int searchType,
+			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
+			@RequestParam(value="search", defaultValue="-1") int search,
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
+			@RequestParam(value="pages", defaultValue="1") int pages,
+			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			HttpServletRequest request
+			) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		CompanyData cdata = companyService.getArticle(member_no);
+		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
+		
+		
+		//리스트 개수
+		int count2 = reviewService.getCount(member_no);
+		mav.addObject("count2", count2);
+		int count3 = incomeService.getCount(member_no);
+		mav.addObject("count3", count3);
+		int count4 = interviewService.getCount(member_no);
+		mav.addObject("count4", count4);
+		int count5 = recruitService.getListCount(member_no, 1);
+		mav.addObject("count5", count5);
+		
+		
+		
+		RecruitData rcdata = recruitService.getArticleNo(recruit_no);
+		rcdata.setDday(ActionTime.dDay(rcdata.getEnddates()));
+		mav.addObject("rcdata", rcdata);
+
+		String memo1 = rcdata.getMemo1().replace("\n", "<br />");
+		String memo2 = rcdata.getMemo2().replace("\n", "<br />");
+		String memo3 = rcdata.getMemo3().replace("\n", "<br />");
+		String memo4 = rcdata.getMemo4().replace("\n", "<br />");
+		String memo5 = rcdata.getMemo5().replace("\n", "<br />");
+		mav.addObject("memo1", memo1);
+		mav.addObject("memo2", memo2);
+		mav.addObject("memo3", memo3);
+		mav.addObject("memo4", memo4);
+		mav.addObject("memo5", memo5);
+
+		List keyword = new ArrayList<String>(Arrays.asList(rcdata.getKeyword().split(",")));
+		List contact = new ArrayList<String>(Arrays.asList(rcdata.getContact().split(",")));
+		mav.addObject("keyword", keyword);
+		mav.addObject("contact", contact);
+		
+		
+		
+
+
+		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
+
+		mav.addObject("recruit_no", recruit_no);
+		mav.addObject("pages_rc", pages_rc);
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchSort", searchSort);
+		mav.addObject("search", search);
+		mav.addObject("tab", 5);
+		mav.addObject("cdata", cdata);
+		mav.addObject("member_no", member_no);
+		mav.addObject("pages", pages);
+		mav.addObject("pages_r", pages_r);
+		mav.addObject("searchValue", searchValue);
+		mav.addObject("searchValue_utf", searchValue_utf);
+		mav.setViewName("job/recruit_view");
+		return mav;
+	}
 	//채용정보 수정완료
 	@RequestMapping("/job/recruit_edit_post.o")
 	public ModelAndView recruit_edit_post(
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
 			@RequestParam(value="pages_rc", defaultValue="1") int pages_rc,
 			@RequestParam(value="searchType", defaultValue="-1") int searchType,
 			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
@@ -921,6 +1014,7 @@ public class ListController {
 			@ModelAttribute("rcdata") RecruitData rcdata,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
 			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -935,7 +1029,7 @@ public class ListController {
 			return mav;
 		}
 		
-		RecruitData rcdata_tmp = recruitService.getArticleNo(rcdata.getNo());
+		RecruitData rcdata_tmp = recruitService.getArticleNo(recruit_no);
 		if(mdata.getNo() != rcdata_tmp.getMember_no()) {
 			msg = "잘못된 접근입니다.";
 			mav.addObject("msg", msg);
@@ -949,6 +1043,7 @@ public class ListController {
 			return mav;
 		}
 		
+		rcdata.setNo(recruit_no);
 		rcdata.setDates(ActionTime.getDate());
 		
 		
@@ -958,7 +1053,7 @@ public class ListController {
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "수정 성공.";
-		url = "recruit.o?member_no="+rcdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc;
+		url = "recruit_view.o?member_no="+rcdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc+"&pages_r="+pages_r+"&recruit_no="+recruit_no;
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");
@@ -967,6 +1062,7 @@ public class ListController {
 	//채용정보 삭제
 	@RequestMapping("/job/recruit_del.o")
 	public ModelAndView recruit_del(
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
 			@RequestParam(value="pages_rc", defaultValue="1") int pages_rc,
 			@RequestParam(value="searchType", defaultValue="-1") int searchType,
 			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
@@ -974,6 +1070,7 @@ public class ListController {
 			@ModelAttribute("rcdata") RecruitData rcdata,
 			@RequestParam(value="pages", defaultValue="1") int pages,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
 			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -988,7 +1085,7 @@ public class ListController {
 			return mav;
 		}
 		
-		RecruitData rcdata_tmp = recruitService.getArticleNo(rcdata.getNo());
+		RecruitData rcdata_tmp = recruitService.getArticleNo(recruit_no);
 		if(mdata.getNo() != rcdata_tmp.getMember_no()) {
 			msg = "잘못된 접근입니다.";
 			mav.addObject("msg", msg);
@@ -1003,13 +1100,13 @@ public class ListController {
 		}
 		
 		
-		recruitService.del(rcdata.getNo());
+		recruitService.del(recruit_no);
 
 
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "삭제 성공.";
-		url = "recruit.o?member_no="+rcdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc;
+		url = "recruit.o?member_no="+rcdata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc+"&pages_r="+pages_r;
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");
@@ -1088,7 +1185,7 @@ public class ListController {
 		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
 
 		msg = "작성 완료";
-		url = "recruit.o?member_no="+rcldata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc;
+		url = "recruit_view.o?member_no="+rcldata.getMember_no()+"&pages="+pages+"&searchValue="+searchValue_utf+"&searchType="+searchType+"&searchSort="+searchSort+"&search="+search+"&pages_rc="+pages_rc+"&recruit_no="+rcldata.getRecruit_no();
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("job/post");

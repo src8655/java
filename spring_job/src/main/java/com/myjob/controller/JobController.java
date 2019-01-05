@@ -42,7 +42,9 @@ import com.myjob.dao.RecruitDao;
 import com.myjob.dao.RecruitListDao;
 import com.myjob.dao.ReviewDao;
 import com.myjob.data.CompanyData;
+import com.myjob.data.MemberData;
 import com.myjob.data.RecruitData;
+import com.myjob.data.RecruitListData;
 import com.myjob.ext.ActionTime;
 import com.myjob.ext.Action_Paging;
 import com.myjob.ext.NumberFormat;
@@ -71,9 +73,12 @@ public class JobController {
 	
 	//∏ﬁ¿Œ
 	@RequestMapping("/job/index.o")
-	public ModelAndView index() throws SQLException {
+	public ModelAndView index(
+			HttpServletRequest request
+			) throws SQLException {
 		ModelAndView mav = new ModelAndView();
 		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
 		
 		List list = companyService.getArticles(1, 5, "", -1, -1, -1);
 		
@@ -82,11 +87,15 @@ public class JobController {
 			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
 			tmp.setAvg_stars_p((int)((tmp.getAvg_stars()/5.0)*92.0));
 			tmp.setAvg_stars(Math.round(tmp.getAvg_stars()*10.0)/10.0);
+			
+			if((mdata != null && mdata.getFollow_list() != null) && (mdata.getFollow_list().contains(Integer.toString(tmp.getMember_no()))))
+				tmp.setIsfollow(1);
+			else tmp.setIsfollow(-1);
 		}
 		mav.addObject("list", list);
 		
 		
-		List list2 = recruitService.getArticles(1, 5, "", -1, -1, -1);
+		List list2 = recruitService.getArticles(1, 5, "", -1, -1, -1, 1);
 		for(int i=0;i<list2.size();i++) {
 			RecruitData tmp = (RecruitData)list2.get(i);
 			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
@@ -98,4 +107,8 @@ public class JobController {
 		mav.setViewName("job/index");
 		return mav;
 	}
+	
+	
+	
+	
 }

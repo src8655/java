@@ -12,7 +12,14 @@ public class RecruitListData {
 	private int member_no = -1;
 	private String dates = "";
 	private int writer_no = -1;
+	private int recruit_no = -1;
 	
+	public int getRecruit_no() {
+		return recruit_no;
+	}
+	public void setRecruit_no(int recruit_no) {
+		this.recruit_no = recruit_no;
+	}
 	public int getWriter_no() {
 		return writer_no;
 	}

@@ -7,4 +7,5 @@ public interface MemberDao {
 	void insert(MemberData mdata);
 	MemberData login(String email, String password);
 	boolean existLogin(String email, String password);
+	void followUpdate(String follow, int no);
 }
