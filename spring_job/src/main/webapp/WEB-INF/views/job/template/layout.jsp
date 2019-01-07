@@ -1619,7 +1619,12 @@ function follow_ajax(var1, var2) {
 
 //메뉴
 function setmenu(var1) {
-	nav_btn1////dfsdf
+	document.getElementById("nav_btn1").setAttribute("class","nav_ul_li_a");
+	document.getElementById("nav_btn2").setAttribute("class","nav_ul_li_a");
+	document.getElementById("nav_btn3").setAttribute("class","nav_ul_li_a");
+	
+
+	var1.setAttribute("class","nav_ul_li_a_hover");
 }
 
 
@@ -1656,14 +1661,14 @@ function view_ajax(member_no) {
 			htmls += '	        	';
 			htmls += '	        <h3>기업정보</h3>	';
 			htmls += '	        <p>	';
-			htmls += '	          ${cdata.info}	';
+			htmls += '	          '+cdata.info;
 			htmls += '	        </p>	';
 			htmls += '	        <table cellspacing="0" cellpadding="0" class="info_table">	';
 			htmls += '	          <tr>	';
 			htmls += '	            <th width="10%"><div style="width:60px;overflow:hidden;">대표</div></th>	';
-			htmls += '	            <td width="40%">${cdata.name}</td>	';
+			htmls += '	            <td width="40%">'+cdata.name+'</td>	';
 			htmls += '	            <th width="10%"><div style="width:50px;overflow:hidden;">설립일</div></th>	';
-			htmls += '	            <td width="40%">${cdata.founding}</td>	';
+			htmls += '	            <td width="40%">'+cdata.founding+'</td>	';
 			htmls += '	          </tr>	';
 			htmls += '	          <tr>	';
 			htmls += '	            <th>카테고리</th>	';
@@ -1713,6 +1718,7 @@ function view_ajax(member_no) {
 			htmls += '	  </div>	';
 			htmls += '	</div>	';
 			
+			document.getElementById('interview_all').style.display='none';
 			document.getElementById("hitcount_bg").style.display = "";
 			drawChart();
 			document.getElementById("view_contents").innerHTML = htmls;
@@ -2113,6 +2119,7 @@ function review_ajax(pages_r, member_no) {
 			htmls += '  </div>';
 			htmls += '</div>';
 			
+			document.getElementById('interview_all').style.display='none';
 			document.getElementById('hitcount_bg').style.display='none';
 			document.getElementById("view_contents").innerHTML = htmls;
 		},
@@ -2351,7 +2358,8 @@ function income_ajax(member_no) {
 			htmls += '    <div class="col-sm-1 col-md-2 col-lg-2"></div>';
 			htmls += '  </div>';
 			htmls += '</div>';
-			
+
+			document.getElementById('interview_all').style.display='none';
 			document.getElementById('hitcount_bg').style.display='none';
 			document.getElementById("view_contents").innerHTML = htmls;
 		},
@@ -2389,6 +2397,415 @@ function income_post_ajax(forms, member_no) {
 			}
 		});
 	}
+}
+
+var datas1 = 0;
+var datas2 = 0;
+var datas3 = 0;
+
+var datas_r1 = 0;
+var datas_r2 = 0;
+var datas_r3 = 0;
+//면접
+function interview_post_ajax(pages_r, member_no) {
+	$.ajax({
+		url:'interview_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			pages_r:pages_r,
+			member_no:member_no
+		},
+		success:function(result){
+			var htmls = "";
+			htmls += '<div class="write_hide" id="review_write" style="display:none;">';
+			htmls += '<div class="write_hide_scroll">';
+			htmls += '    <form id="interview_forms">';
+			htmls += '    <div class="write_hide_scroll2">';
+			htmls += '    <div class="review_write_box">';
+			htmls += '      <h1>면접후기 작성</h1>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	직종<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="prof" class="join_select" onchange="itw_prof_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">IT/인터넷</option>';
+			htmls += '	  			<option value="2" >경영/기획/컨설팅</option>';
+			htmls += '	  			<option value="3" >교육</option>';
+			htmls += '	  			<option value="4" >금융/재무</option>';
+			htmls += '	  			<option value="5" >디자인</option>';
+			htmls += '	  			<option value="6" >마케팅/시장조사</option>';
+			htmls += '	  			<option value="7" >미디어/홍보</option>';
+			htmls += '	  			<option value="8" >법률/법무</option>';
+			htmls += '	  			<option value="9" >생산/제조</option>';
+			htmls += '	  			<option value="10" >기타</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="itw_prof_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	직급<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="positions" class="join_select" onchange="itw_positions_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">사원-대졸</option>';
+			htmls += '	  			<option value="2">사원-전문대졸</option>';
+			htmls += '	  			<option value="3">사원-고졸</option>';
+			htmls += '	  			<option value="4">주임/계장</option>';
+			htmls += '	  			<option value="5">대리</option>';
+			htmls += '	  			<option value="6">과장</option>';
+			htmls += '	  			<option value="7">차장</option>';
+			htmls += '	  			<option value="8">부장</option>';
+			htmls += '	  			<option value="9">이사</option>';
+			htmls += '	  			<option value="10">기타</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="itw_positions_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	면접난이도<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	      	<ul class="interview_write_bar">';
+			htmls += '			  <li class="interview_bk_0" id="itw_difficulty_1"><a href="#100" onclick="itw_difficulty_btn(1,\'itw_difficulty_\',\'itw_difficulty\',\'itw_difficulty_msg\');"></a></li>';
+			htmls += '			  <li class="interview_bk_0" id="itw_difficulty_2"><a href="#100" onclick="itw_difficulty_btn(2,\'itw_difficulty_\',\'itw_difficulty\',\'itw_difficulty_msg\');"></a></li>';
+			htmls += '			  <li class="interview_bk_0" id="itw_difficulty_3"><a href="#100" onclick="itw_difficulty_btn(3,\'itw_difficulty_\',\'itw_difficulty\',\'itw_difficulty_msg\');"></a></li>';
+			htmls += '			  <li class="interview_bk_0" id="itw_difficulty_4"><a href="#100" onclick="itw_difficulty_btn(4,\'itw_difficulty_\',\'itw_difficulty\',\'itw_difficulty_msg\');"></a></li>';
+			htmls += '			  <li class="interview_bk_0" id="itw_difficulty_5"><a href="#100" onclick="itw_difficulty_btn(5,\'itw_difficulty_\',\'itw_difficulty\',\'itw_difficulty_msg\');"></a></li>';
+			htmls += '		    </ul>';
+			htmls += '		    <input type="hidden" name="difficulty" id="itw_difficulty" value="-1" onchange="itw_difficulty_check(this);" />';
+			htmls += '  			<span id="itw_difficulty_msg">선택해주세요.</span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	면접일자<br />';
+			htmls += '	    	<span>(0000-00)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <input type="text" name="interviewdate" placeholder="면접일자(0000-00)" class="login_input" onchange="itw_interviewdate_check(this);" />';
+			htmls += '  			<span id="itw_interviewdate_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	면접경로<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="interviewdir" class="join_select" onchange="itw_interviewdir_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">온라인 지원</option>';
+			htmls += '	  			<option value="2">직원추천</option>';
+			htmls += '	  			<option value="3">헤드헌터</option>';
+			htmls += '	  			<option value="4">공개채용</option>';
+			htmls += '	  			<option value="5">학교 취업지원 센터</option>';
+			htmls += '	  			<option value="6">기타</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="itw_interviewdir_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	면접에서 채용까지의 과정 요약';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <textarea rows="100" cols="100" class="edit_textarea" name="memo1" onchange="itw_memo1_check(this);" placeholder="최대한 자세하게 작성해주세요. 최초 연락부터 인터뷰 횟수, 분위기, 면접관의 특징, 면접 팁 등"></textarea>';
+			htmls += '	      	<span id="itw_memo1_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	면접질문 입력하기';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <textarea rows="100" cols="100" class="edit_textarea" name="memo2" onchange="itw_memo2_check(this);" placeholder="조별 주제, 개별 과제, 대면 질문 등 가장 어려웠던 질문을 정확하고 구체적으로 작성해 주세요."></textarea>';
+			htmls += '	      	<span id="itw_memo2_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	작성한 면접질문에 대한 답변을 입력하세요.';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <textarea rows="100" cols="100" class="edit_textarea" name="memo3" onchange="itw_memo3_check(this);" placeholder="작성한 면접질문에 대한 답변을 입력하세요."></textarea>';
+			htmls += '	      	<span id="itw_memo3_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	채용방식';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <input type="text" name="memo4" placeholder="예) 필기시험, 논술 시험, PT면접, 그룹면접, 토론면접, 개인면접, 산행, 체육대회" class="login_input" onchange="itw_memo4_check(this);" />';
+			htmls += '  			<span id="itw_memo4_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	발표시기';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <input type="text" name="memo5" placeholder="예) 10일 후, 일주일 후" class="login_input" onchange="itw_memo5_check(this);" />';
+			htmls += '  			<span id="itw_memo5_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	이 기업에 합격하셨나요?<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="interviewresult" class="join_select" onchange="itw_interviewresult_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">합격</option>';
+			htmls += '	  			<option value="2">불합격</option>';
+			htmls += '	  			<option value="3">대기중</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="itw_interviewresult_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	면접경험<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="interviewex" class="join_select" onchange="itw_interviewex_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">긍정적</option>';
+			htmls += '	  			<option value="2">보통</option>';
+			htmls += '	  			<option value="3">부정적</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="itw_interviewex_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+
+			htmls += '      <div class="review_write_box_line align-center">';
+			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'review_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
+			htmls += '	      <input type="button" value="제출하기" class="review_write_btn1" onclick="interview_post(document.getElementById(\'interview_forms\'),'+member_no+')" />';
+			htmls += '      </div>';
+			htmls += '    </div>';
+			htmls += '    </div>';
+			htmls += '    </form>';
+
+			htmls += '</div>';
+			htmls += '</div>';
+			
+			
+			htmls += ' <div class="container">';
+			htmls += '  <div class="row">';
+			htmls += '    <div class="col-sm-1"></div>';
+			htmls += '    <div class="col-sm-10">';
+			
+			
+			if(result.memberInfo == null) {
+				htmls += '    <div class="review_write">';
+				htmls += '    	<a href="login.o">새로운 면접후기 작성하기</a>';
+				htmls += '    </div>';
+			}else if(result.memberInfo.orders == 1) {
+				htmls += '    <div class="review_write">';
+				htmls += '    	<a href="#100" onclick="show2(\'review_write\');document.body.style.overflow = \'hidden\';">새로운 면접후기 작성하기</a>';
+				htmls += '    </div>';
+			}
+			
+			htmls += '    <div class="income_header" style="margin-bottom:0px;border-bottom:1px solid #e6e6e6;">';
+			htmls += '      <div class="income_header_l">';
+			htmls += '        <h5>면접 난이도</h5>';
+			htmls += '        <div class="interview_bar_bg">';
+			htmls += '          <h1>'+result.difficulty+'</h1>';
+			htmls += '          <span>'+result.difficultys+'</span>';
+			htmls += '          <div class="interview_bar">';
+			htmls += '            <div class="income_bar_l" style="color:#0f7ccf;">쉬움</div>';
+			htmls += '            <div class="income_bar_r" style="color:#fd4a12;">어려움</div>';
+			htmls += '            <div class="income_bar_bg1" style="overflow:hidden;"><div class="income_bar_bg2"><div class="income_bar_bg3">';
+			htmls += '              <div class="income_bar" style="width:'+result.difficultybar+'%;"><div></div></div>';
+			htmls += '            </div></div></div>';
+			htmls += '            <div class="income_bar_l" style="color:#0f7ccf;">0</div>';
+			htmls += '            <div class="income_bar_r" style="color:#fd4a12;">5</div>';
+			htmls += '          </div>';
+			htmls += '        </div>';
+			htmls += '      </div>';
+			htmls += '      <div class="income_header_r">';
+			htmls += '        <h5>면접경로</h5>';
+			htmls += '        <div class="interview_table">';
+			htmls += '          <table cellspacing="0" cellpadding="0">';
+			htmls += '            <tr>';
+			htmls += '              <th>온라인 지원</th>';
+			htmls += '              <td>'+result.dirs1+'%</td>';
+			htmls += '              <th>직원추천</th>';
+			htmls += '              <td>'+result.dirs2+'%</td>';
+			htmls += '            </tr>';
+			htmls += '            <tr>';
+			htmls += '              <th>헤드헌터</th>';
+			htmls += '              <td>'+result.dirs3+'%</td>';
+			htmls += '              <th>공개채용</th>';
+			htmls += '              <td>'+result.dirs4+'%</td>';
+			htmls += '            </tr>';
+			htmls += '            <tr>';
+			htmls += '              <th>학교 취업지원 센터</th>';
+			htmls += '              <td>'+result.dirs5+'%</td>';
+			htmls += '              <th>기타</th>';
+			htmls += '              <td>'+result.dirs6+'%</td>';
+			htmls += '            </tr>';
+			htmls += '          </table>';
+			htmls += '        </div>';
+			htmls += '      </div>';
+			htmls += '    </div>';
+			
+			htmls += '    </div>';
+			htmls += '    <div class="col-sm-1"></div>';
+			htmls += '  </div>';
+			htmls += '</div>';
+
+			datas1 = result.ex[0];
+			datas2 = result.ex[2];
+			datas3 = result.ex[1];
+
+			datas_r1 = result.result[0];
+			datas_r2 = result.result[1];
+			datas_r3 = result.result[2];
+			document.getElementById("interview_all").style.display = "";
+			document.getElementById('hitcount_bg').style.display='none';
+			drawPieChart_1();
+			drawPieChart_2();
+			
+			document.getElementById("view_contents").innerHTML = htmls;
+			htmls = "";
+			
+			
+			htmls += ' <div class="container">';
+			htmls += '  <div class="row">';
+			htmls += '    <div class="col-sm-1"></div>';
+			htmls += '    <div class="col-sm-10">';
+			
+			
+			var list = result.list;
+			var list_length = Object.keys(list).length;
+			var i = 0;
+			for(i=0;i<list_length;i++) {
+				var itdata = list[i];
+				htmls += '    <div class="contents">';
+				htmls += '      <div class="review_header">';
+				htmls += '        <c:if test="${itdata.prof eq 1}">IT/인터넷</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 2}">경영/기획/컨설팅</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 3}">교육</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 4}">금융/재무</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 5}">디자인</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 6}">마케팅/시장조사</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 7}">미디어/홍보</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 8}">법률/법무</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 9}">생산/제조</c:if>';
+				htmls += '		<c:if test="${itdata.prof eq 10}">기타</c:if>';
+				htmls += '         / ';
+				htmls += '		<c:if test="${itdata.positions eq 1}">사원-대졸</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 2}">사원-전문대졸</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 3}">사원-고졸</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 4}">주임/계장</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 5}">대리</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 6}">과장</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 7}">차장</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 8}">부장</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 9}">이사</c:if>';
+				htmls += '		<c:if test="${itdata.positions eq 10}">기타</c:if>';
+				htmls += '        | ';
+				htmls += '        ${itdata.dates}';
+				htmls += '      </div>';
+				htmls += '      <div class="container">';
+				htmls += '        <div class="row">';
+				htmls += '          <div class="interview_l col-sm-2 col-md-2">';
+				htmls += '            <div class="interview_l_list">';
+				htmls += '              <div>';
+				htmls += '                <h5>면접난이도</h5>';
+				htmls += '                <h6>보통</h6>';
+				htmls += '                <ul>';
+				htmls += '                  <c:forEach begin="1" end="${itdata.difficulty}" step="1"><li class="interview_bk_1"></li></c:forEach>';
+				htmls += '                  <c:forEach begin="1" end="${5-itdata.difficulty}" step="1"><li class="interview_bk_0"></li></c:forEach>';
+				htmls += '                </ul>';
+				htmls += '              </div>';
+				htmls += '              <div class="hidden-xs" style="margin-top:20px;"></div>';
+				htmls += '              <div>';
+				htmls += '                <h5>면접일자</h5>';
+				htmls += '                <h6>${itdata.interviewdate}</h6>';
+				htmls += '              </div>';
+				htmls += '              <div class="hidden-xs" style="margin-top:20px;"></div>';
+				htmls += '              <div>';
+				htmls += '                <h5>면접경로</h5>';
+				htmls += '                <h6>';
+				htmls += '                	<c:if test="${itdata.interviewdir eq 1}">온라인 지원</c:if>';
+				htmls += '					<c:if test="${itdata.interviewdir eq 2}">직원추천</c:if>';
+				htmls += '					<c:if test="${itdata.interviewdir eq 3}">헤드헌터</c:if>';
+				htmls += '					<c:if test="${itdata.interviewdir eq 4}">공개채용</c:if>';
+				htmls += '					<c:if test="${itdata.interviewdir eq 5}">학교 취업지원 센터</c:if>';
+				htmls += '					<c:if test="${itdata.interviewdir eq 6}">기타</c:if>';
+				htmls += '                </h6>';
+				htmls += '              </div>';
+				htmls += '            </div>';
+				htmls += '          </div>';
+				htmls += '          <div class="review_r col-sm-6 col-md-7">';
+				htmls += '            <h3>"${itdata.memo1}"</h3>';
+				htmls += '            <h5>면접질문</h5>';
+				htmls += '            <p>${itdata.memo2}</p>';
+				htmls += '            <h5>면접답변</h5>';
+				htmls += '            <p>${itdata.memo3}</p>';
+				htmls += '            <h5>채용방식</h5>';
+				htmls += '            <p>${itdata.memo4}</p>';
+				htmls += '            <h5>발표시기</h5>';
+				htmls += '            <p>${itdata.memo5}</p>';
+				htmls += '            <table cellspacing="0" cellpadding="0" class="interview_b_table">';
+				htmls += '              <tr>';
+				htmls += '                <th>면접결과</th>';
+				htmls += '                <td>';
+				htmls += '	                <c:if test="${itdata.interviewresult eq 1}"><img src="./images/interview_l_1.jpg" alt="img" /> 합격</c:if>';
+				htmls += '					<c:if test="${itdata.interviewresult eq 2}"><img src="./images/interview_l_2.jpg" alt="img" /> 불합격</c:if>';
+				htmls += '					<c:if test="${itdata.interviewresult eq 3}"><img src="./images/interview_l_3.jpg" alt="img" /> 대기중</c:if>';
+				htmls += '                </td>';
+				htmls += '                <th>면접경험</th>';
+				htmls += '                <td>';
+				htmls += '	                <c:if test="${itdata.interviewex eq 1}"><img src="./images/interview_r_1.jpg" alt="img" /> 긍정적</c:if>';
+				htmls += '					<c:if test="${itdata.interviewex eq 2}"><img src="./images/interview_r_3.jpg" alt="img" /> 보통</c:if>';
+				htmls += '					<c:if test="${itdata.interviewex eq 3}"><img src="./images/interview_r_2.jpg" alt="img" /> 부정적</c:if>';
+				htmls += '                </td>';
+				htmls += '              </tr>';
+				htmls += '            </table>';
+				htmls += '          </div>';
+				htmls += '        </div>';
+				htmls += '      </div>';
+				htmls += '    </div>';
+			}
+			    
+			htmls += '      <div class="paging">';
+			htmls += '        <a href="pages_r=1" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>';
+			htmls += '        <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">';
+			htmls += '        	<a href="pages_r=${i}"';
+			htmls += '        		<c:if test="${i ne pages}"> class="paging_a"</c:if> <c:if test="${i eq pages}"> class="paging_a_hover"</c:if>>';
+			htmls += '        		${i}';
+			htmls += '        	</a>';
+			htmls += '        </c:forEach>';
+			htmls += '        <a href="pages_r=${paging.board_paging}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>';
+			htmls += '      </div>';
+			
+			
+			htmls += '    </div>';
+			htmls += '    <div class="col-sm-1"></div>';
+			htmls += '  </div>';
+			htmls += '</div>';
+			
+			document.getElementById("view_contents2").innerHTML = htmls;
+			
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
 }
 //////////////////////////////////////////
 

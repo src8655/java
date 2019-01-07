@@ -149,19 +149,19 @@
         
         <div class="col-sm-10">
           <ul>
-            <li><a href="#100" onclick="view_ajax(${member_no});" class="nav_ul_li_a" id="nav_btn1">
+            <li><a href="#100" onclick="view_ajax(${member_no});setmenu(this);" class="nav_ul_li_a_hover" id="nav_btn1">
               <span>Info</span><br />
               기업정보
             </a></li>
-            <li><a href="#100" onclick="review_ajax(1, ${member_no});" class="nav_ul_li_a" id="nav_btn2">
+            <li><a href="#100" onclick="review_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn2">
               <span>${count2}</span><br />
               기업리뷰
             </a></li>
-            <li><a href="#100" onclick="income_ajax(${member_no});" class="nav_ul_li_a" id="nav_btn3">
+            <li><a href="#100" onclick="income_ajax(${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn3">
               <span>${count3}</span><br />
               연봉정보
             </a></li>
-            <li><a href="interview.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 4}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 4}">class="nav_ul_li_a"</c:if>>
+            <li><a href="#100" onclick="interview_post_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a">
               <span>${count4}</span><br />
               면접후기
             </a></li>

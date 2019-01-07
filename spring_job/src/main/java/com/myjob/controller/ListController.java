@@ -1457,4 +1457,145 @@ public class ListController {
 		map.put("result", true);
 		return map;
 	}
+
+	//면접후기
+	@RequestMapping("/job/interview_ajax.o")
+	@ResponseBody
+	public Map interview_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//리스트 개수
+		int count4 = interviewService.getCount(member_no);
+		map.put("count4", count4);
+		
+		Action_Paging paging = new Action_Paging(count4, 3, pages_r);
+		List list = interviewService.getArticles(member_no, paging.getBoard_starts(), paging.getBoard_ends());
+		
+		map.put("paging", paging);
+		map.put("list", list);
+
+		
+		
+		//총 난이도
+		double difficulty = 0;
+		int difficultybar = 0;
+		String difficultys = "";
+
+		difficulty = interviewService.getDifficulty(member_no);
+		difficultybar = (int)((difficulty/5.0)*100.0);
+		if(((int)difficulty) < 2) difficultys = "<span style='color:#6fba1f;'>매우쉬움</span>";
+		else if(((int)difficulty) < 3) difficultys = "<span style='color:#8ad43b;'>쉬움</span>";
+		else if(((int)difficulty) < 4) difficultys = "<span style='color:#fb9f00;'>보통</span>";
+		else if(((int)difficulty) < 5) difficultys = "<span style='color:#fb6400;'>어려움</span>";
+		else if(((int)difficulty) < 6) difficultys = "<span style='color:#e62b0d;'>매우어려움</span>";
+
+		map.put("difficulty", difficulty);
+		map.put("difficultybar", difficultybar);
+		map.put("difficultys", difficultys);
+		
+		
+		//총 지원경로
+		int dir1 = interviewService.getInterviewdir(member_no, 1);
+		int dir2 = interviewService.getInterviewdir(member_no, 2);
+		int dir3 = interviewService.getInterviewdir(member_no, 3);
+		int dir4 = interviewService.getInterviewdir(member_no, 4);
+		int dir5 = interviewService.getInterviewdir(member_no, 5);
+		int dir6 = interviewService.getInterviewdir(member_no, 6);
+		double dirsum = dir1+dir2+dir3+dir4+dir5+dir6;
+		double dirs1 = 0.0;
+		double dirs2 = 0.0;
+		double dirs3 = 0.0;
+		double dirs4 = 0.0;
+		double dirs5 = 0.0;
+		double dirs6 = 0.0;
+		if(dirsum != 0) {
+			dirs1 = Math.round(dir1/dirsum*10.0)/10.0*100;
+			dirs2 = Math.round(dir2/dirsum*10.0)/10.0*100;
+			dirs3 = Math.round(dir3/dirsum*10.0)/10.0*100;
+			dirs4 = Math.round(dir4/dirsum*10.0)/10.0*100;
+			dirs5 = Math.round(dir5/dirsum*10.0)/10.0*100;
+			dirs6 = Math.round(dir6/dirsum*10.0)/10.0*100;
+		}
+		map.put("dirs1", dirs1);
+		map.put("dirs2", dirs2);
+		map.put("dirs3", dirs3);
+		map.put("dirs4", dirs4);
+		map.put("dirs5", dirs5);
+		map.put("dirs6", dirs6);
+		
+		
+		int exsum = 0;
+		int resultsum = 0;
+		int[] ex = new int[3];
+		int[] result = new int[3];
+		for(int i=0;i<3;i++) {
+			ex[i] = interviewService.getInterviewex(member_no, (i+1));
+			result[i] = interviewService.getInterviewresult(member_no, (i+1));
+			exsum += ex[i];
+			resultsum += result[i];
+		}
+		for(int i=0;i<3;i++) {
+			ex[i] = (int)Math.round(((((double)ex[i])/((double)exsum))*100.0));
+			result[i] = (int)Math.round(((((double)result[i])/((double)resultsum))*100.0));
+		}
+		map.put("ex", ex);
+		map.put("result", result);
+		
+		
+
+		map.put("member_no", member_no);
+		map.put("pages_r", pages_r);
+		return map;
+	}
+	//면접후기 작성완료
+	@RequestMapping("/job/interview_write_post_ajax.o")
+	@ResponseBody
+	public Map interview_write_post_ajax(
+			@ModelAttribute("itdata") InterviewData	itdata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 1) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		//이미 작성한 리뷰
+		int tmp = interviewService.getMyCount(itdata.getMember_no(), mdata.getNo());
+		if(tmp != 0) {
+			msg = "이미 면접정보를 작성하였습니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		itdata.setDates(ActionTime.getDate());
+		itdata.setWriter_no(mdata.getNo());
+		
+		interviewService.insert(itdata);
+
+		map.put("result", true);
+		return map;
+	}
+	
 }

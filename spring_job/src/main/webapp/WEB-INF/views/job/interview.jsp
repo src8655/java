@@ -288,15 +288,13 @@
           <script type="text/javascript">
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawPieChart_1);
-      
             function drawPieChart_1() {
-      
-              var piedata_1 = google.visualization.arrayToDataTable([
-                ['', ''],
-                ['긍정적',     ${ex[0]}],
-                ['부정적',    ${ex[2]}],
-                ['보통', ${ex[1]}]
-              ]);
+                var piedata_1 = google.visualization.arrayToDataTable([
+                    ['', ''],
+                    ['긍정적',     datas1],
+                    ['부정적',    datas2],
+                    ['보통', datas3]
+                  ]);
       
               var options = {
                 title: '',
@@ -328,9 +326,9 @@
       
               var piedata_2 = google.visualization.arrayToDataTable([
                 ['', ''],
-                ['합격',     ${result[0]}],
-                ['불합격',    ${result[1]}],
-                ['대기중', ${result[2]}]
+                ['합격',     datas_r1],
+                ['불합격',    datas_r2],
+                ['대기중', datas_r3]
               ]);
       
               var options = {

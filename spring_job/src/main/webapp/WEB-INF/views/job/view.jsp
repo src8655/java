@@ -74,6 +74,7 @@
 
 </div>
 
+
 <div class="container" id="hitcount_bg" style="">
   <div class="row">
     <div class="col-sm-1"></div>
@@ -114,4 +115,94 @@
     </div>
     <div class="col-sm-1"></div>
   </div>
+</div>
+
+
+
+
+ <div class="container" id="interview_all" style="display:none;">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+    
+	<div class="income_header" style="margin-top:0px;">
+      <div class="income_header_l">
+        <h5>면접경험</h5>
+        <div class="chart_div">
+          <div id="piechart_1" class="piechart"></div>
+          <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawPieChart_1);
+            function drawPieChart_1() {
+                var piedata_1 = google.visualization.arrayToDataTable([
+                    ['', ''],
+                    ['긍정적',     datas1],
+                    ['부정적',    datas2],
+                    ['보통', datas3]
+                  ]);
+      
+              var options = {
+                title: '',
+                chartArea:{left:0,top:0,width:'100%',height:100},
+                legend:{position: 'right', textStyle: {color: '#666666', fontSize: 14}},
+                slices: {
+                  0: { color: '#00bfd9' },
+                  1: { color: '#e03a36' },
+                  2: { color: '#78c700' }
+                }
+              };
+      
+              var piechart_1 = new google.visualization.PieChart(document.getElementById('piechart_1'));
+      
+              piechart_1.draw(piedata_1, options);
+            }
+          </script>
+        </div>
+      </div>
+      <div class="income_header_r">
+        <h5>면접결과</h5>
+        <div class="chart_div">
+          <div id="piechart_2" class="piechart"></div>
+          <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawPieChart_2);
+      
+            function drawPieChart_2() {
+      
+              var piedata_2 = google.visualization.arrayToDataTable([
+            	  ['', ''],
+                  ['합격',     datas_r1],
+                  ['불합격',    datas_r2],
+                  ['대기중', datas_r3]
+              ]);
+      
+              var options = {
+                title: '',
+                chartArea:{left:0,top:0,width:'100%',height:100},
+                legend:{position: 'right', textStyle: {color: '#666666', fontSize: 14}},
+                slices: {
+                  0: { color: '#00bfd9' },
+                  1: { color: '#e03a36' },
+                  2: { color: '#78c700' }
+                }
+              };
+      
+              var piechart_2 = new google.visualization.PieChart(document.getElementById('piechart_2'));
+      
+              piechart_2.draw(piedata_2, options);
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>
+
+
+
+<div id="view_contents2">
+
 </div>
