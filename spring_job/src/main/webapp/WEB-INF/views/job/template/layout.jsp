@@ -1617,7 +1617,10 @@ function follow_ajax(var1, var2) {
 
 
 
-
+//메뉴
+function setmenu(var1) {
+	nav_btn1////dfsdf
+}
 
 
 
