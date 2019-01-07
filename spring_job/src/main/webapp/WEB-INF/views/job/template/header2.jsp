@@ -149,15 +149,15 @@
         
         <div class="col-sm-10">
           <ul>
-            <li><a href="view.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 1}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 1}">class="nav_ul_li_a"</c:if>>
+            <li><a href="#100" onclick="view_ajax(${member_no});" class="nav_ul_li_a" id="nav_btn1">
               <span>Info</span><br />
               기업정보
             </a></li>
-            <li><a href="review.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 2}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 2}">class="nav_ul_li_a"</c:if>>
+            <li><a href="#100" onclick="review_ajax(1, ${member_no});" class="nav_ul_li_a" id="nav_btn2">
               <span>${count2}</span><br />
               기업리뷰
             </a></li>
-            <li><a href="income.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 3}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 3}">class="nav_ul_li_a"</c:if>>
+            <li><a href="#100" onclick="income_ajax(${member_no});" class="nav_ul_li_a" id="nav_btn3">
               <span>${count3}</span><br />
               연봉정보
             </a></li>

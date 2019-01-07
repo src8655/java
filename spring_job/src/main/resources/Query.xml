@@ -37,6 +37,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="MemberFollowUpdate" parameterType="java.util.Map">
 		update MIN_JOB_MEMBER set FOLLOW=#{follow} where NO=#{no}
 	</select>
+	<update id="MemberUpdate" parameterType="com.myjob.data.MemberData">
+		update MIN_JOB_MEMBER set
+		NAME=#{name},
+		PHONE1=#{phone1},
+		PHONE2=#{phone2},
+		PHONE3=#{phone3},
+		QUEST=#{quest},
+		ANSWER=#{answer},
+		COMPANY=#{company},
+		COMPANY_CATE=#{company_cate},
+		COMPANY_NUM=#{company_num}
+		<if test="password != '-1'">,PASSWORD=#{password}</if>
+		where NO=#{no}
+	</update>
+	<!--  -->
 	
 	
 	

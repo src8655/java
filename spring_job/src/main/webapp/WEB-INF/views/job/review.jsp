@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%-- 
 <div class="write_hide" id="review_write" style="display:none;">
 <div class="write_hide_scroll">
     <form action="review_write_post.o" method="post" onsubmit="return review_write_submit(this);">
@@ -176,19 +176,14 @@
     </div>
     </div>
     </form>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 </div>
+</div> --%>
+
+
+
+
+<div id="view_contents">
+    
 </div>
 
 
@@ -196,12 +191,7 @@
 
 
 
-
-
-
-
-
-
+<%-- 
 <div class="container">
   <div class="row">
     <div class="col-sm-1"></div>
@@ -219,11 +209,11 @@
     	<a href="#100" onclick="show2('review_write');document.body.style.overflow = 'hidden';">새로운리뷰 작성하기</a>
     </div>
     </c:if>
-    </c:if>
+    </c:if> --%>
     
     
     
-      <div class="contents">
+<%--       <div class="contents">
         <div class="container">
           <div class="row">
             <div class="col-sm-4" style="width:220px;">
@@ -267,14 +257,14 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --%>
     
     
     
+    <a href="#100" onclick="review_ajax(1, ${member_no});">테스트</a>
     
     
-    
-    
+    <%-- 
     
     <c:forEach items="${list}" var="rdata">
     <div class="contents">
@@ -357,6 +347,7 @@
         <a href="review.o?member_no=${member_no}&pages_r=${paging.board_paging}&searchValue=${searchValue_utf}&pages=${pages}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
     
+     --%>
     
     
     
@@ -365,8 +356,7 @@
     
     
     
-    
-    </div>
+<!--     </div>
     <div class="col-sm-1"></div>
   </div>
-</div>
+</div> -->

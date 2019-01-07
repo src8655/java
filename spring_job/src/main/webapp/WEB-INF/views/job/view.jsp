@@ -3,6 +3,9 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<div id="view_contents">
+    
+
 
 <div class="container">
   <div class="row">
@@ -62,9 +65,19 @@
           </tr>
         </table>
       </div>
-      
-      
-      
+
+
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>
+
+</div>
+
+<div class="container" id="hitcount_bg" style="">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
       <div class="contents">
         <h3>기업 콘텐츠 조회수</h3>
         

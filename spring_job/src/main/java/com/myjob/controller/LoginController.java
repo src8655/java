@@ -167,11 +167,13 @@ public class LoginController {
 	//회원수정 완료
 	@RequestMapping("/job/login_edit_post.o")
 	public ModelAndView login_edit_post(
+			@ModelAttribute("mdata") MemberData mdata,
+			HttpSession session,
 			HttpServletRequest request
 			) throws SQLException {
 		ModelAndView mav = new ModelAndView();
 		
-		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		MemberData memberInfo = (MemberData)request.getAttribute("memberInfo");
 		//비로그인
 		if(mdata == null) {
 			msg = "잘못된 접근입니다.";
@@ -180,6 +182,22 @@ public class LoginController {
 			return mav;
 		}
 		
+		if(!mdata.getPassword().equals("")) {
+			if(!mdata.getPassword().equals(mdata.getPassword2())) {
+				msg = "비밀번호가 다릅니다.";
+				mav.addObject("msg", msg);
+				mav.setViewName("job/error");
+				return mav;
+			}else {
+				mdata.setPassword(Md5Enc.getEncMD5(mdata.getPassword().getBytes()));
+				session.setAttribute("job_password", mdata.getPassword());
+			}
+		}else {
+			mdata.setPassword("-1");
+		}
+		mdata.setNo(memberInfo.getNo());
+		
+		memberService.update(mdata);
 		
 		
 		msg = "회원수정 성공";

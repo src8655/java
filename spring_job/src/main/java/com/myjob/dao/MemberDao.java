@@ -8,4 +8,5 @@ public interface MemberDao {
 	MemberData login(String email, String password);
 	boolean existLogin(String email, String password);
 	void followUpdate(String follow, int no);
+	void update(MemberData mdata);
 }

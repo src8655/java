@@ -55,4 +55,9 @@ public class MemberService implements MemberDao {
 		map.put("no", no);
 		sqlSessionTemplate.update("MemberFollowUpdate", map);
 	}
+
+	@Override
+	public void update(MemberData mdata) {
+		sqlSessionTemplate.update("MemberUpdate", mdata);
+	}
 }

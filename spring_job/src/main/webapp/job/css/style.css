@@ -238,6 +238,9 @@ text-decoration:none;
 padding:10px 0 7px 0;
 color:#000000;
 }
+nav ul li a:visited {
+text-decoration:none;
+}
 .nav_ul_li_a_hover {
 padding:10px 0 7px 0;
 border-bottom:3px solid #3ac453;

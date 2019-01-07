@@ -395,6 +395,17 @@ function login_edit_submit(var1) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 //로그인
 var login_email = false;
 var login_password = false;
@@ -1597,6 +1608,785 @@ function follow_ajax(var1, var2) {
 	});
 }
 
+//////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//view ajax
+
+//뷰
+function view_ajax(member_no) {
+	$.ajax({
+		url:'view_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no
+		},
+		success:function(result){
+			var htmls = "";
+			var cdata = result.cdata;
+			htmls += '	<div class="container">	';
+			htmls += '	  <div class="row">	';
+			htmls += '	    <div class="col-sm-1"></div>	';
+			htmls += '	    <div class="col-sm-10">	';
+			htmls += '	    	';
+			htmls += '	    	';
+			htmls += '	    	';
+			htmls += '	    	';
+			htmls += '	      <div class="contents">	';
+			htmls += '	        	';
+			htmls += '	        <h3>기업정보</h3>	';
+			htmls += '	        <p>	';
+			htmls += '	          ${cdata.info}	';
+			htmls += '	        </p>	';
+			htmls += '	        <table cellspacing="0" cellpadding="0" class="info_table">	';
+			htmls += '	          <tr>	';
+			htmls += '	            <th width="10%"><div style="width:60px;overflow:hidden;">대표</div></th>	';
+			htmls += '	            <td width="40%">${cdata.name}</td>	';
+			htmls += '	            <th width="10%"><div style="width:50px;overflow:hidden;">설립일</div></th>	';
+			htmls += '	            <td width="40%">${cdata.founding}</td>	';
+			htmls += '	          </tr>	';
+			htmls += '	          <tr>	';
+			htmls += '	            <th>카테고리</th>	';
+			htmls += '	            <td>	';
+			
+			if(cdata.company_cate == 1) htmls += '			서비스업"	';
+			if(cdata.company_cate == 2) htmls += '	              제조/화학	';
+			if(cdata.company_cate == 3) htmls += '	              의료/제약/복지	';
+			if(cdata.company_cate == 4) htmls += '	              유통/무역/운송	';
+			if(cdata.company_cate == 5) htmls += '	              교육업	';
+			if(cdata.company_cate == 6) htmls += '	              건설업	';
+			if(cdata.company_cate == 7) htmls += '	        IT/웹/통신	';
+			if(cdata.company_cate == 8) htmls += '	              미디어/디자인	';
+			if(cdata.company_cate == 9) htmls += '	              은행/금융업	';
+			if(cdata.company_cate == 10) htmls += '	              기관/협회	';
+			htmls += '				</td>	';
+			htmls += '	            <th>사원수</th>	';
+			htmls += '	            <td>${cdata.count}</td>	';
+			htmls += '	          </tr>	';
+			htmls += '	          <tr>	';
+			htmls += '	            <th>기업형태</th>	';
+			htmls += '	            <td>	';
+			if(cdata.company_type == 1) htmls += '	            	대기업	';
+			if(cdata.company_type == 2) htmls += '		  			중소기업	';
+			if(cdata.company_type == 3) htmls += '		  			벤처기업	';
+			htmls += '	            </td>	';
+			htmls += '	            <th>매출액</th>	';
+			htmls += '	            <td>'+cdata.money+'</td>	';
+			htmls += '	          </tr>	';
+			htmls += '	          <tr>	';
+			htmls += '	            <th>웹사이트</th>	';
+			htmls += '	            <td colspan="3">'+cdata.url+'</td>	';
+			htmls += '	          </tr>	';
+			htmls += '	          <tr>	';
+			htmls += '	            <th>본사</th>	';
+			htmls += '	            <td colspan="3">'+cdata.addr+'</td>	';
+			htmls += '	          </tr>	';
+			htmls += '	        </table>	';
+			htmls += '	      </div>	';
+			htmls += '	      	';
+			htmls += '	      	';
+			htmls += '	      	';
+			htmls += '	      	';
+			htmls += '	      	';
+			htmls += '	    </div>	';
+			htmls += '	    <div class="col-sm-1"></div>	';
+			htmls += '	  </div>	';
+			htmls += '	</div>	';
+			
+			document.getElementById("hitcount_bg").style.display = "";
+			drawChart();
+			document.getElementById("view_contents").innerHTML = htmls;
+
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//리뷰
+function review_ajax(pages_r, member_no) {
+	$.ajax({
+		url:'review_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			pages_r:pages_r,
+			member_no:member_no
+		},
+		success:function(result){
+			var htmls = "";
+			
+			//작성폼
+			htmls += '<div class="write_hide" id="review_write" style="display:none;">';
+			htmls += '<div class="write_hide_scroll">';
+			htmls += '    <form id="review_forms">';
+			htmls += '    <div class="write_hide_scroll2">';
+			htmls += '    <div class="review_write_box">';
+			htmls += '      <h1>기업리뷰 작성</h1>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	기업 총 평점<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(1,\'rw_star\',\'stars\',\'stars_msg\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star1" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(2,\'rw_star\',\'stars\',\'stars_msg\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star2" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(3,\'rw_star\',\'stars\',\'stars_msg\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star3" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(4,\'rw_star\',\'stars\',\'stars_msg\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star4" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(5,\'rw_star\',\'stars\',\'stars_msg\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star5" /></a>';
+			htmls += '	        <input type="hidden" name="stars" id="stars" value="-1" onchange="rw_stars_check(this);" />';
+			htmls += '	        <span id="stars_msg" style="font-weight:bold;">평가해주세요.</span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	현 직장/전 직장<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="types" class="join_select" onchange="rw_types_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">현 직장</option>';
+			htmls += '	  			<option value="2" >전 직장</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="types_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	직종<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="prof" class="join_select" onchange="rw_prof_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">IT/인터넷</option>';
+			htmls += '	  			<option value="2" >경영/기획/컨설팅</option>';
+			htmls += '	  			<option value="3" >교육</option>';
+			htmls += '	  			<option value="4" >금융/재무</option>';
+			htmls += '	  			<option value="5" >디자인</option>';
+			htmls += '	  			<option value="6" >마케팅/시장조사</option>';
+			htmls += '	  			<option value="7" >미디어/홍보</option>';
+			htmls += '	  			<option value="8" >법률/법무</option>';
+			htmls += '	  			<option value="9" >생산/제조</option>';
+			htmls += '	  			<option value="10" >기타</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="prof_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	기업한줄평<br />';
+			htmls += '	    	<span>최소 20자</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <textarea rows="100" cols="100" class="edit_textarea" name="memo1" onchange="rw_memo1_check(this);" placeholder="예) 개발자가 대우받으며 보람차게 일할 수 있는 곳. 다양한 개발 환경을 경험하고, 서버와 클라이언트 양쪽에서 커리어를 쌓고 싶은 사람에게 추천."></textarea>';
+			htmls += '      		<span id="memo1_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	기업의 장점<br />';
+			htmls += '	    	<span>최소 30자</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <textarea rows="100" cols="100" class="edit_textarea" name="memo2" onchange="rw_memo2_check(this);" placeholder="예) 연차를 윗사람 눈치 안 보고 쓸 수 있음, 도서구입비, 학원 수강료 등 자기 계발 비용 지원, 야근 식대 1만원까지 제공, 수평적인 사무실 분위기. 업무 분담 체계가 확실해 자기 분야 전문성을 기를 수 있음."></textarea>';
+			htmls += '	      	<span id="memo2_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	기업의 단점<br />';
+			htmls += '	    	<span>최소 30자</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <textarea rows="100" cols="100" class="edit_textarea" name="memo3" onchange="rw_memo3_check(this);" placeholder="예) 단순 보고를 위한 문서 작업이 많아 비효율적. 복지 제도가 다양하지만 실제로 쓸 수 없음. 출근 시간은 8시인데 퇴근 시간은 ???. 연봉이 많다지만 시간급은 형편없음. 과장 차장이 많아 승진이 힘들다."></textarea>';
+			htmls += '	      	<span id="memo3_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	승진기회 및 가능성';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(1,\'rw_star1_\',\'stars1\',\'stars_msg1\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star1_1" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(2,\'rw_star1_\',\'stars1\',\'stars_msg1\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star1_2" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(3,\'rw_star1_\',\'stars1\',\'stars_msg1\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star1_3" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(4,\'rw_star1_\',\'stars1\',\'stars_msg1\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star1_4" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(5,\'rw_star1_\',\'stars1\',\'stars_msg1\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star1_5" /></a>';
+			htmls += '	        <input type="hidden" name="stars1" id="stars1" value="-1" onchange="rw_stars1_check(this);" />';
+			htmls += '	        <span id="stars_msg1" style="font-weight:bold;">평가해주세요.</span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	복지 및 급여';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(1,\'rw_star2_\',\'stars2\',\'stars_msg2\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star2_1" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(2,\'rw_star2_\',\'stars2\',\'stars_msg2\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star2_2" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(3,\'rw_star2_\',\'stars2\',\'stars_msg2\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star2_3" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(4,\'rw_star2_\',\'stars2\',\'stars_msg2\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star2_4" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(5,\'rw_star2_\',\'stars2\',\'stars_msg2\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star2_5" /></a>';
+			htmls += '	        <input type="hidden" name="stars2" id="stars2" value="-1" onchange="rw_stars2_check(this);" />';
+			htmls += '	        <span id="stars_msg2" style="font-weight:bold;">평가해주세요.</span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	업무와 삶의 균형';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(1,\'rw_star3_\',\'stars3\',\'stars_msg3\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star3_1" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(2,\'rw_star3_\',\'stars3\',\'stars_msg3\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star3_2" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(3,\'rw_star3_\',\'stars3\',\'stars_msg3\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star3_3" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(4,\'rw_star3_\',\'stars3\',\'stars_msg3\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star3_4" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(5,\'rw_star3_\',\'stars3\',\'stars_msg3\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star3_5" /></a>';
+			htmls += '	        <input type="hidden" name="stars3" id="stars3" value="-1" onchange="rw_stars3_check(this);" />';
+			htmls += '	        <span id="stars_msg3" style="font-weight:bold;">평가해주세요.</span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	사내문화';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(1,\'rw_star4_\',\'stars4\',\'stars_msg4\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star4_1" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(2,\'rw_star4_\',\'stars4\',\'stars_msg4\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star4_2" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(3,\'rw_star4_\',\'stars4\',\'stars_msg4\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star4_3" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(4,\'rw_star4_\',\'stars4\',\'stars_msg4\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star4_4" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(5,\'rw_star4_\',\'stars4\',\'stars_msg4\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star4_5" /></a>';
+			htmls += '	        <input type="hidden" name="stars4" id="stars4" value="-1" onchange="rw_stars4_check(this);" />';
+			htmls += '	        <span id="stars_msg4" style="font-weight:bold;">평가해주세요.</span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	경영진';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(1,\'rw_star5_\',\'stars5\',\'stars_msg5\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star5_1" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(2,\'rw_star5_\',\'stars5\',\'stars_msg5\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star5_2" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(3,\'rw_star5_\',\'stars5\',\'stars_msg5\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star5_3" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(4,\'rw_star5_\',\'stars5\',\'stars_msg5\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star5_4" /></a>';
+			htmls += '	        <a href="#100" onclick="rw_stars_btn(5,\'rw_star5_\',\'stars5\',\'stars_msg5\');"><img src="./images/rw_star1.jpg" alt="별점" id="rw_star5_5" /></a>';
+			htmls += '	        <input type="hidden" name="stars5" id="stars5" value="-1" onchange="rw_stars5_check(this);" />';
+			htmls += '	        <span id="stars_msg5" style="font-weight:bold;">평가해주세요.</span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line align-center">';
+			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'review_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
+			htmls += '	      <input type="button" value="제출하기" class="review_write_btn1" onclick="review_post_ajax(document.getElementById(\'review_forms\'),'+member_no+');" />';
+			htmls += '      </div>';
+			htmls += '    </div>';
+			htmls += '    </div>';
+			htmls += '    </form>';
+			htmls += '</div>';
+			htmls += '</div>';
+			
+			
+			
+			
+			
+			
+			htmls += '<div class="container">';
+			htmls += '  <div class="row">';
+			htmls += '    <div class="col-sm-1"></div>';
+			htmls += '    <div class="col-sm-10">';
+			
+			if(result.memberInfo == null) {
+				htmls += '    <div class="review_write">';
+				htmls += '    	<a href="login.o">새로운리뷰 작성하기</a>';
+				htmls += '    </div>';
+			}else if(result.memberInfo.orders == 1) {
+				htmls += '    <div class="review_write">';
+				htmls += '    	<a href="#100" onclick="show2(\'review_write\');document.body.style.overflow = \'hidden\';">새로운리뷰 작성하기</a>';
+				htmls += '    </div>';
+			}
+			
+			
+			//총 리뷰
+			htmls += '<div class="contents">';
+			htmls += '  <div class="container">';
+			htmls += '    <div class="row">';
+			htmls += '        <div class="col-sm-4" style="width:220px;">';
+			htmls += '          <h1><img src="./images/review_h.jpg" alt="전체 리뷰 통계" /><span>전체</span> 리뷰 통계 ('+result.count2+'명)</h1>';
+			htmls += '          <p>';
+			htmls += '            <div class="review_star_l">'+result.stars+'</div>';
+			htmls += '            <div class="review_star_r">';
+			htmls += '                <div class="review_star_line0"></div>';
+			htmls += '                <!-- 68px -->';
+			htmls += '                <div class="review_star_line1" style="width:'+result.stars_bar+'px;"></div>';
+			htmls += '                <div class="review_star_line_b">총 만족도</div>';
+			htmls += '            </div>';
+			htmls += '          </p>';
+			htmls += '        </div>';
+			htmls += '        <div class="col-sm-5 col-md-6 col-lg-7">';
+			htmls += '          <h5>승진 기회 및 가능성</h5>';
+			htmls += '          <div class="r_bar_bg">';
+			htmls += '            <div class="r_bar1"><div class="r_bar2" style="width:'+result.stars_bar1+'%;"></div></div>';
+			htmls += '            <div class="r_bar_score">'+result.stars1+'</div>';
+			htmls += '          </div>';
+			htmls += '          <div class="r_bar_bg">';
+			htmls += '            <h5>복지 및 급여</h5>';
+			htmls += '            <div class="r_bar1"><div class="r_bar2" style="width:'+result.stars_bar2+'%;"></div></div>';
+			htmls += '            <div class="r_bar_score">'+result.stars2+'</div>';
+			htmls += '          </div>';
+			htmls += '          <div class="r_bar_bg">';
+			htmls += '            <h5>업무와 삶의 균형</h5>';
+			htmls += '            <div class="r_bar1"><div class="r_bar2" style="width:'+result.stars_bar3+'%;"></div></div>';
+			htmls += '            <div class="r_bar_score">'+result.stars3+'</div>';
+			htmls += '          </div>';
+			htmls += '          <div class="r_bar_bg">';
+			htmls += '            <h5>사내문화</h5>';
+			htmls += '            <div class="r_bar1"><div class="r_bar2" style="width:'+result.stars_bar4+'%;"></div></div>';
+			htmls += '            <div class="r_bar_score">'+result.stars4+'</div>';
+			htmls += '          </div>';
+			htmls += '          <div class="r_bar_bg">';
+			htmls += '            <h5>경영진</h5>';
+			htmls += '            <div class="r_bar1"><div class="r_bar2" style="width:'+result.stars_bar5+'%;"></div></div>';
+			htmls += '            <div class="r_bar_score">'+result.stars5+'</div>';
+			htmls += '          </div>';
+			htmls += '        </div>';
+			htmls += '    </div>';
+			htmls += '  </div>';
+			htmls += '</div>';
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//리스트
+			var list = result.list;
+			var list_length = Object.keys(list).length;
+			
+			var i = 0;
+			for(i=0;i<list_length;i++) {
+				var rdata = list[i];
+				htmls += '<div class="contents">';
+				htmls += '      <div class="review_header">';
+				if(rdata.prof == 1) htmls += '     	IT/인터넷';
+				if(rdata.prof == 2) htmls += '	  	경영/기획/컨설팅';
+				if(rdata.prof == 3) htmls += '	  	교육';
+				if(rdata.prof == 4) htmls += '	  	금융/재무';
+				if(rdata.prof == 5) htmls += '	  	디자인';
+				if(rdata.prof == 6) htmls += '	  	마케팅/시장조사';
+				if(rdata.prof == 7) htmls += '	  	미디어/홍보';
+				if(rdata.prof == 8) htmls += '	  	법률/법무';
+				if(rdata.prof == 9) htmls += '	  	생산/제조';
+				if(rdata.prof == 10) htmls += '	  	기타';
+				htmls += '         | ';
+				if(rdata.types == 1) htmls += '	  	현 직장';
+				if(rdata.types == 2) htmls += '	  	전 직장';
+				htmls += '         | '+rdata.dates;
+				htmls += '      </div>';
+				htmls += '      <div class="container">';
+				htmls += '        <div class="row">';
+				htmls += '          <div class="review_l col-sm-2 col-md-2">';
+				htmls += '            <div class="review_l_star">';
+				var j = 0;
+				for(j=1;j<=rdata.stars;j++) {
+					htmls += '              <img src="./images/stars00.jpg" alt="star" />';
+				}
+				for(j=1;j<=(5-rdata.stars);j++) {
+					htmls += '              <img src="./images/stars11.jpg" alt="star" />';
+				}
+				htmls += '            </div>';
+				htmls += '            <div class="review_l_list hidden-xs">';
+				htmls += '              <h5>승진 기회 및 가능성</h5>';
+				htmls += '              <ul>';
+				for(j=1;j<=rdata.stars1;j++) {
+					htmls += '              <li></li>';
+				}
+				for(j=1;j<=(5-rdata.stars1);j++) {
+					htmls += '              <li style="background:#dddddd;"></li>';
+				}
+				htmls += '              </ul>';
+				htmls += '              <h5>복지 및 급여</h5>';
+				htmls += '              <ul>';
+				for(j=1;j<=rdata.stars2;j++) {
+					htmls += '              <li></li>';
+				}
+				for(j=1;j<=(5-rdata.stars2);j++) {
+					htmls += '              <li style="background:#dddddd;"></li>';
+				}
+				htmls += '              </ul>';
+				htmls += '              <h5>업무와 삶의 균형</h5>';
+				htmls += '              <ul>';
+				for(j=1;j<=rdata.stars3;j++) {
+					htmls += '              <li></li>';
+				}
+				for(j=1;j<=(5-rdata.stars3);j++) {
+					htmls += '              <li style="background:#dddddd;"></li>';
+				}
+				htmls += '              </ul>';
+				htmls += '              <h5>사내문화</h5>';
+				htmls += '              <ul>';
+				for(j=1;j<=rdata.stars4;j++) {
+					htmls += '              <li></li>';
+				}
+				for(j=1;j<=(5-rdata.stars4);j++) {
+					htmls += '              <li style="background:#dddddd;"></li>';
+				}
+				htmls += '              </ul>';
+				htmls += '              <h5>경영진</h5>';
+				htmls += '              <ul>';
+				for(j=1;j<=rdata.stars5;j++) {
+					htmls += '              <li></li>';
+				}
+				for(j=1;j<=(5-rdata.stars5);j++) {
+					htmls += '              <li style="background:#dddddd;"></li>';
+				}
+				htmls += '              </ul>';
+				htmls += '            </div>';
+				htmls += '          </div>';
+				htmls += '          <div class="review_r col-sm-6 col-md-7">';
+				htmls += '            <h3>"'+rdata.memo1+'"</h3>';
+				htmls += '            <h5 style="color:#0f7ccf;">장점</h5>';
+				htmls += '            <p>';
+				htmls += '              '+rdata.memo2;
+				htmls += '            </p>';
+				htmls += '            <h5 style="color:#fc4a13;">단점</h5>';
+				htmls += '            <p>';
+				htmls += '              '+rdata.memo3;
+				htmls += '            </p>';
+				htmls += '          </div>';
+				htmls += '        </div>';
+				htmls += '      </div>';
+				htmls += '    </div>';
+				
+				
+			}
+
+			
+			//페이징
+			var paging = result.paging;
+			htmls += '		<div class="paging">';
+			htmls += '        <a href="#100" onclick="review_ajax(1,'+member_no+')" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>';
+			var j = 0;
+			for(j=paging.pstarts;j<=paging.pends;j++) {
+				htmls += '        	<a href="#100" onclick="review_ajax('+j+','+member_no+')"';
+				if(j == pages_r) htmls += ' class="paging_a_hover" ';
+				else htmls += ' class="paging_a" ';
+				htmls += '> '+j;
+				htmls += '        	</a>';
+			}
+			htmls += '        <a href="#100" onclick="review_ajax('+paging.board_paging+','+member_no+')" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>';
+			htmls += '      </div>';
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			htmls += '    </div>';
+			htmls += '    <div class="col-sm-1"></div>';
+			htmls += '  </div>';
+			htmls += '</div>';
+			
+			document.getElementById('hitcount_bg').style.display='none';
+			document.getElementById("view_contents").innerHTML = htmls;
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//리뷰 작성하기
+function review_post_ajax(forms, member_no) {
+	//유효성검사 통과시에만 실행
+	if(review_write_submit(forms) == true) {
+		$.ajax({
+			url:'review_write_post_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				member_no:member_no,
+				stars:forms.stars.value,
+				types:forms.types.value,
+				prof:forms.prof.value,
+				memo1:forms.memo1.value,
+				memo2:forms.memo2.value,
+				memo3:forms.memo3.value,
+				stars1:forms.stars1.value,
+				stars2:forms.stars2.value,
+				stars3:forms.stars3.value,
+				stars4:forms.stars4.value,
+				stars5:forms.stars5.value
+			},
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					review_ajax(1, member_no);
+					alert('작성완료');
+					document.body.style.overflow = 'scroll';
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//연봉
+function income_ajax(member_no) {
+	$.ajax({
+		url:'income_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no
+		},
+		success:function(result){
+			var htmls = "";
+			htmls += '<div class="write_hide" id="review_write" style="display:none;">';
+			htmls += '<div class="write_hide_scroll">';
+			htmls += '    <form id="income_forms">';
+			htmls += '    <div class="write_hide_scroll2">';
+			htmls += '    <div class="review_write_box">';
+			htmls += '      <h1>기업연봉 작성</h1>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	직종<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="prof" class="join_select" onchange="iw_prof_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">IT/인터넷</option>';
+			htmls += '	  			<option value="2" >경영/기획/컨설팅</option>';
+			htmls += '	  			<option value="3" >교육</option>';
+			htmls += '	  			<option value="4" >금융/재무</option>';
+			htmls += '	  			<option value="5" >디자인</option>';
+			htmls += '	  			<option value="6" >마케팅/시장조사</option>';
+			htmls += '	  			<option value="7" >미디어/홍보</option>';
+			htmls += '	  			<option value="8" >법률/법무</option>';
+			htmls += '	  			<option value="9" >생산/제조</option>';
+			htmls += '	  			<option value="10" >기타</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="iw_prof_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	직급<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="positions" class="join_select" onchange="iw_positions_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">사원-대졸</option>';
+			htmls += '	  			<option value="2">사원-전문대졸</option>';
+			htmls += '	  			<option value="3">사원-고졸</option>';
+			htmls += '	  			<option value="4">주임/계장</option>';
+			htmls += '	  			<option value="5">대리</option>';
+			htmls += '	  			<option value="6">과장</option>';
+			htmls += '	  			<option value="7">차장</option>';
+			htmls += '	  			<option value="8">부장</option>';
+			htmls += '	  			<option value="9">이사</option>';
+			htmls += '	  			<option value="10">기타</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="iw_positions_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	고용형태<br />';
+			htmls += '	    	<span>(선택)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <select name="empl" class="join_select" onchange="iw_empl_check(this);">';
+			htmls += '	  			<option value="-1">선택</option>';
+			htmls += '	  			<option value="1">인턴직</option>';
+			htmls += '	  			<option value="2" >아르바이트</option>';
+			htmls += '	  			<option value="3" >정규직</option>';
+			htmls += '	  			<option value="4" >계약직</option>';
+			htmls += '	  			<option value="5" >프리렌서</option>';
+			htmls += '	  			<option value="6" >기타</option>';
+			htmls += '  			</select>';
+			htmls += '  			<span id="iw_empl_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line">';
+			htmls += '	      <div>';
+			htmls += '	    	기본급여(연봉)<br />';
+			htmls += '	    	<span>(만원)</span>';
+			htmls += '	      </div>';
+			htmls += '	      <p>';
+			htmls += '	        <input type="text" name="money" placeholder="기본급여 (연봉)" class="login_input" onchange="iw_money_check(this);" />';
+			htmls += '      		<span id="iw_money_msg"></span>';
+			htmls += '	      </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="review_write_box_line align-center">';
+			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'review_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
+			htmls += '	      <input type="button" value="제출하기" class="review_write_btn1" onclick="income_post_ajax(document.getElementById(\'income_forms\'),'+member_no+')" />';
+			htmls += '      </div>';
+			htmls += '    </div>';
+			htmls += '    </div>';
+			htmls += '    </form>';
+			htmls += '</div>';
+			htmls += '</div>';
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			htmls += '<div class="container">';
+			htmls += '  <div class="row">';
+			htmls += '    <div class="col-sm-1 col-md-2 col-lg-2"></div>';
+			htmls += '    <div class="col-sm-10 col-md-8 col-lg-8">';
+
+			if(result.memberInfo == null) {
+				htmls += '    <div class="review_write">';
+				htmls += '    	<a href="login.o">새로운 연봉정보 작성하기</a>';
+				htmls += '    </div>';
+			}else if(result.memberInfo.orders == 1) {
+				htmls += '    <div class="review_write">';
+				htmls += '    	<a href="#100" onclick="show2(\'review_write\');document.body.style.overflow = \'hidden\';">새로운 연봉정보 작성하기</a>';
+				htmls += '    </div>'
+			}
+			
+			htmls += '    <div class="income_header">';
+			htmls += '      <div class="income_header_l">';
+			htmls += '        <h5>평균연봉</h5>';
+			htmls += '        <p>';
+			htmls += '          '+result.avgs;
+			htmls += '          <span>만원</span>';
+			htmls += '        </p>';
+			htmls += '      </div>';
+			htmls += '      <div class="income_header_r">';
+			htmls += '        <h5>전체 순위</h5>';
+			htmls += '        <p>';
+			htmls += '          '+result.rank;
+			htmls += '          <span>위</span>';
+			htmls += '        </p>';
+			htmls += '      </div>';
+			htmls += '    </div>';
+			
+			
+			
+			
+			htmls += '    <div class="contents income">';
+			htmls += '      <h2>연봉 평균 통계</h2>';
+			htmls += '      <h6>만원/단위</h6>';
+			htmls += '      <table cellspacing="0" cellpadding="0" class="income_table">';
+			var list = result.list;
+			var list_length = Object.keys(list).length;
+			var i = 0;
+			for(i=0;i<list_length;i++) {
+				var idata = list[i];
+				htmls += '        <tr class="income_table_b_0">';
+				htmls += '          <th style="width:150px;border-top:1px solid #777777;">';
+				if(idata.positions == 1) htmls += '	  		사원-대졸';
+				if(idata.positions == 2) htmls += '	  		사원-전문대졸';
+				if(idata.positions == 3) htmls += '	  		사원-고졸';
+				if(idata.positions == 4) htmls += '	  		주임/계장';
+				if(idata.positions == 5) htmls += '	  		대리';
+				if(idata.positions == 6) htmls += '	  		과장';
+				if(idata.positions == 7) htmls += '	  		차장';
+				if(idata.positions == 8) htmls += '	  		부장';
+				if(idata.positions == 9) htmls += '	  		이사';
+				if(idata.positions == 10) htmls += '	  	기타';
+				htmls += '	  		<br />';
+				htmls += '            <span>'+idata.count+' 연봉정보</span>';
+				htmls += '          </th>';
+				htmls += '          <td style="border-top:1px solid #777777;">';
+				htmls += '            <div class="income_td_l col-sm-1">';
+				htmls += '              '+idata.moneys+' 만원';
+				htmls += '            </div>';
+				htmls += '            <div class="col-sm-8 col-md-8 col-lg-9">';
+				htmls += '              <div class="income_bar_bg1"><div class="income_bar_bg2"><div class="income_bar_bg3">';
+				htmls += '                <div class="income_bar" style="width:'+idata.barline+'%;"><div></div></div>';
+				htmls += '              </div></div></div>';
+				htmls += '              <div class="income_bar_l">';
+				htmls += '                '+result.mins;
+				htmls += '              </div>';
+				htmls += '              <div class="income_bar_r">';
+				htmls += '                '+result.maxs;
+				htmls += '              </div>';
+				htmls += '            </div>';
+				htmls += '          </td>';
+				htmls += '        </tr>';
+			}
+			htmls += '      </table>';
+			htmls += '    </div>';
+			    
+			htmls += '    </div>';
+			htmls += '    <div class="col-sm-1 col-md-2 col-lg-2"></div>';
+			htmls += '  </div>';
+			htmls += '</div>';
+			
+			document.getElementById('hitcount_bg').style.display='none';
+			document.getElementById("view_contents").innerHTML = htmls;
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//연봉 작성하기
+function income_post_ajax(forms, member_no) {
+	//유효성검사 통과시에만 실행
+	if(income_write_submit(forms) == true) {
+		$.ajax({
+			url:'income_write_post_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				member_no:member_no,
+				prof:forms.prof.value,
+				positions:forms.positions.value,
+				empl:forms.empl.value,
+				money:forms.money.value
+			},
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					income_ajax('+member_no+');
+					alert('작성완료');
+					document.body.style.overflow = 'scroll';
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
 //////////////////////////////////////////
 
 

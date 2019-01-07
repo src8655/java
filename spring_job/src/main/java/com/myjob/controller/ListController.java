@@ -1191,4 +1191,270 @@ public class ListController {
 		mav.setViewName("job/post");
 		return mav;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//view ajax
+	
+	//리뷰
+	@RequestMapping("/job/review_ajax.o")
+	@ResponseBody
+	public Map review_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
+			HttpServletRequest request
+			) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
+
+		int count2 = reviewService.getCount(member_no);
+		map.put("count2", count2);
+		
+		
+		Action_Paging paging = new Action_Paging(count2, 2, pages_r);
+		List list = reviewService.getArticles(member_no, paging.getBoard_starts(), paging.getBoard_ends());
+
+		map.put("paging", paging);
+		map.put("list", list);
+		
+
+		double stars = 0;
+		int stars_bar = 0;
+		double stars1 = 0;
+		double stars2 = 0;
+		double stars3 = 0;
+		double stars4 = 0;
+		double stars5 = 0;
+		int stars_bar1 = 0;
+		int stars_bar2 = 0;
+		int stars_bar3 = 0;
+		int stars_bar4 = 0;
+		int stars_bar5 = 0;
+		
+		//총 별점
+		if(count2 != 0) {
+			ReviewData rdata = reviewService.getAllStars(member_no);
+			stars = Math.floor((rdata.getStars()/(double)count2)*10.0)/10.0;
+			stars_bar = (int)((stars/5.0)*68.0);
+			stars1 = Math.floor((rdata.getStars1()/(double)count2)*10.0)/10.0;
+			stars2 = Math.floor((rdata.getStars2()/(double)count2)*10.0)/10.0;
+			stars3 = Math.floor((rdata.getStars3()/(double)count2)*10.0)/10.0;
+			stars4 = Math.floor((rdata.getStars4()/(double)count2)*10.0)/10.0;
+			stars5 = Math.floor((rdata.getStars5()/(double)count2)*10.0)/10.0;
+			stars_bar1 = (int)Math.floor((stars1/5.0)*100.0);
+			stars_bar2 = (int)Math.floor((stars2/5.0)*100.0);
+			stars_bar3 = (int)Math.floor((stars3/5.0)*100.0);
+			stars_bar4 = (int)Math.floor((stars4/5.0)*100.0);
+			stars_bar5 = (int)Math.floor((stars5/5.0)*100.0);
+		}
+		map.put("stars", stars);
+		map.put("stars_bar", stars_bar);
+		map.put("stars1", stars1);
+		map.put("stars2", stars2);
+		map.put("stars3", stars3);
+		map.put("stars4", stars4);
+		map.put("stars5", stars5);
+		map.put("stars_bar1", stars_bar1);
+		map.put("stars_bar2", stars_bar2);
+		map.put("stars_bar3", stars_bar3);
+		map.put("stars_bar4", stars_bar4);
+		map.put("stars_bar5", stars_bar5);
+		
+		
+		
+
+		map.put("member_no", member_no);
+		map.put("pages_r", pages_r);
+		map.put("memberInfo", mdata);
+		return map;
+	}
+	//리뷰작성
+	@RequestMapping("/job/review_write_post_ajax.o")
+	@ResponseBody
+	public Map review_write_post_ajax(
+			@ModelAttribute("rdata") ReviewData rdata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 1) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		//이미 작성한 리뷰
+		int tmp = reviewService.getMyCount(rdata.getMember_no(), mdata.getNo());
+		if(tmp != 0) {
+			msg = "이미 작성한 리뷰입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		rdata.setDates(ActionTime.getDate());
+		rdata.setWriter_no(mdata.getNo());
+		
+		reviewService.insert(rdata);
+
+		map.put("result", true);
+		return map;
+	}
+	//상세보기
+	@RequestMapping("/job/view_ajax.o")
+	@ResponseBody
+	public Map view_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+
+		//일주일간 조회수
+		String[] dates = new String[6];
+		int[] counts = new int[6];
+		for(int i=0;i<6;i++) {
+			dates[i] = ActionTime.lastDate(i);
+			counts[i] = countService.getCount(dates[i], member_no);
+			map.put("dates"+i, dates[i]);
+			map.put("counts"+i, counts[i]);
+		}
+		
+		
+		CompanyData cdata = companyService.getArticle(member_no);
+		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
+		map.put("cdata", cdata);
+		map.put("member_no", member_no);
+		return map;
+	}
+	//연봉
+	@RequestMapping("/job/income_ajax.o")
+	@ResponseBody
+	public Map income_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//리스트 개수
+		int count3 = incomeService.getCount(member_no);
+		map.put("count3", count3);
+		
+		//연봉 최대 최소 평균 순위 구하기
+		int maxs = 0;
+		int mins = 0;
+		int avgs = 0;
+		int rank = 0;
+		Map maps = incomeService.getMoneyMaxMin(member_no);
+		maxs = (Integer)maps.get("maxs")+500;
+		mins = (Integer)maps.get("mins")-500;
+		avgs = (Integer)maps.get("avgs");
+		rank = incomeService.getRank(member_no);
+		
+		map.put("maxs", NumberFormat.number_format(maxs));
+		map.put("mins", NumberFormat.number_format(mins));
+		map.put("avgs", NumberFormat.number_format(avgs));
+		map.put("rank", rank);
+		
+		
+		
+		
+		List list = incomeService.getArticles(member_no);
+		for(int i=0;i<list.size();i++) {
+			IncomeData tmp = (IncomeData)list.get(i);
+			tmp.setMoneys(NumberFormat.number_format(tmp.getMoney()));
+			tmp.setBarline((int)(((((double)tmp.getMoney())-mins)/(((double)(maxs))-mins))*100.0));
+		}
+		
+		map.put("list", list);
+		
+		
+
+
+		map.put("member_no", member_no);
+		return map;
+	}
+	//연봉작성
+	@RequestMapping("/job/income_write_post_ajax.o")
+	@ResponseBody
+	public Map income_write_post_ajax(
+			@ModelAttribute("idata") IncomeData idata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 1) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		//이미 작성한 리뷰
+		int tmp = incomeService.getMyCount(idata.getMember_no(), mdata.getNo());
+		if(tmp != 0) {
+			msg = "이미 연봉정보를 작성하였습니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		idata.setWriter_no(mdata.getNo());
+		idata.setDates(ActionTime.getDate());
+		
+		incomeService.insert(idata);
+		
+
+		map.put("result", true);
+		return map;
+	}
 }
