@@ -1559,7 +1559,7 @@ function recruit_add_submit(var1) {
 	rca_phone2_check(var1.phone2);
 	rca_phone3_check(var1.phone3);
 	rca_email_check(var1.email);
-	rca_files1_check(var1.file1);
+	rca_files1_check(var1.files1);
 	
 	if(!rca_name ||
 			!rca_phone1 ||
@@ -1622,6 +1622,8 @@ function setmenu(var1) {
 	document.getElementById("nav_btn1").setAttribute("class","nav_ul_li_a");
 	document.getElementById("nav_btn2").setAttribute("class","nav_ul_li_a");
 	document.getElementById("nav_btn3").setAttribute("class","nav_ul_li_a");
+	document.getElementById("nav_btn4").setAttribute("class","nav_ul_li_a");
+	document.getElementById("nav_btn5").setAttribute("class","nav_ul_li_a");
 	
 
 	var1.setAttribute("class","nav_ul_li_a_hover");
@@ -1721,6 +1723,7 @@ function view_ajax(member_no) {
 			document.getElementById('interview_all').style.display='none';
 			document.getElementById("hitcount_bg").style.display = "";
 			drawChart();
+			document.getElementById("view_contents2").innerHTML = "";
 			document.getElementById("view_contents").innerHTML = htmls;
 
 		},
@@ -2121,6 +2124,7 @@ function review_ajax(pages_r, member_no) {
 			
 			document.getElementById('interview_all').style.display='none';
 			document.getElementById('hitcount_bg').style.display='none';
+			document.getElementById("view_contents2").innerHTML = "";
 			document.getElementById("view_contents").innerHTML = htmls;
 		},
 		error:function(r,s,e) {
@@ -2361,6 +2365,7 @@ function income_ajax(member_no) {
 
 			document.getElementById('interview_all').style.display='none';
 			document.getElementById('hitcount_bg').style.display='none';
+			document.getElementById("view_contents2").innerHTML = "";
 			document.getElementById("view_contents").innerHTML = htmls;
 		},
 		error:function(r,s,e) {
@@ -2387,7 +2392,7 @@ function income_post_ajax(forms, member_no) {
 				if(result.result != true) {
 					alert(result.msg);
 				}else{
-					income_ajax('+member_no+');
+					income_ajax(member_no);
 					alert('작성완료');
 					document.body.style.overflow = 'scroll';
 				}
@@ -2407,7 +2412,7 @@ var datas_r1 = 0;
 var datas_r2 = 0;
 var datas_r3 = 0;
 //면접
-function interview_post_ajax(pages_r, member_no) {
+function interview_ajax(pages_r, member_no) {
 	$.ajax({
 		url:'interview_ajax.o',
 		method:'POST',
@@ -2591,7 +2596,7 @@ function interview_post_ajax(pages_r, member_no) {
 
 			htmls += '      <div class="review_write_box_line align-center">';
 			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'review_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
-			htmls += '	      <input type="button" value="제출하기" class="review_write_btn1" onclick="interview_post(document.getElementById(\'interview_forms\'),'+member_no+')" />';
+			htmls += '	      <input type="button" value="제출하기" class="review_write_btn1" onclick="interview_post_ajax(document.getElementById(\'interview_forms\'),'+member_no+')" />';
 			htmls += '      </div>';
 			htmls += '    </div>';
 			htmls += '    </div>';
@@ -2695,29 +2700,29 @@ function interview_post_ajax(pages_r, member_no) {
 				var itdata = list[i];
 				htmls += '    <div class="contents">';
 				htmls += '      <div class="review_header">';
-				htmls += '        <c:if test="${itdata.prof eq 1}">IT/인터넷</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 2}">경영/기획/컨설팅</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 3}">교육</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 4}">금융/재무</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 5}">디자인</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 6}">마케팅/시장조사</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 7}">미디어/홍보</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 8}">법률/법무</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 9}">생산/제조</c:if>';
-				htmls += '		<c:if test="${itdata.prof eq 10}">기타</c:if>';
+				if(itdata.prof == 1) htmls += '     IT/인터넷';
+				if(itdata.prof == 2) htmls += '		경영/기획/컨설팅';
+				if(itdata.prof == 3) htmls += '		교육';
+				if(itdata.prof == 4) htmls += '		금융/재무';
+				if(itdata.prof == 5) htmls += '		디자인';
+				if(itdata.prof == 6) htmls += '		마케팅/시장조사';
+				if(itdata.prof == 7) htmls += '		미디어/홍보';
+				if(itdata.prof == 8) htmls += '		법률/법무';
+				if(itdata.prof == 9) htmls += '		생산/제조';
+				if(itdata.prof == 10) htmls += '	기타';
 				htmls += '         / ';
-				htmls += '		<c:if test="${itdata.positions eq 1}">사원-대졸</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 2}">사원-전문대졸</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 3}">사원-고졸</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 4}">주임/계장</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 5}">대리</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 6}">과장</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 7}">차장</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 8}">부장</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 9}">이사</c:if>';
-				htmls += '		<c:if test="${itdata.positions eq 10}">기타</c:if>';
+				if(itdata.positions == 1) htmls += '		사원-대졸';
+				if(itdata.positions == 2) htmls += '		사원-전문대졸';
+				if(itdata.positions == 3) htmls += '		사원-고졸';
+				if(itdata.positions == 4) htmls += '		주임/계장';
+				if(itdata.positions == 5) htmls += '		대리';
+				if(itdata.positions == 6) htmls += '		과장';
+				if(itdata.positions == 7) htmls += '		차장';
+				if(itdata.positions == 8) htmls += '		부장';
+				if(itdata.positions == 9) htmls += '		이사';
+				if(itdata.positions == 10) htmls += '		기타';
 				htmls += '        | ';
-				htmls += '        ${itdata.dates}';
+				htmls += '        '+itdata.dates;
 				htmls += '      </div>';
 				htmls += '      <div class="container">';
 				htmls += '        <div class="row">';
@@ -2725,54 +2730,65 @@ function interview_post_ajax(pages_r, member_no) {
 				htmls += '            <div class="interview_l_list">';
 				htmls += '              <div>';
 				htmls += '                <h5>면접난이도</h5>';
-				htmls += '                <h6>보통</h6>';
+				htmls += '                <h6>';
+				if(itdata.difficulty == 1) htmls += '매우쉬움';
+				if(itdata.difficulty == 2) htmls += '쉬움';
+				if(itdata.difficulty == 3) htmls += '보통';
+				if(itdata.difficulty == 4) htmls += '어려움';
+				if(itdata.difficulty == 5) htmls += '매우어려움';
+				htmls += '                </h6>';
 				htmls += '                <ul>';
-				htmls += '                  <c:forEach begin="1" end="${itdata.difficulty}" step="1"><li class="interview_bk_1"></li></c:forEach>';
-				htmls += '                  <c:forEach begin="1" end="${5-itdata.difficulty}" step="1"><li class="interview_bk_0"></li></c:forEach>';
+				var j = 0;
+				for(j=1;j<=itdata.difficulty;j++) {
+					htmls += '                  <li class="interview_bk_'+j+'"></li>';
+				}
+				for(j=1;j<=(5-itdata.difficulty);j++) {
+					htmls += '                  <li class="interview_bk_0"></li>';
+				}
 				htmls += '                </ul>';
 				htmls += '              </div>';
 				htmls += '              <div class="hidden-xs" style="margin-top:20px;"></div>';
 				htmls += '              <div>';
 				htmls += '                <h5>면접일자</h5>';
-				htmls += '                <h6>${itdata.interviewdate}</h6>';
+				htmls += '                <h6>'+itdata.interviewdate+'</h6>';
 				htmls += '              </div>';
 				htmls += '              <div class="hidden-xs" style="margin-top:20px;"></div>';
 				htmls += '              <div>';
 				htmls += '                <h5>면접경로</h5>';
 				htmls += '                <h6>';
-				htmls += '                	<c:if test="${itdata.interviewdir eq 1}">온라인 지원</c:if>';
-				htmls += '					<c:if test="${itdata.interviewdir eq 2}">직원추천</c:if>';
-				htmls += '					<c:if test="${itdata.interviewdir eq 3}">헤드헌터</c:if>';
-				htmls += '					<c:if test="${itdata.interviewdir eq 4}">공개채용</c:if>';
-				htmls += '					<c:if test="${itdata.interviewdir eq 5}">학교 취업지원 센터</c:if>';
-				htmls += '					<c:if test="${itdata.interviewdir eq 6}">기타</c:if>';
+				if(itdata.interviewdir == 1) htmls += '                	온라인 지원';
+				if(itdata.interviewdir == 2) htmls += '					직원추천';
+				if(itdata.interviewdir == 3) htmls += '					헤드헌터';
+				if(itdata.interviewdir == 4) htmls += '					공개채용';
+				if(itdata.interviewdir == 5) htmls += '					학교 취업지원 센터';
+				if(itdata.interviewdir == 6) htmls += '					기타';
 				htmls += '                </h6>';
 				htmls += '              </div>';
 				htmls += '            </div>';
 				htmls += '          </div>';
 				htmls += '          <div class="review_r col-sm-6 col-md-7">';
-				htmls += '            <h3>"${itdata.memo1}"</h3>';
+				htmls += '            <h3>"'+itdata.memo1+'"</h3>';
 				htmls += '            <h5>면접질문</h5>';
-				htmls += '            <p>${itdata.memo2}</p>';
+				htmls += '            <p>'+itdata.memo2+'</p>';
 				htmls += '            <h5>면접답변</h5>';
-				htmls += '            <p>${itdata.memo3}</p>';
+				htmls += '            <p>'+itdata.memo3+'</p>';
 				htmls += '            <h5>채용방식</h5>';
-				htmls += '            <p>${itdata.memo4}</p>';
+				htmls += '            <p>'+itdata.memo4+'</p>';
 				htmls += '            <h5>발표시기</h5>';
-				htmls += '            <p>${itdata.memo5}</p>';
+				htmls += '            <p>'+itdata.memo5+'</p>';
 				htmls += '            <table cellspacing="0" cellpadding="0" class="interview_b_table">';
 				htmls += '              <tr>';
 				htmls += '                <th>면접결과</th>';
 				htmls += '                <td>';
-				htmls += '	                <c:if test="${itdata.interviewresult eq 1}"><img src="./images/interview_l_1.jpg" alt="img" /> 합격</c:if>';
-				htmls += '					<c:if test="${itdata.interviewresult eq 2}"><img src="./images/interview_l_2.jpg" alt="img" /> 불합격</c:if>';
-				htmls += '					<c:if test="${itdata.interviewresult eq 3}"><img src="./images/interview_l_3.jpg" alt="img" /> 대기중</c:if>';
+				if(itdata.interviewresult == 1) htmls += '	                <img src="./images/interview_l_1.jpg" alt="img" /> 합격';
+				if(itdata.interviewresult == 2) htmls += '					<img src="./images/interview_l_2.jpg" alt="img" /> 불합격';
+				if(itdata.interviewresult == 3) htmls += '					<img src="./images/interview_l_3.jpg" alt="img" /> 대기중';
 				htmls += '                </td>';
 				htmls += '                <th>면접경험</th>';
 				htmls += '                <td>';
-				htmls += '	                <c:if test="${itdata.interviewex eq 1}"><img src="./images/interview_r_1.jpg" alt="img" /> 긍정적</c:if>';
-				htmls += '					<c:if test="${itdata.interviewex eq 2}"><img src="./images/interview_r_3.jpg" alt="img" /> 보통</c:if>';
-				htmls += '					<c:if test="${itdata.interviewex eq 3}"><img src="./images/interview_r_2.jpg" alt="img" /> 부정적</c:if>';
+				if(itdata.interviewex == 1) htmls += '	                <img src="./images/interview_r_1.jpg" alt="img" /> 긍정적';
+				if(itdata.interviewex == 2) htmls += '					<img src="./images/interview_r_3.jpg" alt="img" /> 보통';
+				if(itdata.interviewex == 3) htmls += '					<img src="./images/interview_r_2.jpg" alt="img" /> 부정적';
 				htmls += '                </td>';
 				htmls += '              </tr>';
 				htmls += '            </table>';
@@ -2781,16 +2797,19 @@ function interview_post_ajax(pages_r, member_no) {
 				htmls += '      </div>';
 				htmls += '    </div>';
 			}
-			    
+			
+			var paging = result.paging;
 			htmls += '      <div class="paging">';
-			htmls += '        <a href="pages_r=1" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>';
-			htmls += '        <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">';
-			htmls += '        	<a href="pages_r=${i}"';
-			htmls += '        		<c:if test="${i ne pages}"> class="paging_a"</c:if> <c:if test="${i eq pages}"> class="paging_a_hover"</c:if>>';
-			htmls += '        		${i}';
-			htmls += '        	</a>';
-			htmls += '        </c:forEach>';
-			htmls += '        <a href="pages_r=${paging.board_paging}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>';
+			htmls += '        <a href="#100" onclick="interview_ajax(1,'+member_no+');" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>';
+			var j = 0;
+			for(j=paging.pstarts;j<=paging.pends;j++) {
+				htmls += '        	<a href="#100" onclick="interview_ajax('+j+','+member_no+');"';
+				if(j == pages_r) 	htmls += ' class="paging_a_hover"> ';
+				else 				htmls += ' class="paging_a"> ';
+				htmls += '        		'+j;
+				htmls += '        	</a>';
+			}
+			htmls += '        <a href="#100" onclick="interview_ajax('+paging.board_paging+','+member_no+');" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>';
 			htmls += '      </div>';
 			
 			
@@ -2801,6 +2820,915 @@ function interview_post_ajax(pages_r, member_no) {
 			
 			document.getElementById("view_contents2").innerHTML = htmls;
 			
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//면접 작성하기
+function interview_post_ajax(forms, member_no) {
+	//유효성검사 통과시에만 실행
+	if(interview_write_submit(forms) == true) {
+		$.ajax({
+			url:'interview_write_post_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				member_no:member_no,
+				prof:forms.prof.value,
+				positions:forms.positions.value,
+				difficulty:forms.difficulty.value,
+				interviewdate:forms.interviewdate.value,
+				interviewdir:forms.interviewdir.value,
+				memo1:forms.memo1.value,
+				memo2:forms.memo2.value,
+				memo3:forms.memo3.value,
+				memo4:forms.memo4.value,
+				memo5:forms.memo5.value,
+				interviewresult:forms.interviewresult.value,
+				interviewex:forms.interviewex.value
+			},
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					interview_ajax(1,member_no);
+					alert('작성완료');
+					document.body.style.overflow = 'scroll';
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//채용
+function recruit_ajax(pages_r, member_no) {
+	$.ajax({
+		url:'recruit_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no,
+			pages_r:pages_r
+		},
+		success:function(result){
+			var htmls = "";
+			
+			if(result.memberInfo != null && result.memberInfo.no == member_no) {
+				htmls += '	<div class="write_hide" id="recruit_write" style="display:none;">	';
+				htmls += '	<div class="write_hide_scroll">	';
+				htmls += '	<form id="recruit_write_forms">	';
+				htmls += '	<div class="write_hide_scroll2">	';
+				htmls += '	<div class="review_write_box">	';
+				htmls += '	<h1 id="rc_h">채용정보 작성</h1>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	채용 제목	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="subject" placeholder="채용 제목" class="login_input" onchange="rc_subject_check(this);" />	';
+				htmls += '	<span id="rc_subject_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	마감일<br />	';
+				htmls += '	<span>날짜입력</span>	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="enddates" placeholder="예) 2000-00-00" class="login_input" onchange="rc_enddates_check(this);" />	';
+				htmls += '	<span id="rc_enddates_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	키워드<br />	';
+				htmls += '	<span>쉼표(,)로 구분</span>	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="keyword" placeholder="예) SW엔지니어,웹개발,서울,정규직" class="login_input" onchange="rc_keyword_check(this);" />	';
+				htmls += '	<span id="rc_keyword_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	기업소개	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo1" id="memo1" onchange="rc_memo1_check(this);" style="height:300px;" placeholder="예) 코인 전문 암호화폐 거래소 00000 입니다. "></textarea>	';
+				htmls += '	<span id="rc_memo1_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	주요업무	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo2" onchange="rc_memo2_check(this);" style="height:300px;" placeholder="예) 백엔드개발. "></textarea>	';
+				htmls += '	<span id="rc_memo2_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	자격요건	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo3" onchange="rc_memo3_check(this);" style="height:300px;" placeholder="핵심 직무 역량과 우대 사항 입력 "></textarea>	';
+				htmls += '	<span id="rc_memo3_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	채용절차	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo4" onchange="rc_memo4_check(this);" style="height:300px;" placeholder="예) 서류전형 - 임원면접 - 합격통보 "></textarea>	';
+				htmls += '	<span id="rc_memo4_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	복리후생	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo5" onchange="rc_memo5_check(this);" style="height:300px;" placeholder="혜택 및 복지 "></textarea>	';
+				htmls += '	<span id="rc_memo5_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '		';
+				htmls += '		';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	문의처<br />	';
+				htmls += '	<span>쉼표(,)로 구분</span>	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="contact" placeholder="예) 00000@naver.com,02-000-0000,http://naver.com/" class="login_input" onchange="rc_contact_check(this);" />	';
+				htmls += '	<span id="rc_contact_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	직종	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="prof" placeholder="예) SW엔지니어,시스템엔지니어,웹개발" class="login_input" onchange="rc_prof_check(this);" />	';
+				htmls += '	<span id="rc_prof_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	고용형태	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="empl" placeholder="예) 정규직" class="login_input" onchange="rc_empl_check(this);" />	';
+				htmls += '	<span id="rc_empl_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	최종 학력	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="grade" placeholder="예) 해당없음 고졸이상 대졸이상" class="login_input" onchange="rc_grade_check(this);" />	';
+				htmls += '	<span id="rc_grade_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	급여	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="money" placeholder="예) 연봉(최소 3,000만원 ~ 최대 5,000만원)" class="login_input" onchange="rc_money_check(this);" />	';
+				htmls += '	<span id="rc_money_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	직급	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="positions1" placeholder="예) 사원 주임 대리" class="login_input" onchange="rc_positions1_check(this);" />	';
+				htmls += '	<span id="rc_positions1_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	직책	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="positions2" placeholder="예) 팀장 실장 팀장급" class="login_input" onchange="rc_positions2_check(this);" />	';
+				htmls += '	<span id="rc_positions2_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line align-center">	';
+				htmls += '	<input type="button" value="닫기" onclick="hide2(\'recruit_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />	';
+				htmls += '	<input type="button" value="제출하기" class="review_write_btn1" onclick="recruit_post_ajax(document.getElementById(\'recruit_write_forms\'),'+member_no+');" />	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</form> 	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+			}
+			
+			
+			
+			
+			
+			
+			
+			htmls += '	<div class="container">	';
+			htmls += '	<div class="row">	';
+			htmls += '	<div class="col-sm-1 col-md-2 col-lg-2"></div>	';
+			htmls += '	<div class="col-sm-10 col-md-8 col-lg-8">	';
+			htmls += '		';
+			if(result.memberInfo != null && result.memberInfo.no == member_no) {
+				htmls += '	<div class="review_write">	';
+				htmls += '	<a href="#100" onclick="show2(\'recruit_write\');document.body.style.overflow = \'hidden\';">새로운 채용정보 작성하기</a>	';
+				htmls += '	</div>	';
+			}
+			htmls += '		';
+			htmls += '	<div class="recruit_list">	';
+			htmls += '	<ul>	';
+			
+			var list = result.list;
+			var list_length = Object.keys(list).length;
+			
+			var i = 0;
+			for(i=0;i<list_length;i++) {
+				var rcdatas = list[i];
+				htmls += '	<li>	';
+				htmls += '	<a href="#100" onclick="recruit_view_ajax('+pages_r+','+rcdatas.no+','+member_no+');">	';
+				htmls += '	<div class="recruit_list_dday">D-'+rcdatas.dday+'</div>	';
+				htmls += '	<h4>'+rcdatas.subject+'</h4>	';
+				htmls += '	<p>'+rcdatas.prof+'</p>	';
+				htmls += '	<div class="recruit_list_keywords">	';
+				
+				var k_list = rcdatas.keywords;
+				var k_list_length = Object.keys(k_list).length;
+				
+				var k = 0;
+				for(k=0;k<k_list_length;k++) {
+					var kw = k_list[k];
+					htmls += '	<div>'+kw+'</div>	';
+				}
+				htmls += '	</div>	';
+				htmls += '	</a>	';
+				htmls += '	</li>	';
+			}
+			htmls += '	</ul>	';
+			htmls += '	</div>	';
+			
+			
+			htmls += '	<div class="paging">	';
+			htmls += '	<a href="#100" onclick="recruit_ajax(1,'+member_no+');" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>	';
+			var j = 0;
+			for(j=result.paging.pstarts;j<=result.paging.pends;j++) {
+				htmls += '	<a href="#100"  onclick="recruit_ajax('+j+','+member_no+');" ';
+				if(j == pages_r) 	htmls += ' class="paging_a_hover"> ';
+				else 				htmls += ' class="paging_a"> ';
+				htmls += '		'+j;
+				htmls += '	</a>	';
+			}
+			htmls += '	<a href="#100" onclick="recruit_ajax('+result.paging.board_paging+','+member_no+');" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>	';
+			htmls += '	</div>	';
+			htmls += '		';
+			htmls += '	</div>	';
+			htmls += '	<div class="col-sm-1 col-md-2 col-lg-2"></div>	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+
+
+			document.getElementById('interview_all').style.display='none';
+			document.getElementById('hitcount_bg').style.display='none';
+			document.getElementById("view_contents2").innerHTML = "";
+			document.getElementById("view_contents").innerHTML = htmls;
+			
+			
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//채용 작성하기
+function recruit_post_ajax(forms, member_no) {
+	//유효성검사 통과시에만 실행
+	if(recruit_write_submit(forms) == true) {
+		$.ajax({
+			url:'recruit_write_post_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				member_no:member_no,
+				subject:forms.subject.value,
+				enddates:forms.enddates.value,
+				keyword:forms.keyword.value,
+				memo1:forms.memo1.value,
+				memo2:forms.memo2.value,
+				memo3:forms.memo3.value,
+				memo4:forms.memo4.value,
+				memo5:forms.memo5.value,
+				contact:forms.contact.value,
+				prof:forms.prof.value,
+				empl:forms.empl.value,
+				grade:forms.grade.value,
+				money:forms.money.value,
+				positions1:forms.positions1.value,
+				positions2:forms.positions2.value
+			},
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					recruit_ajax(1,member_no);
+					alert('작성완료');
+					document.body.style.overflow = 'scroll';
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//채용 보기
+function recruit_view_ajax(pages_r,recruit_no,member_no) {
+	$.ajax({
+		url:'recruit_view_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no,
+			recruit_no:recruit_no
+		},
+		success:function(result){
+			var htmls = "";
+			
+			if(result.memberInfo != null && result.memberInfo.no == member_no) {
+				var rcdata = result.rcdata;
+				htmls += '	<!-- 수정 -->	';
+				htmls += '	<div class="write_hide" id="recruit_edit" style="display:none;">	';
+				htmls += '	<div class="write_hide_scroll">	';
+				htmls += '	<form id="recruit_edit_forms">	';
+				htmls += '	<div class="write_hide_scroll2">	';
+				htmls += '	<div class="review_write_box">	';
+				htmls += '	<h1>채용정보 수정</h1>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	채용 제목	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="subject" placeholder="채용 제목" class="login_input" onchange="rc2_subject_check(this);" value="'+rcdata.subject+'" />	';
+				htmls += '	<span id="rc2_subject_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	마감일<br />	';
+				htmls += '	<span>날짜입력</span>	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="enddates" placeholder="예) 2000-00-00" class="login_input" onchange="rc2_enddates_check(this);" value="'+rcdata.enddates+'" />	';
+				htmls += '	<span id="rc2_enddates_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	키워드<br />	';
+				htmls += '	<span>쉼표(,)로 구분</span>	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="keyword" placeholder="예) SW엔지니어,웹개발,서울,정규직" class="login_input" onchange="rc2_keyword_check(this);" value="'+rcdata.keyword+'" />	';
+				htmls += '	<span id="rc2_keyword_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	기업소개	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo1" id="memo1" onchange="rc2_memo1_check(this);" style="height:300px;" placeholder="예) 코인 전문 암호화폐 거래소 00000 입니다. ">'+rcdata.memo1+'</textarea>	';
+				htmls += '	<span id="rc2_memo1_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	주요업무	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo2" onchange="rc2_memo2_check(this);" style="height:300px;" placeholder="예) 백엔드개발. ">'+rcdata.memo2+'</textarea>	';
+				htmls += '	<span id="rc2_memo2_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	자격요건	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo3" onchange="rc2_memo3_check(this);" style="height:300px;" placeholder="핵심 직무 역량과 우대 사항 입력 ">'+rcdata.memo3+'</textarea>	';
+				htmls += '	<span id="rc2_memo3_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	채용절차	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo4" onchange="rc2_memo4_check(this);" style="height:300px;" placeholder="예) 서류전형 - 임원면접 - 합격통보 ">'+rcdata.memo4+'</textarea>	';
+				htmls += '	<span id="rc2_memo4_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	복리후생	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<textarea rows="100" cols="100" class="edit_textarea" name="memo5" onchange="rc2_memo5_check(this);" style="height:300px;" placeholder="혜택 및 복지 ">'+rcdata.memo5+'</textarea>	';
+				htmls += '	<span id="rc2_memo5_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '		';
+				htmls += '		';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	문의처<br />	';
+				htmls += '	<span>쉼표(,)로 구분</span>	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="contact" placeholder="예) 00000@naver.com,02-000-0000,http://naver.com/" class="login_input" onchange="rc2_contact_check(this);" value="'+rcdata.contact+'" />	';
+				htmls += '	<span id="rc2_contact_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	직종	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="prof" placeholder="예) SW엔지니어,시스템엔지니어,웹개발" class="login_input" onchange="rc2_prof_check(this);" value="'+rcdata.prof+'" />	';
+				htmls += '	<span id="rc2_prof_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	고용형태	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="empl" placeholder="예) 정규직" class="login_input" onchange="rc2_empl_check(this);" value="'+rcdata.empl+'" />	';
+				htmls += '	<span id="rc2_empl_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	최종 학력	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="grade" placeholder="예) 해당없음 고졸이상 대졸이상" class="login_input" onchange="rc2_grade_check(this);" value="'+rcdata.grade+'" />	';
+				htmls += '	<span id="rc2_grade_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	급여	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="money" placeholder="예) 연봉(최소 3,000만원 ~ 최대 5,000만원)" class="login_input" onchange="rc2_money_check(this);" value="'+rcdata.money+'" />	';
+				htmls += '	<span id="rc2_money_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	직급	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="positions1" placeholder="예) 사원 주임 대리" class="login_input" onchange="rc2_positions1_check(this);" value="'+rcdata.positions1+'" />	';
+				htmls += '	<span id="rc2_positions1_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_write_box_line">	';
+				htmls += '	<div>	';
+				htmls += '	직책	';
+				htmls += '	</div>	';
+				htmls += '	<p>	';
+				htmls += '	<input type="text" name="positions2" placeholder="예) 팀장 실장 팀장급" class="login_input" onchange="rc2_positions2_check(this);" value="'+rcdata.positions2+'" />	';
+				htmls += '	<span id="rc2_positions2_msg"></span>	';
+				htmls += '	</p>	';
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line align-center">	';
+				htmls += '	<input type="button" value="닫기" onclick="hide2(\'recruit_edit\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />	';
+				htmls += '	<input type="button" value="수정하기" class="review_write_btn1" onclick="recruit_edit_post_ajax(document.getElementById(\'recruit_edit_forms\'),'+recruit_no+','+pages_r+','+member_no+');" />	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</form>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '		';
+			}
+
+			
+			
+			
+			
+			
+			htmls += '	<!--입사지원-->	';
+			htmls += '	<div class="write_hide" id="recruit_add" style="display:none;">	';
+			htmls += '	<div class="write_hide_scroll">	';
+			htmls += '	<form id="recruit_add_forms" enctype="multipart/form-data" method="POST">	';
+			htmls += '	<input type="hidden" name="member_no" value="'+member_no+'" />';
+			htmls += '	<input type="hidden" name="recruit_no" value="'+recruit_no+'" />';
+			htmls += '	<div class="write_hide_scroll2s">	';
+			htmls += '	<div class="review_write_box">	';
+			htmls += '	<h1 id="rc_h">지원서 작성</h1>	';
+			htmls += '	<div class="recruit_add_box_line">	';
+			htmls += '	<h4>	';
+			htmls += '	이름	';
+			htmls += '	</h4>	';
+			htmls += '	<div class="recruit_phone">	';
+			htmls += '	<input type="text" name="name" placeholder="이름을 입력해주세요." class="login_input" onchange="rca_name_check(this);" />	';
+			htmls += '	</div>	';
+			htmls += '	<p id="rca_name_msg" class="join_msg"></p>	';
+			htmls += '	</div>	';
+			htmls += '	<div class="recruit_add_box_line">	';
+			htmls += '	<h4>	';
+			htmls += '	연락처	';
+			htmls += '	</h4>	';
+			htmls += '	<div class="recruit_phone">	';
+			htmls += '	<input type="text" name="phone1" placeholder="010" class="login_input" style="padding-left:3px;width:25%;float:left;" onchange="rca_phone1_check(this);" />	';
+			htmls += '	<div>-</div>	';
+			htmls += '	<input type="text" name="phone2" placeholder="0000" class="login_input" style="padding-left:3px;width:25%;float:left;" onchange="rca_phone2_check(this);" />	';
+			htmls += '	<div>-</div>	';
+			htmls += '	<input type="text" name="phone3" placeholder="0000" class="login_input" style="padding-left:3px;width:25%;float:left;" onchange="rca_phone3_check(this);" />	';
+			htmls += '	</div>	';
+			htmls += '	<p id="rca_phone_msg" class="join_msg"></p>	';
+			htmls += '	</div>	';
+			htmls += '	<div class="recruit_add_box_line">	';
+			htmls += '	<h4>	';
+			htmls += '	이메일	';
+			htmls += '	</h4>	';
+			htmls += '	<div class="recruit_phone">	';
+			htmls += '	<input type="text" name="email" placeholder="이메일을 입력해주세요." class="login_input" onchange="rca_email_check(this);" />	';
+			htmls += '	</div>	';
+			htmls += '	<p id="rca_email_msg" class="join_msg"></p>	';
+			htmls += '	</div>	';
+			htmls += '	<div class="recruit_add_box_line">	';
+			htmls += '	<h4>	';
+			htmls += '	이력서	';
+			htmls += '	</h4>	';
+			htmls += '	<div class="recruit_phone">	';
+			htmls += '	<input type="button" value="이력서 첨부하기" class="login_input" id="files1_btn" onclick="open_file2(\'files1\');" />	';
+			htmls += '	<input type="file" name="files1" id="files1" class="login_input" onchange="change_file2(\'files1_btn\',this);rca_files1_check(this);" style="display:none;" />	';
+			htmls += '	</div>	';
+			htmls += '	<p id="rca_files1_msg" class="join_msg"></p>	';
+			htmls += '	</div>	';
+			htmls += '	<div class="recruit_add_box_line">	';
+			htmls += '	<h4>	';
+			htmls += '	첨부파일	';
+			htmls += '	</h4>	';
+			htmls += '	<div class="recruit_phone">	';
+			htmls += '	<input type="button" value="자격증사본,증명서 등 첨부하기" class="login_input" id="files2_btn" onclick="open_file2(\'files2\');" />	';
+			htmls += '	<input type="file" name="files2" id="files2" class="login_input" onchange="change_file2(\'files2_btn\',this);" style="display:none;" />	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+			htmls += '		';
+			htmls += '	<div class="review_write_box_line align-center">	';
+			htmls += '	<input type="button" value="닫기" onclick="hide2(\'recruit_add\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />	';
+			htmls += '	<input type="button" value="지원하기" class="review_write_btn1" onclick="recruit_add_post_ajax(document.getElementById(\'recruit_add_forms\'),'+recruit_no+','+member_no+');" />	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+			htmls += '	</form> 	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+
+			
+			
+			htmls += '	<div class="container">	';
+			htmls += '	<div class="row">	';
+			htmls += '	<div class="col-sm-1 col-md-2 col-lg-2"></div>	';
+			htmls += '	<div class="col-sm-10 col-md-8 col-lg-8">	';
+			htmls += '		';
+			if(result.memberInfo == null) {
+				htmls += '	<div class="review_write">	';
+				htmls += '	<a href="login.o" style="background:#219bf0;border:1px solid #219bf0;">지원하기</a>	';
+				htmls += '	</div>	';
+			}else if(result.memberInfo.orders == 1) {
+				htmls += '	<div class="review_write">	';
+				htmls += '	<a href="#100" onclick="show2(\'recruit_add\');document.body.style.overflow = \'hidden\';" style="background:#219bf0;border:1px solid #219bf0;">지원하기</a>	';
+				htmls += '	</div>	';
+			}
+			
+			var rcdata = result.rcdata;
+			htmls += '	<div class="recruit_subject">	';
+			htmls += '	<div class="recruit_dates">	';
+			htmls += '	<span>D-'+rcdata.dday+'</span> '+rcdata.dates+' ~ '+rcdata.enddates;
+			htmls += '	&nbsp;&nbsp;	';
+			htmls += '	<div>'+rcdata.dates+' 등록</div>	';
+			htmls += '	<a href="#100" onclick="recruit_ajax('+pages_r+','+member_no+')" class="recruit_a">목록보기</a>	';
+			if(result.memberInfo != null && result.memberInfo.no == member_no) {
+				htmls += '	<a href="#100" onclick="show2(\'recruit_edit\');document.body.style.overflow = \'hidden\';" class="recruit_a">수정</a>	';
+				htmls += '	<a href="#100" onclick="dialog_del(\'정말로 삭제하시겠습니까?\','+recruit_no+','+pages_r+','+member_no+');" class="recruit_a">삭제</a>	';
+			}
+			htmls += '	</div>	';
+			htmls += '	<h2>'+rcdata.subject+'</h2>	';
+			htmls += '	</div>	';
+			
+			var k_list = result.keyword;
+			var k_list_length = Object.keys(k_list).length;
+			
+			var k = 0;
+			htmls += '	<div class="recruit_keyword">	';
+			for(k=0;k<k_list_length;k++) {
+				var kw = k_list[k];
+				htmls += '	<div>'+kw+'</div>	';
+			}
+			htmls += '	</div>	';
+			
+			htmls += '	<div class="recruit_body">	';
+			htmls += '		';
+			htmls += '	<h3>기업 소개</h3>	';
+			htmls += '	<p>'+result.memo1+'</p>	';
+			htmls += '	<h3>주요 업무</h3>	';
+			htmls += '	<p>'+result.memo2+'</p>	';
+			htmls += '	<h3>자격 요건</h3>	';
+			htmls += '	<p>'+result.memo3+'</p>	';
+			htmls += '	<h3>채용절차</h3>	';
+			htmls += '	<p>'+result.memo4+'</p>	';
+			htmls += '	<h3>복리후생</h3>	';
+			htmls += '	<p>'+result.memo5+'</p>	';
+			htmls += '	<h3>문의처</h3>	';
+			htmls += '	<div class="recruit_contact">	';
+			
+			var c_list = result.contact;
+			var c_list_length = Object.keys(c_list).length;
+			
+			var c = 0;
+			for(c=0;c<c_list_length;c++) {
+				var ct = c_list[c]
+				htmls += '	<div>'+ct+'</div>	';
+			}
+			
+			htmls += '	</div>	';
+			htmls += '	<h3>상세정보</h3>	';
+			htmls += '	<table cellspacing="0" cellpadding="0" class="recruit_table">	';
+			htmls += '	<col width="50%" />	';
+			htmls += '	<col width="50%" />	';
+			htmls += '	<tr>	';
+			htmls += '	<th>직종</th>	';
+			htmls += '	<th>고용형태</th>	';
+			htmls += '	</tr>	';
+			htmls += '	<td>'+rcdata.prof+'</td>	';
+			htmls += '	<td>'+rcdata.empl+'</td>	';
+			htmls += '	<tr>	';
+			htmls += '	<th>최종 학력</th>	';
+			htmls += '	<th>급여</th>	';
+			htmls += '	</tr>	';
+			htmls += '	<tr>	';
+			htmls += '	<td>'+rcdata.grade+'</td>	';
+			htmls += '	<td>'+rcdata.money+'</td>	';
+			htmls += '	</tr>	';
+			htmls += '	<tr>	';
+			htmls += '	<th>직급</th>	';
+			htmls += '	<th>직책</th>	';
+			htmls += '	</tr>	';
+			htmls += '	<tr>	';
+			htmls += '	<td>'+rcdata.positions1+'</td>	';
+			htmls += '	<td>'+rcdata.positions2+'</td>	';
+			htmls += '	</tr>	';
+			htmls += '	</table>	';
+			htmls += '	</div>	';
+			htmls += '		';
+			htmls += '	</div>	';
+			htmls += '	<div class="col-sm-1 col-md-2 col-lg-2"></div>	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+
+			
+			
+			
+			document.getElementById('interview_all').style.display='none';
+			document.getElementById('hitcount_bg').style.display='none';
+			document.getElementById("view_contents2").innerHTML = "";
+			document.getElementById("view_contents").innerHTML = htmls;
+			
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//다이어로그
+function dialog_del(var1,recruit_no,pages_r,member_no) {
+	var reVal = confirm(var1);
+	if(reVal == true) {
+		recruit_del_ajax(recruit_no, pages_r, member_no);
+	}
+}
+//채용 수정완료
+function recruit_edit_post_ajax(forms, recruit_no, pages_r, member_no) {
+	//유효성검사 통과시에만 실행
+	if(recruit_edit_submit(forms) == true) {
+		$.ajax({
+			url:'recruit_edit_post_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				member_no:member_no,
+				recruit_no:recruit_no,
+				subject:forms.subject.value,
+				enddates:forms.enddates.value,
+				keyword:forms.keyword.value,
+				memo1:forms.memo1.value,
+				memo2:forms.memo2.value,
+				memo3:forms.memo3.value,
+				memo4:forms.memo4.value,
+				memo5:forms.memo5.value,
+				contact:forms.contact.value,
+				prof:forms.prof.value,
+				empl:forms.empl.value,
+				grade:forms.grade.value,
+				money:forms.money.value,
+				positions1:forms.positions1.value,
+				positions2:forms.positions2.value
+			},
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					recruit_view_ajax(pages_r,recruit_no,member_no);
+					alert('수정완료');
+					document.body.style.overflow = 'scroll';
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//채용 삭제
+function recruit_del_ajax(recruit_no, pages_r, member_no) {
+	$.ajax({
+		url:'recruit_del_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no,
+			recruit_no:recruit_no
+		},
+		success:function(result){
+			if(result.result != true) {
+				alert(result.msg);
+			}else{
+				recruit_ajax(pages_r,member_no);
+				alert('삭제완료');
+				document.body.style.overflow = 'scroll';
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//입사 지원완료
+function recruit_add_post_ajax(forms, recruit_no, pages_r, member_no) {
+	var formData = new FormData(forms);
+	
+	//유효성검사 통과시에만 실행
+	if(recruit_add_submit(forms) == true) {
+		$.ajax({
+			url:'recruit_add_post_ajax.o',
+			method:'POST',
+			data:formData,
+			processData: false,
+			contentType: false,
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					recruit_view_ajax(pages_r,recruit_no,member_no);
+					alert('지원완료');
+					document.body.style.overflow = 'scroll';
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//회사정보 수정완료
+function edit_post_ajax(forms, member_no) {
+	var formData = new FormData(forms);
+	
+	//유효성검사 통과시에만 실행
+	if(edit_submit(forms) == true) {
+		$.ajax({
+			url:'edit_post_ajax.o',
+			method:'POST',
+			data:formData,
+			processData: false,
+			contentType: false,
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					view_ajax(member_no);
+					alert('수정완료');
+					document.body.style.overflow = 'scroll';
+					hide2('view_edit_bg');
+					view_header_ajax(member_no);
+					setmenu(document.getElementById("nav_btn1"));
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//회사 헤더 새로고침
+function view_header_ajax(member_no) {
+	$.ajax({
+		url:'view_header_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no
+		},
+		success:function(result){
+			var htmls = "";
+			
+			var cdata = result.cdata;
+			if(cdata.file2 == "" || cdata.file2 == null) htmls += '	<div class="main_subject_bg" style="background:url(./images/office_bk.jpg) no-repeat center center;">	';
+			else htmls += '	<div class="main_subject_bg" style="background:url(./upload/'+cdata.file2+') no-repeat center center">	';
+			htmls += '	<div class="main_subject">	';
+			htmls += '	<div class="container">	';
+			htmls += '	<div class="row">	';
+			htmls += '		';
+			htmls += '	<div class="col-sm-1"></div>	';
+			htmls += '	<div class="col-sm-7">	';
+			htmls += '	<p class="m_s_left">	';
+			if(cdata.file1 == "" || cdata.file1 == null) htmls += '	<img src="./images/company_logo.jpg" width="100px" height="100px" alt="logo" />	';
+			else htmls += '	<img src="./upload/'+cdata.file1+'" width="100px" height="100px" alt="logo" />	';
+			htmls += '	</p>	';
+			htmls += '	<p class="m_s_right">	';
+			htmls += '	<h3>'+cdata.company+'</h3>	';
+			if(cdata.company_cate == 1) htmls += '	서비스업	';
+			if(cdata.company_cate == 2) htmls += '	제조/화학	';
+			if(cdata.company_cate == 3) htmls += '	의료/제약/복지	';
+			if(cdata.company_cate == 4) htmls += '	유통/무역/운송	';
+			if(cdata.company_cate == 5) htmls += '	교육업	';
+			if(cdata.company_cate == 6) htmls += '	건설업	';
+			if(cdata.company_cate == 7) htmls += '	IT/웹/통신	';
+			if(cdata.company_cate == 8) htmls += '	미디어/디자인	';
+			if(cdata.company_cate == 9) htmls += '	은행/금융업	';
+			if(cdata.company_cate == 10) htmls += '	기관/협회	';
+			htmls += '	<br />	';
+			if(result.memberInfo == null) {
+				htmls += '	<a href="login.o" class="follow_btn"><img src="./images/heart.jpg" alt="heart" />팔로우</a>	';
+			}else {
+				htmls += '	<a href="#100" onclick="follow_ajax('+member_no+',\'follow_heart\');" class="follow_btn">	';
+				if(cdata.isfollow == -1) htmls += '	<img src="./images/heart.jpg" alt="heart" id="follow_heart" />	';
+				else htmls += '	<img src="./images/heart2.jpg" alt="heart" id="follow_heart" />	';
+				htmls += '	팔로우	';
+				htmls += '	</a>	';
+			}
+			
+			htmls += '	<img src="./images/star.png" alt="star" /> '+cdata.avg_stars;
+			htmls += '	<br />	';
+			htmls += '	<a href="'+cdata.url+'" class="url_btn">'+cdata.url+'</a>	';
+			htmls += '	</p>	';
+			htmls += '	</div>	';
+			htmls += '	<div class="col-sm-3 cover_img_align">	';
+			if(result.memberInfo != null && result.memberInfo.no == cdata.member_no) {
+				htmls += '	<a href="#100" class="cover_img_btn" onclick="show2(\'view_edit_bg\');document.body.style.overflow = \'hidden\';">	';
+				htmls += '	<img src="./images/camera.png" alt="camera" />기업정보 관리</a>	';
+			}
+			htmls += '	</div>	';
+			htmls += '	<div class="col-sm-1"></div>	';
+			htmls += '		';
+			htmls += '		';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+			htmls += '	</div>	';
+
+			document.getElementById("ajax_header_bg").innerHTML = htmls;
 		},
 		error:function(r,s,e) {
 			alert('통신에러');

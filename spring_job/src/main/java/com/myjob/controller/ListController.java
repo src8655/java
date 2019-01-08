@@ -924,7 +924,7 @@ public class ListController {
 		mav.setViewName("job/post");
 		return mav;
 	}
-	//채용정보
+	//채용정보 보기
 	@RequestMapping("/job/recruit_view.o")
 	public ModelAndView recruit_view(
 			@RequestParam(value="pages_rc", defaultValue="1") int pages_rc,
@@ -1476,7 +1476,7 @@ public class ListController {
 		int count4 = interviewService.getCount(member_no);
 		map.put("count4", count4);
 		
-		Action_Paging paging = new Action_Paging(count4, 3, pages_r);
+		Action_Paging paging = new Action_Paging(count4, 2, pages_r);
 		List list = interviewService.getArticles(member_no, paging.getBoard_starts(), paging.getBoard_ends());
 		
 		map.put("paging", paging);
@@ -1597,5 +1597,369 @@ public class ListController {
 		map.put("result", true);
 		return map;
 	}
-	
+	//채용정보
+	@RequestMapping("/job/recruit_ajax.o")
+	@ResponseBody
+	public Map recruit_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//리스트 개수
+		int count5 = recruitService.getListCount(member_no, 1);
+		map.put("count5", count5);
+		
+		
+		Action_Paging paging = new Action_Paging(count5, 4, pages_r);
+		List list = recruitService.getListArticles(paging.getBoard_starts(), paging.getBoard_ends(), member_no, 1);
+		
+		for(int i=0;i<list.size();i++) {
+			RecruitData tmp = (RecruitData)list.get(i);
+			tmp.setDday(ActionTime.dDay(tmp.getEnddates()));
+			tmp.setKeywords(new ArrayList<String>(Arrays.asList(tmp.getKeyword().split(","))));
+		}
+		
+		map.put("paging", paging);
+		map.put("list", list);
+		
+		
+		
+		
+
+		map.put("member_no", member_no);
+		map.put("pages_r", pages_r);
+		return map;
+	}
+	//채용정보 작성완료
+	@RequestMapping("/job/recruit_write_post_ajax.o")
+	@ResponseBody
+	public Map recruit_write_post_ajax(
+			@ModelAttribute("rcdata") RecruitData rcdata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getNo() != rcdata.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		rcdata.setDates(ActionTime.getDate());
+		
+		recruitService.insert(rcdata);
+		
+
+
+		map.put("result", true);
+		return map;
+	}
+	//채용정보 보기
+	@RequestMapping("/job/recruit_view_ajax.o")
+	@ResponseBody
+	public Map recruit_view_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		int count5 = recruitService.getListCount(member_no, 1);
+		map.put("count5", count5);
+		
+		
+		
+		RecruitData rcdata = recruitService.getArticleNo(recruit_no);
+		rcdata.setDday(ActionTime.dDay(rcdata.getEnddates()));
+		map.put("rcdata", rcdata);
+
+		String memo1 = rcdata.getMemo1().replace("\n", "<br />");
+		String memo2 = rcdata.getMemo2().replace("\n", "<br />");
+		String memo3 = rcdata.getMemo3().replace("\n", "<br />");
+		String memo4 = rcdata.getMemo4().replace("\n", "<br />");
+		String memo5 = rcdata.getMemo5().replace("\n", "<br />");
+		map.put("memo1", memo1);
+		map.put("memo2", memo2);
+		map.put("memo3", memo3);
+		map.put("memo4", memo4);
+		map.put("memo5", memo5);
+
+		List keyword = new ArrayList<String>(Arrays.asList(rcdata.getKeyword().split(",")));
+		List contact = new ArrayList<String>(Arrays.asList(rcdata.getContact().split(",")));
+		map.put("keyword", keyword);
+		map.put("contact", contact);
+		
+		
+		
+
+		map.put("recruit_no", recruit_no);
+		return map;
+	}
+	//채용정보 수정완료
+	@RequestMapping("/job/recruit_edit_post_ajax.o")
+	@ResponseBody
+	public Map recruit_edit_post_ajax(
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
+			@ModelAttribute("rcdata") RecruitData rcdata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		RecruitData rcdata_tmp = recruitService.getArticleNo(recruit_no);
+		if(mdata.getNo() != rcdata_tmp.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getNo() != rcdata.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		rcdata.setNo(recruit_no);
+		rcdata.setDates(ActionTime.getDate());
+		
+		recruitService.update(rcdata);
+
+		map.put("result", true);
+		return map;
+	}
+	//채용정보 삭제
+	@RequestMapping("/job/recruit_del_ajax.o")
+	@ResponseBody
+	public Map recruit_del_ajax(
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
+			@ModelAttribute("rcdata") RecruitData rcdata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		RecruitData rcdata_tmp = recruitService.getArticleNo(recruit_no);
+		if(mdata.getNo() != rcdata_tmp.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getNo() != rcdata.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		recruitService.del(recruit_no);
+
+		map.put("msg", msg);
+		map.put("result", true);
+		return map;
+	}
+	//지원서 작성완료
+	@RequestMapping("/job/recruit_add_post_ajax.o")
+	@ResponseBody
+	public Map recruit_add_post_ajax(
+			@ModelAttribute("rcldata") RecruitListData rcldata,
+			@RequestParam(value="files1", required=false) MultipartFile files1,
+			@RequestParam(value="files2", required=false) MultipartFile files2,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 1) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		
+		//업로드작업
+		String savePaths=request.getRealPath(savePathd);	//저장위치 절대경로
+		String filename1 = files1.getOriginalFilename();
+		if(!filename1.equals("")) {
+			int cnt = 0;
+			File files_tmp = null;
+			//이미 존재하면 카운트 증가
+			do {
+				cnt++;
+				files_tmp = new File(savePaths+"/"+"o"+cnt+"o"+filename1);
+			}while(files_tmp.exists());
+			files1.transferTo(files_tmp);
+			rcldata.setFile1(files_tmp.getName());
+		}
+		String filename2 = files2.getOriginalFilename();
+		if(!filename2.equals("")) {
+			int cnt = 0;
+			File files_tmp = null;
+			//이미 존재하면 카운트 증가
+			do {
+				cnt++;
+				files_tmp = new File(savePaths+"/"+"o"+cnt+"o"+filename2);
+			}while(files_tmp.exists());
+			files2.transferTo(files_tmp);
+			rcldata.setFile2(files_tmp.getName());
+		}
+		
+		rcldata.setDates(ActionTime.getDate());
+		rcldata.setWriter_no(mdata.getNo());
+		
+		
+		recruitListService.insert(rcldata);
+
+		map.put("result", true);
+		return map;
+	}
+
+	//기업관리 수정완료
+	@RequestMapping("/job/edit_post_ajax.o")
+	@ResponseBody
+	public Map edit_post_ajax(
+			@ModelAttribute("cdata") CompanyData cdata,
+			@RequestParam(value="files1", required=false) MultipartFile files1,
+			@RequestParam(value="files2", required=false) MultipartFile files2,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		if(mdata.getNo() != cdata.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		CompanyData cdata_tmp = companyService.getArticle(cdata.getMember_no());
+		cdata.setFile1(cdata_tmp.getFile1());
+		cdata.setFile2(cdata_tmp.getFile2());
+		
+		//업로드작업
+		String savePaths=request.getRealPath(savePathd);	//저장위치 절대경로
+		String filename1 = files1.getOriginalFilename();
+		if(!filename1.equals("")) {
+			int cnt = 0;
+			File files_tmp = null;
+			//이미 존재하면 카운트 증가
+			do {
+				cnt++;
+				files_tmp = new File(savePaths+"/"+"o"+cnt+"o"+filename1);
+			}while(files_tmp.exists());
+			files1.transferTo(files_tmp);
+			cdata.setFile1(files_tmp.getName());
+		}
+		String filename2 = files2.getOriginalFilename();
+		if(!filename2.equals("")) {
+			int cnt = 0;
+			File files_tmp = null;
+			//이미 존재하면 카운트 증가
+			do {
+				cnt++;
+				files_tmp = new File(savePaths+"/"+"o"+cnt+"o"+filename2);
+			}while(files_tmp.exists());
+			files2.transferTo(files_tmp);
+			cdata.setFile2(files_tmp.getName());
+		}
+		
+		companyService.update(cdata);
+
+		map.put("result", true);
+		return map;
+	}
+	//상세보기 헤더
+	@RequestMapping("/job/view_header_ajax.o")
+	@ResponseBody
+	public Map view_header_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		int count2 = reviewService.getCount(member_no);
+		map.put("count2", count2);
+		int count3 = incomeService.getCount(member_no);
+		map.put("count3", count3);
+		int count4 = interviewService.getCount(member_no);
+		map.put("count4", count4);
+		int count5 = recruitService.getListCount(member_no, 1);
+		map.put("count5", count5);
+
+		
+		
+		CompanyData cdata = companyService.getArticle(member_no);
+		cdata.setAvg_stars(Math.round(cdata.getAvg_stars()*10.0)/10.0);
+		if(mdata != null) {
+			if(mdata.getFollow_list().contains(Integer.toString(member_no)))
+				cdata.setIsfollow(1);
+			else cdata.setIsfollow(-1);
+		}
+		
+
+		map.put("cdata", cdata);
+		map.put("member_no", member_no);
+		map.put("result", true);
+		return map;
+	}
 }

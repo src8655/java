@@ -83,6 +83,8 @@
   </div>
 </div>
 
+<div id="ajax_header_bg">
+
 <c:if test="${cdata.file2 eq ''}"><div class="main_subject_bg" style="background:url(./images/office_bk.jpg) no-repeat center center;"></c:if>
 <c:if test="${cdata.file2 ne ''}"><div class="main_subject_bg" style="background:url(./upload/${cdata.file2}) no-repeat center center"></c:if>
   <div class="main_subject">
@@ -126,7 +128,7 @@
         <div class="col-sm-3 cover_img_align">
           <c:if test="${memberInfo ne null}">
           <c:if test="${memberInfo.no eq cdata.member_no}">
-          <a href="edit.o?member_no=${cdata.member_no}&pages=${pages}&searchValue=${searchValue_utf}&pages_rc=${pages_rc}" class="cover_img_btn">
+          <a href="#100" class="cover_img_btn" onclick="show2('view_edit_bg');document.body.style.overflow = 'hidden';">
             <img src="./images/camera.png" alt="camera" />기업정보 관리</a>
           </c:if>
           </c:if>
@@ -137,6 +139,10 @@
       </div>
     </div>
   </div>
+</div>
+
+
+
 </div>
 
 
@@ -161,11 +167,11 @@
               <span>${count3}</span><br />
               연봉정보
             </a></li>
-            <li><a href="#100" onclick="interview_post_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a">
+            <li><a href="#100" onclick="interview_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn4">
               <span>${count4}</span><br />
               면접후기
             </a></li>
-            <li><a href="recruit.o?member_no=${member_no}&pages=${pages}&searchValue=${searchValue_utf}&search=${search}&searchType=${searchType}&searchSort=${searchSort}&pages_rc=${pages_rc}" <c:if test="${tab eq 5}">class="nav_ul_li_a_hover"</c:if><c:if test="${tab ne 5}">class="nav_ul_li_a"</c:if>>
+            <li><a href="#100" onclick="recruit_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn5">
               <span>${count5}</span><br />
               채용공고
             </a></li>
@@ -178,3 +184,84 @@
     </div>
   </div>
 </nav>
+
+
+
+
+<c:if test="${memberInfo ne null}">
+<c:if test="${memberInfo.no eq member_no}">
+
+
+<div class="write_hide" id="view_edit_bg" style="display:none;">
+<div class="write_hide_scroll">
+
+	<div class="write_hide_scroll2s">
+    <div class="review_write_box">
+      <h1 id="rc_h">기업정보 관리</h1>
+      <form id="edit_forms" action="edit_post.o" method="post" enctype="multipart/form-data" onsubmit="return edit_submit(this);">
+      	<input type="hidden" name="member_no" value="${cdata.member_no}" />
+      	<input type="hidden" name="pages" value="${pages}" />
+      	<input type="hidden" name="searchValue" value="${searchValue_utf}" />
+      	<input type="file" name="files1" id="edit_file1" style="display:none;" onchange="change_img('edit_file1_img', this);" />
+      	<input type="file" name="files2" id="edit_file2" style="display:none;" onchange="change_img('edit_file2_img', this);" />
+      	
+      <div class="recruit_add_box_line">
+      	<div class="join_quest" style="width:102px;float:left;">
+          <h4>회사로고</h4>
+          <a href="#100" onclick="open_file('edit_file1');">
+          	<c:if test="${cdata.file1 eq ''}"><img src="./images/company_logo.jpg" width="100px" height="100px" alt="logo" id="edit_file1_img" class="edit_imgs" /></c:if>
+          	<c:if test="${cdata.file1 ne ''}"><img src="./upload/${cdata.file1}" width="100px" height="100px" alt="logo" id="edit_file1_img" class="edit_imgs" /></c:if>
+          </a>
+        </div>
+        <div class="join_quest" style="width:202px;float:left;">
+          <h4>회사배경</h4>
+          <a href="#100" onclick="open_file('edit_file2');">
+            <c:if test="${cdata.file2 eq ''}"><img src="./images/office_bk2.jpg" width="200px" height="100px" alt="logo" id="edit_file2_img" class="edit_imgs" /></c:if>
+          	<c:if test="${cdata.file2 ne ''}"><img src="./upload/${cdata.file2}" width="200px" height="100px" alt="office_bg" id="edit_file2_img" class="edit_imgs" /></c:if>
+          </a>
+        </div>
+	  </div>
+      <div class="recruit_add_box_line">
+        <input type="text" name="name" placeholder="대표" value="${cdata.name}" class="login_input" onchange="name_edit_check(this);" />
+        <div id="name_edit_msg" class="join_msg"></div>
+        <input type="text" name="founding" placeholder="설립일 2000-00-00" value="${cdata.founding}" class="login_input" onchange="founding_edit_check(this);" />
+        <div id="founding_edit_msg" class="join_msg"></div>
+        <input type="text" name="count" placeholder="사원수 0,000명(2018)" value="${cdata.count}" class="login_input" onchange="count_edit_check(this);" />
+        <div id="count_edit_msg" class="join_msg"></div>
+        <input type="text" name="money" placeholder="매출액 0,000원(2018)" value="${cdata.money}" class="login_input" onchange="money_edit_check(this);" />
+        <div id="money_edit_msg" class="join_msg"></div>
+        <input type="text" name="url" placeholder="웹사이트" class="login_input" value="${cdata.url}" onchange="url_edit_check(this);" />
+        <div id="url_edit_msg" class="join_msg"></div>
+        <input type="text" name="addr" placeholder="본사" class="login_input" value="${cdata.addr}" onchange="addr_edit_check(this);" />
+        <div id="addr_edit_msg" class="join_msg"></div>
+        <div class="join_quest">
+          <h4>기업형태</h4>
+          <select name="company_type" class="join_select" onchange="company_type_edit_check(this);">
+  			<option value="-1">선택</option>
+  			<option value="1" <c:if test="${cdata.company_type eq 1}">selected</c:if>>대기업</option>
+  			<option value="2" <c:if test="${cdata.company_type eq 2}">selected</c:if>>중소기업</option>
+  			<option value="3" <c:if test="${cdata.company_type eq 3}">selected</c:if>>벤처기업</option>
+  			</select>
+        	<div id="company_type_edit_msg" class="join_msg"></div>
+        </div>
+        <div class="join_quest">
+          <h4>기업설명</h4>
+          <textarea rows="100" cols="100" class="edit_textarea" name="info">${cdata.info}</textarea>
+        </div>
+        
+        <div class="review_write_box_line align-center">
+	      <input type="button" value="닫기" onclick="hide2('view_edit_bg');document.body.style.overflow = 'scroll';" class="review_write_btn2" />
+	      <input type="button" value="수정완료" class="review_write_btn1" onclick="edit_post_ajax(document.getElementById('edit_forms'),${member_no});" />
+      	</div>
+      </form>
+	  </div>
+	  
+	</div>
+	</div>
+   
+
+</div>
+</div>
+
+</c:if>
+</c:if>
