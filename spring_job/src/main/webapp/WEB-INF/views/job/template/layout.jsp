@@ -436,7 +436,7 @@ function login_password_check(var1) {
 			login_password = true;
 	}
 }
-function login_submit(var1) {
+function login_submit(var1, member_no) {
 	login_email_check(var1.email);
 	login_password_check(var1.password);
 	
@@ -467,7 +467,7 @@ function login_submit(var1) {
 				$("#login_msg").html(htmls);
 				res = false;
 			}else {
-				var1.submit();
+				login_ajax(var1, member_no);
 			}
 		},
 		error:function(r,s,e) {
@@ -1923,15 +1923,13 @@ function review_ajax(pages_r, member_no) {
 			htmls += '    <div class="col-sm-1"></div>';
 			htmls += '    <div class="col-sm-10">';
 			
-			if(result.memberInfo == null) {
-				htmls += '    <div class="review_write">';
-				htmls += '    	<a href="login.o">새로운리뷰 작성하기</a>';
-				htmls += '    </div>';
-			}else if(result.memberInfo.orders == 1) {
-				htmls += '    <div class="review_write">';
-				htmls += '    	<a href="#100" onclick="show2(\'review_write\');document.body.style.overflow = \'hidden\';">새로운리뷰 작성하기</a>';
-				htmls += '    </div>';
+			htmls += '    <div class="review_write log_1" ';
+			if(result.memberInfo == null || (result.memberInfo != null && result.memberInfo.orders != 1)) {
+				htmls += ' style="display:none;" ';
 			}
+			htmls += ' id="review_write_btn_bg">';
+			htmls += '    	<a href="#100" onclick="show2(\'review_write\');document.body.style.overflow = \'hidden\';">새로운리뷰 작성하기</a>';
+			htmls += '    </div>';
 			
 			
 			//총 리뷰
@@ -2180,7 +2178,7 @@ function income_ajax(member_no) {
 		},
 		success:function(result){
 			var htmls = "";
-			htmls += '<div class="write_hide" id="review_write" style="display:none;">';
+			htmls += '<div class="write_hide" id="income_write" style="display:none;">';
 			htmls += '<div class="write_hide_scroll">';
 			htmls += '    <form id="income_forms">';
 			htmls += '    <div class="write_hide_scroll2">';
@@ -2259,7 +2257,7 @@ function income_ajax(member_no) {
 			htmls += '	      </p>';
 			htmls += '      </div>';
 			htmls += '      <div class="review_write_box_line align-center">';
-			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'review_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
+			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'income_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
 			htmls += '	      <input type="button" value="제출하기" class="review_write_btn1" onclick="income_post_ajax(document.getElementById(\'income_forms\'),'+member_no+')" />';
 			htmls += '      </div>';
 			htmls += '    </div>';
@@ -2283,15 +2281,14 @@ function income_ajax(member_no) {
 			htmls += '    <div class="col-sm-1 col-md-2 col-lg-2"></div>';
 			htmls += '    <div class="col-sm-10 col-md-8 col-lg-8">';
 
-			if(result.memberInfo == null) {
-				htmls += '    <div class="review_write">';
-				htmls += '    	<a href="login.o">새로운 연봉정보 작성하기</a>';
-				htmls += '    </div>';
-			}else if(result.memberInfo.orders == 1) {
-				htmls += '    <div class="review_write">';
-				htmls += '    	<a href="#100" onclick="show2(\'review_write\');document.body.style.overflow = \'hidden\';">새로운 연봉정보 작성하기</a>';
-				htmls += '    </div>'
+			htmls += '    <div class="review_write log_1" ';
+			if(result.memberInfo == null || (result.memberInfo != null && result.memberInfo.orders != 1)) {
+				htmls += ' style="display:none;" ';
 			}
+			htmls += ' id="income_write_btn_bg">';
+			htmls += '    	<a href="#100" onclick="show2(\'income_write\');document.body.style.overflow = \'hidden\';">새로운 연봉정보 작성하기</a>';
+			htmls += '    </div>'
+				
 			
 			htmls += '    <div class="income_header">';
 			htmls += '      <div class="income_header_l">';
@@ -2423,7 +2420,7 @@ function interview_ajax(pages_r, member_no) {
 		},
 		success:function(result){
 			var htmls = "";
-			htmls += '<div class="write_hide" id="review_write" style="display:none;">';
+			htmls += '<div class="write_hide" id="interview_write" style="display:none;">';
 			htmls += '<div class="write_hide_scroll">';
 			htmls += '    <form id="interview_forms">';
 			htmls += '    <div class="write_hide_scroll2">';
@@ -2595,7 +2592,7 @@ function interview_ajax(pages_r, member_no) {
 			htmls += '      </div>';
 
 			htmls += '      <div class="review_write_box_line align-center">';
-			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'review_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
+			htmls += '	      <input type="button" value="닫기" onclick="hide2(\'interview_write\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />';
 			htmls += '	      <input type="button" value="제출하기" class="review_write_btn1" onclick="interview_post_ajax(document.getElementById(\'interview_forms\'),'+member_no+')" />';
 			htmls += '      </div>';
 			htmls += '    </div>';
@@ -2612,15 +2609,13 @@ function interview_ajax(pages_r, member_no) {
 			htmls += '    <div class="col-sm-10">';
 			
 			
-			if(result.memberInfo == null) {
-				htmls += '    <div class="review_write">';
-				htmls += '    	<a href="login.o">새로운 면접후기 작성하기</a>';
-				htmls += '    </div>';
-			}else if(result.memberInfo.orders == 1) {
-				htmls += '    <div class="review_write">';
-				htmls += '    	<a href="#100" onclick="show2(\'review_write\');document.body.style.overflow = \'hidden\';">새로운 면접후기 작성하기</a>';
-				htmls += '    </div>';
+			htmls += '    <div class="review_write log_1" ';
+			if(result.memberInfo == null || (result.memberInfo != null && result.memberInfo.orders != 1)) {
+				htmls += ' style="display:none;" ';
 			}
+			htmls += ' id="interview_write_btn_bg">';
+				htmls += '    	<a href="#100" onclick="show2(\'interview_write\');document.body.style.overflow = \'hidden\';">새로운 면접후기 작성하기</a>';
+				htmls += '    </div>';
 			
 			htmls += '    <div class="income_header" style="margin-bottom:0px;border-bottom:1px solid #e6e6e6;">';
 			htmls += '      <div class="income_header_l">';
@@ -2877,7 +2872,6 @@ function recruit_ajax(pages_r, member_no) {
 		success:function(result){
 			var htmls = "";
 			
-			if(result.memberInfo != null && result.memberInfo.no == member_no) {
 				htmls += '	<div class="write_hide" id="recruit_write" style="display:none;">	';
 				htmls += '	<div class="write_hide_scroll">	';
 				htmls += '	<form id="recruit_write_forms">	';
@@ -3038,7 +3032,6 @@ function recruit_ajax(pages_r, member_no) {
 				htmls += '	</form> 	';
 				htmls += '	</div>	';
 				htmls += '	</div>	';
-			}
 			
 			
 			
@@ -3051,11 +3044,18 @@ function recruit_ajax(pages_r, member_no) {
 			htmls += '	<div class="col-sm-1 col-md-2 col-lg-2"></div>	';
 			htmls += '	<div class="col-sm-10 col-md-8 col-lg-8">	';
 			htmls += '		';
-			if(result.memberInfo != null && result.memberInfo.no == member_no) {
-				htmls += '	<div class="review_write">	';
+			
+			
+			htmls += '    <div class="review_write log_same" ';
+			if(result.memberInfo == null || (result.memberInfo != null && result.memberInfo.no != member_no)) {
+				htmls += ' style="display:none;" ';
+			}
+			htmls += ' id="recruit_write_btn_bg">';
 				htmls += '	<a href="#100" onclick="show2(\'recruit_write\');document.body.style.overflow = \'hidden\';">새로운 채용정보 작성하기</a>	';
 				htmls += '	</div>	';
-			}
+			
+			
+			
 			htmls += '		';
 			htmls += '	<div class="recruit_list">	';
 			htmls += '	<ul>	';
@@ -3174,7 +3174,6 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 		success:function(result){
 			var htmls = "";
 			
-			if(result.memberInfo != null && result.memberInfo.no == member_no) {
 				var rcdata = result.rcdata;
 				htmls += '	<!-- 수정 -->	';
 				htmls += '	<div class="write_hide" id="recruit_edit" style="display:none;">	';
@@ -3338,7 +3337,6 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 				htmls += '	</div>	';
 				htmls += '	</div>	';
 				htmls += '		';
-			}
 
 			
 			
@@ -3422,27 +3420,32 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 			htmls += '	<div class="col-sm-1 col-md-2 col-lg-2"></div>	';
 			htmls += '	<div class="col-sm-10 col-md-8 col-lg-8">	';
 			htmls += '		';
-			if(result.memberInfo == null) {
-				htmls += '	<div class="review_write">	';
-				htmls += '	<a href="login.o" style="background:#219bf0;border:1px solid #219bf0;">지원하기</a>	';
-				htmls += '	</div>	';
-			}else if(result.memberInfo.orders == 1) {
-				htmls += '	<div class="review_write">	';
+			htmls += '    <div class="review_write log_1" ';
+			if(result.memberInfo == null || (result.memberInfo != null && result.memberInfo.orders != 1)) {
+				htmls += ' style="display:none;" ';
+			}
+			htmls += ' id="recruit_add_btn_bg">';
 				htmls += '	<a href="#100" onclick="show2(\'recruit_add\');document.body.style.overflow = \'hidden\';" style="background:#219bf0;border:1px solid #219bf0;">지원하기</a>	';
 				htmls += '	</div>	';
-			}
 			
-			var rcdata = result.rcdata;
 			htmls += '	<div class="recruit_subject">	';
 			htmls += '	<div class="recruit_dates">	';
 			htmls += '	<span>D-'+rcdata.dday+'</span> '+rcdata.dates+' ~ '+rcdata.enddates;
 			htmls += '	&nbsp;&nbsp;	';
 			htmls += '	<div>'+rcdata.dates+' 등록</div>	';
 			htmls += '	<a href="#100" onclick="recruit_ajax('+pages_r+','+member_no+')" class="recruit_a">목록보기</a>	';
-			if(result.memberInfo != null && result.memberInfo.no == member_no) {
+			
+			
+			htmls += '    <div class="log_same" style="border:0px;';
+			if(result.memberInfo == null || (result.memberInfo != null && result.memberInfo.no != member_no)) {
+				htmls += ' display:none;';
+			}
+			htmls += '" id="recruit_edit_btn_bg">';
 				htmls += '	<a href="#100" onclick="show2(\'recruit_edit\');document.body.style.overflow = \'hidden\';" class="recruit_a">수정</a>	';
 				htmls += '	<a href="#100" onclick="dialog_del(\'정말로 삭제하시겠습니까?\','+recruit_no+','+pages_r+','+member_no+');" class="recruit_a">삭제</a>	';
-			}
+				htmls += '</div>';
+			
+			
 			htmls += '	</div>	';
 			htmls += '	<h2>'+rcdata.subject+'</h2>	';
 			htmls += '	</div>	';
@@ -3735,12 +3738,355 @@ function view_header_ajax(member_no) {
 		}
 	});
 }
-//////////////////////////////////////////
+//로그인 ajax
+function login_ajax(forms, member_no) {
+	var ischecked = -1;
+	if(forms.save_id.checked == true)
+		ischecked = 1;
+	$.ajax({
+		url:'login_post_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			email:forms.email.value,
+			password:forms.password.value,
+			save_id:ischecked
+		},
+		success:function(result){
+			var htmls = "";
+			
+			var memberInfo = result.memberInfo;
+			htmls += '          <li class="header_ul_li" onmousemove="show(\'top_sub_id\');" onmouseleave="hide(\'top_sub_id\')"><a href="#100" class="header_ul_li_a">'+memberInfo.name+' 님</a>';
+			htmls += '          	<div id="top_sub_id" class="top_sub" style="display:none;">';
+			htmls += '          		<a href="#100" onclick="logout_ajax('+member_no+');">로그아웃</a>';
+			htmls += '          		<a href="login_edit.o">회원수정</a>';
+			htmls += '          	</div>';
+			htmls += '          </li>';
+			if(memberInfo.orders == 1) htmls += '            <li class="header_ul_li"><a href="#100" class="header_ul_li_a">마이페이지</a></li>';
+			if(memberInfo.orders == 2) htmls += '            <li class="header_ul_li"><a href="view.o?member_no='+memberInfo.no+'" class="header_ul_li_a">내 기업</a></li>';
+			
+			document.getElementById("login_btn_bg").innerHTML = htmls;
+			
+			
+			htmls = "";
+			htmls += '<li><a href="#100" onclick="hide2(\'xs_menu_id\');document.body.style.overflow=\'scroll\';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>';
+			htmls += '          <li onclick="toggle2(\'top_sub_id2\');">';
+			htmls += '            <a href="#100">'+memberInfo.name+' 님</a>';
+			htmls += '          </li>';
+			htmls += '          <div id="top_sub_id2" style="display:none;">';
+			htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax('+member_no+');">&nbsp;&nbsp;로그아웃</a></li>';
+			htmls += '          	<li><a href="login_edit.o" style="background:#e6e6e6;">&nbsp;&nbsp;회원수정</a></li>';
+			htmls += '          </div>';
+			if(memberInfo.orders == 1) htmls += '            <li><a href="#100">마이페이지</a></li>';
+			if(memberInfo.orders == 2) htmls += '            <li><a href="view.o?member_no='+memberInfo.no+'">내 기업</a></li>';
+			htmls += '	    <li><a href="list.o?search=1">기업정보</a></li>';
+			htmls += '	    <li><a href="list.o?search=2">채용정보</a></li>';
 
+			document.getElementById("login_btn_bg2").innerHTML = htmls;
+			
+			
+			
+			
+			
+			hide2('login_float_bg');document.body.style.overflow = 'scroll';
+			
+			
+			
+			if(memberInfo.orders == 1) {
+				$(".log_1").each(function(){
+					$(this).css("display","");
+				});
+			}
+			if(memberInfo.no == member_no) {
+				$(".log_same").each(function(){
+					$(this).css("display","");
+				});
+			}
+			
+			//팔로우 처리
+			var list = result.list;
+			var list_length = Object.keys(list).length;
+			
+			var i = 0;
+			for(i=0;i<list_length;i++) {
+				var data = parseInt(list[i]);
+				if(member_no == data) {
+					document.getElementById('follow_heart').setAttribute("src","./images/heart2.jpg");
+				}
+				$(".list_follow_img_"+data).each(function(){
+					$(this).attr("src","./images/list_heart2.jpg");
+				});
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//로그아웃 ajax
+function logout_ajax(member_no) {
+	$.ajax({
+		url:'logout_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{},
+		success:function(result){
+			var htmls = "";
+			
+			htmls += '<li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2(\'login_float_bg\');document.body.style.overflow = \'hidden\';hide2(\'xs_menu_id\');">로그인</a></li>';
+			htmls += '<li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2(\'join_float_bg\');document.body.style.overflow = \'hidden\';">회원가입</a></li>';
+			
+			
+			document.getElementById("login_btn_bg").innerHTML = htmls;
+			
+			htmls = "";
+			htmls += '<li><a href="#100" onclick="hide2(\'xs_menu_id\');document.body.style.overflow=\'scroll\';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>';
+			htmls += '<li><a href="#100" onclick="show2(\'login_float_bg\');document.body.style.overflow = \'hidden\';">로그인</a></li>';
+			htmls += '<li><a href="#100" onclick="show2(\'join_float_bg\');document.body.style.overflow = \'hidden\';">회원가입</a></li>';
+			htmls += '	    <li><a href="list.o?search=1">기업정보</a></li>';
+			htmls += '	    <li><a href="list.o?search=2">채용정보</a></li>';
+
+			document.getElementById("login_btn_bg2").innerHTML = htmls;
+			
+			hide2('xs_menu_id');
+			document.body.style.overflow='scroll';
+			
+			$(".log_1").each(function(){
+				$(this).css("display","none");
+			});
+			$(".log_same").each(function(){
+				$(this).css("display","none");
+			});
+			
+			//view의 팔로우
+			document.getElementById('follow_heart').setAttribute("src","./images/heart.jpg");
+			
+			//index와 list의 팔로우
+			$(".list_follow_img").each(function(){
+				$(this).attr("src","./images/list_heart.jpg");
+			});
+			
+			
+			document.getElementById('view_follow_bg').innerHTML = tmp;
+			
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//회원 가입완료
+function join_ajax(forms) {
+	//유효성검사 통과시에만 실행
+	if(join_submit(forms) == true) {
+		$.ajax({
+			url:'join_post_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				orders:forms.orders.value,
+				email:forms.email.value,
+				password:forms.password.value,
+				password2:forms.password2.value,
+				company:forms.company.value,
+				company_cate:forms.company_cate.value,
+				company_num:forms.company_num.value,
+				name:forms.name.value,
+				phone1:forms.phone1.value,
+				phone2:forms.phone2.value,
+				phone3:forms.phone3.value,
+				quest:forms.quest.value,
+				answer:forms.answer.value
+			},
+			success:function(result){
+				if(result.result != true) {
+					alert(result.msg);
+				}else{
+					alert('가입완료');
+					document.body.style.overflow = 'scroll';
+					hide2('join_float_bg');
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//////////////////////////////////////////
+ function test() {
+	$.ajax({
+ 		url:'http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncFullDown',
+ 		type:'GET',
+ 		dataType : "XML",
+ 		data:
+ 			'serviceKey=jFL79fWz6XyUd8JQv2gMU4wH4H%2BSIRcFDrL5VLk5QiZaT7AbfjRT7BRLvf4oSSUG1%2FzWXLK3%2Fe96pQVZrw%2F9Mw%3D%3D&pageNo=1&numOfRows=100'
+ 		,
+ 		success:function(result){
+ 			var items = $(result).find("item");	//item 태그를 찾음
+ 			var length = $(items).length;		//item 태그의 개수를 찾음
+ 			var i = 0;
+			var htmls = "";
+			
+			htmls += '<table border="1">';
+ 			for(i=0;i<length;i++) {
+ 				htmls += '<tr>';
+ 				htmls += '<td>';
+ 				htmls += $(items[i]).find("dutyEmcls").text();
+ 				htmls += '</td>';
+
+ 				htmls += '<td>';
+ 				htmls += $(items[i]).find("dutyName").text();
+ 				htmls += '</td>';
+
+ 				htmls += '<td>';
+ 				htmls += $(items[i]).find("dutyDivNam").text();
+ 				htmls += '</td>';
+
+ 				htmls += '<td>';
+ 				htmls += $(items[i]).find("dutyAddr").text();
+ 				htmls += '</td>';
+
+ 				htmls += '<td>';
+ 				htmls += $(items[i]).find("dutyTel1").text();
+ 				htmls += '</td>';
+ 				htmls += '</tr>';
+ 			}
+			htmls += '</table>';
+ 			document.getElementById("testtest").innerHTML = htmls;	//testtest에 표시함
+ 			
+ 		},
+ 		error:function(r,s,e) {
+ 			alert('error');
+ 		}
+ 	});
+} 
 
 </script>
 </head>
 <body>
+
+
+<!-- 로그인 -->
+<div class="write_hide" id="login_float_bg" style="display:none;">
+<div class="write_hide_scroll">
+
+	<div class="write_hide_scroll2s">
+    <div class="review_write_box">
+      <div style="overflow:hidden;">
+      	<div style="width:50%;float:left;"><h1 id="rc_h">로그인</h1></div>
+      	<div style="width:50%;float:right;text-align:right;">
+			<a href="#100" class="review_write_btn2" style="width:85%;" onclick="hide2('login_float_bg');document.body.style.overflow = 'scroll';">닫기</a>
+		</div>
+      </div>
+      <div class="recruit_add_box_line">
+	      <form id="login_forms" action="login_post.o" method="post" onsubmit="return login_submit(this)">
+	        <input type="text" name="email" placeholder="이메일 주소" class="login_input" value="${save_id_auths}" onchange="login_email_check(this);" />
+	        <div id="login_email_msg" class="join_msg"></div>
+	        <input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="login_password_check(this);" />
+	        <div id="login_password_msg" class="join_msg"></div>
+	        <input type="button" value="로그인" class="login_btn" onclick="login_submit(document.getElementById('login_forms'),${member_no});" />
+	        <div id="login_msg" class="join_msg"></div>
+	        <input type="checkbox" name="save_id" id="save_id" value="1" <c:if test="${save_id_auths ne ''}">checked</c:if> />
+	        <label for="save_id">아이디 저장</label>
+	      </form>
+	      <div class="login_find">
+	        <a href="#100">아이디 찾기</a> /
+	        <a href="#100">비밀번호 찾기</a>
+	      </div>
+	      <div class="login_box_b">
+	        아직 회원이 아니세요?
+	        &nbsp;&nbsp;
+	        <a href="#100" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a>
+	      </div>
+      </div>
+    </div>
+    </div>
+</div>
+</div>
+
+
+<!-- 회원가입 -->
+<div class="write_hide" id="join_float_bg" style="display:none;">
+<div class="write_hide_scroll">
+
+	<div class="write_hide_scroll2s">
+    <div class="review_write_box">
+    	<ul class="join_t">
+	      <li><a href="#" class="join_t_li_a_hover" id="join_btn_01" onclick="join_tab(this, false);">개인회원</a></li>
+	      <li><a href="#" class="join_t_li_a" id="join_btn_02" onclick="join_tab(this, true);">기업회원</a></li>
+	    </ul>
+      <div style="overflow:hidden;">
+      	<div style="width:50%;float:left;"><h1 id="rc_h">회원가입</h1></div>
+      	<div style="width:50%;float:right;text-align:right;">
+			<a href="#100" class="review_write_btn2" style="width:85%;" onclick="hide2('join_float_bg');document.body.style.overflow = 'scroll';">닫기</a>
+		</div>
+      </div>
+      <div class="recruit_add_box_line">
+	      <form id="join_forms" action="join_post.o" method="post" onsubmit="return join_submit(this)">
+      	<input type="hidden" name="orders" value="1" class="login_input" id="join_orders" />
+        <input type="text" name="email" placeholder="이메일 주소" class="login_input" onchange="email_check(this);" />
+        <div id="email_msg" class="join_msg"></div>
+        <input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="password_check(this);" />
+        <div id="password_msg" class="join_msg"></div>
+        <input type="password" name="password2" placeholder="비밀번호 확인" class="login_input" onchange="password2_check(this);" />
+        <div id="password2_msg" class="join_msg"></div>
+        
+        <div id="join_02" style="display:none;">
+        	<br /><br />
+	        <input type="text" name="company" placeholder="기업명" class="login_input" onchange="company_check(this);" />
+	        <div id="company_msg" class="join_msg"></div>
+	        <select name="company_cate" class="join_select" onchange="company_cate_check(this);">
+	          <option value="-1">산업군</option>
+	          <option value="1">서비스업</option>
+	          <option value="2">제조/화학</option>
+	          <option value="3">의료/제약/복지</option>
+	          <option value="4">유통/무역/운송</option>
+	          <option value="5">교육업</option>
+	          <option value="6">건설업</option>
+	          <option value="7">IT/웹/통신</option>
+	          <option value="8">미디어/디자인</option>
+	          <option value="9">은행/금융업</option>
+	          <option value="10">기관/협회</option>
+	        </select>
+	        <div id="company_cate_msg" class="join_msg"></div>
+	        <input type="text" name="company_num" placeholder="사업자등록번호" class="login_input" onchange="company_num_check(this);" />
+	        <div id="company_num_msg" class="join_msg"></div>
+	        <br /><br />
+        </div>
+        
+        <input type="text" name="name" placeholder="이름" class="login_input" onchange="name_check(this);" />
+        <div id="name_msg" class="join_msg"></div>
+        <div class="join_phone" style="overflow:hidden;">
+          <h4>전화번호</h4>
+          <input type="text" name="phone1" placeholder="010" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="phone1_check(this);" />
+          <div>-</div>
+          <input type="text" name="phone2" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="phone2_check(this);" />
+          <div>-</div>
+          <input type="text" name="phone3" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="phone3_check(this);" />
+        </div>
+        <div id="phone_msg" class="join_msg"></div>
+        <div class="join_quest">
+          <h4>질문/답변</h4>
+          <select name="quest" class="join_select" onchange="quest_check(this);">
+  			<option value="-1">질문을 선택해 주세요.</option>
+  			<option value="1">나의 아버지 이름은?</option>
+  			<option value="2">내가 다니던 학교 이름은?</option>
+  			<option value="3">나의 취미는?</option>
+  			<option value="4">내가 좋아하던 게임은?</option>
+  			<option value="5">나의 직업은?</option>
+  			</select>
+        	<div id="quest_msg" class="join_msg"></div>
+  			<input type="text" name="answer" placeholder="답변" class="login_input" onchange="answer_check(this);" />
+        	<div id="answer_msg" class="join_msg"></div>
+        </div>
+        <input type="button" value="회원가입" class="login_btn" onclick="join_ajax(document.getElementById('join_forms'));" />
+      </form>
+      </div>
+    </div>
+    </div>
+</div>
+</div>
 
 <tiles:insertAttribute name="header" />
 

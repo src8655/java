@@ -100,26 +100,7 @@ padding:0px;
 .search_box_align {
 text-align:center;
 }
-.header_ul {
-width:100%;
-list-style:none;
-padding:0px;
-margin:0px;
-display:inline-block;
-}
-.header_ul_li {
-display:inline-block;
-}
-.header_ul_li_a {
-display:inline-block;
-padding:10px 18px 10px 18px;
-font-size:14px;
-color:#ffffff;
-}
-.header_ul_li_a:hover {
-text-decoration:none;
-color:#ffffff;
-}
+
 .search_box {
 background:#ffffff;
 width:200px;
@@ -947,9 +928,10 @@ text-decoration:none;
 color:#32aa46;
 }
 .join_t {
+width:100%;
 list-style:none;
 background:#ffffff;
-margin:50px 0 0 0;
+margin:0px;
 padding:0px;
 display:inline-block;
 }
@@ -957,7 +939,7 @@ display:inline-block;
 width:50%;
 height:60px;
 float:left;
-margin:0px;
+margin:0 0 10px 0;
 padding:0px;
 overflow:hidden;
 }
@@ -965,6 +947,7 @@ overflow:hidden;
 display:block;
 line-height:58px;
 font-size:18px;
+text-align:center;
 text-decoration:none;
 }
 .join_t li a:hover {
@@ -1645,9 +1628,77 @@ border-bottom-left-radius:10px;
 border-bottom-right-radius:10px;
 overflow:hidden;
 }
-
-
-
+.header h2 {
+width:103px;
+height:20px;
+line-height:20px;
+padding:0px;
+margin:12px 0 0 0;
+float:left;
+overflow:hidden;
+}
+.search_box_bg {
+display:inline-block;
+overflow:hidden;
+}
+.search_box2 {
+background:#ffffff;
+border-radius:5px;
+display:block;
+margin-top:7px;
+float:right;
+overflow:hidden;
+}
+.search_box2 input {
+background:none;
+float:left;
+border:0px;
+height:30px;
+line-height:30px;
+font-size:15px;
+margin:0px;
+padding:0px;
+}
+.search_box2 a {
+width:25px;
+height:30px;
+line-height:27px;
+float:right;
+padding:5px 0 0 0;
+}
+.last_align_l {
+float:left;
+overflow:hidden;
+}
+.last_align_c {
+float: left;
+}
+.last_align_r {
+float:right;
+overflow:hidden;
+}
+.header_ul {
+width:100%;
+list-style:none;
+padding:0px;
+margin:0px;
+display:inline-block;
+}
+.header_ul_li {
+display:inline-block;
+}
+.header_ul_li_a {
+height:42px;
+line-height:42px;
+text-align:center;
+padding:0px;
+color:#ffffff;
+display:inline-block;
+}
+.header_ul_li_a:hover {
+text-decoration:none;
+color:#ffffff;
+}
 
 
 
@@ -1730,9 +1781,6 @@ overflow:hidden;
   .login_box {
     width:400px;
   }
-  .join_t {
-    width:400px;
-  }
   .write_hide_scroll2 {
   	width:800px;
   	left:50%;
@@ -1775,6 +1823,30 @@ overflow:hidden;
   }
   .recruit_list ul li {
     width:50%;
+  }
+  
+  
+  .search_box_bg {
+    width:313px;
+  }
+  .search_box2 {
+    width:200px;
+  }
+  .search_box2 input {
+    width:175px;
+  }
+  .last_align_l {
+    width:190px;
+  }
+  .last_align_c {
+    margin-left:140px;
+  }
+  .last_align_r {
+    width:190px;
+  }
+  .header_ul_li_a {
+    font-size:14px;
+    width:90px;
   }
 }
 @media screen and (max-width:1200px) {
@@ -1855,9 +1927,6 @@ overflow:hidden;
   .login_box {
     width:400px;
   }
-  .join_t {
-    width:400px;
-  }
   .write_hide_scroll2 {
   	width:700px;
   	left:50%;
@@ -1900,6 +1969,30 @@ overflow:hidden;
   }
   .recruit_list ul li {
     width:50%;
+  }
+  
+  
+  .search_box_bg {
+    width:313px;
+  }
+  .search_box2 {
+    width:200px;
+  }
+  .search_box2 input {
+    width:175px;
+  }
+  .last_align_l {
+    width:190px;
+  }
+  .last_align_c {
+    margin-left:42px;
+  }
+  .last_align_r {
+    width:190px;
+  }
+  .header_ul_li_a {
+    font-size:14px;
+    width:90px;
   }
 }
 @media screen and (max-width:992px) {
@@ -1980,9 +2073,6 @@ overflow:hidden;
   .login_box {
     width:400px;
   }
-  .join_t {
-    width:400px;
-  }
   .write_hide_scroll2 {
   	width:600px;
   	left:50%;
@@ -2023,6 +2113,30 @@ overflow:hidden;
   }
   .recruit_list ul li {
     width:50%;
+  }
+  
+  
+  .search_box_bg {
+    width:271px;
+  }
+  .search_box2 {
+    width:158px;
+  }
+  .search_box2 input {
+    width:133px;
+  }
+  .last_align_l {
+    width:160px;
+  }
+  .last_align_c {
+    margin-left:1px;
+  }
+  .last_align_r {
+    width:160px;
+  }
+  .header_ul_li_a {
+    font-size:13px;
+    width:75px;
   }
 }
 @media screen and (max-width:767px) {
@@ -2104,9 +2218,6 @@ overflow:hidden;
     padding-right:10px;
   }
   .login_box {
-    width:100%;
-  }
-  .join_t {
     width:100%;
   }
   .write_hide_scroll2 {

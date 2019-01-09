@@ -4,19 +4,22 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
+
 <div class="xs_menu" id="xs_menu_id" style="display:none;">
-	<ul>
+	<ul id="login_btn_bg2">
 		<li><a href="#100" onclick="hide2('xs_menu_id');document.body.style.overflow='scroll';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>
         <c:if test="${memberInfo eq null}">
-		<li><a href="login.o">로그인</a></li>
-		<li><a href="join.o">회원가입</a></li>
+		<li><a href="#100" onclick="show2('login_float_bg');document.body.style.overflow = 'hidden';hide2('xs_menu_id');">로그인</a></li>
+		<li><a href="#100" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">
           <li onclick="toggle2('top_sub_id2');">
             <a href="#100">${memberInfo.name} 님</a>
           </li>
           <div id="top_sub_id2" style="display:none;">
-          	<li><a href="logout.o" style="background:#e6e6e6;">&nbsp;&nbsp;로그아웃</a></li>
+          	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax(${member_no});">&nbsp;&nbsp;로그아웃</a></li>
           	<li><a href="login_edit.o" style="background:#e6e6e6;">&nbsp;&nbsp;회원수정</a></li>
           </div>
           <c:if test="${memberInfo.orders eq 1}">
@@ -35,10 +38,9 @@
     <div class="row">
     
       <div class="col-sm-1"></div>
-      <div class="col-sm-3">
-      
-      	<div class="header_logo_bg">
-			<a href="#100" onclick="show2('xs_menu_id');document.body.style.overflow='hidden';" class="hidden-sm hidden-md hidden-lg nav_menu">
+      <div class="hidden-sm hidden-md hidden-lg">
+      	<div class="header_logo_bg ">
+			<a href="#100" onclick="show2('xs_menu_id');document.body.style.overflow='hidden';" class=" nav_menu">
 				<div></div>
 				<div></div>
 				<div></div>
@@ -46,7 +48,7 @@
 	      	<h1 class="logo_float"><a href="index.o"><img src="./images/logo.jpg" alt="logo" /></a></h1>
       	</div>
       </div>
-      <div class="col-sm-3 search_box_align">
+      <div class="search_box_align hidden-sm hidden-md hidden-lg">
         <div class="search_box">
           <form action="list.o" id="top_search">
           <input type="text" name="searchValue" />
@@ -54,28 +56,50 @@
           </form>
         </div>
       </div>
-      <div class="col-sm-4 top_menu_align">
-        <ul class="header_ul hidden-xs">
-        <c:if test="${memberInfo eq null}">
-          <li class="header_ul_li"><a href="login.o" class="header_ul_li_a">로그인</a></li>
-          <li class="header_ul_li"><a href="join.o" class="header_ul_li_a">회원가입</a></li>
-        </c:if>
-        <c:if test="${memberInfo ne null}">
-          <li class="header_ul_li" onmousemove="show('top_sub_id');" onmouseleave="hide('top_sub_id')"><a href="#100" class="header_ul_li_a">${memberInfo.name} 님</a>
-          	<div id="top_sub_id" class="top_sub" style="display:none;">
-          		<a href="logout.o">로그아웃</a>
-          		<a href="login_edit.o">회원수정</a>
-          	</div>
-          </li>
-          <c:if test="${memberInfo.orders eq 1}">
-            <li class="header_ul_li"><a href="#100" class="header_ul_li_a">마이페이지</a></li>
-          </c:if>
-          <c:if test="${memberInfo.orders eq 2}">
-            <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>
-          </c:if>
-        </c:if>
-        </ul>
-      </div>
+      
+      <div class="col-sm-10 hidden-xs">
+	      <div class="last_align_l top_menu_align_left">
+	        <ul class="header_ul hidden-xs">
+	          <li class="header_ul_li"><a href="list.o?search=1" class="header_ul_li_a">기업정보</a></li>
+	          <li class="header_ul_li"><a href="list.o?search=2" class="header_ul_li_a">채용정보</a></li>
+	        </ul>
+	      </div>
+	      
+	      <div class="last_align_c">
+	      	<div class="search_box_bg">
+		        <form action="list.o" id="top_search">
+		      	<h2 class="logo_float"><a href="index.o"><img src="./images/logo.jpg" alt="logo" /></a></h2>
+		        <div class="search_box2">
+		          <input type="text" name="searchValue" />
+		          <a href="#100" onclick="top_search.submit();"><img src="./images/search_btn.jpg" alt="search" /></a>
+		        </div>
+		        </form>
+	        </div>
+	      </div>
+	      
+	      <div class="last_align_r top_menu_align">
+	        <ul class="header_ul hidden-xs" id="login_btn_bg">
+	        <c:if test="${memberInfo eq null}">
+	          <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2('login_float_bg');document.body.style.overflow = 'hidden';">로그인</a></li>
+	          <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a></li>
+	        </c:if>
+	        <c:if test="${memberInfo ne null}">
+	          <li class="header_ul_li" onmousemove="show('top_sub_id');" onmouseleave="hide('top_sub_id')"><a href="#100" class="header_ul_li_a">${memberInfo.name} 님</a>
+	          	<div id="top_sub_id" class="top_sub" style="display:none;">
+	          		<a href="#100" onclick="logout_ajax(${member_no});">로그아웃</a>
+	          		<a href="login_edit.o">회원수정</a>
+	          	</div>
+	          </li>
+	          <c:if test="${memberInfo.orders eq 1}">
+	            <li class="header_ul_li"><a href="#100" class="header_ul_li_a">마이페이지</a></li>
+	          </c:if>
+	          <c:if test="${memberInfo.orders eq 2}">
+	            <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>
+	          </c:if>
+	        </c:if>
+	        </ul>
+	      </div>
+	  </div>
       <div class="col-sm-1"></div>
       
       
@@ -110,8 +134,12 @@
               <c:if test="${cdata.company_cate eq 9}">은행/금융업</c:if>
               <c:if test="${cdata.company_cate eq 10}">기관/협회</c:if>
             <br />
+            
             <c:if test="${memberInfo eq null}">
-            	<a href="login.o" class="follow_btn"><img src="./images/heart.jpg" alt="heart" />팔로우</a>
+            	<a href="#100" onclick="follow_ajax(${member_no},'follow_heart');" class="follow_btn">
+            		<img src="./images/heart.jpg" alt="heart" id="follow_heart" />
+            		팔로우
+            	</a>
             </c:if>
             <c:if test="${memberInfo ne null}">
             	<a href="#100" onclick="follow_ajax(${member_no},'follow_heart');" class="follow_btn">
@@ -120,18 +148,18 @@
             		팔로우
             	</a>
             </c:if>
+            
             <img src="./images/star.png" alt="star" /> ${cdata.avg_stars}
             <br />
             <a href="${cdata.url}" class="url_btn">${cdata.url}</a>
           </p>
         </div>
         <div class="col-sm-3 cover_img_align">
-          <c:if test="${memberInfo ne null}">
-          <c:if test="${memberInfo.no eq cdata.member_no}">
-          <a href="#100" class="cover_img_btn" onclick="show2('view_edit_bg');document.body.style.overflow = 'hidden';">
-            <img src="./images/camera.png" alt="camera" />기업정보 관리</a>
-          </c:if>
-          </c:if>
+        <a href="#100" class="cover_img_btn log_same"
+          <c:if test="${memberInfo eq null}"> style="display:none; "</c:if>
+          <c:if test="${memberInfo ne null && memberInfo.no ne cdata.member_no}"> style="display:none;" </c:if>
+           onclick="show2('view_edit_bg');document.body.style.overflow = 'hidden';">
+           <img src="./images/camera.png" alt="camera" />기업정보 관리</a>
         </div>
         <div class="col-sm-1"></div>
       
@@ -185,11 +213,6 @@
   </div>
 </nav>
 
-
-
-
-<c:if test="${memberInfo ne null}">
-<c:if test="${memberInfo.no eq member_no}">
 
 
 <div class="write_hide" id="view_edit_bg" style="display:none;">
@@ -262,6 +285,3 @@
 
 </div>
 </div>
-
-</c:if>
-</c:if>

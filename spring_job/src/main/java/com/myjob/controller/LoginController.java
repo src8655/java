@@ -288,7 +288,7 @@ public class LoginController {
 		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
 		
 		if(mdata == null) {
-			map.put("msg", "잘못된 접근입니다");
+			map.put("msg", "로그인 해주세요.");
 			map.put("result", -1);
 			return map;
 		}
@@ -323,5 +323,104 @@ public class LoginController {
 			map.put("result", 2);
 			return map;
 		}
+	}
+
+	
+	
+	
+	
+	
+	//로그인 ajax
+	@RequestMapping("/job/login_post_ajax.o")
+	@ResponseBody
+	public Map login_post_ajax(
+			@RequestParam(value="email", defaultValue="") String email,
+			@RequestParam(value="password", defaultValue="") String password,
+			@RequestParam(value="save_id", defaultValue="-1") int save_id,
+			HttpSession session,
+			HttpServletResponse response
+			) throws SQLException {
+		Map map = new HashMap();
+		
+		password = Md5Enc.getEncMD5(password.getBytes());
+
+		session.setAttribute("job_email", email);
+		session.setAttribute("job_password", password);
+		
+		if(save_id == 1) {
+			Cookie cookie = new Cookie("save_id_auth", email);
+			response.addCookie(cookie);
+		}else {
+			Cookie cookie = new Cookie("save_id_auth", "");
+			response.addCookie(cookie);
+		}
+		
+		//로그인정보 가져오기
+		String job_email = (String)session.getAttribute("job_email");
+		String job_password = (String)session.getAttribute("job_password");
+		if(job_email == null) job_email = "";
+		if(job_password == null) job_password = "";
+		
+		MemberData mdata = memberService.login(job_email, job_password);
+		map.put("memberInfo", mdata);
+		
+		
+		//팔로우 리스트
+		ArrayList<String> list;
+		if(mdata.getFollow() == null || mdata.getFollow().equals("")) list = new ArrayList<String>();
+		else list = new ArrayList<String>(Arrays.asList(mdata.getFollow().split(",")));
+		map.put("list", list);
+		
+		
+		return map;
+	}
+	//로그아웃 ajax
+	@RequestMapping("/job/logout_ajax.o")
+	@ResponseBody
+	public Map logout_ajax(
+			HttpSession session
+			) throws SQLException {
+		Map map = new HashMap();
+
+		session.setAttribute("job_email", "");
+		session.setAttribute("job_password", "");
+		
+		map.put("result", true);
+		return map;
+	}
+	//회원가입 완료
+	@RequestMapping("/job/join_post_ajax.o")
+	@ResponseBody
+	public Map join_post_ajax(
+			@ModelAttribute("mdata") MemberData mdata
+			) throws SQLException {
+		Map map = new HashMap();
+		
+		if(mdata.getOrders() == 1) {	//개인회원
+			mdata.setCompany("");
+			mdata.setCompany_cate(-1);
+			mdata.setCompany_num("");
+		}
+		
+		
+		mdata.setDates(ActionTime.getDate());
+		
+		//암호화
+		mdata.setPassword(Md5Enc.getEncMD5(mdata.getPassword().getBytes()));
+		memberService.insert(mdata);
+		
+		if(mdata.getOrders() == 2) {	//기업회원
+			//새로만든 멤버데이터 가져오기
+			MemberData mdata_tmp = memberService.login(mdata.getEmail(), mdata.getPassword());
+			//회사정보 추가
+			CompanyData cdata = new CompanyData();
+			cdata.setMember_no(mdata_tmp.getNo());
+			companyService.insert(cdata);
+		}
+		
+		
+
+		map.put("result", true);
+		return map;
 	}
 }

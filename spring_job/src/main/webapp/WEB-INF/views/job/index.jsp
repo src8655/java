@@ -52,8 +52,8 @@
           <div class="c_lists_c">
             <h4>
               ${cdata.company}
-              <c:if test="${cdata.isfollow eq -1}"><img src="./images/list_heart.jpg" alt="하트" /></c:if>
-              <c:if test="${cdata.isfollow eq 1}"><img src="./images/list_heart2.jpg" alt="하트" /></c:if>
+              <c:if test="${cdata.isfollow eq -1}"><img src="./images/list_heart.jpg" alt="하트" class="list_follow_img list_follow_img_${cdata.member_no}" /></c:if>
+              <c:if test="${cdata.isfollow eq 1}"><img src="./images/list_heart2.jpg" alt="하트" class="list_follow_img list_follow_img_${cdata.member_no}" /></c:if>
             </h4>
             <p class="hidden-md">
               <c:if test="${cdata.company_cate eq 1}">서비스업</c:if>

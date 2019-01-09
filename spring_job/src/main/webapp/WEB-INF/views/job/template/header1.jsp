@@ -4,19 +4,19 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="xs_menu" id="xs_menu_id" style="display:none;">
-	<ul>
+<div class="xs_menu hidden-sm hidden-md hidden-lg" id="xs_menu_id" style="display:none;">
+	<ul id="login_btn_bg2">
 		<li><a href="#100" onclick="hide2('xs_menu_id');document.body.style.overflow='scroll';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>
         <c:if test="${memberInfo eq null}">
-		<li><a href="login.o">로그인</a></li>
-		<li><a href="join.o">회원가입</a></li>
+		<li><a href="#100" onclick="show2('login_float_bg');document.body.style.overflow = 'hidden';hide2('xs_menu_id');">로그인</a></li>
+		<li><a href="#100" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">
           <li onclick="toggle2('top_sub_id2');">
             <a href="#100">${memberInfo.name} 님</a>
           </li>
           <div id="top_sub_id2" style="display:none;">
-          	<li><a href="logout.o" style="background:#e6e6e6;">&nbsp;&nbsp;로그아웃</a></li>
+          	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax(${member_no});">&nbsp;&nbsp;로그아웃</a></li>
           	<li><a href="login_edit.o" style="background:#e6e6e6;">&nbsp;&nbsp;회원수정</a></li>
           </div>
           <c:if test="${memberInfo.orders eq 1}">
@@ -53,15 +53,15 @@
       	</div>
 	  </div>
       <div class="col-sm-4 top_menu_align">
-        <ul class="header_ul hidden-xs">
+        <ul class="header_ul hidden-xs" id="login_btn_bg">
         <c:if test="${memberInfo eq null}">
-          <li class="header_ul_li"><a href="login.o" class="header_ul_li_a">로그인</a></li>
-          <li class="header_ul_li"><a href="join.o" class="header_ul_li_a">회원가입</a></li>
+          <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2('login_float_bg');document.body.style.overflow = 'hidden';">로그인</a></li>
+          <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">
           <li class="header_ul_li" onmousemove="show('top_sub_id');" onmouseleave="hide('top_sub_id')"><a href="#100" class="header_ul_li_a">${memberInfo.name} 님</a>
           	<div id="top_sub_id" class="top_sub" style="display:none;">
-          		<a href="logout.o">로그아웃</a>
+          		<a href="#100" onclick="logout_ajax(${member_no});">로그아웃</a>
           		<a href="login_edit.o">회원수정</a>
           	</div>
           </li>

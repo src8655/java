@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,6 +50,26 @@ public class JobInterceptor extends HandlerInterceptorAdapter {
 			else
 				memberInfo.setFollow_list(new ArrayList(Arrays.asList(memberInfo.getFollow().split(","))));
 		}
+		
+		//로그인아이디
+		String save_id_auths = "";
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+			int pos = -1;
+			for(int i=0;i<cookies.length;i++) {
+				if(cookies[i].getName().equals("save_id_auth"))
+					pos = i;
+			}
+			if(pos != -1) {
+				save_id_auths = cookies[pos].getValue();
+			}
+		}
+		request.setAttribute("save_id_auths", save_id_auths);
+		
+		int member_no = -1;
+		if(request.getParameter("member_no") != null && !request.getParameter("member_no").equals(""))
+			member_no = Integer.parseInt(request.getParameter("member_no"));
+		request.setAttribute("member_no", member_no);
 		
 		request.setAttribute("memberInfo", memberInfo);
 		return super.preHandle(request, response, handler);
