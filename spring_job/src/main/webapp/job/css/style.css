@@ -151,13 +151,18 @@ display:inline-block;
 width:80px;
 height:27px;
 line-height:27px;
-text-align:center;
 }
 .follow_btn:hover {
 text-decoration:none;
 }
 .follow_btn img {
-margin-right:5px;
+margin:8px 0 0 10px;
+padding:0px;
+}
+.follow_btn p {
+float:right;
+margin:0 10px 0 0;
+padding:0px;
 }
 .url_btn {
 color:#ffffff;
@@ -1699,6 +1704,30 @@ display:inline-block;
 text-decoration:none;
 color:#ffffff;
 }
+.recruit_mylist_box {
+padding:15px;
+line-height:25px;
+border-bottom:1px solid #e6e6e6;
+}
+.recruit_mylist_box a {
+height:25px;
+line-height:25px;
+border-radius:10px;
+background:#219bf0;
+color:#ffffff;
+font-weight:bold;
+padding:0 10px 0 10px;
+margin:0 5px 0 0;
+font-size:13px;
+display:inline-block;
+}
+
+
+
+
+
+
+
 
 
 

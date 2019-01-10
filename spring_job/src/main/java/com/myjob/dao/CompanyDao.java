@@ -10,4 +10,6 @@ public interface CompanyDao {
 	Integer getCount(String searchValue, int search, int searchType, int searchSort);
 	CompanyData getArticle(int member_no);
 	void update(CompanyData cdata);
+	List getFollows(String member_no, int start, int end);
+	Integer getFollowsCount(String member_no);
 }

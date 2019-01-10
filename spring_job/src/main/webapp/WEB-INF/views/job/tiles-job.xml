@@ -111,5 +111,17 @@
 		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer2.jsp" />
 	</definition>
 	
+	<!-- 일반회원 마이페이지 -->
+	<definition name="job/mypage" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 마이페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header1.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/mypage.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
+	</definition>
+	
+	
+	
+	
+	
  
 </tiles-definitions>

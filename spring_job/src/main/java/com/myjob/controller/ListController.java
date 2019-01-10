@@ -153,6 +153,7 @@ public class ListController {
 	//상세보기
 	@RequestMapping("/job/view.o")
 	public ModelAndView view(
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
 			@RequestParam(value="pages_rc", defaultValue="1") int pages_rc,
 			@RequestParam(value="searchType", defaultValue="-1") int searchType,
 			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
@@ -165,6 +166,11 @@ public class ListController {
 			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		
+		
+		mav.addObject("recruit_no", recruit_no);
+		
+		
 		
 		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
 		
@@ -1827,6 +1833,13 @@ public class ListController {
 			return map;
 		}
 		
+		if(recruitListService.getExistCount(rcldata.getRecruit_no(), mdata.getNo()) != 0) {
+			msg = "이미 지원한 채용정보입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
 		
 		
 		
@@ -1960,6 +1973,45 @@ public class ListController {
 		map.put("cdata", cdata);
 		map.put("member_no", member_no);
 		map.put("result", true);
+		return map;
+	}
+	//지원서 리스트
+	@RequestMapping("/job/recruit_mylist_ajax.o")
+	@ResponseBody
+	public Map recruit_mylist_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
+			@RequestParam(value="pages", defaultValue="1") int pages,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(member_no != mdata.getNo()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		int count = recruitListService.getCount(recruit_no);
+		Action_Paging paging = new Action_Paging(count, 5, pages);
+		List list = recruitListService.getArticles(recruit_no, paging.getBoard_starts(), paging.getBoard_ends());
+		
+		map.put("count", count);
+		map.put("paging", paging);
+		map.put("list", list);
+		
 		return map;
 	}
 }

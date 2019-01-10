@@ -423,4 +423,71 @@ public class LoginController {
 		map.put("result", true);
 		return map;
 	}
+	//로그인정보 가져오기
+	@RequestMapping("/job/login_info_ajax.o")
+	@ResponseBody
+	public Map login_info_ajax(
+			HttpServletRequest request
+			) throws SQLException {
+		Map map = new HashMap();
+
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		return map;
+	}
+	//회원수정 완료
+	@RequestMapping("/job/login_edit_post_ajax.o")
+	@ResponseBody
+	public Map login_edit_post_ajax(
+			@ModelAttribute("mdata") MemberData mdata,
+			HttpSession session,
+			HttpServletRequest request
+			) throws SQLException {
+		Map map = new HashMap();
+		
+		MemberData memberInfo = (MemberData)request.getAttribute("memberInfo");
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		if(!mdata.getPassword().equals("")) {
+			if(!mdata.getPassword().equals(mdata.getPassword2())) {
+				msg = "비밀번호가 다릅니다.";
+				map.put("msg", msg);
+				map.put("result", false);
+				return map;
+			}else {
+				mdata.setPassword(Md5Enc.getEncMD5(mdata.getPassword().getBytes()));
+				session.setAttribute("job_password", mdata.getPassword());
+			}
+		}else {
+			mdata.setPassword("-1");
+		}
+		mdata.setNo(memberInfo.getNo());
+		
+		memberService.update(mdata);
+		
+		String job_email = (String)session.getAttribute("job_email");
+		String job_password = (String)session.getAttribute("job_password");
+		if(job_email == null) job_email = "";
+		if(job_password == null) job_password = "";
+		memberInfo = memberService.login(job_email, job_password);
+
+		map.put("memberInfo", memberInfo);
+		request.setAttribute("memberInfo", memberInfo);
+
+		
+		int member_no = (Integer)request.getAttribute("member_no");
+		map.put("member_no", member_no);
+		
+		
+		map.put("result", true);
+		return map;
+	}
 }

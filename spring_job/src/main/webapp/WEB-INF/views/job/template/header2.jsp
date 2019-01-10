@@ -20,10 +20,10 @@
           </li>
           <div id="top_sub_id2" style="display:none;">
           	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax(${member_no});">&nbsp;&nbsp;로그아웃</a></li>
-          	<li><a href="login_edit.o" style="background:#e6e6e6;">&nbsp;&nbsp;회원수정</a></li>
+          	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();">&nbsp;&nbsp;회원수정</a></li>
           </div>
           <c:if test="${memberInfo.orders eq 1}">
-            <li><a href="#100">마이페이지</a></li>
+            <li><a href="mypage.o?mypage=1">마이페이지</a></li>
           </c:if>
           <c:if test="${memberInfo.orders eq 2}">
             <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
@@ -87,11 +87,11 @@
 	          <li class="header_ul_li" onmousemove="show('top_sub_id');" onmouseleave="hide('top_sub_id')"><a href="#100" class="header_ul_li_a">${memberInfo.name} 님</a>
 	          	<div id="top_sub_id" class="top_sub" style="display:none;">
 	          		<a href="#100" onclick="logout_ajax(${member_no});">로그아웃</a>
-	          		<a href="login_edit.o">회원수정</a>
+	          		<a href="#100" onclick="login_edit_btn_ajax();">회원수정</a>
 	          	</div>
 	          </li>
 	          <c:if test="${memberInfo.orders eq 1}">
-	            <li class="header_ul_li"><a href="#100" class="header_ul_li_a">마이페이지</a></li>
+	            <li class="header_ul_li"><a href="mypage.o?mypage=1" class="header_ul_li_a">마이페이지</a></li>
 	          </c:if>
 	          <c:if test="${memberInfo.orders eq 2}">
 	            <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>
@@ -138,14 +138,14 @@
             <c:if test="${memberInfo eq null}">
             	<a href="#100" onclick="follow_ajax(${member_no},'follow_heart');" class="follow_btn">
             		<img src="./images/heart.jpg" alt="heart" id="follow_heart" />
-            		팔로우
+            		<p>팔로우</p>
             	</a>
             </c:if>
             <c:if test="${memberInfo ne null}">
             	<a href="#100" onclick="follow_ajax(${member_no},'follow_heart');" class="follow_btn">
             		<c:if test="${cdata.isfollow eq -1}"><img src="./images/heart.jpg" alt="heart" id="follow_heart" /></c:if>
             		<c:if test="${cdata.isfollow eq 1}"><img src="./images/heart2.jpg" alt="heart" id="follow_heart" /></c:if>
-            		팔로우
+            		<p>팔로우</p>
             	</a>
             </c:if>
             
@@ -159,7 +159,7 @@
           <c:if test="${memberInfo eq null}"> style="display:none; "</c:if>
           <c:if test="${memberInfo ne null && memberInfo.no ne cdata.member_no}"> style="display:none;" </c:if>
            onclick="show2('view_edit_bg');document.body.style.overflow = 'hidden';">
-           <img src="./images/camera.png" alt="camera" />기업정보 관리</a>
+          기업정보 관리</a>
         </div>
         <div class="col-sm-1"></div>
       

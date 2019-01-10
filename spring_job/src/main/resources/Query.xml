@@ -151,7 +151,62 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FILE2=#{file2}
 		where MEMBER_NO=#{member_no}
 	</update>
+	<select id="CompanyGetFollows" parameterType="java.util.Map" resultType="com.myjob.data.CompanyData">
+		select NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY,COUNT_INTERVIEW
+		from (select rownum as rnum,a.* from
 	
+		(select NO,exb1.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,NVL(COUNT_REVIEW,0) as COUNT_REVIEW,NVL(AVG_STARS,0) as AVG_STARS,NVL(COUNT_INCOME,0) as COUNT_INCOME,NVL(AVG_MONEY,0) as AVG_MONEY,NVL(COUNT_INTERVIEW,0) as COUNT_INTERVIEW
+		from (select NO,exb0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY
+		from (select NO,EXA0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS
+		from (select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		from (MIN_JOB_MEMBER aa), (MIN_JOB_COMPANY bb) where aa.NO=bb.MEMBER_NO
+		
+		<if test="member_no != null">
+		<if test="member_no != ''">
+        and bb.MEMBER_NO in(${member_no})
+        </if>
+        </if>
+		<if test="member_no == null">
+		and bb.MEMBER_NO = -1
+        </if>
+		<if test="member_no == ''">
+		and bb.MEMBER_NO = -1
+        </if>
+		) exa0
+		
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_REVIEW, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO) exb0
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO
+		
+		) a
+		) where rnum between #{start} and #{end}
+	</select>
+	<select id="CompanyGetFollowsCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from (select NO,exb0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY
+		from (select NO,EXA0.MEMBER_NO as MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2,COUNT_REVIEW,AVG_STARS
+		from (select bb.NO as NO,MEMBER_NO,COMPANY,COMPANY_CATE,COMPANY_NUM,URL,INFO,bb.NAME as NAME,FOUNDING,COUNT,COMPANY_TYPE,MONEY,ADDR,FILE1,FILE2
+		from (MIN_JOB_MEMBER aa), (MIN_JOB_COMPANY bb) where aa.NO=bb.MEMBER_NO
+		
+		<if test="member_no != null">
+		<if test="member_no != ''">
+        and bb.MEMBER_NO in(${member_no})
+        </if>
+        </if>
+		<if test="member_no == null">
+		and bb.MEMBER_NO = -1
+        </if>
+		<if test="member_no == ''">
+		and bb.MEMBER_NO = -1
+        </if>
+		) exa0
+		
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_REVIEW, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO) exb0
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO
+
+	</select>
+	<!--  -->
 	
 	
 	
@@ -472,6 +527,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="RecruitGetListCount" parameterType="java.util.Map" resultType="int">
 		select count(*) from MIN_JOB_RECRUIT where MEMBER_NO=#{member_no} and STATUS=#{status}
 	</select>
+	<select id="RecruitGetMyArticles" parameterType="java.util.Map" resultType="com.myjob.data.RecruitData">
+		select STATUS,NO,SUBJECT,KEYWORD,ENDDATES,MEMBER_NO,COMPANY,COMPANY_CATE,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY,COUNT_INTERVIEW,FILE1,FI1,FI2
+		from (select rownum as rnum,a.* from
+		
+		(select STATUS,exb1.NO,exb1.SUBJECT,exb1.KEYWORD,exb1.ENDDATES,exb1.MEMBER_NO,exb1.COMPANY,exb1.COMPANY_CATE,exb1.FILE1,NVL(exb1.COUNT_REVIEW,0) as COUNT_REVIEW,NVL(exb1.AVG_STARS,0) as AVG_STARS,NVL(exb1.COUNT_INCOME,0) as COUNT_INCOME,NVL(exb1.AVG_MONEY,0) as AVG_MONEY,NVL(exa3.COUNT_INTERVIEW,0) as COUNT_INTERVIEW,FI1,FI2
+		from (select STATUS,exb0.NO,exb0.SUBJECT,exb0.KEYWORD,exb0.ENDDATES,exb0.MEMBER_NO,exb0.COMPANY,exb0.COMPANY_CATE,exb0.COUNT_REVIEW,exb0.AVG_STARS,exb0.FILE1,exa2.COUNT_INCOME,exa2.AVG_MONEY,FI1,FI2
+		from (select STATUS,exa0.NO,exa0.SUBJECT,exa0.KEYWORD,exa0.ENDDATES,exa0.MEMBER_NO,exa0.COMPANY,exa0.COMPANY_CATE,exa0.FILE1,exa1.COUNT_REVIEW,exa1.AVG_STARS,FI1,FI2
+		from (select STATUS,v1.NO,SUBJECT,KEYWORD,ENDDATES,v1.MEMBER_NO,v2.COMPANY,v2.COMPANY_CATE,v3.FILE1,v4.FILE1 AS FI1,v4.FILE2 AS FI2 from MIN_JOB_RECRUIT v1,MIN_JOB_MEMBER v2,MIN_JOB_COMPANY v3,MIN_JOB_RECRUIT_LIST v4
+		where v1.MEMBER_NO=v2.NO and v2.NO=v3.MEMBER_NO and v1.NO=v4.RECRUIT_NO and v4.WRITER_NO=#{writer_no}
+		
+		order by v4.NO desc
+		) exa0	
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_REVIEW, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO) exb0
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO
+		
+		) a
+		) where rnum between #{start} and #{end}
+	</select>
+	<select id="RecruitGetMyCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from (select STATUS,exb0.NO,exb0.SUBJECT,exb0.KEYWORD,exb0.ENDDATES,exb0.MEMBER_NO,exb0.COMPANY,exb0.COMPANY_CATE,exb0.COUNT_REVIEW,exb0.AVG_STARS,exb0.FILE1,exa2.COUNT_INCOME,exa2.AVG_MONEY,FI1,FI2
+		from (select STATUS,exa0.NO,exa0.SUBJECT,exa0.KEYWORD,exa0.ENDDATES,exa0.MEMBER_NO,exa0.COMPANY,exa0.COMPANY_CATE,exa0.FILE1,exa1.COUNT_REVIEW,exa1.AVG_STARS,FI1,FI2
+		from (select STATUS,v1.NO,SUBJECT,KEYWORD,ENDDATES,v1.MEMBER_NO,v2.COMPANY,v2.COMPANY_CATE,v3.FILE1,v4.FILE1 AS FI1,v4.FILE2 AS FI2 from MIN_JOB_RECRUIT v1,MIN_JOB_MEMBER v2,MIN_JOB_COMPANY v3,MIN_JOB_RECRUIT_LIST v4
+		where v1.MEMBER_NO=v2.NO and v2.NO=v3.MEMBER_NO and v1.NO=v4.RECRUIT_NO and v4.WRITER_NO=#{writer_no}
+		
+		order by v4.NO desc
+		) exa0	
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_REVIEW, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO) exb0
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
+		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO
+	</select>
 	<!--  -->
 	
 	
@@ -493,6 +580,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{recruit_no}
 		)
 	</insert>
+	<select id="RecruitListExistCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from MIN_JOB_RECRUIT_LIST
+		where RECRUIT_NO=#{recruit_no} and WRITER_NO=#{writer_no}
+	</select>
+	<select id="RecruitListGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from MIN_JOB_RECRUIT_LIST
+		where RECRUIT_NO=#{recruit_no}
+	</select>
+	<select id="RecruitListGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.RecruitListData">
+		select NO,NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO
+		from (select rownum as rnum,a.* from
+		
+		(select NO,NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO
+		from MIN_JOB_RECRUIT_LIST
+		where RECRUIT_NO=#{recruit_no}
+		
+		order by NO desc) a
+		) where rnum between #{start} and #{end}
+	</select>
 	
 	
 	

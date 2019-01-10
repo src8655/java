@@ -51,7 +51,7 @@ public class JobInterceptor extends HandlerInterceptorAdapter {
 				memberInfo.setFollow_list(new ArrayList(Arrays.asList(memberInfo.getFollow().split(","))));
 		}
 		
-		//로그인아이디
+		//로그인아이디 저장된것 불러오기
 		String save_id_auths = "";
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) {
@@ -66,10 +66,22 @@ public class JobInterceptor extends HandlerInterceptorAdapter {
 		}
 		request.setAttribute("save_id_auths", save_id_auths);
 		
+		//member_no가 있으면 view에 있는것을 표시
 		int member_no = -1;
 		if(request.getParameter("member_no") != null && !request.getParameter("member_no").equals(""))
 			member_no = Integer.parseInt(request.getParameter("member_no"));
 		request.setAttribute("member_no", member_no);
+		
+		//recruit_no가 있으면 recruit_view에 있는것을 표시
+		int recruit_no = -1;
+		if(request.getParameter("recruit_no") != null && !request.getParameter("recruit_no").equals(""))
+			recruit_no = Integer.parseInt(request.getParameter("recruit_no"));
+		request.setAttribute("recruit_no", recruit_no);
+		
+		int mypage = -1;
+		if(request.getParameter("mypage") != null && !request.getParameter("mypage").equals(""))
+			mypage = Integer.parseInt(request.getParameter("mypage"));
+		request.setAttribute("mypage", mypage);
 		
 		request.setAttribute("memberInfo", memberInfo);
 		return super.preHandle(request, response, handler);

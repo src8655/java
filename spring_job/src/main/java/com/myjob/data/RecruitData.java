@@ -36,6 +36,21 @@ public class RecruitData {
 	private int dday = 0;
 	private List keywords = null;
 	
+	private String fi1 = "";
+	private String fi2 = "";
+	
+	public String getFi1() {
+		return fi1;
+	}
+	public void setFi1(String fi1) {
+		this.fi1 = fi1;
+	}
+	public String getFi2() {
+		return fi2;
+	}
+	public void setFi2(String fi2) {
+		this.fi2 = fi2;
+	}
 	public List getKeywords() {
 		return keywords;
 	}

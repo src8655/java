@@ -56,4 +56,20 @@ public class CompanyService implements CompanyDao {
 		sqlSessionTemplate.update("CompanyUpdate", cdata);
 	}
 
+	@Override
+	public List getFollows(String member_no, int start, int end) {
+		Map map = new HashMap();
+		map.put("member_no", member_no);
+		map.put("start", start);
+		map.put("end", end);
+		return (List)sqlSessionTemplate.selectList("CompanyGetFollows", map);
+	}
+
+	@Override
+	public Integer getFollowsCount(String member_no) {
+		Map map = new HashMap();
+		map.put("member_no", member_no);
+		return (Integer)sqlSessionTemplate.selectOne("CompanyGetFollowsCount", map);
+	}
+
 }

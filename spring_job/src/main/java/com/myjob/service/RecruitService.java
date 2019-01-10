@@ -103,4 +103,20 @@ public class RecruitService implements RecruitDao {
 		return (Integer)sqlSessionTemplate.selectOne("RecruitGetListCount", map);
 	}
 
+	@Override
+	public List getMyArticles(int writer_no, int start, int end) {
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("writer_no", writer_no);
+		return (List)sqlSessionTemplate.selectList("RecruitGetMyArticles", map);
+	}
+
+	@Override
+	public Integer getMyCount(int writer_no) {
+		Map map = new HashMap();
+		map.put("writer_no", writer_no);
+		return (Integer)sqlSessionTemplate.selectOne("RecruitGetMyCount", map);
+	}
+
 }

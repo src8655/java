@@ -16,4 +16,6 @@ public interface RecruitDao {
 	List getArticles(int start, int end, String searchValue, int search, int searchType, int searchSort, int status);
 	List getListArticles(int start, int end, int member_no, int status);
 	Integer getListCount(int member_no, int status);
+	List getMyArticles(int writer_no, int start, int end);
+	Integer getMyCount(int writer_no);
 }
