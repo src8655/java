@@ -9,4 +9,9 @@ public interface MemberDao {
 	boolean existLogin(String email, String password);
 	void followUpdate(String follow, int no);
 	void update(MemberData mdata);
+	Integer findEmailCount(String name, String phone1, String phone2, String phone3);
+	MemberData findEmail(String name, String phone1, String phone2, String phone3);
+	Integer findPwCount(MemberData mdata);
+	void changePw(MemberData mdata);
+	MemberData changePwKakao(MemberData mdata);
 }

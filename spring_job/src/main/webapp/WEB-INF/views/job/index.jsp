@@ -40,7 +40,7 @@
     
     <div class="c_lists c_lists_left">
       <div class="index_list_top">
-      	<a>기업정보</a>
+      	<a href="list.o?search=1">기업정보</a>
       </div>
       <ul class="c_lists_ul">
       <c:forEach items="${list}" var="cdata">
@@ -100,13 +100,13 @@
         </c:forEach>
       </ul>
       <div class="index_list_more" style="z-index:6000;">
-      	<a href="list.o?search=1">더 보기</a>
+      	<a></a>
       </div>
     </div>
 	<!-- 채용정보 -->
 	<div class="c_lists c_lists_right">
       <div class="index_list_top">
-      	<a>채용정보</a>
+      	<a href="list.o?search=2">채용정보</a>
       </div>
       <ul class="c_lists_ul">
       <c:forEach items="${list2}" var="rcdata">
@@ -145,7 +145,7 @@
         </c:forEach>
       </ul>
       <div class="index_list_more">
-      	<a href="list.o?search=2">더 보기</a>
+      	<a></a>
       </div>
     </div>
     

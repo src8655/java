@@ -19,7 +19,14 @@ public class MemberData {
 	private int orders = -1;
 	private String dates = "";
 	private String follow = "";
+	private int kakao = -1;
 	
+	public int getKakao() {
+		return kakao;
+	}
+	public void setKakao(int kakao) {
+		this.kakao = kakao;
+	}
 	private ArrayList follow_list;
 	
 	public ArrayList getFollow_list() {

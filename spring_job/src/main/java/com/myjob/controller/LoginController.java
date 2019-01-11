@@ -337,12 +337,34 @@ public class LoginController {
 			@RequestParam(value="email", defaultValue="") String email,
 			@RequestParam(value="password", defaultValue="") String password,
 			@RequestParam(value="save_id", defaultValue="-1") int save_id,
+			@RequestParam(value="kakao", defaultValue="-1") int kakao,
+			@RequestParam(value="name", defaultValue="") String name,
 			HttpSession session,
 			HttpServletResponse response
 			) throws SQLException {
 		Map map = new HashMap();
 		
 		password = Md5Enc.getEncMD5(password.getBytes());
+		
+		//카카오 로그인일때
+		if(kakao == 1) {
+			//카카오 회원이 없을때 새로 생성
+			if(!memberService.existLogin(email, password)) {
+				MemberData mdata = new MemberData();
+				mdata.setEmail(email);
+				mdata.setPassword(password);
+				mdata.setName(name);
+				mdata.setOrders(1);
+				mdata.setDates(ActionTime.getDate());
+				mdata.setKakao(1);
+				memberService.insert(mdata);
+			}
+		}
+		
+		
+		
+		
+		
 
 		session.setAttribute("job_email", email);
 		session.setAttribute("job_password", password);
@@ -372,6 +394,7 @@ public class LoginController {
 		map.put("list", list);
 		
 		
+		map.put("result", true);
 		return map;
 	}
 	//로그아웃 ajax
@@ -485,6 +508,161 @@ public class LoginController {
 		
 		int member_no = (Integer)request.getAttribute("member_no");
 		map.put("member_no", member_no);
+		
+		
+		map.put("result", true);
+		return map;
+	}
+	
+
+	//이메일 찾기
+	@RequestMapping("/job/email_find_ajax.o")
+	@ResponseBody
+	public Map email_find_ajax(
+			@RequestParam(value="name", defaultValue="") String name,
+			@RequestParam(value="phone1", defaultValue="") String phone1,
+			@RequestParam(value="phone2", defaultValue="") String phone2,
+			@RequestParam(value="phone3", defaultValue="") String phone3,
+			HttpServletRequest request
+			) throws SQLException {
+		Map map = new HashMap();
+
+		int count = memberService.findEmailCount(name, phone1, phone2, phone3);
+		if(count == 0) {
+			map.put("result", false);
+			return map;
+		}else {
+			MemberData mdata = memberService.findEmail(name, phone1, phone2, phone3);
+			map.put("email", mdata.getEmail());
+			map.put("result", true);
+			return map;
+		}
+	}
+	//비밀번호 찾기
+	@RequestMapping("/job/pw_find_ajax.o")
+	@ResponseBody
+	public Map pw_find_ajax(
+			@ModelAttribute("mdata") MemberData mdata,
+			HttpServletRequest request
+			) throws SQLException {
+		Map map = new HashMap();
+
+		int count = memberService.findPwCount(mdata);
+		if(count == 0) {
+			map.put("result", false);
+			return map;
+		}else {
+			map.put("result", true);
+			return map;
+		}
+	}
+	//비밀번호 변경
+	@RequestMapping("/job/pw_change_ajax.o")
+	@ResponseBody
+	public Map pw_change_ajax(
+			@ModelAttribute("mdata") MemberData mdata,
+			HttpServletRequest request
+			) throws SQLException {
+		Map map = new HashMap();
+		
+		if(mdata.getPassword() == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getPassword().equals("")) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(!mdata.getPassword().equals(mdata.getPassword2())) {
+			msg = "비밀번호가 다릅니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		mdata.setPassword(Md5Enc.getEncMD5(mdata.getPassword().getBytes()));
+
+		MemberData tmp = memberService.changePwKakao(mdata);
+		if(tmp.getKakao() == 1) {
+			msg = "카카오회원은 변경할 수 없습니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		memberService.changePw(mdata);
+		
+		
+		
+		map.put("result", true);
+		return map;
+	}
+	//회원탈퇴
+	@RequestMapping("/job/login_exit_ajax.o")
+	@ResponseBody
+	public Map login_exit_ajax(
+			@RequestParam(value="password", defaultValue="") String password,
+			@RequestParam(value="password2", defaultValue="") String password2,
+			HttpServletRequest request
+			) throws SQLException {
+		Map map = new HashMap();
+
+		if(password == null) {
+			msg = "비밀번호를 입력해주세요.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(password2 == null) {
+			msg = "비밀번호2를 입력해주세요.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(password.equals("")) {
+			msg = "비밀번호를 입력해주세요.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(password2.equals("")) {
+			msg = "비밀번호2를 입력해주세요.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(!password.equals(password2)) {
+			msg = "비밀번호가 다릅니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		MemberData memberInfo = (MemberData)request.getAttribute("memberInfo");
+		
+		if(memberInfo == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		if(!memberInfo.getPassword().equals(Md5Enc.getEncMD5(password.getBytes()))) {
+			msg = "잘못된 비밀번호입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		
 		
 		
 		map.put("result", true);

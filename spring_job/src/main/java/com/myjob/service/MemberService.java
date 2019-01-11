@@ -60,4 +60,39 @@ public class MemberService implements MemberDao {
 	public void update(MemberData mdata) {
 		sqlSessionTemplate.update("MemberUpdate", mdata);
 	}
+
+	@Override
+	public Integer findEmailCount(String name, String phone1, String phone2, String phone3) {
+		Map map = new HashMap();
+		map.put("name", name);
+		map.put("phone1", phone1);
+		map.put("phone2", phone2);
+		map.put("phone3", phone3);
+		return (Integer)sqlSessionTemplate.selectOne("MemberFindEmailCount", map);
+	}
+
+	@Override
+	public MemberData findEmail(String name, String phone1, String phone2, String phone3) {
+		Map map = new HashMap();
+		map.put("name", name);
+		map.put("phone1", phone1);
+		map.put("phone2", phone2);
+		map.put("phone3", phone3);
+		return (MemberData)sqlSessionTemplate.selectOne("MemberFindEmail", map);
+	}
+
+	@Override
+	public Integer findPwCount(MemberData mdata) {
+		return (Integer)sqlSessionTemplate.selectOne("MemberFindPwCount", mdata);
+	}
+
+	@Override
+	public void changePw(MemberData mdata) {
+		sqlSessionTemplate.update("MemberChangePw", mdata);
+	}
+
+	@Override
+	public MemberData changePwKakao(MemberData mdata) {
+		return (MemberData)sqlSessionTemplate.selectOne("MemberChangePwKakao", mdata);
+	}
 }

@@ -17,8 +17,16 @@
     <script type="text/javascript" src="js/loader.js"></script>
     <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/script.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+	
+	
 <script type="text/javascript">
 
+var save_id_auths = '';
+//변수 초기화
+function setinitvar(var1) {
+	save_id_auths = var1;
+}
 
 
 //회원가입
@@ -3756,72 +3764,84 @@ function login_ajax(forms, member_no) {
 		data:{
 			email:forms.email.value,
 			password:forms.password.value,
-			save_id:ischecked
+			save_id:ischecked,
+			kakao:forms.kakao.value,
+			name:forms.name.value
 		},
 		success:function(result){
-			var htmls = "";
-			
-			var memberInfo = result.memberInfo;
-			htmls += '          <li class="header_ul_li" onmousemove="show(\'top_sub_id\');" onmouseleave="hide(\'top_sub_id\')"><a href="#100" class="header_ul_li_a">'+memberInfo.name+' 님</a>';
-			htmls += '          	<div id="top_sub_id" class="top_sub" style="display:none;">';
-			htmls += '          		<a href="#100" onclick="logout_ajax('+member_no+');">로그아웃</a>';
-			htmls += '          		<a href="#100" onclick="login_edit_btn_ajax();">회원수정</a>';
-			htmls += '          	</div>';
-			htmls += '          </li>';
-			if(memberInfo.orders == 1) htmls += '            <li class="header_ul_li"><a href="mypage.o?mypage=1" class="header_ul_li_a">마이페이지</a></li>';
-			if(memberInfo.orders == 2) htmls += '            <li class="header_ul_li"><a href="view.o?member_no='+memberInfo.no+'" class="header_ul_li_a">내 기업</a></li>';
-			
-			document.getElementById("login_btn_bg").innerHTML = htmls;
-			
-			
-			htmls = "";
-			htmls += '<li><a href="#100" onclick="hide2(\'xs_menu_id\');document.body.style.overflow=\'scroll\';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>';
-			htmls += '          <li onclick="toggle2(\'top_sub_id2\');">';
-			htmls += '            <a href="#100">'+memberInfo.name+' 님</a>';
-			htmls += '          </li>';
-			htmls += '          <div id="top_sub_id2" style="display:none;">';
-			htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax('+member_no+');">&nbsp;&nbsp;로그아웃</a></li>';
-			htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();">&nbsp;&nbsp;회원수정</a></li>';
-			htmls += '          </div>';
-			if(memberInfo.orders == 1) htmls += '            <li><a href="mypage.o?mypage=1">마이페이지</a></li>';
-			if(memberInfo.orders == 2) htmls += '            <li><a href="view.o?member_no='+memberInfo.no+'">내 기업</a></li>';
-			htmls += '	    <li><a href="list.o?search=1">기업정보</a></li>';
-			htmls += '	    <li><a href="list.o?search=2">채용정보</a></li>';
-
-			document.getElementById("login_btn_bg2").innerHTML = htmls;
-			
-			
-			
-			
-			
-			hide2('login_float_bg');document.body.style.overflow = 'scroll';
-			
-			
-			
-			if(memberInfo.orders == 1) {
-				$(".log_1").each(function(){
-					$(this).css("display","");
-				});
-			}
-			if(memberInfo.no == member_no) {
-				$(".log_same").each(function(){
-					$(this).css("display","");
-				});
-			}
-			
-			//팔로우 처리
-			var list = result.list;
-			var list_length = Object.keys(list).length;
-			
-			var i = 0;
-			for(i=0;i<list_length;i++) {
-				var data = parseInt(list[i]);
-				if(member_no == data) {
-					document.getElementById('follow_heart').setAttribute("src","./images/heart2.jpg");
+			if(result.result == false){
+				alert(result.msg);
+			} else{
+				if(ischecked == 1) {
+					save_id_auths = forms.email.value;
+				}else{
+					save_id_auths = '';
 				}
-				$(".list_follow_img_"+data).each(function(){
-					$(this).attr("src","./images/list_heart2.jpg");
-				});
+				
+				var htmls = "";
+				
+				var memberInfo = result.memberInfo;
+				htmls += '          <li class="header_ul_li" onmousemove="show(\'top_sub_id\');" onmouseleave="hide(\'top_sub_id\')"><a href="#100" class="header_ul_li_a">'+memberInfo.name+' 님</a>';
+				htmls += '          	<div id="top_sub_id" class="top_sub" style="display:none;">';
+				htmls += '          		<a href="#100" onclick="logout_ajax('+member_no+');">로그아웃</a>';
+				htmls += '          		<a href="#100" onclick="login_edit_btn_ajax();">회원수정</a>';
+				htmls += '          	</div>';
+				htmls += '          </li>';
+				if(memberInfo.orders == 1) htmls += '            <li class="header_ul_li"><a href="mypage.o?mypage=1" class="header_ul_li_a">마이페이지</a></li>';
+				if(memberInfo.orders == 2) htmls += '            <li class="header_ul_li"><a href="view.o?member_no='+memberInfo.no+'" class="header_ul_li_a">내 기업</a></li>';
+				
+				document.getElementById("login_btn_bg").innerHTML = htmls;
+				
+				
+				htmls = "";
+				htmls += '<li><a href="#100" onclick="hide2(\'xs_menu_id\');document.body.style.overflow=\'scroll\';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>';
+				htmls += '          <li onclick="toggle2(\'top_sub_id2\');">';
+				htmls += '            <a href="#100">'+memberInfo.name+' 님</a>';
+				htmls += '          </li>';
+				htmls += '          <div id="top_sub_id2" style="display:none;">';
+				htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax('+member_no+');">&nbsp;&nbsp;로그아웃</a></li>';
+				htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();">&nbsp;&nbsp;회원수정</a></li>';
+				htmls += '          </div>';
+				if(memberInfo.orders == 1) htmls += '            <li><a href="mypage.o?mypage=1">마이페이지</a></li>';
+				if(memberInfo.orders == 2) htmls += '            <li><a href="view.o?member_no='+memberInfo.no+'">내 기업</a></li>';
+				htmls += '	    <li><a href="list.o?search=1">기업정보</a></li>';
+				htmls += '	    <li><a href="list.o?search=2">채용정보</a></li>';
+	
+				document.getElementById("login_btn_bg2").innerHTML = htmls;
+				
+				
+				
+				
+				
+				hide2('login_float_bg');document.body.style.overflow = 'scroll';
+				
+				
+				
+				if(memberInfo.orders == 1) {
+					$(".log_1").each(function(){
+						$(this).css("display","");
+					});
+				}
+				if(memberInfo.no == member_no) {
+					$(".log_same").each(function(){
+						$(this).css("display","");
+					});
+				}
+				
+				//팔로우 처리
+				var list = result.list;
+				var list_length = Object.keys(list).length;
+				
+				var i = 0;
+				for(i=0;i<list_length;i++) {
+					var data = parseInt(list[i]);
+					if(member_no == data) {
+						document.getElementById('follow_heart').setAttribute("src","./images/heart2.jpg");
+					}
+					$(".list_follow_img_"+data).each(function(){
+						$(this).attr("src","./images/list_heart2.jpg");
+					});
+				}
 			}
 		},
 		error:function(r,s,e) {
@@ -3839,7 +3859,7 @@ function logout_ajax(member_no) {
 		success:function(result){
 			var htmls = "";
 			
-			htmls += '<li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2(\'login_float_bg\');document.body.style.overflow = \'hidden\';hide2(\'xs_menu_id\');">로그인</a></li>';
+			htmls += '<li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="addloginbg('+member_no+');hide2(\'xs_menu_id\');">로그인</a></li>';
 			htmls += '<li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2(\'join_float_bg\');document.body.style.overflow = \'hidden\';">회원가입</a></li>';
 			
 			
@@ -3847,7 +3867,7 @@ function logout_ajax(member_no) {
 			
 			htmls = "";
 			htmls += '<li><a href="#100" onclick="hide2(\'xs_menu_id\');document.body.style.overflow=\'scroll\';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>';
-			htmls += '<li><a href="#100" onclick="show2(\'login_float_bg\');document.body.style.overflow = \'hidden\';">로그인</a></li>';
+			htmls += '<li><a href="#100" onclick="addloginbg('+member_no+');hide2(\'xs_menu_id\');">로그인</a></li>';
 			htmls += '<li><a href="#100" onclick="show2(\'join_float_bg\');document.body.style.overflow = \'hidden\';">회원가입</a></li>';
 			htmls += '	    <li><a href="list.o?search=1">기업정보</a></li>';
 			htmls += '	    <li><a href="list.o?search=2">채용정보</a></li>';
@@ -3877,6 +3897,7 @@ function logout_ajax(member_no) {
 				alert("로그아웃 성공");
 				location.href="index.o";
 			}
+			
 			
 		},
 		error:function(r,s,e) {
@@ -3949,9 +3970,13 @@ function login_edit_btn_ajax() {
 			htmls += '	<input type="hidden" name="orders" value="'+memberInfo.orders+'" />	';
 			htmls += '	'+memberInfo.email;
 			htmls += '	<div id="email_msg" class="join_msg"></div>	';
-			htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="password_checks(this);" />	';
+			htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" ';
+			if(memberInfo.kakao == 1) htmls += ' style="display:none;"';
+			htmls += ' onchange="password_checks(this);" />	';
 			htmls += '	<div id="password_msg" class="join_msg"></div>	';
-			htmls += '	<input type="password" name="password2" placeholder="비밀번호 확인" class="login_input" onchange="password2_checks(this);" />	';
+			htmls += '	<input type="password" name="password2" placeholder="비밀번호 확인" class="login_input" ';
+			if(memberInfo.kakao == 1) htmls += ' style="display:none;"';
+			htmls += ' onchange="password2_checks(this);" />	';
 			htmls += '	<div id="password2_msg" class="join_msg"></div>	';
 			htmls += '		';
 			if(memberInfo.orders == 2) htmls += '	<div id="join_02">	';
@@ -4035,6 +4060,7 @@ function login_edit_btn_ajax() {
 			htmls += '	<div id="answer_msg" class="join_msg"></div>	';
 			htmls += '	</div>	';
 			htmls += '	<input type="button" value="수정완료" class="login_btn" onclick="login_edit_ajax(document.getElementById(\'login_edit_forms\'))" />	';
+			htmls += '	<input type="button" value="회원탈퇴" class="login_btn" style="background:#fc4b3d;border:1px solid #fc4b3d;" onclick="login_exit_show();hide2(\'login_edit_bg\')" />	';
 			htmls += '	</form>	';
 			htmls += '		';
 			htmls += '	</div>	';
@@ -4200,6 +4226,61 @@ function recruit_mylist_ajax(pages, recruit_no, member_no) {
 		}
 	});
 }
+//로그인창 생성
+function addloginbg(member_no) {
+	var htmls = "";
+	htmls += '	<div class="write_hide" id="login_float_bg" style="display:none;z-index:6700;">	';
+	htmls += '	<div class="write_hide_scroll">	';
+	htmls += '		';
+	htmls += '	<div class="write_hide_scroll2s">	';
+	htmls += '	<div class="review_write_box">	';
+	htmls += '	<div style="overflow:hidden;">	';
+	htmls += '	<div style="width:50%;float:left;"><h1 id="rc_h">로그인</h1></div>	';
+	htmls += '	<div style="width:50%;float:right;text-align:right;">	';
+	htmls += '	<a href="#100" class="review_write_btn2" style="width:85%;" onclick="hide2(\'login_float_bg\');document.body.style.overflow = \'scroll\';">닫기</a>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	<div class="recruit_add_box_line">	';
+	htmls += '	<form id="login_forms" action="login_post.o" method="post" onsubmit="return login_submit(this)">	';
+	htmls += '	<input type="text" name="kakao" value="-1" style="display:none;" />	';
+	htmls += '	<input type="text" name="name" value="" style="display:none;" />	';
+	htmls += '	<input type="text" name="email" placeholder="이메일 주소" class="login_input" value="'+save_id_auths+'" onchange="login_email_check(this);" />	';
+	htmls += '	<div id="login_email_msg" class="join_msg"></div>	';
+	htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="login_password_check(this);" />	';
+	htmls += '	<div id="login_password_msg" class="join_msg"></div>	';
+	htmls += '	<input type="button" value="로그인" class="login_btn" onclick="login_submit(document.getElementById(\'login_forms\'),'+member_no+');" />	';
+	htmls += '	<input type="button" value="카카오계정으로 로그인" class="login_btn" onclick="loginWithKakao('+member_no+')" style="border:1px solid #ffeb00;background:#ffeb00;color:#3c1e1e;" />	';
+	htmls += '	<div id="login_msg" class="join_msg"></div>	';
+	htmls += '	<input type="checkbox" name="save_id" id="save_id" value="1" ';
+	if(save_id_auths != '') htmls += '  checked ';
+	htmls += '  />	';
+	htmls += '	<label for="save_id">아이디 저장</label>	';
+	htmls += '	</form>	';
+	htmls += '	<div class="login_find">	';
+	htmls += '	<a href="#100" onclick="email_find_show();">이메일 찾기</a> /	';
+	htmls += '	<a href="#100" onclick="pw_find_show();">비밀번호 찾기</a>	';
+	htmls += '	</div>	';
+	htmls += '	<div class="login_box_b">	';
+	htmls += '	아직 회원이 아니세요?	';
+	htmls += '	&nbsp;&nbsp;	';
+	htmls += '	<a href="#100" onclick="hide2(\'login_float_bg\');show2(\'join_float_bg\');document.body.style.overflow = \'hidden\';">회원가입</a>	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	
+	Kakao.Auth.logout();
+	Kakao.Auth.cleanup();
+	Kakao.cleanup();
+	Kakao.init('b85b67c68bb32038acd5d82c790bb2ab');
+	document.getElementById("login_forms_hidden").innerHTML = htmls;
+
+	show2("login_float_bg");
+	document.body.style.overflow = 'hidden';
+}
 //////////////////////////////////////////
 
 
@@ -4229,6 +4310,687 @@ function recruit_view_load(member_no, recruit_no) {
 
 
 
+
+
+
+//카카오로그인
+String.prototype.trim = function()
+{
+  return this.replace(/(^\s*)|(\s*$)/gi, "");
+}
+
+String.prototype.replaceAll = function(str1, str2)
+{
+  var temp_str = this.trim();
+  temp_str = temp_str.replace(eval("/" + str1 + "/gi"), str2);
+  return temp_str;
+}
+
+
+
+
+//<![CDATA[
+// 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('b85b67c68bb32038acd5d82c790bb2ab');
+function loginWithKakao(member_no) {
+  // 로그인 창을 띄웁니다.
+  Kakao.Auth.login({
+    success: function(authObj) {
+    	alert(JSON.stringify(authObj));
+    	
+    	var kakao_password = authObj.refresh_token_expires_in;
+    	
+    	var token = JSON.stringify(authObj);
+     	Kakao.Auth.setAccessToken(authObj.access_token);
+ 	    Kakao.API.request({
+           url: '/v1/user/me',
+           success: function(res) {
+        	   alert(JSON.stringify(res));
+        	  	var kakao_id = res.id;
+          	  	var kakao_name = res.properties.nickname;
+       	   	  
+       	   		var forms = document.getElementById("login_forms");
+               	forms.name.value = kakao_name;
+               	forms.kakao.value = 1;
+               	forms.email.value = kakao_id;
+               	forms.password.value = kakao_password;
+               
+               	login_ajax(forms,member_no);
+           },
+           fail: function(error) {
+             alert(JSON.stringify(error));
+           }
+         });
+ 	    
+    },
+    fail: function(err) {
+      alert(JSON.stringify(err));
+    }
+  });
+};
+//]]>
+///////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+//이메일 찾기
+var email_find_name = false;
+var email_find_phone1 = false;
+var email_find_phone2 = false;
+var email_find_phone3 = false;
+
+function email_find_name_check(var1) {
+	if(var1.value == "") {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "이름을 작성해주세요.";
+		htmls += '</span>';
+		document.getElementById("email_find_name_msg").innerHTML = htmls;
+		email_find_name = false;
+	}else{
+		document.getElementById("email_find_name_msg").innerHTML = "";
+		email_find_name = true;
+	}
+}
+function email_find_phone1_check(var1) {
+	if(var1.value == "") email_find_phone1 = false;
+	else email_find_phone1 = true;
+	
+	if(!email_find_phone1 || !email_find_phone2 || !email_find_phone3) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "전화번호가 올바르지 않습니다.";
+		htmls += '</span>';
+		document.getElementById("email_find_phone_msg").innerHTML = htmls;
+	}else{
+		document.getElementById("email_find_phone_msg").innerHTML = "";
+	}
+}
+function email_find_phone2_check(var1) {
+	if(var1.value == "") email_find_phone2 = false;
+	else email_find_phone2 = true;
+	
+	if(!email_find_phone1 || !email_find_phone2 || !email_find_phone3) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "전화번호가 올바르지 않습니다.";
+		htmls += '</span>';
+		document.getElementById("email_find_phone_msg").innerHTML = htmls;
+	}else{
+		document.getElementById("email_find_phone_msg").innerHTML = "";
+	}
+}
+function email_find_phone3_check(var1) {
+	if(var1.value == "") email_find_phone3 = false;
+	else email_find_phone3 = true;
+	
+	if(!email_find_phone1 || !email_find_phone2 || !email_find_phone3) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "전화번호가 올바르지 않습니다.";
+		htmls += '</span>';
+		document.getElementById("email_find_phone_msg").innerHTML = htmls;
+	}else{
+		document.getElementById("email_find_phone_msg").innerHTML = "";
+	}
+}
+function email_find_submit(forms) {
+	email_find_name_check(forms.name);
+	email_find_phone1_check(forms.phone1);
+	email_find_phone2_check(forms.phone2);
+	email_find_phone3_check(forms.phone3);
+	
+	if(
+			!email_find_name || 
+			!email_find_phone1 || 
+			!email_find_phone2 || 
+			!email_find_phone3
+	) {
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+function email_find_ajax(forms) {
+	if(email_find_submit(forms) == true) {
+		$.ajax({
+			url:'email_find_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				name:forms.name.value,
+				phone1:forms.phone1.value,
+				phone2:forms.phone2.value,
+				phone3:forms.phone3.value
+			},
+			success:function(result){
+				var htmls1 = "";
+				var htmls2 = "";
+
+				htmls2 += '<input type="button" value="닫기" onclick="hide2(\'email_find_float_bg\');" class="review_write_btn2" />';
+				if(result.result == false) {
+					htmls1 += '이메일을 찾을 수 없습니다.';
+				}else{
+					htmls1 += '이메일은 <span style="font-weight:bold;">'+result.email+'</span> 입니다.';
+					htmls2 += '<input type="button" value="비밀번호 찾기" class="review_write_btn1" onclick="hide2(\'email_find_float_bg\');pw_find_show();" />';
+				}
+
+				
+				document.getElementById("email_find_result").innerHTML = htmls1;
+				document.getElementById("email_find_btn").innerHTML = htmls2;
+
+				
+				
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+
+function email_find_show() {
+	var htmls = "";
+	
+	htmls += '	<div class="write_hide" id="email_find_float_bg" style="display:none;z-index:7000;">	';
+	htmls += '	<div class="write_hide_scroll">	';
+	htmls += '		';
+	htmls += '	<div class="write_hide_scroll2s">	';
+	htmls += '	<div class="review_write_box">	';
+	htmls += '	<div style="overflow:hidden;">	';
+	htmls += '	<div><h1 id="rc_h">이메일찾기</h1></div>	';
+	htmls += '	</div>	';
+	htmls += '	<div class="recruit_add_box_line" id="email_find_result">	';
+	htmls += '	<form id="email_find_forms">	';
+	htmls += '	<input type="text" name="name" placeholder="이름" class="login_input" onchange="email_find_name_check(this);" />	';
+	htmls += '	<div id="email_find_name_msg" class="join_msg"></div>	';
+	htmls += '	<div class="join_phone" style="overflow:hidden;">	';
+	htmls += '	<h4>전화번호</h4>	';
+	htmls += '	<input type="text" name="phone1" placeholder="010" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="email_find_phone1_check(this);" />	';
+	htmls += '	<div>-</div>	';
+	htmls += '	<input type="text" name="phone2" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="email_find_phone2_check(this);" />	';
+	htmls += '	<div>-</div>	';
+	htmls += '	<input type="text" name="phone3" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="email_find_phone3_check(this);" />	';
+	htmls += '	</div>	';
+	htmls += '	<div id="email_find_phone_msg" class="join_msg"></div>	';
+	htmls += '	</form>	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '	<div class="review_write_box_line align-center" id="email_find_btn">	';
+	htmls += '	<input type="button" value="닫기" onclick="hide2(\'email_find_float_bg\');" class="review_write_btn2" />	';
+	htmls += '	<input type="button" value="이메일 찾기" class="review_write_btn1" onclick="email_find_ajax(document.getElementById(\'email_find_forms\'));" />	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '		';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	
+	document.getElementById("email_find_hidden").innerHTML = htmls;
+	
+	show2("email_find_float_bg");
+}
+//////////////////////////////////////////
+
+
+
+
+
+
+
+//비밀번호 찾기
+var pw_find_email = false;
+var pw_find_name = false;
+var pw_find_phone1 = false;
+var pw_find_phone2 = false;
+var pw_find_phone3 = false;
+var pw_find_quest = false;
+var pw_find_answer = false;
+
+function pw_find_email_check(var1) {
+	if(var1.value == "") {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "이메일을 작성해주세요.";
+		htmls += '</span>';
+		document.getElementById("pw_find_email_msg").innerHTML = htmls;
+		pw_find_email = false;
+	}else{
+		document.getElementById("pw_find_email_msg").innerHTML = "";
+		pw_find_email = true;
+	}
+}
+function pw_find_name_check(var1) {
+	if(var1.value == "") {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "이름을 작성해주세요.";
+		htmls += '</span>';
+		document.getElementById("pw_find_name_msg").innerHTML = htmls;
+		pw_find_name = false;
+	}else{
+		document.getElementById("pw_find_name_msg").innerHTML = "";
+		pw_find_name = true;
+	}
+}
+function pw_find_phone1_check(var1) {
+	if(var1.value == "") pw_find_phone1 = false;
+	else pw_find_phone1 = true;
+	
+	if(!pw_find_phone1 || !pw_find_phone2 || !pw_find_phone3) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "전화번호가 올바르지 않습니다.";
+		htmls += '</span>';
+		document.getElementById("pw_find_phone_msg").innerHTML = htmls;
+	}else{
+		document.getElementById("pw_find_phone_msg").innerHTML = "";
+	}
+}
+function pw_find_phone2_check(var1) {
+	if(var1.value == "") pw_find_phone2 = false;
+	else pw_find_phone2 = true;
+	
+	if(!pw_find_phone1 || !pw_find_phone2 || !pw_find_phone3) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "전화번호가 올바르지 않습니다.";
+		htmls += '</span>';
+		document.getElementById("pw_find_phone_msg").innerHTML = htmls;
+	}else{
+		document.getElementById("pw_find_phone_msg").innerHTML = "";
+	}
+}
+function pw_find_phone3_check(var1) {
+	if(var1.value == "") pw_find_phone3 = false;
+	else pw_find_phone3 = true;
+	
+	if(!pw_find_phone1 || !pw_find_phone2 || !pw_find_phone3) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "전화번호가 올바르지 않습니다.";
+		htmls += '</span>';
+		document.getElementById("pw_find_phone_msg").innerHTML = htmls;
+	}else{
+		document.getElementById("pw_find_phone_msg").innerHTML = "";
+	}
+}
+
+function pw_find_quest_check(var1) {
+	if(var1.value == -1) {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "질문을 선택해주세요.";
+		htmls += '</span>';
+		document.getElementById("pw_find_quest_msg").innerHTML = htmls;
+		pw_find_quest = false;
+	}else{
+		document.getElementById("pw_find_quest_msg").innerHTML = "";
+		pw_find_quest = true;
+	}
+}
+
+function pw_find_answer_check(var1) {
+	if(var1.value == "") {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "답변을 작성해주세요.";
+		htmls += '</span>';
+		document.getElementById("pw_find_answer_msg").innerHTML = htmls;
+		pw_find_answer = false;
+	}else{
+		document.getElementById("pw_find_answer_msg").innerHTML = "";
+		pw_find_answer = true;
+	}
+}
+function pw_find_submit(forms) {
+	pw_find_email_check(forms.email);
+	pw_find_name_check(forms.name);
+	pw_find_phone1_check(forms.phone1);
+	pw_find_phone2_check(forms.phone2);
+	pw_find_phone3_check(forms.phone3);
+	pw_find_quest_check(forms.quest);
+	pw_find_answer_check(forms.answer);
+	
+	if(
+			!pw_find_email || 
+			!pw_find_name || 
+			!pw_find_phone1 || 
+			!pw_find_phone2 || 
+			!pw_find_phone3 || 
+			!pw_find_quest || 
+			!pw_find_answer
+	) {
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+function pw_find_ajax(forms) {
+	if(pw_find_submit(forms) == true) {
+		$.ajax({
+			url:'pw_find_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				email:forms.email.value,
+				name:forms.name.value,
+				phone1:forms.phone1.value,
+				phone2:forms.phone2.value,
+				phone3:forms.phone3.value,
+				quest:forms.quest.value,
+				answer:forms.answer.value
+			},
+			success:function(result){
+				var htmls1 = "";
+				var htmls2 = "";
+
+				htmls2 += '<input type="button" value="닫기" onclick="hide2(\'pw_find_float_bg\');" class="review_write_btn2" />';
+				document.getElementById("pw_find_btn").innerHTML = htmls2;
+				if(result.result == false) {
+					htmls1 += '비밀번호를 찾을 수 없습니다.';
+					document.getElementById("pw_find_result").innerHTML = htmls1;
+				}else{
+					pw_change_show();
+					var fo = document.getElementById("pw_change_forms");
+					fo.email.value = forms.email.value;
+					fo.name.value = forms.name.value;
+					fo.phone1.value = forms.phone1.value;
+					fo.phone2.value = forms.phone2.value;
+					fo.phone3.value = forms.phone3.value;
+					fo.quest.value = forms.quest.value;
+					fo.answer.value = forms.answer.value;
+					hide2("pw_find_float_bg");
+				}
+
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+
+function pw_find_show() {
+	var htmls = "";
+	
+	htmls += '	<div class="write_hide" id="pw_find_float_bg" style="display:none;z-index:7000;">	';
+	htmls += '	<div class="write_hide_scroll">	';
+	htmls += '		';
+	htmls += '	<div class="write_hide_scroll2s">	';
+	htmls += '	<div class="review_write_box">	';
+	htmls += '	<div style="overflow:hidden;">	';
+	htmls += '	<div><h1 id="rc_h">비밀번호찾기</h1></div>	';
+	htmls += '	</div>	';
+	htmls += '	<div class="recruit_add_box_line" id="pw_find_result">	';
+	htmls += '	<form id="pw_find_forms">	';
+	htmls += '	<input type="text" name="email" placeholder="이메일" class="login_input" onchange="pw_find_email_check(this);" />	';
+	htmls += '	<div id="pw_find_email_msg" class="join_msg"></div>	';
+	htmls += '	<input type="text" name="name" placeholder="이름" class="login_input" onchange="pw_find_name_check(this);" />	';
+	htmls += '	<div id="pw_find_name_msg" class="join_msg"></div>	';
+	htmls += '	<div class="join_phone" style="overflow:hidden;">	';
+	htmls += '	<h4>전화번호</h4>	';
+	htmls += '	<input type="text" name="phone1" placeholder="010" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="pw_find_phone1_check(this);" />	';
+	htmls += '	<div>-</div>	';
+	htmls += '	<input type="text" name="phone2" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="pw_find_phone2_check(this);" />	';
+	htmls += '	<div>-</div>	';
+	htmls += '	<input type="text" name="phone3" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" onchange="pw_find_phone3_check(this);" />	';
+	htmls += '	</div>	';
+	htmls += '	<div id="pw_find_phone_msg" class="join_msg"></div>	';
+	htmls += '	<div class="join_quest">	';
+	htmls += '	<h4>질문/답변</h4>	';
+	htmls += '	<select name="quest" class="join_select" onchange="pw_find_quest_check(this);">	';
+	htmls += '	<option value="-1">질문을 선택해 주세요.</option>	';
+	htmls += '	<option value="1">나의 아버지 이름은?</option>	';
+	htmls += '	<option value="2">내가 다니던 학교 이름은?</option>	';
+	htmls += '	<option value="3">나의 취미는?</option>	';
+	htmls += '	<option value="4">내가 좋아하던 게임은?</option>	';
+	htmls += '	<option value="5">나의 직업은?</option>	';
+	htmls += '	</select>	';
+	htmls += '	<div id="pw_find_quest_msg" class="join_msg"></div>	';
+	htmls += '	<input type="text" name="answer" placeholder="답변" class="login_input" onchange="pw_find_answer_check(this);" />	';
+	htmls += '	<div id="pw_find_answer_msg" class="join_msg"></div>	';
+	htmls += '	</div>	';
+	htmls += '	</form>	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '	<div class="review_write_box_line align-center" id="pw_find_btn">	';
+	htmls += '	<input type="button" value="닫기" onclick="hide2(\'pw_find_float_bg\');" class="review_write_btn2" />	';
+	htmls += '	<input type="button" value="비밀번호 찾기" class="review_write_btn1" onclick="pw_find_ajax(document.getElementById(\'pw_find_forms\'));" />	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '		';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+
+	
+	document.getElementById("pw_find_hidden").innerHTML = htmls;
+	
+	show2("pw_find_float_bg");
+}
+///////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+//비밀번호 변경
+var pw_change_password = false;
+var pw_change_password_value = "";
+var pw_change_password2 = false;
+
+function pw_change_password_check(var1) {
+	if(var1.value == "") {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "비밀번호를 작성해주세요.";
+		htmls += '</span>';
+		document.getElementById("pw_change_password_msg").innerHTML = htmls;
+		pw_change_password = false;
+	}else{
+		document.getElementById("pw_change_password_msg").innerHTML = "";
+		pw_change_password = true;
+		pw_change_password_value = var1.value;
+	}
+}
+function pw_change_password2_check(var1) {
+	if(var1.value == "") {
+		var htmls = "";
+		htmls = '<span style="color:red;">';
+		htmls += "비밀번호를 작성해주세요.";
+		htmls += '</span>';
+		document.getElementById("pw_change_password2_msg").innerHTML = htmls;
+		pw_change_password2 = false;
+	}else{
+		if(pw_change_password == false) {
+			var htmls = "";
+			htmls = '<span style="color:red;">';
+			htmls += "비밀번호를 작성해주세요.";
+			htmls += '</span>';
+			document.getElementById("pw_change_password2_msg").innerHTML = htmls;
+			pw_change_password2 = false;
+		}else if(pw_change_password_value != var1.value) {
+			var htmls = "";
+			htmls = '<span style="color:red;">';
+			htmls += "비밀번호가 다릅니다.";
+			htmls += '</span>';
+			document.getElementById("pw_change_password2_msg").innerHTML = htmls;
+			pw_change_password2 = false;
+		}else{
+			document.getElementById("pw_change_password2_msg").innerHTML = "";
+			pw_change_password2 = true;
+		}
+	}
+}
+function pw_change_submit(forms) {
+	pw_change_password_check(forms.password);
+	pw_change_password2_check(forms.password2);
+	
+	if(
+			!pw_change_password || 
+			!pw_change_password2
+	) {
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+function pw_change_ajax(forms) {
+	if(pw_change_submit(forms) == true) {
+		$.ajax({
+			url:'pw_change_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				email:forms.email.value,
+				name:forms.name.value,
+				phone1:forms.phone1.value,
+				phone2:forms.phone2.value,
+				phone3:forms.phone3.value,
+				quest:forms.quest.value,
+				answer:forms.answer.value,
+				password:forms.password.value,
+				password2:forms.password2.value
+			},
+			success:function(result){
+				if(result.result == false) {
+					alert(result.msg);
+				}else {
+					alert("수정완료");
+					hide2('pw_change_float_bg');
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+function pw_change_show() {
+	var htmls = "";
+	
+	htmls += '	<div class="write_hide" id="pw_change_float_bg" style="display:none;z-index:7000;">	';
+	htmls += '	<div class="write_hide_scroll">	';
+	htmls += '		';
+	htmls += '	<div class="write_hide_scroll2s">	';
+	htmls += '	<div class="review_write_box">	';
+	htmls += '	<div style="overflow:hidden;">	';
+	htmls += '	<div><h1 id="rc_h">비밀번호 변경</h1></div>	';
+	htmls += '	</div>	';
+	htmls += '	<div class="recruit_add_box_line" id="pw_change_result">	';
+	htmls += '	<form id="pw_change_forms">	';
+	htmls += '	<input type="hidden" name="email" />	';
+	htmls += '	<input type="hidden" name="name" />	';
+	htmls += '	<input type="hidden" name="phone1" />	';
+	htmls += '	<input type="hidden" name="phone2" />	';
+	htmls += '	<input type="hidden" name="phone3" />	';
+	htmls += '	<input type="hidden" name="quest" />	';
+	htmls += '	<input type="hidden" name="answer" />	';
+	htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="pw_change_password_check(this);" />	';
+	htmls += '	<div id="pw_change_password_msg" class="join_msg"></div>	';
+	htmls += '	<input type="password" name="password2" placeholder="비밀번호 확인" class="login_input" onchange="pw_change_password2_check(this);" />	';
+	htmls += '	<div id="pw_change_password2_msg" class="join_msg"></div>	';
+	htmls += '	</form>	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '	<div class="review_write_box_line align-center" id="pw_change_btn">	';
+	htmls += '	<input type="button" value="닫기" onclick="hide2(\'pw_change_float_bg\');" class="review_write_btn2" />	';
+	htmls += '	<input type="button" value="비밀번호 변경" class="review_write_btn1" onclick="pw_change_ajax(document.getElementById(\'pw_change_forms\'));" />	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+
+	document.getElementById("pw_change_hidden").innerHTML = htmls;
+	
+	show2("pw_change_float_bg");
+}
+////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+//회원탈퇴
+function login_exit_ajax(forms) {
+	$.ajax({
+		url:'login_exit_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			password:forms.password.value,
+			password2:forms.password2.value
+		},
+		success:function(result){
+			if(result.result == false) {
+				alert(result.msg);
+			}else {
+				alert("회원탈퇴 완료");
+				hide2('login_exit_float_bg');
+				logout_ajax(-99);
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+function login_exit_show() {
+	var htmls = "";
+	
+	htmls += '	<div class="write_hide" id="login_exit_float_bg" style="display:none;z-index:7000;">	';
+	htmls += '	<div class="write_hide_scroll">	';
+	htmls += '		';
+	htmls += '	<div class="write_hide_scroll2s">	';
+	htmls += '	<div class="review_write_box">	';
+	htmls += '	<div style="overflow:hidden;">	';
+	htmls += '	<div><h1 id="rc_h">회원탈퇴</h1></div>	';
+	htmls += '	</div>	';
+	htmls += '	<div class="recruit_add_box_line">	';
+	htmls += '	<form id="login_exit_forms">	';
+	htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" />	';
+	htmls += '	<input type="password" name="password2" placeholder="비밀번호 확인" class="login_input" />	';
+	htmls += '	</form>	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '	<div class="review_write_box_line align-center">	';
+	htmls += '	<input type="button" value="닫기" onclick="hide2(\'login_exit_float_bg\');" class="review_write_btn2" />	';
+	htmls += '	<input type="button" value="회원탈퇴" class="review_write_btn1" style="background:#fc4b3d;border:1px solid #fc4b3d;" onclick="login_exit_ajax(document.getElementById(\'login_exit_forms\'));" />	';
+	htmls += '	</div>	';
+	htmls += '		';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+	htmls += '	</div>	';
+
+	document.getElementById("login_exit_hidden").innerHTML = htmls;
+	
+	show2("login_exit_float_bg");
+}
 
 
 
@@ -4285,9 +5047,10 @@ function recruit_view_load(member_no, recruit_no) {
  	});
 } 
 
+
 </script>
 </head>
-<body onload="recruit_view_load(${member_no}, ${recruit_no});">
+<body onload="recruit_view_load(${member_no}, ${recruit_no});setinitvar('${save_id_auths}');">
 <!-- <input type="button" value="test" onclick="test();" />
 <div id="testtest"></div> -->
 
@@ -4295,6 +5058,11 @@ function recruit_view_load(member_no, recruit_no) {
 
 
 
+<!-- 회원탈퇴 영역 -->
+<div id="login_exit_hidden"></div>
+
+<!-- 아이디찾기 영역 -->
+<div id="email_find_hidden"></div>
 
 
 
@@ -4302,9 +5070,13 @@ function recruit_view_load(member_no, recruit_no) {
 
 
 
+<!-- 비밀번호찾기 영역 -->
+<div id="pw_find_hidden"></div>
 
 
 
+<!-- 비밀번호변경 영역 -->
+<div id="pw_change_hidden"></div>
 
 
 
@@ -4314,43 +5086,9 @@ function recruit_view_load(member_no, recruit_no) {
 
 
 
-<!-- 로그인 -->
-<div class="write_hide" id="login_float_bg" style="display:none;">
-<div class="write_hide_scroll">
+<!-- 로그인영역 -->
+<div id="login_forms_hidden"></div>
 
-	<div class="write_hide_scroll2s">
-    <div class="review_write_box">
-      <div style="overflow:hidden;">
-      	<div style="width:50%;float:left;"><h1 id="rc_h">로그인</h1></div>
-      	<div style="width:50%;float:right;text-align:right;">
-			<a href="#100" class="review_write_btn2" style="width:85%;" onclick="hide2('login_float_bg');document.body.style.overflow = 'scroll';">닫기</a>
-		</div>
-      </div>
-      <div class="recruit_add_box_line">
-	      <form id="login_forms" action="login_post.o" method="post" onsubmit="return login_submit(this)">
-	        <input type="text" name="email" placeholder="이메일 주소" class="login_input" value="${save_id_auths}" onchange="login_email_check(this);" />
-	        <div id="login_email_msg" class="join_msg"></div>
-	        <input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="login_password_check(this);" />
-	        <div id="login_password_msg" class="join_msg"></div>
-	        <input type="button" value="로그인" class="login_btn" onclick="login_submit(document.getElementById('login_forms'),${member_no});" />
-	        <div id="login_msg" class="join_msg"></div>
-	        <input type="checkbox" name="save_id" id="save_id" value="1" <c:if test="${save_id_auths ne ''}">checked</c:if> />
-	        <label for="save_id">아이디 저장</label>
-	      </form>
-	      <div class="login_find">
-	        <a href="#100">아이디 찾기</a> /
-	        <a href="#100">비밀번호 찾기</a>
-	      </div>
-	      <div class="login_box_b">
-	        아직 회원이 아니세요?
-	        &nbsp;&nbsp;
-	        <a href="#100" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a>
-	      </div>
-      </div>
-    </div>
-    </div>
-</div>
-</div>
 
 
 <!-- 회원가입 -->

@@ -8,7 +8,7 @@
 	<ul id="login_btn_bg2">
 		<li><a href="#100" onclick="hide2('xs_menu_id');document.body.style.overflow='scroll';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>
         <c:if test="${memberInfo eq null}">
-		<li><a href="#100" onclick="show2('login_float_bg');document.body.style.overflow = 'hidden';hide2('xs_menu_id');">로그인</a></li>
+		<li><a href="#100" onclick="addloginbg(${member_no});hide2('xs_menu_id');">로그인</a></li>
 		<li><a href="#100" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">
@@ -55,7 +55,7 @@
       <div class="col-sm-4 top_menu_align">
         <ul class="header_ul hidden-xs" id="login_btn_bg">
         <c:if test="${memberInfo eq null}">
-          <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2('login_float_bg');document.body.style.overflow = 'hidden';">로그인</a></li>
+          <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="addloginbg(${member_no});">로그인</a></li>
           <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">

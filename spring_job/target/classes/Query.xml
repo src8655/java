@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) FROM MIN_JOB_MEMBER where EMAIL=#{email}
 	</select>
 	<insert id="MemberInsert" parameterType="com.myjob.data.MemberData">
-		INSERT INTO MIN_JOB_MEMBER(EMAIL,PASSWORD,NAME,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,COMPANY,COMPANY_CATE,COMPANY_NUM,ORDERS,DATES,FOLLOW)
+		INSERT INTO MIN_JOB_MEMBER(EMAIL,PASSWORD,NAME,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,COMPANY,COMPANY_CATE,COMPANY_NUM,ORDERS,DATES,FOLLOW,KAKAO)
 		VALUES(
 		#{email},
 		#{password},
@@ -25,7 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{company_num},
 		#{orders},
 		#{dates},
-		#{follow}
+		#{follow},
+		#{kakao}
 		)
 	</insert>
 	<select id="MemberLogin" parameterType="com.myjob.data.MemberData" resultType="com.myjob.data.MemberData">
@@ -51,6 +52,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="password != '-1'">,PASSWORD=#{password}</if>
 		where NO=#{no}
 	</update>
+	<select id="MemberFindEmailCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from MIN_JOB_MEMBER
+		where NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3}
+	</select>
+	<select id="MemberFindEmail" parameterType="java.util.Map" resultType="com.myjob.data.MemberData">
+		select EMAIL
+		from MIN_JOB_MEMBER
+		where NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3}
+	</select>
+	<select id="MemberFindPwCount" parameterType="com.myjob.data.MemberData" resultType="int">
+		select count(*)
+		from MIN_JOB_MEMBER
+		where EMAIL=#{email} and NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3} and QUEST=#{quest} and ANSWER=#{answer}
+	</select>
+	<update id="MemberChangePw" parameterType="com.myjob.data.MemberData">
+		update MIN_JOB_MEMBER set
+		PASSWORD=#{password}
+		where EMAIL=#{email} and NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3} and QUEST=#{quest} and ANSWER=#{answer}
+	</update>
+	<select id="MemberChangePwKakao" parameterType="com.myjob.data.MemberData" resultType="com.myjob.data.MemberData">
+		select KAKAO
+		from MIN_JOB_MEMBER
+		where EMAIL=#{email} and NAME=#{name} and PHONE1=#{phone1} and PHONE2=#{phone2} and PHONE3=#{phone3} and QUEST=#{quest} and ANSWER=#{answer}
+	</select>
+	<delete id="MemberDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_MEMBER where NO=#{no}
+	</delete>
 	<!--  -->
 	
 	
@@ -206,6 +235,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO
 
 	</select>
+	<delete id="CompanyDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_COMPANY where MEMBER_NO=#{no}
+	</delete>
 	<!--  -->
 	
 	
@@ -224,6 +256,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="CountGetCount" parameterType="com.myjob.data.CountData" resultType="int">
 		select count(*) from MIN_JOB_COUNT where DATES=#{dates} and MEMBER_NO=#{member_no}
 	</select>
+	<!--  -->
 	
 	
 	
@@ -279,6 +312,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		sum(STARS5) as STARS5
 		from MIN_JOB_REVIEW where MEMBER_NO=#{member_no}
 	</select>
+	<delete id="ReviewDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_REVIEW where MEMBER_NO=#{no}
+	</delete>
+	<!--  -->
 	
 	
 	
@@ -325,6 +362,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        group by MEMBER_NO
 		        order by MONEY desc) a) where MEMBER_NO=#{member_no}
 	</select>
+	<delete id="IncomeDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_INCOME where MEMBER_NO=#{no}
+	</delete>
+	<!--  -->
 	
 	
 	
@@ -389,6 +430,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where MEMBER_NO=#{member_no}
 		and INTERVIEWRESULT=#{interviewresult}
 	</select>
+	<delete id="InterviewDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_INTERVIEW where MEMBER_NO=#{no}
+	</delete>
 	
 	
 	
@@ -559,6 +603,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INCOME, avg(MONEY) as AVG_MONEY from MIN_JOB_INCOME group by MEMBER_NO) exa2 ON exb0.MEMBER_NO=exa2.MEMBER_NO) exb1
 		LEFT OUTER JOIN (select MEMBER_NO, count(*) as COUNT_INTERVIEW from MIN_JOB_INTERVIEW group by MEMBER_NO) exa3 ON exb1.MEMBER_NO=exa3.MEMBER_NO
 	</select>
+	<delete id="RecruitDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_RECRUIT where MEMBER_NO=#{no}
+	</delete>
 	<!--  -->
 	
 	
@@ -601,7 +648,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by NO desc) a
 		) where rnum between #{start} and #{end}
 	</select>
-	
+	<delete id="RecruitListDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_RECRUIT_LIST where MEMBER_NO=#{no}
+	</delete>
+	<!--  -->
 	
 	
 	

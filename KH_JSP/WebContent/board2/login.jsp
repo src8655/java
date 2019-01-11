@@ -40,8 +40,7 @@ String.prototype.replaceAll = function(str1, str2)
   temp_str = temp_str.replace(eval("/" + str1 + "/gi"), str2);
   return temp_str;
 }
-  //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+
     Kakao.init('b85b67c68bb32038acd5d82c790bb2ab');
     // 카카오 로그인 버튼을 생성합니다.
     Kakao.Auth.createLoginButton({
@@ -76,6 +75,5 @@ String.prototype.replaceAll = function(str1, str2)
          alert(JSON.stringify(err));
       }
     });
-  //]]>
 </script>
 <%@ include file="foot2.jsp" %>
