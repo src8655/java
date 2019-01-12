@@ -620,7 +620,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- RecruitList -->
 	<insert id="RecruitListInsert" parameterType="com.myjob.data.RecruitListData">
-		insert into MIN_JOB_RECRUIT_LIST(NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO)
+		insert into MIN_JOB_RECRUIT_LIST(NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO,FILE3)
 		values(
 		#{name},
 		#{phone1},
@@ -632,7 +632,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{member_no},
 		#{dates},
 		#{writer_no},
-		#{recruit_no}
+		#{recruit_no},
+		#{file3}
 		)
 	</insert>
 	<select id="RecruitListExistCount" parameterType="java.util.Map" resultType="int">
@@ -646,10 +647,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where RECRUIT_NO=#{recruit_no}
 	</select>
 	<select id="RecruitListGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.RecruitListData">
-		select NO,NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO
+		select NO,NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO,FILE3
 		from (select rownum as rnum,a.* from
 		
-		(select NO,NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO
+		(select NO,NAME,PHONE1,PHONE2,PHONE3,EMAIL,FILE1,FILE2,MEMBER_NO,DATES,WRITER_NO,RECRUIT_NO,FILE3
 		from MIN_JOB_RECRUIT_LIST
 		where RECRUIT_NO=#{recruit_no}
 		

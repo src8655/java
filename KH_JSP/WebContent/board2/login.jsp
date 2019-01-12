@@ -52,6 +52,7 @@ String.prototype.replaceAll = function(str1, str2)
     	  Kakao.API.request({
               url: '/v1/user/me',
               success: function(res) {
+            	  alert(JSON.stringify(res));
             	  var ids = res.id;
             	  var passwords = res.uuid;
             	  var names = res.properties.nickname;

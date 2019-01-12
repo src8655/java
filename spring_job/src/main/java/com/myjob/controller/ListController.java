@@ -1811,6 +1811,7 @@ public class ListController {
 			@ModelAttribute("rcldata") RecruitListData rcldata,
 			@RequestParam(value="files1", required=false) MultipartFile files1,
 			@RequestParam(value="files2", required=false) MultipartFile files2,
+			@RequestParam(value="files3", required=false) MultipartFile files3,
 			HttpServletRequest request
 			) throws Exception {
 		Map map = new HashMap();
@@ -1868,6 +1869,18 @@ public class ListController {
 			}while(files_tmp.exists());
 			files2.transferTo(files_tmp);
 			rcldata.setFile2(files_tmp.getName());
+		}
+		String filename3 = files3.getOriginalFilename();
+		if(!filename3.equals("")) {
+			int cnt = 0;
+			File files_tmp = null;
+			//이미 존재하면 카운트 증가
+			do {
+				cnt++;
+				files_tmp = new File(savePaths+"/"+"o"+cnt+"o"+filename3);
+			}while(files_tmp.exists());
+			files3.transferTo(files_tmp);
+			rcldata.setFile3(files_tmp.getName());
 		}
 		
 		rcldata.setDates(ActionTime.getDate());

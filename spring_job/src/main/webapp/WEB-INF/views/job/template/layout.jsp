@@ -1488,6 +1488,7 @@ var rca_phone2 = false;
 var rca_phone3 = false;
 var rca_email = false;
 var rca_files1 = false;
+var rca_files3 = false;
 
 function rca_name_check(var1) {
 	var temp = "rca_name";
@@ -1561,6 +1562,16 @@ function rca_files1_check(var1) {
 		rca_files1 = true;
 	}
 }
+function rca_files3_check(var1) {
+	var temp = "rca_files3";
+	if(var1.value == "") {
+		document.getElementById(temp+"_msg").innerHTML = "<span style='color:red;'>입력해주세요.</span>";
+		rca_files3 = false;
+	}else{
+		document.getElementById(temp+"_msg").innerHTML = "";
+		rca_files3 = true;
+	}
+}
 function recruit_add_submit(var1) {
 	rca_name_check(var1.name);
 	rca_phone1_check(var1.phone1);
@@ -1568,13 +1579,15 @@ function recruit_add_submit(var1) {
 	rca_phone3_check(var1.phone3);
 	rca_email_check(var1.email);
 	rca_files1_check(var1.files1);
+	rca_files3_check(var1.files3);
 	
 	if(!rca_name ||
 			!rca_phone1 ||
 			!rca_phone2 ||
 			!rca_phone3 ||
 			!rca_email ||
-			!rca_files1){
+			!rca_files1 ||
+			!rca_files3){
 		return false;
 	}else return true;
 }
@@ -3395,6 +3408,20 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 			htmls += '	</div>	';
 			htmls += '	<p id="rca_email_msg" class="join_msg"></p>	';
 			htmls += '	</div>	';
+			
+
+			htmls += '	<div class="recruit_add_box_line">	';
+			htmls += '	<h4>	';
+			htmls += '	이력서사진	250x300px';
+			htmls += '	</h4>	';
+			htmls += '	<div class="recruit_phone">	';
+			htmls += '	<input type="button" value="이력서사진 첨부하기" class="login_input" id="files3_btn" onclick="open_file2(\'files3\');" />	';
+			htmls += '	<input type="file" name="files3" id="files3" class="login_input" onchange="change_file2(\'files3_btn\',this);rca_files3_check(this);" style="display:none;" />	';
+			htmls += '	</div>	';
+			htmls += '	<p id="rca_files3_msg" class="join_msg"></p>	';
+			htmls += '	</div>	';
+			
+			
 			htmls += '	<div class="recruit_add_box_line">	';
 			htmls += '	<h4>	';
 			htmls += '	이력서	';
@@ -3405,6 +3432,8 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 			htmls += '	</div>	';
 			htmls += '	<p id="rca_files1_msg" class="join_msg"></p>	';
 			htmls += '	</div>	';
+			
+			
 			htmls += '	<div class="recruit_add_box_line">	';
 			htmls += '	<h4>	';
 			htmls += '	첨부파일	';
@@ -3417,7 +3446,7 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 			htmls += '		';
 			htmls += '	<div class="review_write_box_line align-center">	';
 			htmls += '	<input type="button" value="닫기" onclick="hide2(\'recruit_add\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />	';
-			htmls += '	<input type="button" value="지원하기" class="review_write_btn1" onclick="recruit_add_post_ajax(document.getElementById(\'recruit_add_forms\'),'+recruit_no+','+member_no+');" />	';
+			htmls += '	<input type="button" value="지원하기" class="review_write_btn1" onclick="recruit_add_post_ajax(document.getElementById(\'recruit_add_forms\'),'+recruit_no+','+pages_r+','+member_no+');" />	';
 			htmls += '	</div>	';
 			htmls += '	</div>	';
 			htmls += '	</div>	';
@@ -3974,14 +4003,17 @@ function login_edit_btn_ajax() {
 			htmls += '		';
 			htmls += '	<form id="login_edit_forms" action="login_edit_post.o" method="post" onsubmit="return login_edit_submit(this);">	';
 			htmls += '	<input type="hidden" name="orders" value="'+memberInfo.orders+'" />	';
-			htmls += '	'+memberInfo.email;
+			
+			if(memberInfo.kakao == -1) htmls += '	'+memberInfo.email;
+			else htmls += '	<a class="login_btn" style="border:1px solid #ffeb00;background:#ffeb00;color:#3c1e1e;display:block;line-height:43px;text-align:center;">카카오계정</a>	';
+			
 			htmls += '	<div id="email_msg" class="join_msg"></div>	';
 			htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" ';
-			if(memberInfo.kakao == 1) htmls += ' style="display:none;"';
+			if(memberInfo.kakao != -1) htmls += ' style="display:none;"';
 			htmls += ' onchange="password_checks(this);" />	';
 			htmls += '	<div id="password_msg" class="join_msg"></div>	';
 			htmls += '	<input type="password" name="password2" placeholder="비밀번호 확인" class="login_input" ';
-			if(memberInfo.kakao == 1) htmls += ' style="display:none;"';
+			if(memberInfo.kakao != -1) htmls += ' style="display:none;"';
 			htmls += ' onchange="password2_checks(this);" />	';
 			htmls += '	<div id="password2_msg" class="join_msg"></div>	';
 			htmls += '		';
@@ -4192,12 +4224,20 @@ function recruit_mylist_ajax(pages, recruit_no, member_no) {
 			var i = 0;
 			for(i=0;i<list_length;i++) {
 				var rldata = list[i];
-				htmls += '	<div class="recruit_mylist_box">	';
+				htmls += '	<div class="recruit_mylist_box" style="overflow:hidden">	';
+				
+				htmls += '	<div style="margin-right:10px;width:79px;height:110px;float:left;overflow:hidden">	';
+				htmls += '    <img src="./upload/'+rldata.file3+'" width="79px" height="110px" />';
+				htmls += '  </div>';
+				
+				htmls += '	<div style="float:left;overflow:hidden">	';
 				htmls += '	<span style="font-weight:bold;">이름</span> : '+rldata.name+'<br />	';
 				htmls += '	<span style="font-weight:bold;">연락처</span> : '+rldata.phone1+'-'+rldata.phone2+'-'+rldata.phone3+'<br />	';
 				htmls += '	<span style="font-weight:bold;">이메일</span> : '+rldata.email+'<br />	';
 				htmls += '	<a href="download.o?filename='+rldata.file1+'" style="">이력서</a>';
 				if(rldata.file2 != null && rldata.file2 != '') htmls += '  <a href="download.o?filename='+rldata.file2+'" style="">첨부파일</a>	';
+				htmls += '	</div>	';
+				
 				htmls += '	</div>	';
 			}
 			
@@ -4373,7 +4413,7 @@ function loginWithKakao(member_no) {
  	    Kakao.API.request({
            url: '/v1/user/me',
            success: function(res) {
-        	   //alert(JSON.stringify(res));
+        	    //alert(JSON.stringify(res));
         	  	var kakao_id = res.id;
           	  	var kakao_name = res.properties.nickname;
        	   	  
@@ -4381,7 +4421,7 @@ function loginWithKakao(member_no) {
                	forms.name.value = kakao_name;
                	forms.kakao.value = 1;
                	forms.email.value = kakao_id;
-               	forms.password.value = kakao_password;
+               	forms.password.value = kakao_id;
                
                	login_ajax(forms,member_no);
            },

@@ -13,7 +13,14 @@ public class RecruitListData {
 	private String dates = "";
 	private int writer_no = -1;
 	private int recruit_no = -1;
+	private String file3 = "";
 	
+	public String getFile3() {
+		return file3;
+	}
+	public void setFile3(String file3) {
+		this.file3 = file3;
+	}
 	public int getRecruit_no() {
 		return recruit_no;
 	}
