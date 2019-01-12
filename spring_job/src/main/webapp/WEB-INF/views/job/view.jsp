@@ -337,7 +337,7 @@
     <div class="col-sm-1"></div>
     <div class="col-sm-10">
     
-	<div class="income_header" style="margin-top:0px;">
+	<div class="income_header" style="margin-top:0px;margin-bottom:0px;">
       <div class="income_header_l">
         <h5>면접경험</h5>
         <div class="chart_div">

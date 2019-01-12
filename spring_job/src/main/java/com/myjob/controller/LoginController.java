@@ -346,6 +346,8 @@ public class LoginController {
 		
 		password = Md5Enc.getEncMD5(password.getBytes());
 		
+		map.put("kakao", kakao);
+		
 		//카카오 로그인일때
 		if(kakao == 1) {
 			//카카오 회원이 없을때 새로 생성
@@ -370,9 +372,14 @@ public class LoginController {
 		session.setAttribute("job_email", email);
 		session.setAttribute("job_password", password);
 		
+		if(kakao == -1) {
 		if(save_id == 1) {
 			Cookie cookie = new Cookie("save_id_auth", email);
 			response.addCookie(cookie);
+		}else {
+			Cookie cookie = new Cookie("save_id_auth", "");
+			response.addCookie(cookie);
+		}
 		}else {
 			Cookie cookie = new Cookie("save_id_auth", "");
 			response.addCookie(cookie);

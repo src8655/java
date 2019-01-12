@@ -3811,6 +3811,10 @@ function login_ajax(forms, member_no) {
 					save_id_auths = '';
 				}
 				
+				if(result.kakao != -1) {
+					save_id_auths = '';
+				}
+				
 				var htmls = "";
 				
 				var memberInfo = result.memberInfo;
@@ -5059,7 +5063,38 @@ function login_exit_show() {
 	
 	show2("login_exit_float_bg");
 }
+////////////////////////////////////////////
 
+
+
+
+
+
+
+//메인페이지 더보기/닫기
+function best_more(best_scroll, best_scroll_bottom_bg, best_bottom_btn) {
+	//스크롤 세로를 자동으로
+	document.getElementById(best_scroll).style.height = "auto";
+	//하얀 그라데이션 제거
+	document.getElementById(best_scroll_bottom_bg).style.display = "none";
+	
+	var htmls = "";
+	htmls += '<a href="#100" onclick="best_close(\''+best_scroll+'\',\''+best_scroll_bottom_bg+'\',\''+best_bottom_btn+'\')">닫기</a>';
+	document.getElementById(best_bottom_btn).innerHTML = htmls;
+	document.getElementById(best_bottom_btn).style.borderTop = "0px";
+}
+function best_close(best_scroll, best_scroll_bottom_bg, best_bottom_btn) {
+	//스크롤 세로를 자동으로
+	document.getElementById(best_scroll).style.height = "500px";
+	//하얀 그라데이션 제거
+	document.getElementById(best_scroll_bottom_bg).style.display = "";
+	
+	var htmls = "";
+	htmls += '<a href="#100" onclick="best_more(\''+best_scroll+'\',\''+best_scroll_bottom_bg+'\',\''+best_bottom_btn+'\')">더보기</a>';
+	document.getElementById(best_bottom_btn).innerHTML = htmls;
+	document.getElementById(best_bottom_btn).style.borderTop = "1px solid #e6e6e6";
+}
+////////////////////////////////////////////
 
 
 

@@ -176,7 +176,7 @@ public class JobController {
 		mav.addObject("list", list);
 		
 		
-		List list2 = recruitService.getArticles(1, 5, "", -1, -1, 1, 1);
+		List list2 = recruitService.getArticles(1, 8, "", -1, -1, 1, 1);
 		for(int i=0;i<list2.size();i++) {
 			RecruitData tmp = (RecruitData)list2.get(i);
 			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
