@@ -2014,4 +2014,26 @@ public class ListController {
 		
 		return map;
 	}
+	//지원서 리스트
+	@RequestMapping("/job/view_menu_count_ajax.o")
+	@ResponseBody
+	public Map view_menu_count_ajax(
+			@RequestParam(value="member_no", defaultValue="-1") int member_no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		//리스트 개수
+		int count2 = reviewService.getCount(member_no);
+		map.put("count2", count2);
+		int count3 = incomeService.getCount(member_no);
+		map.put("count3", count3);
+		int count4 = interviewService.getCount(member_no);
+		map.put("count4", count4);
+		int count5 = recruitService.getListCount(member_no, 1);
+		map.put("count5", count5);
+		
+		
+		return map;
+	}
 }

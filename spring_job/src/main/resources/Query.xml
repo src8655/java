@@ -315,6 +315,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="ReviewDeleteUser" parameterType="com.myjob.data.MemberData">
 		delete from MIN_JOB_REVIEW where MEMBER_NO=#{no}
 	</delete>
+	<select id="ReviewGetIndexArticle" parameterType="java.util.Map" resultType="com.myjob.data.ReviewData">
+		select NO,TYPES,STARS,STARS1,STARS2,STARS3,STARS4,STARS5,MEMO1,MEMO2,MEMO3,MEMBER_NO,DATES,WRITER_NO,PROF,STATUS
+		from (select rownum as rnum,a.* from (
+		select NO,TYPES,STARS,STARS1,STARS2,STARS3,STARS4,STARS5,MEMO1,MEMO2,MEMO3,MEMBER_NO,DATES,WRITER_NO,PROF,STATUS
+		from MIN_JOB_REVIEW
+		where MEMBER_NO=#{member_no}
+		order by NO desc) a) where rnum between 1 and 1
+	</select>
 	<!--  -->
 	
 	

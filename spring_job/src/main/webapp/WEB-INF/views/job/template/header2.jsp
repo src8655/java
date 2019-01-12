@@ -12,7 +12,7 @@
 		<li><a href="#100" onclick="hide2('xs_menu_id');document.body.style.overflow='scroll';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>
         <c:if test="${memberInfo eq null}">
 		<li><a href="#100" onclick="addloginbg(${member_no});hide2('xs_menu_id');">로그인</a></li>
-		<li><a href="#100" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';">회원가입</a></li>
+		<li><a href="#100" onclick="show2('join_float_bg');document.body.style.overflow = 'hidden';hide2('xs_menu_id');">회원가입</a></li>
         </c:if>
         <c:if test="${memberInfo ne null}">
           <li onclick="toggle2('top_sub_id2');">
@@ -20,7 +20,7 @@
           </li>
           <div id="top_sub_id2" style="display:none;">
           	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax(${member_no});">&nbsp;&nbsp;로그아웃</a></li>
-          	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();">&nbsp;&nbsp;회원수정</a></li>
+          	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();hide2('xs_menu_id');">&nbsp;&nbsp;회원수정</a></li>
           </div>
           <c:if test="${memberInfo.orders eq 1}">
             <li><a href="mypage.o?mypage=1">마이페이지</a></li>

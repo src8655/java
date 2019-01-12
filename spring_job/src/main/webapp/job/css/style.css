@@ -125,6 +125,7 @@ height:30px;
 line-height:27px;
 float:right;
 display:block;
+padding:5px 0 0 0;
 }
 .main_subject_bg {
 background-size:cover;
@@ -1723,6 +1724,128 @@ display:inline-block;
 }
 
 
+.best_review_bg {
+border-radius:20px;
+margin-top:20px;
+background:#ffffff;
+overflow:hidden;
+}
+.best_review_top {
+padding:15px;
+border-bottom:1px solid #e6e6e6;
+overflow:hidden;
+}
+.best_review_top h3 {
+font-size:20px;
+font-weight:bold;
+color:#333333;
+margin:0px;
+padding:0px;
+}
+.best_review_top p {
+font-size:14px;
+color:#666666;
+margin:5px 0 0 0;
+padding:0px;
+}
+.best_review_header {
+padding:15px;
+overflow:hidden;
+}
+.best_review_header_l {
+float:left;
+width:57px;
+}
+.best_review_header_l img {
+border:1px solid #e6e6e6;
+}
+.best_review_header_r {
+margin:0 0 0 15px;
+float:left;
+}
+.best_review_header a {
+text-decoration:none;
+}
+.best_review_header_r h5 {
+font-size:14px;
+font-weight:bold;
+margin:0 0 5px 0;
+padding:0px;
+color:#333333;
+}
+.best_review_header_r p {
+color:#666666;
+margin:5px 0 0 0;
+padding:0px;
+font-size:12px;
+}
+.best_review_body {
+padding-top:15px;
+padding-right:20px;
+padding-bottom:40px;
+border-bottom:1px solid #e6e6e6;
+overflow:hidden;
+}
+.best_review_body h3 {
+font-size:16px;
+margin:0px;
+padding:0 0 20px 0;
+font-weight:bold;
+}
+.best_review_body h5 {
+font-size:14px;
+font-weight:bold;
+margin:0px;
+padding:20px 0 15px 0;
+}
+.best_review_body p {
+margin:0px;
+padding:0px;
+color:#666666;
+}
+
+
+.best_recruit_bg {
+border-radius:20px;
+margin-top:20px;
+background:#ffffff;
+overflow:hidden;
+}
+.best_recruit_bg h1 {
+color:#333333;
+font-size:20px;
+font-weight:bold;
+margin:0px;
+padding:15px;
+}
+.best_recruit_bg ul {
+background:#ffffff;
+width:100%;
+list-style:none;
+margin:0px;
+padding:0px;
+}
+.best_recruit_bg ul li {
+margin:0px;
+padding-top:20px;
+padding-bottom:20px;
+padding-left:10px;
+padding-right:10px;
+border-bottom:1px solid #e6e6e6;
+overflow:hidden;
+}
+.best_recruit_bg ul li a {
+text-decoration:none;
+}
+.best_recruit_bg ul li a:hover {
+text-decoration:none;
+}
+.best_scroll {
+
+}
+
+
+
 
 
 
@@ -1877,6 +2000,27 @@ display:inline-block;
     font-size:14px;
     width:90px;
   }
+  
+  
+  .best_review_bg {
+	width:60%;
+	float:left;
+  }
+  .best_recruit_bg {
+	float:right;
+	width:38%;
+  }
+  .best_review_body {
+	background:url(../images/review_human.jpg) no-repeat left top;
+	background-position:20px 15px;
+	padding-left:80px;
+  }
+  .best_scroll {
+	margin:0 0 20px 0;
+	height:600px;
+	overflow-y:scroll;
+	width:100%;
+  }
 }
 @media screen and (max-width:1200px) {
   .header h1 {
@@ -2023,6 +2167,26 @@ display:inline-block;
     font-size:14px;
     width:90px;
   }
+  
+  
+  .best_review_bg {
+	width:55%;
+	float:left;
+  }
+  .best_recruit_bg {
+	float:right;
+	width:43%;
+  }
+  .best_review_body {
+	background:none;
+	padding-left:20px;
+  }
+  .best_scroll {
+	margin:0 0 20px 0;
+	height:600px;
+	overflow-y:scroll;
+	width:100%;
+  }
 }
 @media screen and (max-width:992px) {
   .header h1 {
@@ -2167,6 +2331,26 @@ display:inline-block;
     font-size:13px;
     width:75px;
   }
+  
+  
+  .best_review_bg {
+	width:100%;
+	float:none;
+  }
+  .best_recruit_bg {
+	float:none;
+	width:100%;
+  }
+  .best_review_body {
+	background:none;
+	padding-left:20px;
+  }
+  .best_scroll {
+	margin:0px;
+	height:auto;
+	overflow:auto;
+	width:100%;
+  }
 }
 @media screen and (max-width:767px) {
   .header h1 {
@@ -2299,5 +2483,25 @@ display:inline-block;
   }
   .recruit_list ul li {
     width:100%;
+  }
+  
+  
+  .best_review_bg {
+	width:100%;
+	float:none;
+  }
+  .best_recruit_bg {
+	float:none;
+	width:100%;
+  }
+  .best_review_body {
+	background:none;
+	padding-left:20px;
+  }
+  .best_scroll {
+	margin:0px;
+	height:auto;
+	overflow:auto;
+	width:100%;
   }
 }

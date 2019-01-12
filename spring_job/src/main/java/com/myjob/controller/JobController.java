@@ -51,6 +51,7 @@ import com.myjob.data.CompanyData;
 import com.myjob.data.MemberData;
 import com.myjob.data.RecruitData;
 import com.myjob.data.RecruitListData;
+import com.myjob.data.ReviewData;
 import com.myjob.ext.ActionTime;
 import com.myjob.ext.Action_Paging;
 import com.myjob.ext.NumberFormat;
@@ -157,7 +158,7 @@ public class JobController {
 		
 		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
 		
-		List list = companyService.getArticles(1, 5, "", -1, -1, -1);
+		List list = companyService.getArticles(1, 3, "", -1, -1, 1);
 		
 		for(int i=0;i<list.size();i++) {
 			CompanyData tmp = (CompanyData)list.get(i);
@@ -168,11 +169,14 @@ public class JobController {
 			if((mdata != null && mdata.getFollow_list() != null) && (mdata.getFollow_list().contains(Integer.toString(tmp.getMember_no()))))
 				tmp.setIsfollow(1);
 			else tmp.setIsfollow(-1);
+			
+			ReviewData rdata = reviewService.getIndexArticle(tmp.getMember_no());
+			tmp.setRdata(rdata);
 		}
 		mav.addObject("list", list);
 		
 		
-		List list2 = recruitService.getArticles(1, 5, "", -1, -1, -1, 1);
+		List list2 = recruitService.getArticles(1, 5, "", -1, -1, 1, 1);
 		for(int i=0;i<list2.size();i++) {
 			RecruitData tmp = (RecruitData)list2.get(i);
 			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));

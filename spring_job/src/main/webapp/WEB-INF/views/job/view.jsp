@@ -84,19 +84,19 @@
               기업정보
             </a></li>
             <li><a href="#100" onclick="review_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn2">
-              <span>${count2}</span><br />
+              <span><span id="cont2">${count2}</span></span><br />
               기업리뷰
             </a></li>
             <li><a href="#100" onclick="income_ajax(${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn3">
-              <span>${count3}</span><br />
+              <span><span id="cont3">${count3}</span></span><br />
               연봉정보
             </a></li>
             <li><a href="#100" onclick="interview_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn4">
-              <span>${count4}</span><br />
+              <span><span id="cont4">${count4}</span></span><br />
               면접후기
             </a></li>
             <li><a href="#100" onclick="recruit_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn5">
-              <span>${count5}</span><br />
+              <span><span id="cont5">${count5}</span></span><br />
               채용공고
             </a></li>
           </ul>

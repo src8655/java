@@ -2167,6 +2167,7 @@ function review_post_ajax(forms, member_no) {
 					review_ajax(1, member_no);
 					alert('작성완료');
 					document.body.style.overflow = 'scroll';
+					view_menu_count_ajax(member_no);
 				}
 			},
 			error:function(r,s,e) {
@@ -2400,6 +2401,7 @@ function income_post_ajax(forms, member_no) {
 					income_ajax(member_no);
 					alert('작성완료');
 					document.body.style.overflow = 'scroll';
+					view_menu_count_ajax(member_no);
 				}
 			},
 			error:function(r,s,e) {
@@ -2859,6 +2861,7 @@ function interview_post_ajax(forms, member_no) {
 					interview_ajax(1,member_no);
 					alert('작성완료');
 					document.body.style.overflow = 'scroll';
+					view_menu_count_ajax(member_no);
 				}
 			},
 			error:function(r,s,e) {
@@ -3161,6 +3164,7 @@ function recruit_post_ajax(forms, member_no) {
 					recruit_ajax(1,member_no);
 					alert('작성완료');
 					document.body.style.overflow = 'scroll';
+					view_menu_count_ajax(member_no);
 				}
 			},
 			error:function(r,s,e) {
@@ -3800,7 +3804,7 @@ function login_ajax(forms, member_no) {
 				htmls += '          </li>';
 				htmls += '          <div id="top_sub_id2" style="display:none;">';
 				htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="logout_ajax('+member_no+');">&nbsp;&nbsp;로그아웃</a></li>';
-				htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();">&nbsp;&nbsp;회원수정</a></li>';
+				htmls += '          	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();hide2(\'xs_menu_id\');">&nbsp;&nbsp;회원수정</a></li>';
 				htmls += '          </div>';
 				if(memberInfo.orders == 1) htmls += '            <li><a href="mypage.o?mypage=1">마이페이지</a></li>';
 				if(memberInfo.orders == 2) htmls += '            <li><a href="view.o?member_no='+memberInfo.no+'">내 기업</a></li>';
@@ -3868,7 +3872,7 @@ function logout_ajax(member_no) {
 			htmls = "";
 			htmls += '<li><a href="#100" onclick="hide2(\'xs_menu_id\');document.body.style.overflow=\'scroll\';" style="color:#666666;font-weight:bold;padding:5px 0 5px 0;text-align:center;font-size:20px;">X</a></li>';
 			htmls += '<li><a href="#100" onclick="addloginbg('+member_no+');hide2(\'xs_menu_id\');">로그인</a></li>';
-			htmls += '<li><a href="#100" onclick="show2(\'join_float_bg\');document.body.style.overflow = \'hidden\';">회원가입</a></li>';
+			htmls += '<li><a href="#100" onclick="show2(\'join_float_bg\');document.body.style.overflow = \'hidden\';hide2(\'xs_menu_id\');">회원가입</a></li>';
 			htmls += '	    <li><a href="list.o?search=1">기업정보</a></li>';
 			htmls += '	    <li><a href="list.o?search=2">채용정보</a></li>';
 
@@ -3897,6 +3901,8 @@ function logout_ajax(member_no) {
 				alert("로그아웃 성공");
 				location.href="index.o";
 			}
+			
+			document.getElementById("login_edit_hidden").innerHTML = "";
 			
 			
 		},
@@ -4281,6 +4287,28 @@ function addloginbg(member_no) {
 	show2("login_float_bg");
 	document.body.style.overflow = 'hidden';
 }
+//view 메뉴 개수 구하기
+
+//지원자리스트
+function view_menu_count_ajax(member_no) {
+	 $.ajax({
+		url:'view_menu_count_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no
+		},
+		success:function(result){
+			document.getElementById("cont2").innerHTML = ''+result.count2;
+			document.getElementById("cont3").innerHTML = ''+result.count3;
+			document.getElementById("cont4").innerHTML = ''+result.count4;
+			document.getElementById("cont5").innerHTML = ''+result.count5;
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
 //////////////////////////////////////////
 
 
@@ -4336,7 +4364,7 @@ function loginWithKakao(member_no) {
   // 로그인 창을 띄웁니다.
   Kakao.Auth.login({
     success: function(authObj) {
-    	alert(JSON.stringify(authObj));
+    	//alert(JSON.stringify(authObj));
     	
     	var kakao_password = authObj.refresh_token_expires_in;
     	
@@ -4345,7 +4373,7 @@ function loginWithKakao(member_no) {
  	    Kakao.API.request({
            url: '/v1/user/me',
            success: function(res) {
-        	   alert(JSON.stringify(res));
+        	   //alert(JSON.stringify(res));
         	  	var kakao_id = res.id;
           	  	var kakao_name = res.properties.nickname;
        	   	  
@@ -4978,7 +5006,7 @@ function login_exit_show() {
 	htmls += '	</div>	';
 	htmls += '		';
 	htmls += '	<div class="review_write_box_line align-center">	';
-	htmls += '	<input type="button" value="닫기" onclick="hide2(\'login_exit_float_bg\');" class="review_write_btn2" />	';
+	htmls += '	<input type="button" value="닫기" onclick="hide2(\'login_exit_float_bg\');document.body.style.overflow=\'scroll\';" class="review_write_btn2" />	';
 	htmls += '	<input type="button" value="회원탈퇴" class="review_write_btn1" style="background:#fc4b3d;border:1px solid #fc4b3d;" onclick="login_exit_ajax(document.getElementById(\'login_exit_forms\'));" />	';
 	htmls += '	</div>	';
 	htmls += '		';

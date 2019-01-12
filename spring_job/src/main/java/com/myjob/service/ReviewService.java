@@ -52,5 +52,12 @@ public class ReviewService implements ReviewDao {
 		return (ReviewData)sqlSessionTemplate.selectOne("ReviewGetAllStars", map);
 	}
 
+	@Override
+	public ReviewData getIndexArticle(int member_no) {
+		Map map = new HashMap();
+		map.put("member_no", member_no);
+		return (ReviewData)sqlSessionTemplate.selectOne("ReviewGetIndexArticle", map);
+	}
+
 
 }

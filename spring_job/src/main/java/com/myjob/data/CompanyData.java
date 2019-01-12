@@ -29,6 +29,17 @@ public class CompanyData {
 	
 	private int isfollow = -1;
 	
+	private ReviewData rdata;
+	
+	
+	public ReviewData getRdata() {
+		return rdata;
+	}
+
+	public void setRdata(ReviewData rdata) {
+		this.rdata = rdata;
+	}
+
 	public int getIsfollow() {
 		return isfollow;
 	}
