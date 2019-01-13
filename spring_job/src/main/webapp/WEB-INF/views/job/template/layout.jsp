@@ -19,6 +19,9 @@
     <script src="js/script.js"></script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  
 	
 <script type="text/javascript">
 
@@ -3989,6 +3992,7 @@ function logout_ajax(member_no) {
 			$(".list_follow_img").each(function(){
 				$(this).attr("src","./images/list_heart.jpg");
 			});
+			
 
 			var mypage = ${mypage};
 			if(mypage == 1) {
@@ -3996,7 +4000,10 @@ function logout_ajax(member_no) {
 				location.href="index.o";
 			}
 			
+			
+			
 			document.getElementById("login_edit_hidden").innerHTML = "";
+			
 			
 			
 		},
@@ -4070,7 +4077,11 @@ function login_edit_btn_ajax() {
 			htmls += '	<input type="hidden" name="orders" value="'+memberInfo.orders+'" />	';
 			
 			if(memberInfo.kakao == -1) htmls += '	'+memberInfo.email;
-			else htmls += '	<a class="login_btn" style="border:1px solid #ffeb00;background:#ffeb00;color:#3c1e1e;display:block;line-height:43px;text-align:center;">카카오계정</a>	';
+			else if(memberInfo.kakao == 1) htmls += '	<a class="login_btn" style="border:1px solid #ffeb00;background-color:#ffeb00;background-image:url(./images/kakao_login_btn.jpg);background-repeat:no-repeat;background-position:25px 9px;color:#3c1e1e;display:block;line-height:43px;text-align:center;">카카오계정</a>	';
+			else if(memberInfo.kakao == 2) htmls += '	<a class="login_btn" style="border:1px solid #cccccc;background-color:#ffffff;background-image:url(./images/google_login_btn.jpg);background-repeat:no-repeat;background-position:25px 9px;color:#3c1e1e;display:block;line-height:43px;text-align:center;color:#333333;">구글계정</a>	';
+			
+			
+			
 			
 			htmls += '	<div id="email_msg" class="join_msg"></div>	';
 			htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" ';
@@ -4337,8 +4348,82 @@ function recruit_mylist_ajax(pages, recruit_no, member_no) {
 		}
 	});
 }
+
+
+
+
+//구글로그인
+var google_login_member_no = -1;
+var googleUser = {};
+var startApp = function() {
+  gapi.load('auth2', function(){
+    // Retrieve the singleton for the GoogleAuth library and set up the client.
+    auth2 = gapi.auth2.init({
+      client_id: '395192667762-gppc4u7fgg05tcn1o867b9js7g25p7vb.apps.googleusercontent.com',
+      cookiepolicy: 'single_host_origin',
+      // Request scopes in addition to 'profile' and 'email'
+      //scope: 'additional_scope'
+    });
+    attachSignin(document.getElementById('customBtn'));
+  });
+};
+
+function attachSignin(element) {
+  console.log(element.id);
+  auth2.attachClickHandler(element, {},
+      function(googleUser) {
+	  	var profile = googleUser.getBasicProfile();
+		//alert('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		//alert('Name: ' + profile.getName());
+		//alert('Image URL: ' + profile.getImageUrl());
+		//alert('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		  
+		var forms = document.getElementById("login_forms");
+		forms.name.value = profile.getName();
+	   	forms.kakao.value = 2;
+	   	forms.email.value = profile.getId();
+	   	forms.password.value = profile.getId();
+	   
+	   	login_ajax(forms,google_login_member_no);
+      }, function(error) {
+        alert("구글로그인 취소");
+      });
+}
+
+ /*
+function onSuccess(googleUser) {
+	var profile = googleUser.getBasicProfile();
+	//alert('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	//alert('Name: ' + profile.getName());
+	//alert('Image URL: ' + profile.getImageUrl());
+	//alert('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  
+	var forms = document.getElementById("login_forms");
+	forms.name.value = profile.getName();
+   	forms.kakao.value = 2;
+   	forms.email.value = profile.getId();
+   	forms.password.value = profile.getId();
+   
+   	login_ajax(forms,google_login_member_no);
+}
+function onFailure(error) {
+	alert("실패");
+}
+  function renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': onSuccess,
+      'onfailure': onFailure
+    });
+  } */
+  
 //로그인창 생성
 function addloginbg(member_no) {
+	google_login_member_no = member_no;
 	var htmls = "";
 	htmls += '	<div class="write_hide" id="login_float_bg" style="display:none;z-index:6700;">	';
 	htmls += '	<div class="write_hide_scroll">	';
@@ -4360,7 +4445,13 @@ function addloginbg(member_no) {
 	htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" onchange="login_password_check(this);" />	';
 	htmls += '	<div id="login_password_msg" class="join_msg"></div>	';
 	htmls += '	<input type="button" value="로그인" class="login_btn" onclick="login_submit(document.getElementById(\'login_forms\'),'+member_no+');" />	';
-	htmls += '	<input type="button" value="카카오계정으로 로그인" class="login_btn" onclick="loginWithKakao('+member_no+')" style="border:1px solid #ffeb00;background:#ffeb00;color:#3c1e1e;" />	';
+	htmls += '	<input type="button" value="카카오계정으로 로그인" class="login_btn" onclick="loginWithKakao('+member_no+')" style="border:1px solid #ffeb00;background-color:#ffeb00;background-image:url(./images/kakao_login_btn.jpg);background-repeat:no-repeat;background-position:25px 9px;color:#3c1e1e;" />	';
+
+	//구글로그인부분
+	htmls += '	<input type="button" value="구글계정으로 로그인" id="customBtn" class="login_btn customGPlusSignIn" onclick="" style="color:#333333;border:1px solid #cccccc;background-color:#ffffff;background-image:url(./images/google_login_btn.jpg);background-repeat:no-repeat;background-position:25px 9px;" />	';
+	//htmls += '<div id="my-signin2" style="display:none;"></div>';
+	//htmls += '<div id="customBtn" class="customGPlusSignIn">sss</div>';
+	
 	htmls += '	<div id="login_msg" class="join_msg"></div>	';
 	htmls += '	<input type="checkbox" name="save_id" id="save_id" value="1" ';
 	if(save_id_auths != '') htmls += '  checked ';
@@ -4388,6 +4479,8 @@ function addloginbg(member_no) {
 	Kakao.cleanup();
 	Kakao.init('b85b67c68bb32038acd5d82c790bb2ab');
 	document.getElementById("login_forms_hidden").innerHTML = htmls;
+	
+	startApp();
 
 	show2("login_float_bg");
 	document.body.style.overflow = 'hidden';
@@ -5164,6 +5257,10 @@ function best_close(best_scroll, best_scroll_bottom_bg, best_bottom_btn) {
 
 
 
+
+
+
+
  function test() {
 	$.ajax({
  		url:'test.o',
@@ -5346,6 +5443,7 @@ function best_close(best_scroll, best_scroll_bottom_bg, best_bottom_btn) {
 	 <!-- jQuery 포함 -->
     <!-- 부트스트랩 플러그인 포함 -->
     <script src="js/bootstrap.min.js"></script> 
+    
 		
 	<!-- HTML5와 미디어쿼리를 지원하지 않는 IE8 이하 버전을 위해 -->
 	<!-- [if lt IE 9]>

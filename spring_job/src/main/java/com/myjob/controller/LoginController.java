@@ -363,8 +363,8 @@ public class LoginController {
 		
 		map.put("kakao", kakao);
 		
-		//카카오 로그인일때
-		if(kakao == 1) {
+		//카카오 로그인일때 & 구글도 같은 방식
+		if(kakao == 1 || kakao == 2) {
 			//카카오 회원이 없을때 새로 생성
 			email = Md5Enc.getEncMD5(email.getBytes());
 			if(!memberService.existLogin(email, password)) {
@@ -374,7 +374,7 @@ public class LoginController {
 				mdata.setName(name);
 				mdata.setOrders(1);
 				mdata.setDates(ActionTime.getDate());
-				mdata.setKakao(1);
+				mdata.setKakao(kakao);
 				memberService.insert(mdata);
 			}
 		}
@@ -610,7 +610,13 @@ public class LoginController {
 
 		MemberData tmp = memberService.changePwKakao(mdata);
 		if(tmp.getKakao() == 1) {
-			msg = "카카오회원은 변경할 수 없습니다.";
+			msg = "카카오계정회원은 변경할 수 없습니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(tmp.getKakao() == 2) {
+			msg = "구글계정회원은 변경할 수 없습니다.";
 			map.put("msg", msg);
 			map.put("result", false);
 			return map;
