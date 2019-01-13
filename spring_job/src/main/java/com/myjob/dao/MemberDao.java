@@ -14,4 +14,5 @@ public interface MemberDao {
 	Integer findPwCount(MemberData mdata);
 	void changePw(MemberData mdata);
 	MemberData changePwKakao(MemberData mdata);
+	void deleteUser(MemberData mdata);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.myjob.dao.IncomeDao;
 import com.myjob.data.IncomeData;
+import com.myjob.data.MemberData;
 
 @Service
 public class IncomeService implements IncomeDao {
@@ -69,6 +70,10 @@ public class IncomeService implements IncomeDao {
 		Integer result = (Integer)sqlSessionTemplate.selectOne("IncomeGetLank", map);
 		if(result == null) return 0;
 		else return result;
+	}
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("IncomeDeleteUser", mdata);
 	}
 
 }

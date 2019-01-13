@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.myjob.dao.CompanyDao;
 import com.myjob.data.CompanyData;
+import com.myjob.data.MemberData;
 
 
 @Service
@@ -70,6 +71,10 @@ public class CompanyService implements CompanyDao {
 		Map map = new HashMap();
 		map.put("member_no", member_no);
 		return (Integer)sqlSessionTemplate.selectOne("CompanyGetFollowsCount", map);
+	}
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("CompanyDeleteUser", mdata);
 	}
 
 }

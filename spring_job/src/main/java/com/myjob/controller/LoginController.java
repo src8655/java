@@ -41,6 +41,11 @@ import com.myjob.dao.MemberDao;
 import com.myjob.data.CompanyData;
 import com.myjob.data.MemberData;
 import com.myjob.ext.Md5Enc;
+import com.myjob.service.IncomeService;
+import com.myjob.service.InterviewService;
+import com.myjob.service.RecruitListService;
+import com.myjob.service.RecruitService;
+import com.myjob.service.ReviewService;
 import com.myjob.ext.ActionTime;
 
 import oracle.net.aso.MD5;
@@ -54,6 +59,16 @@ public class LoginController {
 	MemberDao memberService;
 	@Autowired
 	CompanyDao companyService;
+	@Autowired
+	ReviewService reviewService;
+	@Autowired
+	IncomeService incomeService;
+	@Autowired
+	InterviewService interviewService;
+	@Autowired
+	RecruitService recruitService;
+	@Autowired
+	RecruitListService recruitListService;
 
 	String msg = "";
 	String url = "";
@@ -670,6 +685,14 @@ public class LoginController {
 		
 		
 		
+		
+		memberService.deleteUser(memberInfo);
+		companyService.deleteUser(memberInfo);
+		reviewService.deleteUser(memberInfo);
+		incomeService.deleteUser(memberInfo);
+		interviewService.deleteUser(memberInfo);
+		recruitService.deleteUser(memberInfo);
+		recruitListService.deleteUser(memberInfo);
 		
 		
 		

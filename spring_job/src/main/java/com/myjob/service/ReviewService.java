@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myjob.dao.ReviewDao;
+import com.myjob.data.MemberData;
 import com.myjob.data.ReviewData;
 
 @Service
@@ -57,6 +58,10 @@ public class ReviewService implements ReviewDao {
 		Map map = new HashMap();
 		map.put("member_no", member_no);
 		return (ReviewData)sqlSessionTemplate.selectOne("ReviewGetIndexArticle", map);
+	}
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("ReviewDeleteUser", mdata);
 	}
 
 

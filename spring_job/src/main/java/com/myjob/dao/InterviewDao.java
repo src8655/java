@@ -3,6 +3,7 @@ package com.myjob.dao;
 import java.util.List;
 
 import com.myjob.data.InterviewData;
+import com.myjob.data.MemberData;
 
 public interface InterviewDao {
 	void insert(InterviewData itdata);
@@ -13,4 +14,5 @@ public interface InterviewDao {
 	Integer getInterviewdir(int member_no, int interviewdir);
 	Integer getInterviewex(int member_no, int interviewex);
 	Integer getInterviewresult(int member_no, int interviewresult);
+	void deleteUser(MemberData mdata);
 }

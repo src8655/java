@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myjob.dao.RecruitDao;
+import com.myjob.data.MemberData;
 import com.myjob.data.RecruitData;
 
 @Service
@@ -117,6 +118,18 @@ public class RecruitService implements RecruitDao {
 		Map map = new HashMap();
 		map.put("writer_no", writer_no);
 		return (Integer)sqlSessionTemplate.selectOne("RecruitGetMyCount", map);
+	}
+
+	@Override
+	public void end(int no, int status) {
+		Map map = new HashMap();
+		map.put("no", no);
+		map.put("status", status);
+		sqlSessionTemplate.update("RecruitEnd", map);
+	}
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("RecruitDeleteUser", mdata);
 	}
 
 }

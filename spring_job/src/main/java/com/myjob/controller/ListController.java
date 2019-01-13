@@ -1609,6 +1609,7 @@ public class ListController {
 	public Map recruit_ajax(
 			@RequestParam(value="member_no", defaultValue="-1") int member_no,
 			@RequestParam(value="pages_r", defaultValue="1") int pages_r,
+			@RequestParam(value="status", defaultValue="1") int status,
 			HttpServletRequest request
 			) throws Exception {
 		Map map = new HashMap();
@@ -1617,12 +1618,12 @@ public class ListController {
 		map.put("memberInfo", mdata);
 		
 		//리스트 개수
-		int count5 = recruitService.getListCount(member_no, 1);
+		int count5 = recruitService.getListCount(member_no, status);
 		map.put("count5", count5);
 		
 		
 		Action_Paging paging = new Action_Paging(count5, 4, pages_r);
-		List list = recruitService.getListArticles(paging.getBoard_starts(), paging.getBoard_ends(), member_no, 1);
+		List list = recruitService.getListArticles(paging.getBoard_starts(), paging.getBoard_ends(), member_no, status);
 		
 		for(int i=0;i<list.size();i++) {
 			RecruitData tmp = (RecruitData)list.get(i);
@@ -1799,6 +1800,8 @@ public class ListController {
 		}
 		
 		recruitService.del(recruit_no);
+		
+		recruitListService.deleteRecruit(recruit_no);
 
 		map.put("msg", msg);
 		map.put("result", true);
@@ -2047,6 +2050,47 @@ public class ListController {
 		map.put("count5", count5);
 		
 		
+		return map;
+	}
+
+	//채용정보 마감
+	@RequestMapping("/job/recruit_end_ajax.o")
+	@ResponseBody
+	public Map recruit_end_ajax(
+			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
+			@ModelAttribute("rcdata") RecruitData rcdata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		RecruitData rcdata_tmp = recruitService.getArticleNo(recruit_no);
+		if(mdata.getNo() != rcdata_tmp.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getNo() != rcdata.getMember_no()) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		recruitService.end(recruit_no, 2);
+
+		map.put("result", true);
 		return map;
 	}
 }

@@ -95,7 +95,7 @@
               <span><span id="cont4">${count4}</span></span><br />
               면접후기
             </a></li>
-            <li><a href="#100" onclick="recruit_ajax(1, ${member_no});setmenu(this);" class="nav_ul_li_a" id="nav_btn5">
+            <li><a href="#100" onclick="recruit_ajax(1, ${member_no},1);setmenu(this);" class="nav_ul_li_a" id="nav_btn5">
               <span><span id="cont5">${count5}</span></span><br />
               채용공고
             </a></li>

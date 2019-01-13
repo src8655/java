@@ -2884,14 +2884,15 @@ function interview_post_ajax(forms, member_no) {
 	}
 }
 //채용
-function recruit_ajax(pages_r, member_no) {
+function recruit_ajax(pages_r, member_no, status) {
 	$.ajax({
 		url:'recruit_ajax.o',
 		method:'POST',
 		datatype : "json",
 		data:{
 			member_no:member_no,
-			pages_r:pages_r
+			pages_r:pages_r,
+			status:status
 		},
 		success:function(result){
 			var htmls = "";
@@ -3080,6 +3081,20 @@ function recruit_ajax(pages_r, member_no) {
 			
 			
 			
+			htmls += '	<ul class="recruit_tab">	';
+			htmls += '		<li><a href="#100" onclick="recruit_ajax(1,'+member_no+',1);" ';
+			if(status == 1) htmls += ' 			class="recruit_tab_li_a_hover"';
+			else			htmls += ' 			class="recruit_tab_li_a"';
+			htmls += '			>진행중</a></li>	';
+			htmls += '		<li><a href="#100" onclick="recruit_ajax(1,'+member_no+',2);" ';
+			if(status == 2) htmls += ' 			class="recruit_tab_li_a_hover"';
+			else			htmls += ' 			class="recruit_tab_li_a"';
+			htmls += '			>마감</a></li>	';
+			htmls += '	</ul>	';
+			
+			
+			
+			
 			htmls += '		';
 			htmls += '	<div class="recruit_list">	';
 			htmls += '	<ul>	';
@@ -3091,8 +3106,12 @@ function recruit_ajax(pages_r, member_no) {
 			for(i=0;i<list_length;i++) {
 				var rcdatas = list[i];
 				htmls += '	<li>	';
-				htmls += '	<a href="#100" onclick="recruit_view_ajax('+pages_r+','+rcdatas.no+','+member_no+');">	';
-				htmls += '	<div class="recruit_list_dday">D-'+rcdatas.dday+'</div>	';
+				htmls += '	<a href="#100" onclick="recruit_view_ajax('+pages_r+','+rcdatas.no+','+member_no+','+status+');">	';
+				
+				
+				if(rcdatas.status == 1) htmls += '	<div class="recruit_list_dday">D-'+rcdatas.dday+'</div>	';
+				else htmls += '	<div class="recruit_list_dday">마감</div>	';
+				
 				htmls += '	<h4>'+rcdatas.subject+'</h4>	';
 				htmls += '	<p>'+rcdatas.prof+'</p>	';
 				htmls += '	<div class="recruit_list_keywords">	';
@@ -3114,16 +3133,16 @@ function recruit_ajax(pages_r, member_no) {
 			
 			
 			htmls += '	<div class="paging">	';
-			htmls += '	<a href="#100" onclick="recruit_ajax(1,'+member_no+');" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>	';
+			htmls += '	<a href="#100" onclick="recruit_ajax(1,'+member_no+','+status+');" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>	';
 			var j = 0;
 			for(j=result.paging.pstarts;j<=result.paging.pends;j++) {
-				htmls += '	<a href="#100"  onclick="recruit_ajax('+j+','+member_no+');" ';
+				htmls += '	<a href="#100"  onclick="recruit_ajax('+j+','+member_no+','+status+');" ';
 				if(j == pages_r) 	htmls += ' class="paging_a_hover"> ';
 				else 				htmls += ' class="paging_a"> ';
 				htmls += '		'+j;
 				htmls += '	</a>	';
 			}
-			htmls += '	<a href="#100" onclick="recruit_ajax('+result.paging.board_paging+','+member_no+');" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>	';
+			htmls += '	<a href="#100" onclick="recruit_ajax('+result.paging.board_paging+','+member_no+','+status+');" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>	';
 			htmls += '	</div>	';
 			htmls += '		';
 			htmls += '	</div>	';
@@ -3174,7 +3193,7 @@ function recruit_post_ajax(forms, member_no) {
 				if(result.result != true) {
 					alert(result.msg);
 				}else{
-					recruit_ajax(1,member_no);
+					recruit_ajax(1,member_no,1);
 					alert('작성완료');
 					document.body.style.overflow = 'scroll';
 					view_menu_count_ajax(member_no);
@@ -3187,7 +3206,7 @@ function recruit_post_ajax(forms, member_no) {
 	}
 }
 //채용 보기
-function recruit_view_ajax(pages_r,recruit_no,member_no) {
+function recruit_view_ajax(pages_r,recruit_no,member_no,status) {
 	$.ajax({
 		url:'recruit_view_ajax.o',
 		method:'POST',
@@ -3354,7 +3373,7 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 				htmls += '		';
 				htmls += '	<div class="review_write_box_line align-center">	';
 				htmls += '	<input type="button" value="닫기" onclick="hide2(\'recruit_edit\');document.body.style.overflow = \'scroll\';" class="review_write_btn2" />	';
-				htmls += '	<input type="button" value="수정하기" class="review_write_btn1" onclick="recruit_edit_post_ajax(document.getElementById(\'recruit_edit_forms\'),'+recruit_no+','+pages_r+','+member_no+');" />	';
+				htmls += '	<input type="button" value="수정하기" class="review_write_btn1" onclick="recruit_edit_post_ajax(document.getElementById(\'recruit_edit_forms\'),'+recruit_no+','+pages_r+','+member_no+','+status+');" />	';
 				htmls += '	</div>	';
 				htmls += '	</div>	';
 				htmls += '	</div>	';
@@ -3465,10 +3484,15 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 			htmls += '	<div class="row">	';
 			htmls += '	<div class="col-sm-1 col-md-2 col-lg-2"></div>	';
 			htmls += '	<div class="col-sm-10 col-md-8 col-lg-8">	';
+
+
+			
 			htmls += '		';
 			htmls += '    <div class="review_write log_1" ';
 			if(result.memberInfo == null || (result.memberInfo != null && result.memberInfo.orders != 1)) {
 				htmls += ' style="display:none;" ';
+			}else {
+				if(rcdata.status != 1) htmls += ' style="display:none;" ';
 			}
 			htmls += ' id="recruit_add_btn_bg">';
 				htmls += '	<a href="#100" onclick="show2(\'recruit_add\');document.body.style.overflow = \'hidden\';" style="background:#219bf0;border:1px solid #219bf0;">지원하기</a>	';
@@ -3476,10 +3500,15 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 			
 			htmls += '	<div class="recruit_subject" style="line-height:25px;">	';
 			htmls += '	<div class="recruit_dates">	';
-			htmls += '	<span>D-'+rcdata.dday+'</span> '+rcdata.dates+' ~ '+rcdata.enddates;
+			
+			
+			if(rcdata.status == 1) htmls += '	<span>D-'+rcdata.dday+'</span> '+rcdata.dates+' ~ '+rcdata.enddates;
+			else htmls += '	<span>마감</span> '+rcdata.dates+' ~ '+rcdata.enddates;
+			
+			
 			htmls += '	&nbsp;&nbsp;	';
 			htmls += '	<div>'+rcdata.dates+' 등록</div>	';
-			htmls += '	<a href="#100" onclick="recruit_ajax('+pages_r+','+member_no+')" class="recruit_a">목록보기</a>	';
+			htmls += '	<a href="#100" onclick="recruit_ajax('+pages_r+','+member_no+','+status+')" class="recruit_a">목록보기</a>	';
 			
 			
 			htmls += '    <div class="log_same" style="border:0px;';
@@ -3487,8 +3516,9 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 				htmls += ' display:none;';
 			}
 			htmls += '" id="recruit_edit_btn_bg">';
-				htmls += '	<a href="#100" onclick="show2(\'recruit_edit\');document.body.style.overflow = \'hidden\';" class="recruit_a">수정</a>	';
-				htmls += '	<a href="#100" onclick="dialog_del(\'정말로 삭제하시겠습니까?\','+recruit_no+','+pages_r+','+member_no+');" class="recruit_a">삭제</a>	';
+			if(rcdata.status == 1) htmls += '	<a href="#100" onclick="show2(\'recruit_edit\');document.body.style.overflow = \'hidden\';" class="recruit_a">수정</a>	';
+			htmls += '	<a href="#100" onclick="dialog_del(\'정말로 삭제하시겠습니까?\','+recruit_no+','+pages_r+','+member_no+','+status+');" class="recruit_a">삭제</a>	';
+			if(rcdata.status == 1) htmls += '	<a href="#100" onclick="dialog_end(\'정말로 마감하시겠습니까?\','+recruit_no+','+pages_r+','+member_no+','+status+');" class="recruit_a">마감</a>	';
 				htmls += '	<a href="#100" onclick="recruit_mylist_ajax(1,'+recruit_no+','+member_no+');show2(\'recruit_mylist\');document.body.style.overflow = \'hidden\';" class="recruit_a" style="background:#219bf0;">지원자리스트</a>	';
 				htmls += '</div>';
 			
@@ -3582,14 +3612,45 @@ function recruit_view_ajax(pages_r,recruit_no,member_no) {
 	});
 }
 //다이어로그
-function dialog_del(var1,recruit_no,pages_r,member_no) {
+function dialog_end(var1,recruit_no,pages_r,member_no,status) {
 	var reVal = confirm(var1);
 	if(reVal == true) {
-		recruit_del_ajax(recruit_no, pages_r, member_no);
+		recruit_end_ajax(recruit_no, pages_r, member_no,status);
+	}
+}
+//채용 삭제
+function recruit_end_ajax(recruit_no, pages_r, member_no,status) {
+	$.ajax({
+		url:'recruit_end_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			member_no:member_no,
+			recruit_no:recruit_no
+		},
+		success:function(result){
+			if(result.result != true) {
+				alert(result.msg);
+			}else{
+				recruit_ajax(pages_r,member_no,status);
+				alert('마감완료');
+				document.body.style.overflow = 'scroll';
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//다이어로그
+function dialog_del(var1,recruit_no,pages_r,member_no,status) {
+	var reVal = confirm(var1);
+	if(reVal == true) {
+		recruit_del_ajax(recruit_no, pages_r, member_no,status);
 	}
 }
 //채용 수정완료
-function recruit_edit_post_ajax(forms, recruit_no, pages_r, member_no) {
+function recruit_edit_post_ajax(forms, recruit_no, pages_r, member_no,status) {
 	//유효성검사 통과시에만 실행
 	if(recruit_edit_submit(forms) == true) {
 		$.ajax({
@@ -3619,7 +3680,7 @@ function recruit_edit_post_ajax(forms, recruit_no, pages_r, member_no) {
 				if(result.result != true) {
 					alert(result.msg);
 				}else{
-					recruit_view_ajax(pages_r,recruit_no,member_no);
+					recruit_view_ajax(pages_r,recruit_no,member_no,status);
 					alert('수정완료');
 					document.body.style.overflow = 'scroll';
 				}
@@ -3631,7 +3692,7 @@ function recruit_edit_post_ajax(forms, recruit_no, pages_r, member_no) {
 	}
 }
 //채용 삭제
-function recruit_del_ajax(recruit_no, pages_r, member_no) {
+function recruit_del_ajax(recruit_no, pages_r, member_no,status) {
 	$.ajax({
 		url:'recruit_del_ajax.o',
 		method:'POST',
@@ -3644,7 +3705,7 @@ function recruit_del_ajax(recruit_no, pages_r, member_no) {
 			if(result.result != true) {
 				alert(result.msg);
 			}else{
-				recruit_ajax(pages_r,member_no);
+				recruit_ajax(pages_r,member_no,status);
 				alert('삭제완료');
 				document.body.style.overflow = 'scroll';
 			}
@@ -4368,7 +4429,7 @@ function view_menu_count_ajax(member_no) {
 //채용정보 보기 로딩
 function recruit_view_load(member_no, recruit_no) {
 	if(member_no != -1 && recruit_no != -1) {
-		recruit_view_ajax(1,recruit_no,member_no);
+		recruit_view_ajax(1,recruit_no,member_no,1);
 		setmenu(document.getElementById("nav_btn5"));
 	}
 }

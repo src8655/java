@@ -327,6 +327,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
 	<!-- Income -->
 	<insert id="IncomeInsert">
 		insert into MIN_JOB_INCOME(MEMBER_NO,WRITER_NO,POSITIONS,MONEY,DATES,PROF,EMPL,STATUS)
@@ -512,6 +519,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="RecruitDel" parameterType="java.util.Map">
 		delete from MIN_JOB_RECRUIT where NO=${no}
 	</delete>
+	<update id="RecruitEnd" parameterType="java.util.Map">
+		update MIN_JOB_RECRUIT set STATUS=#{status} where NO=${no}
+	</update>
 	<select id="RecruitGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.RecruitData">
 		select STATUS,NO,SUBJECT,KEYWORD,ENDDATES,MEMBER_NO,COMPANY,COMPANY_CATE,COUNT_REVIEW,AVG_STARS,COUNT_INCOME,AVG_MONEY,COUNT_INTERVIEW,FILE1
 		from (select rownum as rnum,a.* from
@@ -657,55 +667,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by NO desc) a
 		) where rnum between #{start} and #{end}
 	</select>
+	<delete id="RecruitListDeleteRecruit" parameterType="java.util.Map">
+		delete from MIN_JOB_RECRUIT_LIST where RECRUIT_NO=#{recruit_no}
+	</delete>
 	<delete id="RecruitListDeleteUser" parameterType="com.myjob.data.MemberData">
 		delete from MIN_JOB_RECRUIT_LIST where MEMBER_NO=#{no}
 	</delete>
 	<!--  -->
-	
-	
-	
-	<!-- 
-
-	List
-	<insert id="List_insert" parameterType="net.mytour.data.List_Data" >
-		INSERT INTO MIN_TOUR_LIST(SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1) VALUES(
-		#{subject},
-		#{city},
-		#{days},
-		#{air},
-		#{money},
-		#{moneys},
-		#{memo1},
-		#{memo2},
-		#{category},
-		#{buy},
-		#{hit},
-		#{dates},
-		#{file1}
-		)
-	</insert>
-	<select id="List_getArticles" parameterType="java.util.Map" resultType="net.mytour.data.List_Data">
-		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
-		from (select rownum as rnum,a.* from (select * from MIN_TOUR_LIST where SUBJECT like '%'||#{searchs}||'%'
-		<if test="category != -1"> and CATEGORY=#{category} </if>
-	 	order by NO desc) a) where rnum between #{start} and #{end}
-	</select>
-	<select id="List_getCount" parameterType="java.util.Map" resultType="int">
-		select count(*) from MIN_TOUR_LIST where SUBJECT like '%'||#{searchs}||'%'
-	 	<if test="category != -1"> and CATEGORY=#{category} </if>
-	</select>
-	<select id="List_getArticle" parameterType="int" resultType="net.mytour.data.List_Data">
-		select NO,SUBJECT,CITY,DAYS,AIR,MONEY,MONEYS,MEMO1,MEMO2,CATEGORY,BUY,HIT,DATES,FILE1
-		from MIN_TOUR_LIST where NO=#{no}
-	</select>
-	<select id="List_getHit" parameterType="int" resultType="int">
-		select HIT from MIN_TOUR_LIST where NO=#{no}
-	</select>
-	<update id="List_setHit" parameterType="java.util.Map">
-		update MIN_TOUR_LIST set HIT=#{hit} where NO=#{no}
-	</update> -->
-	
-	
 	
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.myjob.data.IncomeData;
+import com.myjob.data.MemberData;
 
 public interface IncomeDao {
 	void insert(IncomeData idata);
@@ -12,4 +13,5 @@ public interface IncomeDao {
 	List getArticles(int member_no);
 	Map getMoneyMaxMin(int member_no);
 	Integer getRank(int member_no);
+	void deleteUser(MemberData mdata);
 }

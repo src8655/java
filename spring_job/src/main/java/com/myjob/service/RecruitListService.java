@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myjob.dao.RecruitListDao;
+import com.myjob.data.MemberData;
 import com.myjob.data.RecruitListData;
 
 @Service
@@ -43,6 +44,17 @@ public class RecruitListService implements RecruitListDao {
 		map.put("start", start);
 		map.put("end", end);
 		return (List)sqlSessionTemplate.selectList("RecruitListGetArticles", map);
+	}
+
+	@Override
+	public void deleteRecruit(int recruit_no) {
+		Map map = new HashMap();
+		map.put("recruit_no", recruit_no);
+		sqlSessionTemplate.delete("RecruitListDeleteRecruit", map);
+	}
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("RecruitListDeleteUser", mdata);
 	}
 
 }

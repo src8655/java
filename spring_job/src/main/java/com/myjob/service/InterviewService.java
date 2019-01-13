@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.myjob.dao.InterviewDao;
 import com.myjob.data.InterviewData;
+import com.myjob.data.MemberData;
 @Service
 public class InterviewService implements InterviewDao {
 	@Autowired
@@ -75,6 +76,10 @@ public class InterviewService implements InterviewDao {
 		map.put("member_no", member_no);
 		map.put("interviewresult", interviewresult);
 		return (Integer)sqlSessionTemplate.selectOne("InterviewGetInterviewresult", map);
+	}
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("InterviewDeleteUser", mdata);
 	}
 
 }

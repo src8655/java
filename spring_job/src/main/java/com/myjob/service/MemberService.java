@@ -95,4 +95,9 @@ public class MemberService implements MemberDao {
 	public MemberData changePwKakao(MemberData mdata) {
 		return (MemberData)sqlSessionTemplate.selectOne("MemberChangePwKakao", mdata);
 	}
+
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("MemberDeleteUser", mdata);
+	}
 }
