@@ -677,6 +677,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+	
+	
+	
+	
+	
+	<!-- Report -->
+	<select id="ReportExist" parameterType="com.myjob.data.ReportData" resultType="int">
+		select count(*) from MIN_JOB_REPORT where MEMBER_NO=#{member_no} and WRITER_NO=#{writer_no} and TAB=#{tab} and TAB_NO=#{tab_no}
+	</select>
+	<insert id="ReportInsert" parameterType="com.myjob.data.ReportData">
+		insert into MIN_JOB_REPORT(MEMBER_NO,WRITER_NO,TAB,REPORT_VALUE,DATES,TAB_NO)
+		values(
+			#{member_no},
+			#{writer_no},
+			#{tab},
+			#{report_value},
+			#{dates},
+			#{tab_no}
+		)
+	</insert>
+	<!--  -->
+	
 <!-- 
 
  -->

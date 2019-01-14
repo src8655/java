@@ -26,6 +26,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/job/index.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
 	</definition>
+	<definition name="job/index_load" template="/WEB-INF/views/job/template/layout2.jsp">
+		<put-attribute name="body" value="/WEB-INF/views/job/index_load.jsp" />
+	</definition>
+	
 	
 	<!-- 로그인 -->
 	<definition name="job/login" template="/WEB-INF/views/job/template/layout.jsp">
@@ -52,11 +56,8 @@
 	</definition>
 	
 	<!-- 리스트 -->
-	<definition name="job/list" template="/WEB-INF/views/job/template/layout.jsp">
-		<put-attribute name="title" value="JOB 리스트" />
-		<put-attribute name="header" value="/WEB-INF/views/job/template/header1.jsp" />
+	<definition name="job/list" template="/WEB-INF/views/job/template/layout2.jsp">
 		<put-attribute name="body" value="/WEB-INF/views/job/list.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
 	</definition>
 	<definition name="job/view" template="/WEB-INF/views/job/template/layout.jsp">
 		<put-attribute name="title" value="JOB 상세보기" />
@@ -112,13 +113,16 @@
 	</definition> -->
 	
 	<!-- 일반회원 마이페이지 -->
-	<definition name="job/mypage" template="/WEB-INF/views/job/template/layout.jsp">
-		<put-attribute name="title" value="JOB 마이페이지" />
-		<put-attribute name="header" value="/WEB-INF/views/job/template/header1.jsp" />
+	<definition name="job/mypage" template="/WEB-INF/views/job/template/layout2.jsp">
 		<put-attribute name="body" value="/WEB-INF/views/job/mypage.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
 	</definition>
 	
+	<definition name="job/adminpage" template="/WEB-INF/views/job/template/layout.jsp">
+		<put-attribute name="title" value="JOB 관리페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/job/template/header1.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/job/adminpage.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/job/template/footer1.jsp" />
+	</definition>
 	
 	
 	

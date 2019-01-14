@@ -149,4 +149,41 @@ public class MypageController {
 	}
 	
 	
+	
+	
+	
+	
+
+	//관리자페이지
+	@RequestMapping("/job/adminpage.o")
+	public ModelAndView adminpage(
+			HttpServletRequest request
+			) throws SQLException {
+		ModelAndView mav = new ModelAndView();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		mav.addObject("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("job/error");
+			return mav;
+		}
+		if(mdata.getOrders() != 3) {
+			msg = "잘못된 접근입니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("job/error");
+			return mav;
+		}
+		
+		
+		
+		
+		mav.setViewName("job/adminpage");
+		return mav;
+	}
+	
+	
 }

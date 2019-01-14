@@ -82,79 +82,12 @@ public class JobController {
 	//메인
 	@RequestMapping("/job/index.o")
 	public ModelAndView index(
+			@RequestParam(value="index_page", defaultValue="-1") int index_page,
 			HttpServletRequest request
 			) throws SQLException {
 		ModelAndView mav = new ModelAndView();
 		
-		
-		
-		/*
-		
-		
-		String addr = 
-				"http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncFullDown?serviceKey=jFL79fWz6XyUd8JQv2gMU4wH4H%2BSIRcFDrL5VLk5QiZaT7AbfjRT7BRLvf4oSSUG1%2FzWXLK3%2Fe96pQVZrw%2F9Mw%3D%3D&pageNo=1&numOfRows=10&_type=json";
-			
-			
-			try {
-				//위의 주소를 가지고 URL 객체를 생성
-				URL url = new URL(addr);
-				//URL객체를 가지고 HttpURLConnection 객체 만들기
-				HttpURLConnection con = (
-					HttpURLConnection)url.openConnection();
-				//인증받기
-				
-				con.setConnectTimeout(20000);
-				con.setUseCaches(false);
-				//줄 단위 데이터 읽기
-				BufferedReader br = 
-					new BufferedReader(
-						new InputStreamReader(
-							con.getInputStream(), "UTF-8"));
-				//문자열을 임시로 저장할 객체 만들기
-				StringBuilder sb = new StringBuilder();
-				while(true) {
-					//한 줄의 데이터 읽기
-					String line = br.readLine();
-					//읽은 데이터가 없으면 반복문 종료
-					if(line == null) {
-						break;
-					}
-					//읽은 데이터가 있으면 sb에 추가
-					sb.append(line);
-				}
-				//연결 해제
-				br.close();
-				con.disconnect();
-				
-				System.out.println(sb.toString());
-				
-				JSONObject obj = new JSONObject(sb.toString()).getJSONObject("response").getJSONObject("body").getJSONObject("items");
-				//System.out.println(obj);
-				JSONArray imsi = obj.getJSONArray("item");
-				//System.out.println(imsi);
-				JSONObject o = imsi.getJSONObject(0);
-				String address = o.getString("dutyAddr");
-				
-				System.out.println(address);
-			}catch(Exception e) {
-				System.out.println("주소 가져오기 실패:" + e.getMessage());
-			}
-			
-			*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		mav.addObject("index_page", index_page);
 		
 		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
 		
@@ -190,6 +123,47 @@ public class JobController {
 	}
 	
 	
+	
+	//메인
+	@RequestMapping("/job/index_load.o")
+	public ModelAndView index_load(
+			HttpServletRequest request
+			) throws SQLException {
+		ModelAndView mav = new ModelAndView();
+		
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
+		List list = companyService.getArticles(1, 3, "", -1, -1, 1);
+		
+		for(int i=0;i<list.size();i++) {
+			CompanyData tmp = (CompanyData)list.get(i);
+			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
+			tmp.setAvg_stars_p((int)((tmp.getAvg_stars()/5.0)*92.0));
+			tmp.setAvg_stars(Math.round(tmp.getAvg_stars()*10.0)/10.0);
+			
+			if((mdata != null && mdata.getFollow_list() != null) && (mdata.getFollow_list().contains(Integer.toString(tmp.getMember_no()))))
+				tmp.setIsfollow(1);
+			else tmp.setIsfollow(-1);
+			
+			ReviewData rdata = reviewService.getIndexArticle(tmp.getMember_no());
+			tmp.setRdata(rdata);
+		}
+		mav.addObject("list", list);
+		
+		
+		List list2 = recruitService.getArticles(1, 8, "", -1, -1, 1, 1);
+		for(int i=0;i<list2.size();i++) {
+			RecruitData tmp = (RecruitData)list2.get(i);
+			tmp.setAvg_moneys(NumberFormat.number_format(tmp.getAvg_money()));
+			tmp.setAvg_stars(Math.round(tmp.getAvg_stars()*10.0)/10.0);
+			tmp.setDday(ActionTime.dDay(tmp.getEnddates()));
+		}
+		mav.addObject("list2", list2);
+		
+		mav.setViewName("job/index_load");
+		return mav;
+	}
 	
 	
 	
@@ -258,5 +232,71 @@ public class JobController {
 		ModelAndView mav = new ModelAndView("down", "downloadfile", file);
 		return mav;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	/*
+	
+	
+	String addr = 
+			"http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncFullDown?serviceKey=jFL79fWz6XyUd8JQv2gMU4wH4H%2BSIRcFDrL5VLk5QiZaT7AbfjRT7BRLvf4oSSUG1%2FzWXLK3%2Fe96pQVZrw%2F9Mw%3D%3D&pageNo=1&numOfRows=10&_type=json";
+		
+		
+		try {
+			//위의 주소를 가지고 URL 객체를 생성
+			URL url = new URL(addr);
+			//URL객체를 가지고 HttpURLConnection 객체 만들기
+			HttpURLConnection con = (
+				HttpURLConnection)url.openConnection();
+			//인증받기
+			
+			con.setConnectTimeout(20000);
+			con.setUseCaches(false);
+			//줄 단위 데이터 읽기
+			BufferedReader br = 
+				new BufferedReader(
+					new InputStreamReader(
+						con.getInputStream(), "UTF-8"));
+			//문자열을 임시로 저장할 객체 만들기
+			StringBuilder sb = new StringBuilder();
+			while(true) {
+				//한 줄의 데이터 읽기
+				String line = br.readLine();
+				//읽은 데이터가 없으면 반복문 종료
+				if(line == null) {
+					break;
+				}
+				//읽은 데이터가 있으면 sb에 추가
+				sb.append(line);
+			}
+			//연결 해제
+			br.close();
+			con.disconnect();
+			
+			System.out.println(sb.toString());
+			
+			JSONObject obj = new JSONObject(sb.toString()).getJSONObject("response").getJSONObject("body").getJSONObject("items");
+			//System.out.println(obj);
+			JSONArray imsi = obj.getJSONArray("item");
+			//System.out.println(imsi);
+			JSONObject o = imsi.getJSONObject(0);
+			String address = o.getString("dutyAddr");
+			
+			System.out.println(address);
+		}catch(Exception e) {
+			System.out.println("주소 가져오기 실패:" + e.getMessage());
+		}
+		
+		*/
+	
+	
+	
 	
 }

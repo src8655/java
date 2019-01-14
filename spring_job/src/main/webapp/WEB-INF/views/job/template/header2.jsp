@@ -23,14 +23,14 @@
           	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();hide2('xs_menu_id');">&nbsp;&nbsp;회원수정</a></li>
           </div>
           <c:if test="${memberInfo.orders eq 1}">
-            <li><a href="mypage.o?mypage=1">마이페이지</a></li>
+            <li><a href="index.o?index_page=3">마이페이지</a></li>
           </c:if>
           <c:if test="${memberInfo.orders eq 2}">
             <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
           </c:if>
         </c:if>
-	    <li><a href="list.o?search=1">기업정보</a></li>
-	    <li><a href="list.o?search=2">채용정보</a></li>
+	    <li><a href="index.o?index_page=1">기업정보</a></li>
+	    <li><a href="index.o?index_page=2">채용정보</a></li>
 	</ul>
 </div>
 <div class="header">
@@ -60,8 +60,8 @@
       <div class="col-sm-10 hidden-xs">
 	      <div class="last_align_l top_menu_align_left">
 	        <ul class="header_ul hidden-xs">
-	          <li class="header_ul_li"><a href="list.o?search=1" class="header_ul_li_a">기업정보</a></li>
-	          <li class="header_ul_li"><a href="list.o?search=2" class="header_ul_li_a">채용정보</a></li>
+	          <li class="header_ul_li"><a href="index.o?index_page=1" class="header_ul_li_a">기업정보</a></li>
+	          <li class="header_ul_li"><a href="index.o?index_page=2" class="header_ul_li_a">채용정보</a></li>
 	        </ul>
 	      </div>
 	      
@@ -91,7 +91,7 @@
 	          	</div>
 	          </li>
 	          <c:if test="${memberInfo.orders eq 1}">
-	            <li class="header_ul_li"><a href="mypage.o?mypage=1" class="header_ul_li_a">마이페이지</a></li>
+	            <li class="header_ul_li"><a href="index.o?index_page=3" class="header_ul_li_a">마이페이지</a></li>
 	          </c:if>
 	          <c:if test="${memberInfo.orders eq 2}">
 	            <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>

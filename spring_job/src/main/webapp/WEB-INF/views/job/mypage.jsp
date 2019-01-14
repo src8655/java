@@ -3,6 +3,90 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<div class="list_top_bg">
+  <div class="list_top">
+    <div class="container">
+      <div class="row">
+      
+        <div class="hidden-xs col-sm-3 c_list_select_align_l">
+            <select class="c_list_select" name="searchType" onchange="$('#main_load').load('list.o?search=${search}&searchValue=${searchValue_utf}&searchSort=${searchSort}&searchType='+this.value);">
+              <option value="-1">산업군</option>
+              <option value="1" <c:if test="${searchType eq 1}">selected</c:if>>서비스업</option>
+              <option value="2" <c:if test="${searchType eq 2}">selected</c:if>>제조/화학</option>
+              <option value="3" <c:if test="${searchType eq 3}">selected</c:if>>의료/제약/복지</option>
+              <option value="4" <c:if test="${searchType eq 4}">selected</c:if>>유통/무역/운송</option>
+              <option value="5" <c:if test="${searchType eq 5}">selected</c:if>>교육업</option>
+              <option value="6" <c:if test="${searchType eq 6}">selected</c:if>>건설업</option>
+              <option value="7" <c:if test="${searchType eq 7}">selected</c:if>>IT/웹/통신</option>
+              <option value="8" <c:if test="${searchType eq 8}">selected</c:if>>미디어/디자인</option>
+              <option value="9" <c:if test="${searchType eq 9}">selected</c:if>>은행/금융업</option>
+              <option value="10" <c:if test="${searchType eq 10}">selected</c:if>>기관/협회</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-6 align-center">
+          <div class="list_search">
+            <form id="list_search_forms" onsubmit="return list_search(this);">
+              <input type="hidden" name="searchType" value="${searchType}" />
+              <input type="hidden" name="searchSort" value="${searchSort}" />
+              <div class="list_search_l">
+                <select name="search">
+                  <option value="-1">통합</option>
+                  <option value="1" <c:if test="${search eq 1}">selected</c:if>>기업</option>
+                  <option value="2" <c:if test="${search eq 2}">selected</c:if>>채용</option>
+                </select>
+              </div>
+              <div class="list_search_c">
+                <input type="text" name="searchValue" value="${searchValue}" />
+              </div>
+              <div class="list_search_r">
+                <input type="button" value="" onclick="list_search(document.getElementById('list_search_forms'));" />
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-3 c_list_select_align_r">
+          <select class="hidden-sm hidden-md hidden-lg c_list_select" name="searchType" onchange="$('#main_load').load('list.o?search=${search}&searchValue=${searchValue_utf}&searchSort=${searchSort}&searchType='+this.value);">
+            <option value="-1">산업군</option>
+              <option value="1" <c:if test="${searchType eq 1}">selected</c:if>>서비스업</option>
+              <option value="2" <c:if test="${searchType eq 2}">selected</c:if>>제조/화학</option>
+              <option value="3" <c:if test="${searchType eq 3}">selected</c:if>>의료/제약/복지</option>
+              <option value="4" <c:if test="${searchType eq 4}">selected</c:if>>유통/무역/운송</option>
+              <option value="5" <c:if test="${searchType eq 5}">selected</c:if>>교육업</option>
+              <option value="6" <c:if test="${searchType eq 6}">selected</c:if>>건설업</option>
+              <option value="7" <c:if test="${searchType eq 7}">selected</c:if>>IT/웹/통신</option>
+              <option value="8" <c:if test="${searchType eq 8}">selected</c:if>>미디어/디자인</option>
+              <option value="9" <c:if test="${searchType eq 9}">selected</c:if>>은행/금융업</option>
+              <option value="10" <c:if test="${searchType eq 10}">selected</c:if>>기관/협회</option>
+          </select>
+          <select class="c_list_select" name="searchSort" onchange="$('#main_load').load('list.o?search=${search}&searchValue=${searchValue_utf}&searchType=${searchType}&searchSort='+this.value);">
+            <option value="-1">정렬선택</option>
+            <option value="1" <c:if test="${searchSort eq 1}">selected</c:if>>총 만족도 순</option>
+            <option value="2" <c:if test="${searchSort eq 2}">selected</c:if>>연봉 금액 순</option>
+            <option value="3" <c:if test="${searchSort eq 3}">selected</c:if>>리뷰 많은 순</option>
+            <option value="4" <c:if test="${searchSort eq 4}">selected</c:if>>연봉 정보 순</option>
+            <option value="5" <c:if test="${searchSort eq 5}">selected</c:if>>면접 정보 순</option>
+          </select>
+        </div>
+      
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="container">
   <div class="row">
     <div class="col-sm-1 col-md-1 col-lg-1"></div>
@@ -12,7 +96,7 @@
     
         <div class="c_lists c_lists_left">
       <div class="index_list_top">
-      	<a href="list.o?search=1" style="background:#ffffff;color:#333333;border-bottom:1px solid #e6e6e6;text-align:left;padding-left:20px;">팔로우 기업 (${count})</a>
+      	<a style="background:#ffffff;color:#333333;border-bottom:1px solid #e6e6e6;text-align:left;padding-left:20px;">팔로우 기업 (${count})</a>
       </div>
       <ul class="c_lists_ul2">
       <c:forEach items="${list}" var="cdata">
@@ -73,14 +157,14 @@
       </ul>
       <div class="index_list_bottom">
       <div class="paging">
-        <a href="mypage.o?pages=1&pages_r=${pages_r}" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
+        <a href="#100" onclick="$('#main_load').load('mypage.o?pages=1&pages_r=${pages_r}');" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging.pstarts}" end="${paging.pends}" step="1" var="i">
-        	<a href="mypage.o?pages=${i}&pages_r=${pages_r}"
+        	<a href="#100" onclick="$('#main_load').load('mypage.o?pages=${i}&pages_r=${pages_r}');"
         		<c:if test="${i ne pages}"> class="paging_a"</c:if> <c:if test="${i eq pages}"> class="paging_a_hover"</c:if>>
         		${i}
         	</a>
         </c:forEach>
-        <a href="mypage.o?pages=${paging.board_paging}&pages_r=${pages_r}" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
+        <a href="#100" onclick="$('#main_load').load('mypage.o?pages=${paging.board_paging}&pages_r=${pages_r}');" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
       </div>
     </div>
@@ -89,7 +173,7 @@
 	
 	<div class="c_lists c_lists_right">
       <div class="index_list_top">
-      	<a href="list.o?search=2" style="background:#ffffff;color:#333333;border-bottom:1px solid #e6e6e6;text-align:left;padding-left:20px;">지원한 채용정보 (${count2})</a>
+      	<a style="background:#ffffff;color:#333333;border-bottom:1px solid #e6e6e6;text-align:left;padding-left:20px;">지원한 채용정보 (${count2})</a>
       </div>
       <ul class="c_lists_ul2">
       <c:forEach items="${list2}" var="rcdata">
@@ -142,14 +226,14 @@
       </ul>
       <div class="index_list_bottom">
       <div class="paging">
-        <a href="mypage.o?pages_rc1&pages=${pages}&mypage=1" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
+        <a href="#100" onclick="$('#main_load').load('mypage.o?pages_rc1&pages=${pages}&mypage=1');" style="color:#d0d0d0;" class="paging_radius_l">&lt;</a>
         <c:forEach begin="${paging2.pstarts}" end="${paging2.pends}" step="1" var="i">
-        	<a href="mypage.o?pages_r=${i}&pages=${pages}&mypage=1"
+        	<a href="#100" onclick="$('#main_load').load('mypage.o?pages_r=${i}&pages=${pages}&mypage=1');"
         		<c:if test="${i ne pages_r}"> class="paging_a"</c:if> <c:if test="${i eq pages_r}"> class="paging_a_hover"</c:if>>
         		${i}
         	</a>
         </c:forEach>
-        <a href="mypage.o?pages_r=${paging2.board_paging}&pages=${pages}&mypage=1" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
+        <a href="#100" onclick="$('#main_load').load('mypage.o?pages_r=${paging2.board_paging}&pages=${pages}&mypage=1');" style="color:#d0d0d0;" class="paging_radius_r">&gt;</a>
       </div>
       </div>
     </div>

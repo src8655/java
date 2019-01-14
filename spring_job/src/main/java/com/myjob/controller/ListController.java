@@ -43,6 +43,7 @@ import com.myjob.dao.IncomeDao;
 import com.myjob.dao.InterviewDao;
 import com.myjob.dao.RecruitDao;
 import com.myjob.dao.RecruitListDao;
+import com.myjob.dao.ReportDao;
 import com.myjob.dao.ReviewDao;
 import com.myjob.data.CompanyData;
 import com.myjob.data.IncomeData;
@@ -50,6 +51,7 @@ import com.myjob.data.InterviewData;
 import com.myjob.data.MemberData;
 import com.myjob.data.RecruitData;
 import com.myjob.data.RecruitListData;
+import com.myjob.data.ReportData;
 import com.myjob.data.ReviewData;
 import com.myjob.ext.ActionTime;
 import com.myjob.ext.Action_Paging;
@@ -73,6 +75,8 @@ public class ListController {
 	RecruitDao recruitService;
 	@Autowired
 	RecruitListDao recruitListService;
+	@Autowired
+	ReportDao reportService;
 
 	String msg = "";
 	String url = "";
@@ -153,6 +157,7 @@ public class ListController {
 	//상세보기
 	@RequestMapping("/job/view.o")
 	public ModelAndView view(
+			@RequestParam(value="index_page", defaultValue="-2") int index_page,
 			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
 			@RequestParam(value="pages_rc", defaultValue="1") int pages_rc,
 			@RequestParam(value="searchType", defaultValue="-1") int searchType,
@@ -166,7 +171,8 @@ public class ListController {
 			HttpServletRequest request
 			) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		
+
+		mav.addObject("index_page", index_page);
 		
 		mav.addObject("recruit_no", recruit_no);
 		
@@ -2089,6 +2095,54 @@ public class ListController {
 		}
 		
 		recruitService.end(recruit_no, 2);
+
+		map.put("result", true);
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//신고하기
+	@RequestMapping("/job/report_post_ajax.o")
+	@ResponseBody
+	public Map report_post_ajax(
+			@ModelAttribute("rpdata") ReportData rpdata,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		map.put("memberInfo", mdata);
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "로그인 해주세요.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+
+		rpdata.setWriter_no(mdata.getNo());
+		rpdata.setDates(ActionTime.getDate());
+		
+		int count = reportService.exist(rpdata);
+		if(count != 0) {
+			msg = "이미 신고하였습니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		reportService.insert(rpdata);
+		
+		
 
 		map.put("result", true);
 		return map;
