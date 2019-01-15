@@ -28,6 +28,9 @@
           <c:if test="${memberInfo.orders eq 2}">
             <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
           </c:if>
+	      <c:if test="${memberInfo.orders eq 3}">
+	        <li><a href="index.o?index_page=4">관리페이지</a></li>
+	      </c:if>
         </c:if>
 	    <li><a href="index.o?index_page=1">기업정보</a></li>
 	    <li><a href="index.o?index_page=2">채용정보</a></li>
@@ -95,6 +98,9 @@
 	          </c:if>
 	          <c:if test="${memberInfo.orders eq 2}">
 	            <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>
+	          </c:if>
+	          <c:if test="${memberInfo.orders eq 3}">
+	            <li class="header_ul_li"><a href="index.o?index_page=4" class="header_ul_li_a">관리페이지</a></li>
 	          </c:if>
 	        </c:if>
 	        </ul>

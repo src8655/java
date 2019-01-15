@@ -45,6 +45,11 @@ function index_load(var1) {
 		index_header = 1;
 		mypage = 1;
 	}
+	if(var1 == 4) {
+		$('#main_load').load('adminpage_member.o');
+		index_header = 1;
+		mypage = 1;
+	}
 }
 
 var save_id_auths = '';
@@ -3931,8 +3936,16 @@ function login_ajax(forms, member_no) {
 					
 				}
 				
+				if(memberInfo.orders == 3) {
+					//-1이면 header2
+					if(index_header == -1) {
+						htmls += '            <li class="header_ul_li"><a href="index.o?index_page=4" class="header_ul_li_a">관리페이지</a></li>';
+					}else if(index_header == 1){
+						htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;" class="header_ul_li_a">관리페이지</a></li>';
+					}
+				}
+				
 				if(memberInfo.orders == 2) htmls += '            <li class="header_ul_li"><a href="view.o?member_no='+memberInfo.no+'" class="header_ul_li_a">내 기업</a></li>';
-				if(memberInfo.orders == 3) htmls += '            <li class="header_ul_li"><a href="adminpage.o" class="header_ul_li_a">관리페이지</a></li>';
 				
 				document.getElementById("login_btn_bg").innerHTML = htmls;
 				
@@ -3958,15 +3971,24 @@ function login_ajax(forms, member_no) {
 				}
 
 				if(memberInfo.orders == 2) htmls += '            <li><a href="view.o?member_no='+memberInfo.no+'">내 기업</a></li>';
-				if(memberInfo.orders == 3) htmls += '            <li><a href="adminpage.o">관리페이지</a></li>';
+				
+				if(memberInfo.orders == 3) {
+					//-1이면 header2
+					if(index_header == -1) {
+						htmls += '            <li><a href="index.o?index_page=4">관리페이지</a></li>';
+					}else if(index_header == 1){
+						htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;hide2(\'xs_menu_id\');">관리페이지</a></li>';
+					}
+					
+				}
 				
 				//-1이면 header2
 				if(index_header == -1) {
 					htmls += '	    <li><a href="index.o?index_page=1">기업정보</a></li>';
 					htmls += '	    <li><a href="index.o?index_page=2">채용정보</a></li>';
 				}else if(index_header == 1) {
-					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');">기업정보</a></li>';
-					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');">채용정보</a></li>';
+					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;">기업정보</a></li>';
+					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;">채용정보</a></li>';
 				}
 				
 	
@@ -4039,8 +4061,8 @@ function logout_ajax(member_no) {
 				htmls += '	    <li><a href="index.o?index_page=1">기업정보</a></li>';
 				htmls += '	    <li><a href="index.o?index_page=2">채용정보</a></li>';
 			}else if(index_header == 1) {
-				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');">기업정보</a></li>';
-				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');">채용정보</a></li>';
+				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;">기업정보</a></li>';
+				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;">채용정보</a></li>';
 			}
 
 			document.getElementById("login_btn_bg2").innerHTML = htmls;
@@ -4312,7 +4334,16 @@ function login_edit_ajax(forms) {
 					}
 					
 					if(memberInfo.orders == 2) htmls += '            <li class="header_ul_li"><a href="view.o?member_no='+memberInfo.no+'" class="header_ul_li_a">내 기업</a></li>';
-					if(memberInfo.orders == 3) htmls += '            <li class="header_ul_li"><a href="adminpage.o" class="header_ul_li_a">관리페이지</a></li>';
+
+					if(memberInfo.orders == 3) {
+						//-1이면 header2
+						if(index_header == -1) {
+							htmls += '            <li class="header_ul_li"><a href="index.o?index_page=4" class="header_ul_li_a">관리페이지</a></li>';
+						}else if(index_header == 1){
+							htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;" class="header_ul_li_a">관리페이지</a></li>';
+						}
+						
+					}
 					
 					document.getElementById("login_btn_bg").innerHTML = htmls;
 					
@@ -4340,7 +4371,16 @@ function login_edit_ajax(forms) {
 					
 					
 					if(memberInfo.orders == 2) htmls += '            <li><a href="view.o?member_no='+memberInfo.no+'">내 기업</a></li>';
-					if(memberInfo.orders == 3) htmls += '            <li><a href="adminpage.o">관리페이지</a></li>';
+					
+					if(memberInfo.orders == 3) {
+						//-1이면 header2
+						if(index_header == -1) {
+							htmls += '            <li><a href="index.o?index_page=4">관리페이지</a></li>';
+						}else if(index_header == 1){
+							htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;hide2(\'xs_menu_id\');">관리페이지</a></li>';
+						}
+						
+					}
 					
 					
 					//-1이면 header2
@@ -4348,8 +4388,8 @@ function login_edit_ajax(forms) {
 						htmls += '	    <li><a href="index.o?index_page=1">기업정보</a></li>';
 						htmls += '	    <li><a href="index.o?index_page=2">채용정보</a></li>';
 					}else if(index_header == 1) {
-						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');">기업정보</a></li>';
-						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');">채용정보</a></li>';
+						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;">기업정보</a></li>';
+						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;">채용정보</a></li>';
 					}
 
 					document.getElementById("login_btn_bg2").innerHTML = htmls;
@@ -4490,36 +4530,7 @@ function attachSignin(element) {
       });
 }
 
- /*
-function onSuccess(googleUser) {
-	var profile = googleUser.getBasicProfile();
-	//alert('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	//alert('Name: ' + profile.getName());
-	//alert('Image URL: ' + profile.getImageUrl());
-	//alert('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	  
-	var forms = document.getElementById("login_forms");
-	forms.name.value = profile.getName();
-   	forms.kakao.value = 2;
-   	forms.email.value = profile.getId();
-   	forms.password.value = profile.getId();
-   
-   	login_ajax(forms,google_login_member_no);
-}
-function onFailure(error) {
-	alert("실패");
-}
-  function renderButton() {
-    gapi.signin2.render('my-signin2', {
-      'scope': 'profile email',
-      'width': 240,
-      'height': 50,
-      'longtitle': true,
-      'theme': 'dark',
-      'onsuccess': onSuccess,
-      'onfailure': onFailure
-    });
-  } */
+
   
 //로그인창 생성
 function addloginbg(member_no) {
@@ -5477,6 +5488,353 @@ function report_ajax(forms) {
 
 
 
+
+
+
+
+
+//관리페이지 멤버 검색
+function admin_search(forms) {
+	 $('#main_load').load('adminpage_member.o?adminSearchV='+forms.adminSearchV.value+'&adminSearch='+forms.adminSearch.value);
+	 mypage=1;
+}
+function adminpage_member_edit_show_ajax(no,pages_r,adminSearchV,adminSearch) {
+	$.ajax({
+		url:'adminpage_member_edit_show_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			no:no
+		},
+		success:function(result){
+			if(result.result == false) {
+				alert(result.msg);
+			}else {
+				var memberInfo = result.memberInfo;
+				var htmls = "";
+				
+				htmls += '	<div class="write_hide" id="adminpage_member_float_bg" style="display:none;z-index:7000;">	';
+				htmls += '	<div class="write_hide_scroll">	';
+				htmls += '		';
+				htmls += '	<div class="write_hide_scroll2s">	';
+				htmls += '	<div class="review_write_box">	';
+				htmls += '	<div style="overflow:hidden;">	';
+				htmls += '	<div><h1 id="rc_h">회원수정</h1></div>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="recruit_add_box_line">	';
+				htmls += '	<form id="adminpage_member_forms">	';
+				htmls += '	<input type="hidden" name="no" value="'+no+'" />	';
+
+				
+				
+				
+				
+				
+				
+				
+				if(memberInfo.kakao == -1) htmls += '	'+memberInfo.email;
+				else if(memberInfo.kakao == 1) htmls += '	<a class="login_btn" style="border:1px solid #ffeb00;background-color:#ffeb00;background-image:url(./images/kakao_login_btn.jpg);background-repeat:no-repeat;background-position:25px 9px;color:#3c1e1e;display:block;line-height:43px;text-align:center;">카카오계정</a>	';
+				else if(memberInfo.kakao == 2) htmls += '	<a class="login_btn" style="border:1px solid #cccccc;background-color:#ffffff;background-image:url(./images/google_login_btn.jpg);background-repeat:no-repeat;background-position:25px 9px;color:#3c1e1e;display:block;line-height:43px;text-align:center;color:#333333;">구글계정</a>	';
+				
+				
+				
+				
+				htmls += '	<input type="password" name="password" placeholder="비밀번호" class="login_input" ';
+				if(memberInfo.kakao != -1) htmls += ' style="display:none;"';
+				htmls += '  />	';
+				htmls += '	<input type="password" name="password2" placeholder="비밀번호 확인" class="login_input" ';
+				if(memberInfo.kakao != -1) htmls += ' style="display:none;"';
+				htmls += '  />	';
+				htmls += '		';
+					htmls += '	<div id="join_02">	';
+					htmls += '	<br /><br />	';
+					htmls += '	<input type="text" name="company" placeholder="기업명" class="login_input" value="'+memberInfo.company+'" />	';
+					htmls += '	<select name="company_cate" class="join_select">	';
+					htmls += '	<option value="-1">산업군</option>	';
+					htmls += '	<option value="1" ';
+					if(memberInfo.company_cate == 1) htmls += ' selected ';
+					htmls += '  >서비스업</option>	';
+					htmls += '	<option value="2" ';
+					if(memberInfo.company_cate == 2) htmls += ' selected ';
+					htmls += '  >제조/화학</option>	';
+					htmls += '	<option value="3" ';
+					if(memberInfo.company_cate == 3) htmls += ' selected ';
+					htmls += '  >의료/제약/복지</option>	';
+					htmls += '	<option value="4" ';
+					if(memberInfo.company_cate == 4) htmls += ' selected ';
+					htmls += '  >유통/무역/운송</option>	';
+					htmls += '	<option value="5" ';
+					if(memberInfo.company_cate == 5) htmls += ' selected ';
+					htmls += '  >교육업</option>	';
+					htmls += '	<option value="6" ';
+					if(memberInfo.company_cate == 6) htmls += ' selected ';
+					htmls += '  >건설업</option>	';
+					htmls += '	<option value="7" ';
+					if(memberInfo.company_cate == 7) htmls += ' selected ';
+					htmls += '  >IT/웹/통신</option>	';
+					htmls += '	<option value="8" ';
+					if(memberInfo.company_cate == 8) htmls += ' selected ';
+					htmls += '  >미디어/디자인</option>	';
+					htmls += '	<option value="9" ';
+					if(memberInfo.company_cate == 9) htmls += ' selected ';
+					htmls += '  >은행/금융업</option>	';
+					htmls += '	<option value="10" ';
+					if(memberInfo.company_cate == 10) htmls += ' selected ';
+					htmls += '  >기관/협회</option>	';
+					htmls += '	</select>	';
+					htmls += '	<input type="text" name="company_num" placeholder="사업자등록번호" class="login_input" value="'+memberInfo.company_num+'" />	';
+					htmls += '	<br /><br />	';
+					htmls += '	</div>	';
+				
+				htmls += '		';
+				htmls += '	<input type="text" name="name" placeholder="이름" class="login_input" value="'+memberInfo.name+'" />	';
+				htmls += '	<div class="join_phone" style="overflow:hidden;">	';
+				htmls += '	<h4>전화번호</h4>	';
+				htmls += '	<input type="text" name="phone1" placeholder="010" class="login_input" style="float:left;padding-left:10px;width:20%;" value="'+memberInfo.phone1+'" />	';
+				htmls += '	<div>-</div>	';
+				htmls += '	<input type="text" name="phone2" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" value="'+memberInfo.phone2+'" />	';
+				htmls += '	<div>-</div>	';
+				htmls += '	<input type="text" name="phone3" placeholder="0000" class="login_input" style="float:left;padding-left:10px;width:20%;" value="'+memberInfo.phone3+'" />	';
+				htmls += '	</div>	';
+				htmls += '	<div class="join_quest">	';
+				htmls += '	<h4>질문/답변</h4>	';
+				htmls += '	<select name="quest" class="join_select">	';
+				htmls += '	<option value="-1">질문을 선택해 주세요.</option>	';
+				htmls += '	<option value="1" ';
+				if(memberInfo.quest == 1) htmls += ' selected ';
+				htmls += '  >나의 아버지 이름은?</option>	';
+				htmls += '	<option value="2" ';
+				if(memberInfo.quest == 2) htmls += ' selected ';
+				htmls += '  >내가 다니던 학교 이름은?</option>	';
+				htmls += '	<option value="3" ';
+				if(memberInfo.quest == 3) htmls += ' selected ';
+				htmls += '  >나의 취미는?</option>	';
+				htmls += '	<option value="4" ';
+				if(memberInfo.quest == 4) htmls += ' selected ';
+				htmls += '  >내가 좋아하던 게임은?</option>	';
+				htmls += '	<option value="5" ';
+				if(memberInfo.quest == 5) htmls += ' selected ';
+				htmls += '  >나의 직업은?</option>	';
+				htmls += '	</select>	';
+				htmls += '	<input type="text" name="answer" placeholder="답변" class="login_input" value="'+memberInfo.answer+'" />	';
+				htmls += '	</div>	';
+				
+
+				htmls += '	<div class="join_quest">	';
+				htmls += '	<h4>권한</h4>	';
+				htmls += '	<select name="orders" class="join_select">	';
+				htmls += '	<option value="1" ';
+				if(memberInfo.orders == 1) htmls += ' selected ';
+				htmls += '  >일반회원</option>	';
+				htmls += '	<option value="2" ';
+				if(memberInfo.orders == 2) htmls += ' selected ';
+				htmls += '  >기업회원</option>	';
+				htmls += '	<option value="3" ';
+				if(memberInfo.orders == 3) htmls += ' selected ';
+				htmls += '  >관리자</option>	';
+				htmls += '	</select>	';
+				htmls += '	</div>	';
+				
+				
+				
+				
+				
+				
+				htmls += '	</form>	';
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line align-center">	';
+				htmls += '	<input type="button" value="닫기" onclick="hide2(\'adminpage_member_float_bg\');document.body.style.overflow=\'scroll\';" class="review_write_btn2" />	';
+				htmls += '	<input type="button" value="회원수정" class="review_write_btn1" onclick="adminpage_member_edit_ajax(document.getElementById(\'adminpage_member_forms\'),'+pages_r+',\''+adminSearchV+'\','+adminSearch+');" />	';
+				htmls += '	</div>	';
+				
+				htmls += '	<div class="recruit_add_box_line" style="text-align:center;">	';
+				htmls += '	<input type="button" value="회원삭제" class="review_write_btn1" style="background:#fc4b3d;border:1px solid #fc4b3d;" onclick="adminpage_member_del_ajax('+no+','+pages_r+',\''+adminSearchV+'\','+adminSearch+');" />	';
+				htmls += '	</div>	';
+				
+				htmls += '		';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+
+				
+				document.getElementById('adminpage_member_edit_hidden').innerHTML = htmls;
+				show2('adminpage_member_float_bg');
+				document.body.style.overflow = "hidden";
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+	
+}
+function adminpage_member_edit_ajax(forms,pages_r,adminSearchV,adminSearch) {
+	$.ajax({
+		url:'adminpage_member_edit_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			no:forms.no.value,
+			name:forms.name.value,
+			phone1:forms.phone1.value,
+			phone2:forms.phone2.value,
+			phone3:forms.phone3.value,
+			quest:forms.quest.value,
+			answer:forms.answer.value,
+			company:forms.company.value,
+			company_cate:forms.company_cate.value,
+			company_num:forms.company_num.value,
+			password:forms.password.value,
+			password2:forms.password2.value,
+			orders:forms.orders.value
+		},
+		success:function(result){
+			if(result.result == false) {
+				alert(result.msg);
+			}else {
+				$('#main_load').load('adminpage_member.o?pages_r='+pages_r+'&adminSearchV='+adminSearchV+'&adminSearch='+adminSearch);
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+function adminpage_member_del_ajax(no,pages_r,adminSearchV,adminSearch) {
+	var reVal = confirm("정말로 삭제하시겠습니까?");
+	if(reVal == true) {
+		$.ajax({
+			url:'adminpage_member_del_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				no:no
+			},
+			success:function(result){
+				if(result.result == false) {
+					alert(result.msg);
+				}else {
+					alert("삭제성공");
+					$('#main_load').load('adminpage_member.o?pages_r='+pages_r+'&adminSearchV='+adminSearchV+'&adminSearch='+adminSearch);
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+	
+}
+/////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+//리뷰신고 상세보기 생성
+function adminpage_report_r_show_ajax(no,pages_r,tab) {
+	$.ajax({
+		url:'adminpage_review_r_show_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			no:no
+		},
+		success:function(result){
+			if(result.result == false) {
+				alert(result.msg);
+			}else {
+				var htmls = "";
+				
+				htmls += '	<div class="write_hide" id="adminpage_report_float_bg" style="display:none;z-index:7000;">	';
+				htmls += '	<div class="write_hide_scroll">	';
+				htmls += '		';
+				htmls += '	<div class="write_hide_scroll2s_ri">	';
+				htmls += '	<div class="review_write_box">	';
+				htmls += '	<div style="overflow:hidden;">	';
+				htmls += '	<div><h1 id="rc_h">리뷰신고</h1></div>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="recruit_add_box_line">	';
+				
+				
+				var rpdata = result.rpdata;
+				
+				htmls += '<div class="c_list_l">';
+				if(rpdata.file1 == "") 	htmls += '  	<img src="./images/company_logo.jpg" alt="company_logo" width="78px" height="78px" />';
+				else 					htmls += '  	<img src="./upload/'+rpdata.file1+'" alt="company_logo" width="78px" height="78px" />';
+				htmls += '  </div>';
+				htmls += '  <div class="best_review_header_r">';
+				htmls += '    <h5>';
+				htmls += '      '+rpdata.company;
+				htmls += '    </h5>';
+				htmls += '    <p>';
+				if(rpdata.company_cate == 1) htmls += '      서비스업';
+				if(rpdata.company_cate == 2) htmls += '      제조/화학';
+				if(rpdata.company_cate == 3) htmls += '      의료/제약/복지';
+				if(rpdata.company_cate == 4) htmls += '      유통/무역/운송';
+				if(rpdata.company_cate == 5) htmls += '      교육업';
+				if(rpdata.company_cate == 6) htmls += '      건설업';
+				if(rpdata.company_cate == 7) htmls += '      IT/웹/통신';
+				if(rpdata.company_cate == 8) htmls += '      미디어/디자인';
+				if(rpdata.company_cate == 9) htmls += '      은행/금융업';
+				if(rpdata.company_cate == 10) htmls += '      기관/협회';
+				htmls += '    </p>';
+
+				htmls += '    <p>';
+				htmls += '<div class="list_star_r">';
+				htmls += '  <div class="list_star_line0"><div class="list_star_line1" style="width:'+rpdata.avg_stars_p+'px;"></div></div>';
+				htmls += '</div>';
+				htmls += '    </p>';
+				
+				htmls += '  </div>';
+				
+				
+				
+				
+				
+				htmls += '	</div>	';
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line align-center">	';
+				htmls += '	<input type="button" value="닫기" onclick="hide2(\'adminpage_report_float_bg\');document.body.style.overflow=\'scroll\';" class="review_write_btn2" />	';
+				htmls += '	<input type="button" value="리뷰삭제" class="review_write_btn1" onclick="adminpage_member_edit_ajax(document.getElementById(\'adminpage_member_forms\'),'+pages_r+','+tab+');" />	';
+				htmls += '	</div>	';
+				
+				htmls += '	<div class="recruit_add_box_line" style="text-align:center;">	';
+				htmls += '	<input type="button" value="신고취소" class="review_write_btn1" style="background:#fc4b3d;border:1px solid #fc4b3d;" onclick="adminpage_member_del_ajax('+no+','+pages_r+','+tab+');" />	';
+				htmls += '	</div>	';
+				
+				htmls += '		';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+
+				
+				document.getElementById('adminpage_report_r_hidden').innerHTML = htmls;
+				show2('adminpage_report_float_bg');
+				document.body.style.overflow = "hidden";
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+
+
+
+
+
+
+
  function test() {
 	$.ajax({
  		url:'test.o',
@@ -5534,6 +5892,7 @@ function report_ajax(forms) {
 
 <!-- 신고 영역 -->
 <div id="report_hidden"></div>
+
 
 
 <!-- 회원탈퇴 영역 -->

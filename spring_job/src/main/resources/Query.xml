@@ -80,7 +80,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="MemberDeleteUser" parameterType="com.myjob.data.MemberData">
 		delete from MIN_JOB_MEMBER where NO=#{no}
 	</delete>
+	<select id="MemberAdminGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.MemberData">
+		select NO,EMAIL,PASSWORD,NAME,PHONE1,PHONE2,PHONE3,QUEST,ANSWER,COMPANY,COMPANY_CATE,COMPANY_NUM,ORDERS,DATES,FOLLOW,KAKAO
+		from (select rownum as rnum,a.* from
+
+		(
+		
+		select *
+		from MIN_JOB_MEMBER
+		<if test="adminSearchV != null">
+		<if test="adminSearchV != ''">
+			where
+			<if test="adminSearch == 1">NAME</if>
+			<if test="adminSearch == 2">NO</if>
+			like '%'||#{adminSearchV}||'%'
+		</if>
+		</if>
+		order by no desc 
+		
+		) a
+		) where rnum between #{start} and #{end}
+	</select>
+	<select id="MemberAdminGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from MIN_JOB_MEMBER
+		<if test="adminSearchV != null">
+		<if test="adminSearchV != ''">
+			where
+			<if test="adminSearch == 1">NAME</if>
+			<if test="adminSearch == 2">NO</if>
+			like '%'||#{adminSearchV}||'%'
+		</if>
+		</if>
+		order by no desc
+	</select>
+	<select id="MemberAdminGetArticle" parameterType="java.util.Map" resultType="com.myjob.data.MemberData">
+		select * from MIN_JOB_MEMBER where no=#{no}
+	</select>
+	<update id="MemberAdminUpdate" parameterType="com.myjob.data.MemberData">
+		update MIN_JOB_MEMBER set
+		NAME=#{name},
+		PHONE1=#{phone1},
+		PHONE2=#{phone2},
+		PHONE3=#{phone3},
+		QUEST=#{quest},
+		ANSWER=#{answer},
+		COMPANY=#{company},
+		COMPANY_CATE=#{company_cate},
+		COMPANY_NUM=#{company_num},
+		PASSWORD=#{password},
+		ORDERS=#{orders}
+		where NO=#{no}
+	</update>
 	<!--  -->
+	
+	
+	
+	
 	
 	
 	
@@ -323,6 +379,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where MEMBER_NO=#{member_no}
 		order by NO desc) a) where rnum between 1 and 1
 	</select>
+	<select id="ReviewGetArticleNo" parameterType="java.util.Map" resultType="com.myjob.data.ReviewData">
+		select * from MIN_JOB_REVIEW where NO=#{no}
+	</select>
 	<!--  -->
 	
 	
@@ -448,7 +507,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="InterviewDeleteUser" parameterType="com.myjob.data.MemberData">
 		delete from MIN_JOB_INTERVIEW where MEMBER_NO=#{no}
 	</delete>
+	<select id="InterviewGetArticleNo" parameterType="java.util.Map" resultType="com.myjob.data.InterviewData">
+		select * from MIN_JOB_INTERVIEW where NO=#{no}
+	</select>
+	<!--  -->
 	
+	
+	
+	
+	
+	
+
+
 	
 	
 	<!-- Recruit -->
@@ -697,6 +767,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{tab_no}
 		)
 	</insert>
+	<select id="ReportGetArticles" parameterType="java.util.Map" resultType="com.myjob.data.ReportData">
+		select NO,MEMBER_NO,COMPANY,COMPANY_CATE,FILE1,WRITER_NO,TAB,REPORT_VALUE,DATES,TAB_NO,AVG_STARS
+		from (select rownum as rnum,a.* from
+		(
+		select NO,exa0.MEMBER_NO,COMPANY,COMPANY_CATE,FILE1,WRITER_NO,TAB,REPORT_VALUE,DATES,TAB_NO,exa1.AVG_STARS
+		
+		from
+		(select dd.NO,cc.MEMBER_NO,cc.COMPANY,cc.COMPANY_CATE,cc.FILE1,dd.WRITER_NO,dd.TAB,dd.REPORT_VALUE,dd.DATES,dd.TAB_NO
+		from  (select bb.MEMBER_NO,aa.COMPANY,aa.COMPANY_CATE,bb.FILE1 from (MIN_JOB_MEMBER aa), (MIN_JOB_COMPANY bb) where aa.NO=bb.MEMBER_NO) cc,MIN_JOB_REPORT dd
+		where cc.MEMBER_NO=dd.MEMBER_NO
+		and TAB=#{tab}
+		
+		) exa0
+		
+		LEFT OUTER JOIN (select MEMBER_NO, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO
+		) a
+		) where rnum between #{start} and #{end}
+	</select>
+	<select id="ReportGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from
+		(select dd.NO,cc.MEMBER_NO,cc.COMPANY,cc.COMPANY_CATE,cc.FILE1,dd.WRITER_NO,dd.TAB,dd.REPORT_VALUE,dd.DATES,dd.TAB_NO
+		from  (select bb.MEMBER_NO,aa.COMPANY,aa.COMPANY_CATE,bb.FILE1 from (MIN_JOB_MEMBER aa), (MIN_JOB_COMPANY bb) where aa.NO=bb.MEMBER_NO) cc,MIN_JOB_REPORT dd
+		where cc.MEMBER_NO=dd.MEMBER_NO
+		and TAB=#{tab}
+		
+		) exa0
+		LEFT OUTER JOIN (select MEMBER_NO, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO
+	</select>
+	<select id="ReportGetArticle" parameterType="java.util.Map" resultType="com.myjob.data.ReportData">
+		select NO,exa0.MEMBER_NO,COMPANY,COMPANY_CATE,FILE1,WRITER_NO,TAB,REPORT_VALUE,DATES,TAB_NO,exa1.AVG_STARS
+		
+		from
+		(select dd.NO,cc.MEMBER_NO,cc.COMPANY,cc.COMPANY_CATE,cc.FILE1,dd.WRITER_NO,dd.TAB,dd.REPORT_VALUE,dd.DATES,dd.TAB_NO
+		from  (select bb.MEMBER_NO,aa.COMPANY,aa.COMPANY_CATE,bb.FILE1 from (MIN_JOB_MEMBER aa), (MIN_JOB_COMPANY bb) where aa.NO=bb.MEMBER_NO) cc,MIN_JOB_REPORT dd
+		where cc.MEMBER_NO=dd.MEMBER_NO
+		and TAB=#{tab} and NO=#{no}
+		
+		) exa0
+		
+		LEFT OUTER JOIN (select MEMBER_NO, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO
+	</select>
 	<!--  -->
 	
 <!-- 

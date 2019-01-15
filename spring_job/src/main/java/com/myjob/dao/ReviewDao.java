@@ -13,4 +13,5 @@ public interface ReviewDao {
 	ReviewData getAllStars(int member_no);
 	ReviewData getIndexArticle(int member_no);
 	void deleteUser(MemberData mdata);
+	ReviewData getArticleNo(int no);
 }

@@ -2021,6 +2021,84 @@ text-decoration:none;
 .admin_member_table tr td a:hover {
 text-decoration:underline;
 }
+.admin_search_bg {
+margin:0 auto;
+width:274px;
+height:32px;
+border:2px solid #00c362;
+border-radius:10px;
+margin-top:20px;
+padding:0px;
+overflow:hidden;
+}
+.admin_search_l {
+float:left;
+width:80px;
+height:32px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.admin_search_c {
+float:left;
+width:130px;
+height:32px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.admin_search_r {
+float:right;
+width:60px;
+height:32px;
+margin:0px;
+padding:0px;
+overflow:hidden;
+}
+.admin_search_l select {
+border:0px;
+width:80px;
+height:30px;
+font-size:12px;
+color:#333333;
+background:#ffffff;
+margin:0px;
+padding:0 0 0 5px;
+}
+.admin_search_c input {
+border:0px;
+width:130px;
+height:30px;
+line-height:30px;
+font-size:12px;
+color:#333333;
+background:#ffffff;
+margin:0px;
+padding:0px;
+}
+.admin_search_r input {
+border:0px;
+width:60px;
+height:30px;
+font-size:12px;
+font-weight:bold;
+color:#333333;
+background:#ffffff;
+margin:0px;
+padding:0px;
+}
+
+
+
+
+.write_hide_scroll2s_ri {
+background:#ffffff;
+position:absolute;
+top:10px;
+bottom:10px;
+overflow-y:scroll;
+z-index:3000;
+}
 
 
 
@@ -2122,6 +2200,11 @@ text-decoration:underline;
   	width:400px;
   	left:50%;
   	margin-left:-200px;
+  }
+  .write_hide_scroll2s_ri {
+  	width:600px;
+  	left:50%;
+  	margin-left:-300px;
   }
   .c_list2_l {
     width:80px;
@@ -2293,6 +2376,11 @@ text-decoration:underline;
   	left:50%;
   	margin-left:-200px;
   }
+  .write_hide_scroll2s_ri {
+  	width:600px;
+  	left:50%;
+  	margin-left:-300px;
+  }
   .c_list2_l {
     width:80px;
   }
@@ -2461,6 +2549,11 @@ text-decoration:underline;
   	width:400px;
   	left:50%;
   	margin-left:-200px;
+  }
+  .write_hide_scroll2s {
+  	width:500px;
+  	left:50%;
+  	margin-left:-250px;
   }
   .c_list2_l {
     width:80px;
@@ -2650,6 +2743,13 @@ text-decoration:underline;
   	left:50%;
   	right:10px;
   	margin-left:-45%;
+  }
+  .write_hide_scroll2s_ri {
+  	width:98%;
+  	margin:0 auto;
+  	left:50%;
+  	right:10px;
+  	margin-left:-49%;
   }
   .c_list2_l {
     display:none;

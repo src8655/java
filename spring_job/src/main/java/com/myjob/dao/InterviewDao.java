@@ -15,4 +15,5 @@ public interface InterviewDao {
 	Integer getInterviewex(int member_no, int interviewex);
 	Integer getInterviewresult(int member_no, int interviewresult);
 	void deleteUser(MemberData mdata);
+	InterviewData getArticleNo(int no);
 }

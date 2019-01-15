@@ -82,4 +82,11 @@ public class InterviewService implements InterviewDao {
 		sqlSessionTemplate.delete("InterviewDeleteUser", mdata);
 	}
 
+	@Override
+	public InterviewData getArticleNo(int no) {
+		Map map = new HashMap();
+		map.put("no", no);
+		return (InterviewData)sqlSessionTemplate.selectOne("InterviewGetArticleNo", map);
+	}
+
 }

@@ -9,6 +9,49 @@ public class ReportData {
 	private String dates = "";
 	private int tab_no = -1;
 	
+	private String company = "";
+	private int company_cate = -1;
+	private String file1 = "";
+	private double avg_stars = 0;
+	private int avg_stars_p = 0;
+	private MemberData mdata;
+	
+	public MemberData getMdata() {
+		return mdata;
+	}
+	public void setMdata(MemberData mdata) {
+		this.mdata = mdata;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public int getCompany_cate() {
+		return company_cate;
+	}
+	public void setCompany_cate(int company_cate) {
+		this.company_cate = company_cate;
+	}
+	public String getFile1() {
+		return file1;
+	}
+	public void setFile1(String file1) {
+		this.file1 = file1;
+	}
+	public double getAvg_stars() {
+		return avg_stars;
+	}
+	public void setAvg_stars(double avg_stars) {
+		this.avg_stars = avg_stars;
+	}
+	public int getAvg_stars_p() {
+		return avg_stars_p;
+	}
+	public void setAvg_stars_p(int avg_stars_p) {
+		this.avg_stars_p = avg_stars_p;
+	}
 	public int getTab_no() {
 		return tab_no;
 	}

@@ -64,5 +64,12 @@ public class ReviewService implements ReviewDao {
 		sqlSessionTemplate.delete("ReviewDeleteUser", mdata);
 	}
 
+	@Override
+	public ReviewData getArticleNo(int no) {
+		Map map = new HashMap();
+		map.put("no", no);
+		return (ReviewData)sqlSessionTemplate.selectOne("ReviewGetArticleNo", map);
+	}
+
 
 }

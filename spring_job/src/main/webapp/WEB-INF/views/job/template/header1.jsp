@@ -26,11 +26,11 @@
             <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
           </c:if>
           <c:if test="${memberInfo.orders eq 3}">
-            <li><a href="adminpage.o">관리페이지</a></li>
+            <li><a href="#100" onclick="$('#main_load').load('adminpage_member.o');mypage=1;hide2('xs_menu_id');">관리페이지</a></li>
           </c:if>
         </c:if>
-	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=1');hide2('xs_menu_id');">기업정보</a></li>
-	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=2');hide2('xs_menu_id');">채용정보</a></li>
+	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=1');hide2('xs_menu_id');mypage=-1;">기업정보</a></li>
+	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=2');hide2('xs_menu_id');mypage=-1;">채용정보</a></li>
 	</ul>
 </div>
 
@@ -41,8 +41,8 @@
       <div class="col-sm-1"></div>
       <div class="col-sm-4 top_menu_align_left">
         <ul class="header_ul hidden-xs">
-          <li class="header_ul_li"><a href="#100" onclick="$('#main_load').load('list.o?search=1');" class="header_ul_li_a">기업정보</a></li>
-          <li class="header_ul_li"><a href="#100" onclick="$('#main_load').load('list.o?search=2');" class="header_ul_li_a">채용정보</a></li>
+          <li class="header_ul_li"><a href="#100" onclick="$('#main_load').load('list.o?search=1');mypage=-1;" class="header_ul_li_a">기업정보</a></li>
+          <li class="header_ul_li"><a href="#100" onclick="$('#main_load').load('list.o?search=2');mypage=-1;" class="header_ul_li_a">채용정보</a></li>
         </ul>
       </div>
       <div class="col-sm-2">
@@ -52,7 +52,7 @@
 				<div></div>
 				<div></div>
 			</a>
-	      	<h1 class="logo_float"><a href="#100" onclick="$('#main_load').load('index_load.o');"><img src="./images/logo.jpg" alt="logo" /></a></h1>
+	      	<h1 class="logo_float"><a href="#100" onclick="$('#main_load').load('index_load.o');mypage=-1;"><img src="./images/logo.jpg" alt="logo" /></a></h1>
       	</div>
 	  </div>
       <div class="col-sm-4 top_menu_align">
@@ -75,7 +75,7 @@
             <li class="header_ul_li"><a href="view.o?member_no=${memberInfo.no}" class="header_ul_li_a">내 기업</a></li>
           </c:if>
           <c:if test="${memberInfo.orders eq 3}">
-            <li class="header_ul_li"><a href="adminpage.o" class="header_ul_li_a">관리페이지</a></li>
+            <li class="header_ul_li"><a href="#100" class="header_ul_li_a" onclick="$('#main_load').load('adminpage_member.o');mypage=1;">관리페이지</a></li>
           </c:if>
         </c:if>
         </ul>

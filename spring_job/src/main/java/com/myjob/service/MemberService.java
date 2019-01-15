@@ -1,6 +1,7 @@
 package com.myjob.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -99,5 +100,35 @@ public class MemberService implements MemberDao {
 	@Override
 	public void deleteUser(MemberData mdata) {
 		sqlSessionTemplate.delete("MemberDeleteUser", mdata);
+	}
+
+	@Override
+	public List adminGetArticles(int adminSearch, String adminSearchV, int start, int end) {
+		Map map = new HashMap();
+		map.put("adminSearch", adminSearch);
+		map.put("adminSearchV", adminSearchV);
+		map.put("start", start);
+		map.put("end", end);
+		return (List)sqlSessionTemplate.selectList("MemberAdminGetArticles", map);
+	}
+
+	@Override
+	public Integer adminGetCount(int adminSearch, String adminSearchV) {
+		Map map = new HashMap();
+		map.put("adminSearch", adminSearch);
+		map.put("adminSearchV", adminSearchV);
+		return (Integer)sqlSessionTemplate.selectOne("MemberAdminGetCount", map);
+	}
+
+	@Override
+	public MemberData adminGetArticle(int no) {
+		Map map = new HashMap();
+		map.put("no", no);
+		return (MemberData)sqlSessionTemplate.selectOne("MemberAdminGetArticle", map);
+	}
+
+	@Override
+	public void adminUpdate(MemberData mdata) {
+		sqlSessionTemplate.update("MemberAdminUpdate", mdata);
 	}
 }

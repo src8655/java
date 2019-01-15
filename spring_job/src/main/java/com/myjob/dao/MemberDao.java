@@ -1,5 +1,7 @@
 package com.myjob.dao;
 
+import java.util.List;
+
 import com.myjob.data.MemberData;
 
 public interface MemberDao {
@@ -15,4 +17,8 @@ public interface MemberDao {
 	void changePw(MemberData mdata);
 	MemberData changePwKakao(MemberData mdata);
 	void deleteUser(MemberData mdata);
+	List adminGetArticles(int adminSearch, String adminSearchV, int start, int end);
+	Integer adminGetCount(int adminSearch, String adminSearchV);
+	MemberData adminGetArticle(int no);
+	void adminUpdate(MemberData mdata);
 }
