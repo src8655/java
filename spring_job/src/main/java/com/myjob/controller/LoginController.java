@@ -38,6 +38,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.myjob.dao.CompanyDao;
 import com.myjob.dao.MemberDao;
+import com.myjob.dao.ReportDao;
 import com.myjob.data.CompanyData;
 import com.myjob.data.MemberData;
 import com.myjob.ext.Md5Enc;
@@ -69,6 +70,8 @@ public class LoginController {
 	RecruitService recruitService;
 	@Autowired
 	RecruitListService recruitListService;
+	@Autowired
+	ReportDao reportService;
 
 	String msg = "";
 	String url = "";
@@ -699,6 +702,7 @@ public class LoginController {
 		interviewService.deleteUser(memberInfo);
 		recruitService.deleteUser(memberInfo);
 		recruitListService.deleteUser(memberInfo);
+		reportService.deleteUser(memberInfo);
 		
 		
 		

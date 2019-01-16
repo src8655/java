@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myjob.dao.ReportDao;
+import com.myjob.data.MemberData;
 import com.myjob.data.ReportData;
 
 @Service
@@ -63,6 +64,11 @@ public class ReportService implements ReportDao {
 		Map map = new HashMap();
 		map.put("no", no);
 		sqlSessionTemplate.delete("ReportDeleteNo", map);
+	}
+
+	@Override
+	public void deleteUser(MemberData mdata) {
+		sqlSessionTemplate.delete("ReportDeleteUser", mdata);
 	}
 
 }

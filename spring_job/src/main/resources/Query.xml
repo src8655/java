@@ -821,6 +821,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="ReportDeleteNo" parameterType="java.util.Map">
 		delete from MIN_JOB_REPORT where NO=#{no}
 	</delete>
+	<delete id="ReportDeleteUser" parameterType="com.myjob.data.MemberData">
+		delete from MIN_JOB_REPORT where MEMBER_NO=#{no}
+	</delete>
 	<!--  -->
 	
 <!-- 
