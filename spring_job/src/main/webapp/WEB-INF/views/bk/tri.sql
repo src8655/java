@@ -1,7 +1,4 @@
 --------------------------------------------------------
---  파일이 생성됨 - 토요일-1월-12-2019   
---------------------------------------------------------
---------------------------------------------------------
 --  DDL for Trigger MIN_JOB_COMPANY_TRI
 --------------------------------------------------------
 
@@ -120,6 +117,23 @@ end;
 
 /
 ALTER TRIGGER "LSM8655"."MIN_JOB_RECRUIT_TRI" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger MIN_JOB_REPORT_TRI
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "LSM8655"."MIN_JOB_REPORT_TRI" 
+   before insert on "LSM8655"."MIN_JOB_REPORT" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."NO" is null then 
+         select MIN_JOB_REPORT_SEQ.nextval into :NEW."NO" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "LSM8655"."MIN_JOB_REPORT_TRI" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger MIN_JOB_REVIEW_TRI
 --------------------------------------------------------

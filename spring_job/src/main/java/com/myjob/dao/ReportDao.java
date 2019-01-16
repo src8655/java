@@ -10,4 +10,6 @@ public interface ReportDao {
 	List getArticles(int start, int end, int tab);
 	Integer getCount(int tab);
 	ReportData getArticle(int no, int tab);
+	void delete(int tab_no, int tab);
+	void deleteNo(int no);
 }

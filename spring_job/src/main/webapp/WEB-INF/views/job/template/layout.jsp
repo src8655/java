@@ -5649,7 +5649,7 @@ function adminpage_member_edit_show_ajax(no,pages_r,adminSearchV,adminSearch) {
 				htmls += '	</div>	';
 				
 				htmls += '	<div class="recruit_add_box_line" style="text-align:center;">	';
-				htmls += '	<input type="button" value="회원삭제" class="review_write_btn1" style="background:#fc4b3d;border:1px solid #fc4b3d;" onclick="adminpage_member_del_ajax('+no+','+pages_r+',\''+adminSearchV+'\','+adminSearch+');" />	';
+				htmls += '	<input type="button" value="회원삭제" class="review_write_btn1" style="width:98%;background:#fc4b3d;border:1px solid #fc4b3d;" onclick="adminpage_member_del_ajax('+no+','+pages_r+',\''+adminSearchV+'\','+adminSearch+');" />	';
 				htmls += '	</div>	';
 				
 				htmls += '		';
@@ -5753,6 +5753,8 @@ function adminpage_report_r_show_ajax(no,pages_r,tab) {
 				alert(result.msg);
 			}else {
 				var htmls = "";
+
+				var rpdata = result.rpdata;
 				
 				htmls += '	<div class="write_hide" id="adminpage_report_float_bg" style="display:none;z-index:7000;">	';
 				htmls += '	<div class="write_hide_scroll">	';
@@ -5762,10 +5764,22 @@ function adminpage_report_r_show_ajax(no,pages_r,tab) {
 				htmls += '	<div style="overflow:hidden;">	';
 				htmls += '	<div><h1 id="rc_h">리뷰신고</h1></div>	';
 				htmls += '	</div>	';
-				htmls += '	<div class="recruit_add_box_line">	';
 				
 				
-				var rpdata = result.rpdata;
+				
+				htmls += '	<div class="report_value_div"><span style="font-weight:bold;">신고사유</span> : ';
+				if(rpdata.report_value == 1) htmls += '비하/비방의 의미를 가진 저속한 표현';
+				if(rpdata.report_value == 2) htmls += '오타, 내용 반복, 무의미한 단어 나열';
+				if(rpdata.report_value == 3) htmls += '다른 게시물을 도용';
+				if(rpdata.report_value == 4) htmls += '기업명, 산업군, 직무가 다르게 선택';
+				if(rpdata.report_value == 5) htmls += '특정기업이나 상품의 광고/홍보';
+				if(rpdata.report_value == 6) htmls += '명예훼손, 사생활 침해, 개인정보 노출';
+				if(rpdata.report_value == 7) htmls += '기타 권리침해 또는 기업기밀 누설';
+				htmls += '	</div>';
+				
+				
+				
+				htmls += '	<div class="recruit_add_box_line" style="padding-top:15px;">	';
 				
 				htmls += '<div class="c_list_l">';
 				if(rpdata.file1 == "") 	htmls += '  	<img src="./images/company_logo.jpg" alt="company_logo" width="78px" height="78px" />';
@@ -5789,26 +5803,55 @@ function adminpage_report_r_show_ajax(no,pages_r,tab) {
 				htmls += '    </p>';
 
 				htmls += '    <p>';
-				htmls += '<div class="list_star_r">';
-				htmls += '  <div class="list_star_line0"><div class="list_star_line1" style="width:'+rpdata.avg_stars_p+'px;"></div></div>';
-				htmls += '</div>';
+				htmls += '	    <div class="list_star_r">';
+				htmls += '        <div class="list_star_line0"><div class="list_star_line1" style="width:'+rpdata.avg_stars_p+'px;"></div></div>';
+				htmls += '	    </div>';
 				htmls += '    </p>';
-				
 				htmls += '  </div>';
 				
-				
-				
-				
-				
 				htmls += '	</div>	';
+				
+				
+				
+				var rdata = result.rdata;
+				htmls += '	<div class="recruit_add_box_line">	';
+				
+				
+				htmls += '  <div class="review_l_star" style="margin-top:10px;">';
+				var i=0;
+				for(i=1;i<=rdata.stars;i++) {
+					htmls += '    <img src="./images/stars00.jpg" alt="star" /> ';
+				}
+				for(i=1;i<=(5-rdata.stars);i++) {
+					htmls += '    <img src="./images/stars11.jpg" alt="star" /> ';
+				}
+				htmls += '  </div>';
+	            
+				htmls += '  <div class="review_r">';
+				htmls += '    <h3>"'+rdata.memo1+'"</h3>';
+				htmls += '    <h5 style="color:#0f7ccf;">장점</h5>';
+				htmls += '    <p>';
+				htmls += '      '+rdata.memo2;
+				htmls += '    </p>';
+				htmls += '    <h5 style="color:#fc4a13;">단점</h5>';
+				htmls += '    <p>';
+				htmls += '      '+rdata.memo3;
+				htmls += '    </p>';
+				htmls += '  </div>';
+				
+
+				htmls += '	</div>	';
+				
+				
+				
 				htmls += '		';
 				htmls += '	<div class="review_write_box_line align-center">	';
 				htmls += '	<input type="button" value="닫기" onclick="hide2(\'adminpage_report_float_bg\');document.body.style.overflow=\'scroll\';" class="review_write_btn2" />	';
-				htmls += '	<input type="button" value="리뷰삭제" class="review_write_btn1" onclick="adminpage_member_edit_ajax(document.getElementById(\'adminpage_member_forms\'),'+pages_r+','+tab+');" />	';
+				htmls += '	<input type="button" value="리뷰삭제" class="review_write_btn1" onclick="adminpage_report_r_del_ajax('+no+','+pages_r+','+tab+');" />	';
 				htmls += '	</div>	';
 				
 				htmls += '	<div class="recruit_add_box_line" style="text-align:center;">	';
-				htmls += '	<input type="button" value="신고취소" class="review_write_btn1" style="background:#fc4b3d;border:1px solid #fc4b3d;" onclick="adminpage_member_del_ajax('+no+','+pages_r+','+tab+');" />	';
+				htmls += '	<input type="button" value="신고취소" class="review_write_btn1" style="width:98%;background:#fc4b3d;border:1px solid #fc4b3d;" onclick="adminpage_report_r_cancel_ajax('+no+','+pages_r+','+tab+');" />	';
 				htmls += '	</div>	';
 				
 				htmls += '		';
@@ -5828,6 +5871,322 @@ function adminpage_report_r_show_ajax(no,pages_r,tab) {
 		}
 	});
 }
+//리뷰삭제
+function adminpage_report_r_del_ajax(no,pages_r,tab) {
+	var reVal = confirm("정말로 리뷰를 삭제하시겠습니까?");
+	if(reVal == true) {
+		$.ajax({
+			url:'adminpage_report_r_del_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				no:no
+			},
+			success:function(result){
+				if(result.result == false) {
+					alert(result.msg);
+				}else {
+					alert("삭제되었습니다.");
+	
+					show2('adminpage_report_float_bg');
+					document.getElementById('adminpage_report_r_hidden').innerHTML = "";
+					document.body.style.overflow = "scroll";
+					
+					$('#main_load').load('adminpage_report_r.o?pages_r='+pages_r+'&tab='+tab);
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//리뷰취소
+function adminpage_report_r_cancel_ajax(no,pages_r,tab) {
+	var reVal = confirm("정말로 신고를 취소하시겠습니까?");
+	if(reVal == true) {
+		$.ajax({
+			url:'adminpage_report_r_cancel_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				no:no
+			},
+			success:function(result){
+				if(result.result == false) {
+					alert(result.msg);
+				}else {
+					alert("취소되었습니다.");
+	
+					show2('adminpage_report_float_bg');
+					document.getElementById('adminpage_report_r_hidden').innerHTML = "";
+					document.body.style.overflow = "scroll";
+					
+					$('#main_load').load('adminpage_report_r.o?pages_r='+pages_r+'&tab='+tab);
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+//면접후기 신고 상세보기 생성
+
+//리뷰신고 상세보기 생성
+function adminpage_report_i_show_ajax(no,pages_r,tab) {
+	$.ajax({
+		url:'adminpage_review_i_show_ajax.o',
+		method:'POST',
+		datatype : "json",
+		data:{
+			no:no
+		},
+		success:function(result){
+			if(result.result == false) {
+				alert(result.msg);
+			}else {
+				var htmls = "";
+
+				var rpdata = result.rpdata;
+				
+				htmls += '	<div class="write_hide" id="adminpage_report_float_bg" style="display:none;z-index:7000;">	';
+				htmls += '	<div class="write_hide_scroll">	';
+				htmls += '		';
+				htmls += '	<div class="write_hide_scroll2s_ri">	';
+				htmls += '	<div class="review_write_box">	';
+				htmls += '	<div style="overflow:hidden;">	';
+				htmls += '	<div><h1 id="rc_h">면접후기신고</h1></div>	';
+				htmls += '	</div>	';
+				
+				
+				
+				htmls += '	<div class="report_value_div"><span style="font-weight:bold;">신고사유</span> : ';
+				if(rpdata.report_value == 1) htmls += '비하/비방의 의미를 가진 저속한 표현';
+				if(rpdata.report_value == 2) htmls += '오타, 내용 반복, 무의미한 단어 나열';
+				if(rpdata.report_value == 3) htmls += '다른 게시물을 도용';
+				if(rpdata.report_value == 4) htmls += '기업명, 산업군, 직무가 다르게 선택';
+				if(rpdata.report_value == 5) htmls += '특정기업이나 상품의 광고/홍보';
+				if(rpdata.report_value == 6) htmls += '명예훼손, 사생활 침해, 개인정보 노출';
+				if(rpdata.report_value == 7) htmls += '기타 권리침해 또는 기업기밀 누설';
+				htmls += '	</div>';
+				
+				
+				
+				htmls += '	<div class="recruit_add_box_line" style="padding-top:15px;">	';
+				
+				htmls += '<div class="c_list_l">';
+				if(rpdata.file1 == "") 	htmls += '  	<img src="./images/company_logo.jpg" alt="company_logo" width="78px" height="78px" />';
+				else 					htmls += '  	<img src="./upload/'+rpdata.file1+'" alt="company_logo" width="78px" height="78px" />';
+				htmls += '  </div>';
+				htmls += '  <div class="best_review_header_r">';
+				htmls += '    <h5>';
+				htmls += '      '+rpdata.company;
+				htmls += '    </h5>';
+				htmls += '    <p>';
+				if(rpdata.company_cate == 1) htmls += '      서비스업';
+				if(rpdata.company_cate == 2) htmls += '      제조/화학';
+				if(rpdata.company_cate == 3) htmls += '      의료/제약/복지';
+				if(rpdata.company_cate == 4) htmls += '      유통/무역/운송';
+				if(rpdata.company_cate == 5) htmls += '      교육업';
+				if(rpdata.company_cate == 6) htmls += '      건설업';
+				if(rpdata.company_cate == 7) htmls += '      IT/웹/통신';
+				if(rpdata.company_cate == 8) htmls += '      미디어/디자인';
+				if(rpdata.company_cate == 9) htmls += '      은행/금융업';
+				if(rpdata.company_cate == 10) htmls += '      기관/협회';
+				htmls += '    </p>';
+
+				htmls += '    <p>';
+				htmls += '	    <div class="list_star_r">';
+				htmls += '        <div class="list_star_line0"><div class="list_star_line1" style="width:'+rpdata.avg_stars_p+'px;"></div></div>';
+				htmls += '	    </div>';
+				htmls += '    </p>';
+				htmls += '  </div>';
+				
+				htmls += '	</div>	';
+				
+				
+				
+				var itdata = result.itdata;
+				htmls += '	<div class="recruit_add_box_line">	';
+				
+				
+				htmls += '	<div class="interview_l" style="width:100%;padding-top:15px;margin-bottom:15px;">	';
+				htmls += '	<div class="interview_l_list">	';
+				htmls += '	<div style="width:auto;float:left;margin-right:15px;">	';
+				htmls += '	<h5>면접난이도</h5>	';
+				htmls += '	<h6>';
+				if(itdata.difficulty == 1) htmls += '매우쉬움';
+				if(itdata.difficulty == 2) htmls += '쉬움';
+				if(itdata.difficulty == 3) htmls += '보통';
+				if(itdata.difficulty == 4) htmls += '어려움';
+				if(itdata.difficulty == 5) htmls += '매우어려움';
+				htmls += '	</h6>	';
+				htmls += '	<ul style="width:auto;overflow:hidden;">	';
+				
+				var i=0;
+				for(i=1;i<=itdata.difficulty;i++) htmls += '	<li class="interview_bk_1"></li>	';
+				for(i=1;i<=(5-itdata.difficulty);i++) htmls += '	<li class="interview_bk_0"></li>	';
+				htmls += '	</ul>	';
+				htmls += '	</div>	';
+				htmls += '	<div style="width:auto;float:left;margin-right:15px;">	';
+				htmls += '	<h5>면접일자</h5>	';
+				htmls += '	<h6>'+itdata.interviewdate+'</h6>	';
+				htmls += '	</div>	';
+				htmls += '	<div style="width:auto;float:left;margin-right:15px;">	';
+				htmls += '	<h5>면접경로</h5>	';
+				htmls += '	<h6>	';
+				if(itdata.interviewdir == 1) htmls +='온라인 지원	';
+				if(itdata.interviewdir == 2) htmls +='직원추천	';
+				if(itdata.interviewdir == 3) htmls +='헤드헌터	';
+				if(itdata.interviewdir == 4) htmls +='공개채용	';
+				if(itdata.interviewdir == 5) htmls +='학교 취업지원 센터	';
+				if(itdata.interviewdir == 6) htmls +='기타	';
+				htmls += '	</h6>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	<div class="review_r" style="width:100%;padding-left:0px;">	';
+				htmls += '	<h3>"'+itdata.memo1+'"</h3>	';
+				htmls += '	<h5>면접질문</h5>	';
+				htmls += '	<p>'+itdata.memo2+'</p>	';
+				htmls += '	<h5>면접답변</h5>	';
+				htmls += '	<p>'+itdata.memo3+'</p>	';
+				htmls += '	<h5>채용방식</h5>	';
+				htmls += '	<p>'+itdata.memo4+'</p>	';
+				htmls += '	<h5>발표시기</h5>	';
+				htmls += '	<p>'+itdata.memo5+'</p>	';
+				htmls += '	<table cellspacing="0" cellpadding="0" class="interview_b_table">	';
+				htmls += '	<tr>	';
+				htmls += '	<th>면접결과</th>	';
+				htmls += '	<td>	';
+				if(itdata.interviewresult == 1) htmls += '	<img src="./images/interview_l_1.jpg" alt="img" /> 합격	';
+				if(itdata.interviewresult == 2) htmls += '	<img src="./images/interview_l_2.jpg" alt="img" /> 불합격	';
+				if(itdata.interviewresult == 3) htmls += '	<img src="./images/interview_l_3.jpg" alt="img" /> 대기중	';
+				htmls += '	</td>	';
+				htmls += '	<th>면접경험</th>	';
+				htmls += '	<td>	';
+				if(itdata.interviewex == 1) htmls += '	<img src="./images/interview_r_1.jpg" alt="img" /> 긍정적	';
+				if(itdata.interviewex == 2) htmls += '	<img src="./images/interview_r_3.jpg" alt="img" /> 보통	';
+				if(itdata.interviewex == 3) htmls += '	<img src="./images/interview_r_2.jpg" alt="img" /> 부정적	';
+				htmls += '	</td>	';
+				htmls += '	</tr>	';
+				htmls += '	</table>	';
+				htmls += '	</div>	';
+
+				
+
+				htmls += '	</div>	';
+				
+				
+				
+				htmls += '		';
+				htmls += '	<div class="review_write_box_line align-center">	';
+				htmls += '	<input type="button" value="닫기" onclick="hide2(\'adminpage_report_float_bg\');document.body.style.overflow=\'scroll\';" class="review_write_btn2" />	';
+				htmls += '	<input type="button" value="면접후기삭제" class="review_write_btn1" onclick="adminpage_report_i_del_ajax('+no+','+pages_r+','+tab+');" />	';
+				htmls += '	</div>	';
+				
+				htmls += '	<div class="recruit_add_box_line" style="text-align:center;">	';
+				htmls += '	<input type="button" value="신고취소" class="review_write_btn1" style="width:98%;background:#fc4b3d;border:1px solid #fc4b3d;" onclick="adminpage_report_i_cancel_ajax('+no+','+pages_r+','+tab+');" />	';
+				htmls += '	</div>	';
+				
+				htmls += '		';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+				htmls += '	</div>	';
+
+				
+				document.getElementById('adminpage_report_r_hidden').innerHTML = htmls;
+				show2('adminpage_report_float_bg');
+				document.body.style.overflow = "hidden";
+			}
+		},
+		error:function(r,s,e) {
+			alert('통신에러');
+		}
+	});
+}
+//리뷰삭제
+function adminpage_report_i_del_ajax(no,pages_r,tab) {
+	var reVal = confirm("정말로 면접후기를 삭제하시겠습니까?");
+	if(reVal == true) {
+		$.ajax({
+			url:'adminpage_report_i_del_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				no:no
+			},
+			success:function(result){
+				if(result.result == false) {
+					alert(result.msg);
+				}else {
+					alert("삭제되었습니다.");
+	
+					show2('adminpage_report_float_bg');
+					document.getElementById('adminpage_report_r_hidden').innerHTML = "";
+					document.body.style.overflow = "scroll";
+					
+					$('#main_load').load('adminpage_report_r.o?pages_r='+pages_r+'&tab='+tab);
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+//면접후기취소
+function adminpage_report_i_cancel_ajax(no,pages_r,tab) {
+	var reVal = confirm("정말로 신고를 취소하시겠습니까?");
+	if(reVal == true) {
+		$.ajax({
+			url:'adminpage_report_i_cancel_ajax.o',
+			method:'POST',
+			datatype : "json",
+			data:{
+				no:no
+			},
+			success:function(result){
+				if(result.result == false) {
+					alert(result.msg);
+				}else {
+					alert("취소되었습니다.");
+	
+					show2('adminpage_report_float_bg');
+					document.getElementById('adminpage_report_r_hidden').innerHTML = "";
+					document.body.style.overflow = "scroll";
+					
+					$('#main_load').load('adminpage_report_r.o?pages_r='+pages_r+'&tab='+tab);
+				}
+			},
+			error:function(r,s,e) {
+				alert('통신에러');
+			}
+		});
+	}
+}
+////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 
 
 

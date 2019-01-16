@@ -382,6 +382,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="ReviewGetArticleNo" parameterType="java.util.Map" resultType="com.myjob.data.ReviewData">
 		select * from MIN_JOB_REVIEW where NO=#{no}
 	</select>
+	<delete id="ReviewDelete" parameterType="java.util.Map">
+		delete from MIN_JOB_REVIEW where no=#{no}
+	</delete>
 	<!--  -->
 	
 	
@@ -510,6 +513,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="InterviewGetArticleNo" parameterType="java.util.Map" resultType="com.myjob.data.InterviewData">
 		select * from MIN_JOB_INTERVIEW where NO=#{no}
 	</select>
+	<delete id="InterviewDelete" parameterType="java.util.Map">
+		delete from MIN_JOB_INTERVIEW where NO=#{no}
+	</delete>
 	<!--  -->
 	
 	
@@ -809,6 +815,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		LEFT OUTER JOIN (select MEMBER_NO, avg(STARS) as AVG_STARS from MIN_JOB_REVIEW group by MEMBER_NO) exa1 ON exa0.MEMBER_NO=exa1.MEMBER_NO
 	</select>
+	<delete id="ReportDelete" parameterType="java.util.Map">
+		delete from MIN_JOB_REPORT where tab_no=#{tab_no} and tab=#{tab}
+	</delete>
+	<delete id="ReportDeleteNo" parameterType="java.util.Map">
+		delete from MIN_JOB_REPORT where NO=#{no}
+	</delete>
 	<!--  -->
 	
 <!-- 

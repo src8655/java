@@ -50,4 +50,19 @@ public class ReportService implements ReportDao {
 		return (ReportData)sqlSessionTemplate.selectOne("ReportGetArticle", map);
 	}
 
+	@Override
+	public void delete(int tab_no, int tab) {
+		Map map = new HashMap();
+		map.put("tab_no", tab_no);
+		map.put("tab", tab);
+		sqlSessionTemplate.delete("ReportDelete", map);
+	}
+
+	@Override
+	public void deleteNo(int no) {
+		Map map = new HashMap();
+		map.put("no", no);
+		sqlSessionTemplate.delete("ReportDeleteNo", map);
+	}
+
 }

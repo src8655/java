@@ -2088,9 +2088,6 @@ margin:0px;
 padding:0px;
 }
 
-
-
-
 .write_hide_scroll2s_ri {
 background:#ffffff;
 position:absolute;
@@ -2098,6 +2095,14 @@ top:10px;
 bottom:10px;
 overflow-y:scroll;
 z-index:3000;
+}
+
+.report_value_div {
+padding:10px;
+margin:0px;
+font-size:14px;
+border:1px solid #cccccc;
+overflow:hidden;
 }
 
 

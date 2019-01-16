@@ -480,6 +480,81 @@ public class MypageController {
 		map.put("result", true);
 		return map;
 	}
+	//관리페이지 리뷰신고 삭제
+	@RequestMapping("/job/adminpage_report_r_del_ajax.o")
+	@ResponseBody
+	public Map adminpage_report_r_del_ajax(
+			@RequestParam(value="no", defaultValue="-1") int no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 3) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		ReportData rpdata = reportService.getArticle(no, 1);
+		reviewService.delete(rpdata.getTab_no());					//리뷰삭제
+		reportService.delete(rpdata.getTab_no(), rpdata.getTab());	//같은 리뷰를 신고한 리스트 모두 삭제
+		
+		
+
+		map.put("result", true);
+		return map;
+	}
+	//관리페이지 리뷰신고 취소
+	@RequestMapping("/job/adminpage_report_r_cancel_ajax.o")
+	@ResponseBody
+	public Map adminpage_report_r_cancel_ajax(
+			@RequestParam(value="no", defaultValue="-1") int no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 3) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		ReportData rpdata = reportService.getArticle(no, 1);
+		reportService.deleteNo(rpdata.getNo());
+		
+		
+
+		map.put("result", true);
+		return map;
+	}
+	
+	
+	
+
 	//관리페이지 면접후기신고 상세보기
 	@RequestMapping("/job/adminpage_review_i_show_ajax.o")
 	@ResponseBody
@@ -512,6 +587,76 @@ public class MypageController {
 		map.put("rpdata", rpdata);
 		InterviewData itdata = interviewService.getArticleNo(rpdata.getTab_no());
 		map.put("itdata", itdata);
+		
+		
+
+		map.put("result", true);
+		return map;
+	}
+	//관리페이지 리뷰신고 삭제
+	@RequestMapping("/job/adminpage_report_i_del_ajax.o")
+	@ResponseBody
+	public Map adminpage_report_i_del_ajax(
+			@RequestParam(value="no", defaultValue="-1") int no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 3) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		ReportData rpdata = reportService.getArticle(no, 2);
+		interviewService.delete(rpdata.getTab_no());				//면접후기 삭제
+		reportService.delete(rpdata.getTab_no(), rpdata.getTab());	//같은 면접후기를 신고한 리스트 모두 삭제
+		
+
+		map.put("result", true);
+		return map;
+	}
+	//관리페이지 면접후기신고 취소
+	@RequestMapping("/job/adminpage_report_i_cancel_ajax.o")
+	@ResponseBody
+	public Map adminpage_report_i_cancel_ajax(
+			@RequestParam(value="no", defaultValue="-1") int no,
+			HttpServletRequest request
+			) throws Exception {
+		Map map = new HashMap();
+		
+		MemberData mdata = (MemberData)request.getAttribute("memberInfo");
+		
+		//비로그인
+		if(mdata == null) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		if(mdata.getOrders() != 3) {
+			msg = "잘못된 접근입니다.";
+			map.put("msg", msg);
+			map.put("result", false);
+			return map;
+		}
+		
+		
+		
+		ReportData rpdata = reportService.getArticle(no, 2);
+		reportService.deleteNo(rpdata.getNo());
 		
 		
 
