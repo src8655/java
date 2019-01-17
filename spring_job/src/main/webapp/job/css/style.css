@@ -2105,6 +2105,70 @@ border:1px solid #cccccc;
 overflow:hidden;
 }
 
+.addr_btn_bg {
+overflow:hidden;
+}
+.addr_btn_l {
+width:75%;
+float:left;
+}
+.addr_btn_r {
+width:23%;
+float:right;
+}
+.addr_btn {
+width:100%;
+border-radius:5px;
+border:1px solid #cccccc;
+font-size:14px;
+font-weight:bold;
+margin-top:5px;
+background:#eeeeee;
+height:43px;
+}
+.daum_map_bg {
+background:rgba(0,0,0,0.5);
+position:fixed;
+left:0px;
+right:0px;
+top:0px;
+bottom:0px;
+z-index:9000;
+text-align:center;
+}
+.daum_maps {
+border-radius:20px;
+border:1px solid #e6e6e6;
+position:fixed;
+z-index:9100;
+top:80px;
+bottom:20px;
+overflow:hidden;
+}
+.daum_map_btn_bg {
+margin:0 auto;
+margin-top:20px;
+text-align:center;
+overflow:hidden;
+}
+.mapimg_l {
+float:left;
+width:20px;
+height:20px;
+}
+.mapimg_l a {
+width:20px;
+height:20px;
+display:block;
+overflow:hidden;
+}
+.mapimg_r {
+margin-left:10px;
+height:20px;
+line-height:20px;
+float:left;
+}
+
 
 
 
@@ -2284,6 +2348,17 @@ overflow:hidden;
   .admin_menu ul li a {
     width:150px;
   }
+  
+  
+  .daum_maps {
+  	width:800px;
+  	margin-left:-400px;
+    left:50%;
+    right:auto;
+  }
+  .daum_map_btn_bg {
+    width:800px;
+  }
 }
 @media screen and (max-width:1200px) {
   .header h1 {
@@ -2457,6 +2532,17 @@ overflow:hidden;
   }
   .admin_menu ul li a {
     width:150px;
+  }
+  
+  
+  .daum_maps {
+  	width:800px;
+  	margin-left:-400px;
+    left:50%;
+    right:auto;
+  }
+  .daum_map_btn_bg {
+    width:800px;
   }
 }
 @media screen and (max-width:992px) {
@@ -2639,6 +2725,17 @@ overflow:hidden;
   .admin_menu ul li a {
     width:150px;
   }
+  
+  
+  .daum_maps {
+  	width:600px;
+  	margin-left:-300px;
+    left:50%;
+    right:auto;
+  }
+  .daum_map_btn_bg {
+    width:600px;
+  }
 }
 @media screen and (max-width:767px) {
   .header h1 {
@@ -2801,5 +2898,18 @@ overflow:hidden;
   }
   .admin_menu ul li a {
     width:110px;
+  }
+  
+  
+  
+  
+  .daum_maps {
+  	width:auto;
+  	margin-left:0px;
+    left:20px;
+    right:20px;
+  }
+  .daum_map_btn_bg {
+    width:100%;
   }
 }

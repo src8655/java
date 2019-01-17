@@ -151,7 +151,12 @@
         <div id="money_edit_msg" class="join_msg"></div>
         <input type="text" name="url" placeholder="웹사이트" class="login_input" value="${cdata.url}" onchange="url_edit_check(this);" />
         <div id="url_edit_msg" class="join_msg"></div>
-        <input type="text" name="addr" placeholder="본사" class="login_input" value="${cdata.addr}" onchange="addr_edit_check(this);" />
+        
+        <div class="addr_btn_bg">
+        	<div class="addr_btn_l"><input type="text" name="addr" placeholder="본사" class="login_input" id="addr_btn_input" value="${cdata.addr}" onchange="addr_edit_check(this);" /></div>
+        	<div class="addr_btn_r"><input type="button" value="주소검색" class="addr_btn" onclick="btn_find_daum();" /></div>
+        </div>
+        
         <div id="addr_edit_msg" class="join_msg"></div>
         <div class="join_quest">
           <h4>기업형태</h4>
@@ -273,11 +278,17 @@
           </tr>
           <tr>
             <th>본사</th>
-            <td colspan="3">${cdata.addr}</td>
+            <td colspan="3" style="line-height:20px;">
+            	<div class="mapimg_l"><a href="#100" onclick="btn_map_daum('${cdata.addr}');"><img src="./images/daum_map2.jpg" alt="다음지도" /></a></div>
+            	<div class="mapimg_r">${cdata.addr}</div>
+            </td>
           </tr>
         </table>
       </div>
-
+      <div class="daum_map_bg" id="daum_map_bgs" style="display:none;">
+	    <div class="daum_map_btn_bg"><input type="button" value="닫기" onclick="hide2('daum_map_bgs');document.body.style.overflow='scroll';" class="review_write_btn2" style="width:98%;" /></div>
+		<div id="daum_map" class="daum_maps"></div>
+	  </div>
 
     </div>
     <div class="col-sm-1"></div>

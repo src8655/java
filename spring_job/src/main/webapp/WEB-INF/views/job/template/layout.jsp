@@ -12,15 +12,24 @@
     <title><tiles:getAsString name="title" /></title>
     <!-- 부트스트랩 css -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet" type="text/css">
-	  <link href="css/bootstrap.min.css" rel="stylesheet" />
-	  <link href="css/style.css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
     <script type="text/javascript" src="js/loader.js"></script>
     <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/script.js"></script>
+    
+    <!-- 카카오로그인 -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
+	<!-- 구글로그인 -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-  <script src="https://apis.google.com/js/api:client.js"></script>
+  	<script src="https://apis.google.com/js/api:client.js"></script>
+  
+  	<!-- 다음우편번호 -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	
+	<!-- 다음지도 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b85b67c68bb32038acd5d82c790bb2ab&libraries=services"></script>
   
 	
 <script type="text/javascript">
@@ -1757,10 +1766,22 @@ function view_ajax(member_no) {
 			htmls += '	          </tr>	';
 			htmls += '	          <tr>	';
 			htmls += '	            <th>본사</th>	';
-			htmls += '	            <td colspan="3">'+cdata.addr+'</td>	';
+			htmls += '	            <td colspan="3" style="line-height:20px;">';
+			htmls += '				  <div class="mapimg_l"><a href="#100" onclick="btn_map_daum(\''+cdata.addr+'\');"><img src="./images/daum_map2.jpg" alt="다음지도" /></a></div>';
+			htmls += '                <div class="mapimg_r">'+cdata.addr+'</div>';
+			htmls += '              </td>	';
 			htmls += '	          </tr>	';
 			htmls += '	        </table>	';
 			htmls += '	      </div>	';
+			
+			
+			
+			htmls += '<div class="daum_map_bg" id="daum_map_bgs" style="display:none;">';
+			htmls += '  <div class="daum_map_btn_bg"><input type="button" value="닫기" onclick="hide2(\'daum_map_bgs\');document.body.style.overflow=\'scroll\';" class="review_write_btn2" style="width:98%;" /></div>';
+			htmls += '  <div id="daum_map" class="daum_maps"></div>';
+			htmls += '</div>';
+			
+			
 			htmls += '	      	';
 			htmls += '	      	';
 			htmls += '	      	';
@@ -3931,7 +3952,7 @@ function login_ajax(forms, member_no) {
 					if(index_header == -1) {
 						htmls += '            <li class="header_ul_li"><a href="index.o?index_page=3" class="header_ul_li_a">마이페이지</a></li>';
 					}else if(index_header == 1){
-						htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;" class="header_ul_li_a">마이페이지</a></li>';
+						htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;document.body.style.overflow = \'scroll\';" class="header_ul_li_a">마이페이지</a></li>';
 					}
 					
 				}
@@ -3941,7 +3962,7 @@ function login_ajax(forms, member_no) {
 					if(index_header == -1) {
 						htmls += '            <li class="header_ul_li"><a href="index.o?index_page=4" class="header_ul_li_a">관리페이지</a></li>';
 					}else if(index_header == 1){
-						htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;" class="header_ul_li_a">관리페이지</a></li>';
+						htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;document.body.style.overflow = \'scroll\';" class="header_ul_li_a">관리페이지</a></li>';
 					}
 				}
 				
@@ -3965,7 +3986,7 @@ function login_ajax(forms, member_no) {
 					if(index_header == -1) {
 						htmls += '            <li><a href="index.o?index_page=3">마이페이지</a></li>';
 					}else if(index_header == 1){
-						htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;hide2(\'xs_menu_id\');">마이페이지</a></li>';
+						htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;hide2(\'xs_menu_id\');document.body.style.overflow = \'scroll\';">마이페이지</a></li>';
 					}
 					
 				}
@@ -3977,7 +3998,7 @@ function login_ajax(forms, member_no) {
 					if(index_header == -1) {
 						htmls += '            <li><a href="index.o?index_page=4">관리페이지</a></li>';
 					}else if(index_header == 1){
-						htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;hide2(\'xs_menu_id\');">관리페이지</a></li>';
+						htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;hide2(\'xs_menu_id\');document.body.style.overflow = \'scroll\';">관리페이지</a></li>';
 					}
 					
 				}
@@ -3987,18 +4008,18 @@ function login_ajax(forms, member_no) {
 					htmls += '	    <li><a href="index.o?index_page=1">기업정보</a></li>';
 					htmls += '	    <li><a href="index.o?index_page=2">채용정보</a></li>';
 				}else if(index_header == 1) {
-					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;">기업정보</a></li>';
-					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;">채용정보</a></li>';
+					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;document.body.style.overflow = \'scroll\';">기업정보</a></li>';
+					htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;document.body.style.overflow = \'scroll\';">채용정보</a></li>';
 				}
 				
 	
 				document.getElementById("login_btn_bg2").innerHTML = htmls;
 				
 				
+				document.body.style.overflow = 'scroll';
 				
 				
-				
-				hide2('login_float_bg');document.body.style.overflow = 'scroll';
+				hide2('login_float_bg');
 				
 				
 				
@@ -4061,8 +4082,8 @@ function logout_ajax(member_no) {
 				htmls += '	    <li><a href="index.o?index_page=1">기업정보</a></li>';
 				htmls += '	    <li><a href="index.o?index_page=2">채용정보</a></li>';
 			}else if(index_header == 1) {
-				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;">기업정보</a></li>';
-				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;">채용정보</a></li>';
+				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;document.body.style.overflow = \'scroll\';">기업정보</a></li>';
+				htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;document.body.style.overflow = \'scroll\';">채용정보</a></li>';
 			}
 
 			document.getElementById("login_btn_bg2").innerHTML = htmls;
@@ -4328,7 +4349,7 @@ function login_edit_ajax(forms) {
 						if(index_header == -1) {
 							htmls += '            <li class="header_ul_li"><a href="index.o?index_page=3" class="header_ul_li_a">마이페이지</a></li>';
 						}else if(index_header == 1){
-							htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;" class="header_ul_li_a">마이페이지</a></li>';
+							htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;document.body.style.overflow = \'scroll\';" class="header_ul_li_a">마이페이지</a></li>';
 						}
 						
 					}
@@ -4340,7 +4361,7 @@ function login_edit_ajax(forms) {
 						if(index_header == -1) {
 							htmls += '            <li class="header_ul_li"><a href="index.o?index_page=4" class="header_ul_li_a">관리페이지</a></li>';
 						}else if(index_header == 1){
-							htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;" class="header_ul_li_a">관리페이지</a></li>';
+							htmls += '            <li class="header_ul_li"><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;document.body.style.overflow = \'scroll\';" class="header_ul_li_a">관리페이지</a></li>';
 						}
 						
 					}
@@ -4364,7 +4385,7 @@ function login_edit_ajax(forms) {
 						if(index_header == -1) {
 							htmls += '            <li><a href="index.o?index_page=3">마이페이지</a></li>';
 						}else if(index_header == 1){
-							htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;hide2(\'xs_menu_id\');">마이페이지</a></li>';
+							htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'mypage.o\');mypage=1;hide2(\'xs_menu_id\');document.body.style.overflow = \'scroll\';">마이페이지</a></li>';
 						}
 						
 					}
@@ -4377,7 +4398,7 @@ function login_edit_ajax(forms) {
 						if(index_header == -1) {
 							htmls += '            <li><a href="index.o?index_page=4">관리페이지</a></li>';
 						}else if(index_header == 1){
-							htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;hide2(\'xs_menu_id\');">관리페이지</a></li>';
+							htmls += '            <li><a href="#100" onclick="$(\'#main_load\').load(\'adminpage_member.o\');mypage=1;hide2(\'xs_menu_id\');document.body.style.overflow = \'scroll\';">관리페이지</a></li>';
 						}
 						
 					}
@@ -4388,8 +4409,8 @@ function login_edit_ajax(forms) {
 						htmls += '	    <li><a href="index.o?index_page=1">기업정보</a></li>';
 						htmls += '	    <li><a href="index.o?index_page=2">채용정보</a></li>';
 					}else if(index_header == 1) {
-						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;">기업정보</a></li>';
-						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;">채용정보</a></li>';
+						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=1\');hide2(\'xs_menu_id\');mypage=-1;document.body.style.overflow = \'scroll\';">기업정보</a></li>';
+						htmls += '	    <li><a href="#100" onclick="$(\'#main_load\').load(\'list.o?search=2\');hide2(\'xs_menu_id\');mypage=-1;document.body.style.overflow = \'scroll\';">채용정보</a></li>';
 					}
 
 					document.getElementById("login_btn_bg2").innerHTML = htmls;
@@ -5827,7 +5848,7 @@ function adminpage_report_r_show_ajax(no,pages_r,tab) {
 				}
 				htmls += '  </div>';
 	            
-				htmls += '  <div class="review_r">';
+				htmls += '  <div class="review_r" style="padding-left:0px;margin-left:0px;">';
 				htmls += '    <h3>"'+rdata.memo1+'"</h3>';
 				htmls += '    <h5 style="color:#0f7ccf;">장점</h5>';
 				htmls += '    <p>';
@@ -6057,7 +6078,7 @@ function adminpage_report_i_show_ajax(no,pages_r,tab) {
 				htmls += '	</div>	';
 				htmls += '	</div>	';
 				htmls += '	</div>	';
-				htmls += '	<div class="review_r" style="width:100%;padding-left:0px;">	';
+				htmls += '	<div class="review_r" style="width:100%;padding-left:0px;margin-left:0px;">	';
 				htmls += '	<h3>"'+itdata.memo1+'"</h3>	';
 				htmls += '	<h5>면접질문</h5>	';
 				htmls += '	<p>'+itdata.memo2+'</p>	';
@@ -6180,6 +6201,65 @@ function adminpage_report_i_cancel_ajax(no,pages_r,tab) {
 }
 ////////////////////////////////////////////////////
 
+
+
+
+
+
+
+
+
+
+//다음우편번호
+function btn_find_daum() {
+  new daum.Postcode({
+      oncomplete: function(data) {
+      	//document.getElementById("addr_code").value = data.postcode;
+      	document.getElementById("addr_btn_input").value = data.address+" "+data.buildingName;
+      }
+  }).open();
+}
+//지도 표시
+function btn_map_daum(addr) {
+	//alert(addr);
+	var mapContainer = document.getElementById('daum_map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    }; 
+	var geocoder = new daum.maps.services.Geocoder();
+	geocoder.addressSearch(addr, function(result, status) {
+	
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === daum.maps.services.Status.OK) {
+		    show2("daum_map_bgs");
+		    document.body.style.overflow = "hidden";
+		    
+			var map = new daum.maps.Map(mapContainer, mapOption); 
+	
+	        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+	
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new daum.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new daum.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">본사</div>'
+	        });
+	        infowindow.open(map, marker);
+	
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	        
+	    } else{
+	    	alert("잘못된 주소입니다.");
+	    }
+	});  
+}
+///////////////////////////////////////////////////
 
 
 

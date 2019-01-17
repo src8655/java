@@ -20,17 +20,17 @@
           	<li><a href="#100" style="background:#e6e6e6;" onclick="login_edit_btn_ajax();hide2('xs_menu_id');">&nbsp;&nbsp;회원수정</a></li>
           </div>
           <c:if test="${memberInfo.orders eq 1}">
-            <li><a href="#100" onclick="$('#main_load').load('mypage.o');mypage=1;hide2('xs_menu_id');">마이페이지</a></li>
+            <li><a href="#100" onclick="$('#main_load').load('mypage.o');mypage=1;hide2('xs_menu_id');document.body.style.overflow = 'scroll';">마이페이지</a></li>
           </c:if>
           <c:if test="${memberInfo.orders eq 2}">
             <li><a href="view.o?member_no=${memberInfo.no}">내 기업</a></li>
           </c:if>
           <c:if test="${memberInfo.orders eq 3}">
-            <li><a href="#100" onclick="$('#main_load').load('adminpage_member.o');mypage=1;hide2('xs_menu_id');">관리페이지</a></li>
+            <li><a href="#100" onclick="$('#main_load').load('adminpage_member.o');mypage=1;hide2('xs_menu_id');document.body.style.overflow = 'scroll';">관리페이지</a></li>
           </c:if>
         </c:if>
-	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=1');hide2('xs_menu_id');mypage=-1;">기업정보</a></li>
-	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=2');hide2('xs_menu_id');mypage=-1;">채용정보</a></li>
+	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=1');hide2('xs_menu_id');mypage=-1;document.body.style.overflow = 'scroll';">기업정보</a></li>
+	    <li><a href="#100" onclick="$('#main_load').load('list.o?search=2');hide2('xs_menu_id');mypage=-1;document.body.style.overflow = 'scroll';">채용정보</a></li>
 	</ul>
 </div>
 
