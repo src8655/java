@@ -2708,7 +2708,7 @@ function interview_ajax(pages_r, member_no) {
 			htmls += '            <div class="income_bar_bg1" style="overflow:hidden;"><div class="income_bar_bg2"><div class="income_bar_bg3">';
 			htmls += '              <div class="income_bar" style="width:'+result.difficultybar+'%;"><div></div></div>';
 			htmls += '            </div></div></div>';
-			htmls += '            <div class="income_bar_l" style="color:#0f7ccf;">0</div>';
+			htmls += '            <div class="income_bar_l" style="color:#0f7ccf;">1</div>';
 			htmls += '            <div class="income_bar_r" style="color:#fd4a12;">5</div>';
 			htmls += '          </div>';
 			htmls += '        </div>';
@@ -6057,7 +6057,7 @@ function adminpage_report_i_show_ajax(no,pages_r,tab) {
 				htmls += '	<ul style="width:auto;overflow:hidden;">	';
 				
 				var i=0;
-				for(i=1;i<=itdata.difficulty;i++) htmls += '	<li class="interview_bk_1"></li>	';
+				for(i=1;i<=itdata.difficulty;i++) htmls += '	<li class="interview_bk_'+i+'"></li>	';
 				for(i=1;i<=(5-itdata.difficulty);i++) htmls += '	<li class="interview_bk_0"></li>	';
 				htmls += '	</ul>	';
 				htmls += '	</div>	';

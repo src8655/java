@@ -159,13 +159,7 @@ public class ListController {
 	public ModelAndView view(
 			@RequestParam(value="index_page", defaultValue="-2") int index_page,
 			@RequestParam(value="recruit_no", defaultValue="-1") int recruit_no,
-			@RequestParam(value="pages_rc", defaultValue="1") int pages_rc,
-			@RequestParam(value="searchType", defaultValue="-1") int searchType,
-			@RequestParam(value="searchSort", defaultValue="-1") int searchSort,
-			@RequestParam(value="search", defaultValue="-1") int search,
 			@RequestParam(value="member_no", defaultValue="-1") int member_no,
-			@RequestParam(value="pages", defaultValue="1") int pages,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue,
 			@CookieValue(value="job_view", defaultValue="") String job_view,
 			HttpServletResponse response,
 			HttpServletRequest request
@@ -216,21 +210,12 @@ public class ListController {
 			else cdata.setIsfollow(-1);
 		}
 		
-		String searchValue_utf = URLEncoder.encode(searchValue,"UTF-8");
-
-		mav.addObject("pages_rc", pages_rc);
-		mav.addObject("searchType", searchType);
-		mav.addObject("searchSort", searchSort);
-		mav.addObject("search", search);
-		mav.addObject("tab", 1);
 		mav.addObject("cdata", cdata);
 		mav.addObject("member_no", member_no);
-		mav.addObject("pages", pages);
-		mav.addObject("searchValue", searchValue);
-		mav.addObject("searchValue_utf", searchValue_utf);
 		mav.setViewName("job/view");
 		return mav;
 	}
+	/*
 	//기업관리
 	@RequestMapping("/job/edit.o")
 	public ModelAndView edit(
@@ -1203,7 +1188,7 @@ public class ListController {
 		mav.setViewName("job/post");
 		return mav;
 	}
-	
+	*/
 	
 	
 	
@@ -1502,7 +1487,7 @@ public class ListController {
 		String difficultys = "";
 
 		difficulty = interviewService.getDifficulty(member_no);
-		difficultybar = (int)((difficulty/5.0)*100.0);
+		difficultybar = (int)(((difficulty-1)/4.0)*100.0);
 		if(((int)difficulty) < 2) difficultys = "<span style='color:#6fba1f;'>매우쉬움</span>";
 		else if(((int)difficulty) < 3) difficultys = "<span style='color:#8ad43b;'>쉬움</span>";
 		else if(((int)difficulty) < 4) difficultys = "<span style='color:#fb9f00;'>보통</span>";

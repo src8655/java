@@ -717,6 +717,7 @@ border-radius:10px;
 margin:20px 0 0 0;
 background:#ffffff;
 padding:0px;
+box-shadow:0px 2px 3px #cacbcd;
 overflow:hidden;
 }
 .c_list_select {
@@ -1361,8 +1362,12 @@ overflow:hidden;
 }
 
 .c_lists {
+background:#ffffff;
 margin:20px 0 0 0;
 padding:0px;
+border-radius:10px;
+box-shadow:0px 2px 3px #cacbcd;
+overflow:hidden;
 }
 .c_lists_select {
 display:inline-block;
@@ -1505,11 +1510,9 @@ text-align:center;
 background:#3ac453;
 font-size:14px;
 font-family:'Arial';
-border-top-left-radius:10px;
-border-top-right-radius:10px;
 }
 .main_category_bg {
-background:url(../images/office_bk.jpg) no-repeat center center;
+background:url(../images/office_bk3.jpg) no-repeat center center;
 background-size:cover;
 margin-top:20px;
 border-radius:20px;
@@ -1630,8 +1633,6 @@ padding:0px;
 text-align:center;
 background:#ffffff;
 border-top:1px solid #e6e6e6;
-border-bottom-left-radius:10px;
-border-bottom-right-radius:10px;
 overflow:hidden;
 }
 .header h2 {
@@ -1728,6 +1729,7 @@ display:inline-block;
 border-radius:20px;
 margin-top:20px;
 background:#ffffff;
+box-shadow:0px 2px 3px #cacbcd;
 overflow:hidden;
 }
 .best_review_top {
@@ -1809,6 +1811,7 @@ color:#666666;
 border-radius:20px;
 margin-top:20px;
 background:#ffffff;
+box-shadow:0px 2px 3px #cacbcd;
 overflow:hidden;
 }
 .best_recruit_bg h1 {
@@ -2641,7 +2644,7 @@ float:left;
   	left:50%;
   	margin-left:-200px;
   }
-  .write_hide_scroll2s {
+  .write_hide_scroll2s_ri {
   	width:500px;
   	left:50%;
   	margin-left:-250px;
